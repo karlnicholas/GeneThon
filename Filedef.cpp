@@ -209,18 +209,7 @@ void
 CGenethonDoc::SetUserDefaults( )
 {
 
-//wFile.Open( "debug.txt", CFile::modeWrite | CFile::typeText | CFile::modeCreate );
-//CString strDebug;
-//strDebug.Format(" PhyloSize = %d, PhyloAddr = %x, Phylo = %s\n", 
-//		m_UserVars.m_ParseString.GetLength(), 
-//		&m_UserVars.m_ParseString, 
-//		m_UserVars.m_ParseString 
-//);
-//wFile.WriteString( strDebug );
-//wFile.Close();
-
 	gpDoc = this;
-
 
 WBUG( "Debug 1\n")
 	
@@ -538,7 +527,6 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_StcDefUser,				STOREFILELIST },
 	{&sUserVars.listSearch,					STORESEARCH },
 	{&sUserVars.m_ProSite,					STOREFLAG },
-	{&sUserVars.m_DispTreeWeight,			STOREFLAG },
 	{&sUserVars.m_DNAAmbEn,					STOREFLAG },
 	{&sUserVars.ChemPropEnabled[0],			STOREFLAG },
 	{&sUserVars.ChemPropEnabled[1],			STOREFLAG },

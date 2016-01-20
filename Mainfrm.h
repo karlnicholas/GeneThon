@@ -16,10 +16,7 @@ public:
 	void InitialShowWindow(UINT nCmdShow);
 	void OpenSummaryView();
 	void OpenTextView();
-	void OpenTreeView();
 	void OpenGeneView();
-	void OpenDStatView();
-	void OpenGelView();
 
 // Operations
 public:

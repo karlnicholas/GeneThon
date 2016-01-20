@@ -24,19 +24,12 @@ BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	ON_COMMAND(IDM_GENELOADINI, OnGeneloadini)
 	ON_COMMAND(IDM_TITLINGF, OnTitlingf)
 	ON_COMMAND(ID_FILE_SAVE_AS, OnFileSaveAs)
-	ON_COMMAND(IDM_PHYLODLG, OnPhylodlg)
-	ON_COMMAND(IDM_PHYLOVIEW, OnPhyloview)
 	ON_COMMAND(IDM_GENEVIEW, OnGeneview)
 	ON_COMMAND(IDM_GENESCOREPAIR, OnGenescorepair)
 	ON_UPDATE_COMMAND_UI(IDM_GENESCOREPAIR, OnUpdateGenescorepair)
-	ON_COMMAND(IDM_GENESCORETREE, OnGenescoretree)
-	ON_UPDATE_COMMAND_UI(IDM_GENESCORETREE, OnUpdateGenescoretree)
 	ON_COMMAND(IDM_SHOWTABLE, OnShowtable)
-	ON_COMMAND(IDM_GENESCORENUMB, OnGenescorenumb)
-	ON_UPDATE_COMMAND_UI(IDM_GENESCORENUMB, OnUpdateGenescorenumb)
 	ON_COMMAND(IDM_GENESCOREINFO, OnGenescoreinfo)
 	ON_UPDATE_COMMAND_UI(IDM_GENESCOREINFO, OnUpdateGenescoreinfo)
-	ON_UPDATE_COMMAND_UI(IDM_PHYLOVIEW, OnUpdatePhyloview)
 	ON_UPDATE_COMMAND_UI(IDM_GENESTATFILE, OnUpdateGenestatfile)
 	ON_UPDATE_COMMAND_UI(IDM_GENESCOREFILE, OnUpdateGenescorefile)
 	ON_COMMAND(IDM_EDITGROUPPROP, OnEditgroupprop)
@@ -74,8 +67,6 @@ BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(IDM_GENEMODESTRUCTURE, OnUpdateGenemodestructure)
 	ON_COMMAND(IDM_GENERESIDUEMODEDIFF, OnGeneresiduemodediff)
 	ON_UPDATE_COMMAND_UI(IDM_GENERESIDUEMODEDIFF, OnUpdateGeneresiduemodediff)
-	ON_COMMAND(IDM_GENEDSTATVIEW, OnGenedstatview)
-	ON_UPDATE_COMMAND_UI(IDM_GENEDSTATVIEW, OnUpdateGenedstatview)
 	ON_COMMAND(IDM_GROUPSHADEPCR, OnGroupshadepcr)
 	ON_UPDATE_COMMAND_UI(IDM_GROUPSHADEPCR, OnUpdateGroupshadepcr)
 	ON_COMMAND(IDM_GROUPSHADEPCRSIM, OnGroupshadepcrsim)
@@ -125,8 +116,6 @@ BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	ON_COMMAND(IDM_GENEREPORTVIEW, OnGenereportview)
 	ON_COMMAND(IDM_REGAPDNA, OnRegapdna)
 	ON_COMMAND(IDM_SRCHREPVIEW, OnSrchrepview)
-	ON_COMMAND(IDM_GENEGELVIEW, OnGenegelview)
-	ON_UPDATE_COMMAND_UI(IDM_GENEGELVIEW, OnUpdateGenegelview)
 	ON_COMMAND(IDM_ALIGN, OnAlign)
 	ON_COMMAND(IDM_MANSHADEREP, OnManshaderep)
 	ON_UPDATE_COMMAND_UI(IDM_MANSHADEREP, OnUpdateManshaderep)
@@ -170,14 +159,8 @@ CGenethonDoc::CGenethonDoc()
 	// TODO: add one-time construction code here
 	pGSFiller = NULL;
 	m_pTextView = NULL;
-	m_pTreeView = NULL;
 	m_pSummaryView = NULL;
-	m_pDStatView = NULL;
-	m_pGelView = NULL;
 
-	m_pPGBase = NULL;
-
-	m_TreeDebugOutput = 0;
 	m_SummaryMessaged = 0;
 
 	m_pFS.FindStr = "";
@@ -240,10 +223,6 @@ CGenethonDoc::~CGenethonDoc()
 		delete tSTS;
 	}
 //	dUserVars->m_ScoreTableArray.RemoveAll();
-
-	if ( m_pPGBase != NULL ) {
-		delete m_pPGBase;
-	}
 
 }
 
@@ -495,11 +474,6 @@ CGenethonDoc::OnOpenDocument(const char *pszPathName)
 	
 	
 	SetModifiedFlag(FALSE);     // start off with unmodified
-
-	if ( !ParseTree( m_UserVars.m_ParseString, 0) ) {
-		SetModifiedFlag();
-		ResetTree();
-	}
 
 	EndWaitCursor();
 
@@ -1179,7 +1153,6 @@ CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 		nUserVars->listSearch.AddTail( pnS );
 	}
 	nUserVars->m_ProSite = oUserVars->m_ProSite;
-	nUserVars->m_DispTreeWeight = oUserVars->m_DispTreeWeight;
 
 	nUserVars->m_DNAAmbEn = oUserVars->m_DNAAmbEn;
 

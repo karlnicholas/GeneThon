@@ -646,37 +646,6 @@ void CGenethonDoc::OnUpdateGenescorelo(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCORELOGODD );
 }
 
-void CGenethonDoc::OnGenescoretree()
-{
-	// TODO: Add your command handler code here
-
-//	AfxMessageBox("Tree Scoring Not Yet Implemented." );
-//	return;
-	
-	if ( m_pPGBase != NULL ) {
-		if ( !m_pPGBase->CheckCounts(1) ) {
-			AfxMessageBox("Tree Not Completed");
-			return;
-		}
-	}
-
-	m_UserVars.m_ScoringMethod = SCORETREE;
-	
-	ReScoreAll(1);
-
-	// Flag the doc as dirty	
-	SetModifiedFlag();
-
-	UpdateAllViews(NULL);
-}
-
-void CGenethonDoc::OnUpdateGenescoretree(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCORETREE );
-	
-}
-
 void CGenethonDoc::OnShowtable()
 {
 	// TODO: Add your command handler code here
@@ -789,47 +758,12 @@ void CGenethonDoc::OnShowtable()
 	tDlg.DoModal();
 }
 
-void CGenethonDoc::OnGenescorenumb()
-{
-	// TODO: Add your command handler code here
-	
-	if ( m_pPGBase != NULL ) {
-		if ( !m_pPGBase->CheckCounts(1) ) {
-			AfxMessageBox("Tree Not Completed");
-			return;
-		}
-	}
-
-	m_UserVars.m_ScoringMethod = SCORENUMB;
-	
-	ReScoreAll(1);
-
-	// Flag the doc as dirty	
-	SetModifiedFlag();
-
-	UpdateAllViews(NULL);
-}
-
-void CGenethonDoc::OnUpdateGenescorenumb(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCORENUMB );
-}
-
 void CGenethonDoc::OnGenescoreinfo()
 {
-	// TODO: Add your command handler code here
-	if ( m_TreeDebugOutput ) m_TreeDebugOutput  = 0;
-	else {
-		m_TreeDebugOutput = 1;
-		ReScoreAll(1);
-	}
 }
 
 void CGenethonDoc::OnUpdateGenescoreinfo(CCmdUI* pCmdUI)
 {
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_TreeDebugOutput );
 	
 }
 
@@ -1197,47 +1131,6 @@ void CGenethonDoc::OnStclearall()
 }
 
 
-void CGenethonDoc::OnGenedstatview()
-{
-	// TODO: Add your command handler code here
-	if ( m_pPGBase != NULL ) {
-		// TODO: Add your command handler code here
-		if ( m_pDStatView == NULL ) {
-			((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenDStatView();
-		} else {
-			m_pDStatView->GetParentFrame()->ActivateFrame();
-			m_pDStatView->Invalidate();
-		}
-	}
-}
-
-void CGenethonDoc::OnUpdateGenedstatview(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(	pGSFiller != NULL && m_pDStatView != NULL );
-}
-
-
-void CGenethonDoc::OnGenegelview() 
-{
-	// TODO: Add your command handler code here
-	if ( pGSFiller != NULL ) {
-		// TODO: Add your command handler code here
-		if ( m_pGelView == NULL ) {
-			((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenGelView();
-		} else {
-			m_pGelView->GetParentFrame()->ActivateFrame();
-			m_pGelView->Invalidate();
-		}
-	}
-}
-
-void CGenethonDoc::OnUpdateGenegelview(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(	pGSFiller != NULL );
-}
-
 void CGenethonDoc::OnSummaryview()
 {
 	// TODO: Add your command handler code here
@@ -1309,10 +1202,6 @@ void CGenethonDoc::OnGeneeditseq()
 	tDlg.pDoc = this;
 
 	tDlg.DoModal();
-
-//	if ( tDlg.m_Modify ) {
-//		ResetTree();
-//	}
 
 	AutoShade( -1, 1 );	// Rescore and redispay.
 
@@ -1453,12 +1342,6 @@ void CGenethonDoc::OnPlotfrag()
 
 		PlotUniqueFrags();
 		
-		if ( m_pDStatView == NULL ) {
-			((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenDStatView();
-		} else {
-			m_pDStatView->GetParentFrame()->ActivateFrame();
-			m_pDStatView->Invalidate();
-		}
 	}	
 }
 

@@ -128,7 +128,6 @@
     <ClCompile Include="dstasco.cpp" />
     <ClCompile Include="dstatchi.cpp" />
     <ClCompile Include="DStatOb.cpp" />
-    <ClCompile Include="DStatVw.cpp" />
     <ClCompile Include="dwordmap.cpp" />
     <ClCompile Include="Exportdl.cpp" />
     <ClCompile Include="filedef.cpp" />
@@ -136,9 +135,7 @@
     <ClCompile Include="Findrepl.cpp" />
     <ClCompile Include="gdmenu.cpp" />
     <ClCompile Include="Gdocfile.cpp" />
-    <ClCompile Include="gdphydoc.cpp" />
     <ClCompile Include="gdsrch.cpp" />
-    <ClCompile Include="GelView.cpp" />
     <ClCompile Include="Genbank.cpp" />
     <ClCompile Include="Genechi.cpp" />
     <ClCompile Include="genetdoc.cpp" />
@@ -172,11 +169,6 @@
     <ClCompile Include="Mycaret.cpp" />
     <ClCompile Include="Pairwise.cpp" />
     <ClCompile Include="Pdbdialo.cpp" />
-    <ClCompile Include="Phylnode.cpp" />
-    <ClCompile Include="Phylochi.cpp" />
-    <ClCompile Include="Phylodlg.cpp" />
-    <ClCompile Include="Phylovw.cpp" />
-    <ClCompile Include="Phylseq.cpp" />
     <ClCompile Include="Pictfile.cpp" />
     <ClCompile Include="Plex.cpp" />
     <ClCompile Include="Prints.cpp" />
@@ -217,7 +209,6 @@
     <ClCompile Include="sumview.cpp" />
     <ClCompile Include="Textview.cpp" />
     <ClCompile Include="Titlingf.cpp" />
-    <ClCompile Include="Treescor.cpp" />
     <ClCompile Include="Userdef.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -239,12 +230,10 @@
     <ClInclude Include="Drawstc.h" />
     <ClInclude Include="Dstatchi.h" />
     <ClInclude Include="Dstatob.h" />
-    <ClInclude Include="Dstatvw.h" />
     <ClInclude Include="Dwordmap.h" />
     <ClInclude Include="Exportdl.h" />
     <ClInclude Include="Finddlg.h" />
     <ClInclude Include="Findrepl.h" />
-    <ClInclude Include="Gelview.h" />
     <ClInclude Include="Genbank.h" />
     <ClInclude Include="Genechi.h" />
     <ClInclude Include="genetdoc.h" />
@@ -276,12 +265,6 @@
     <ClInclude Include="Motseqdl.h" />
     <ClInclude Include="Mycaret.h" />
     <ClInclude Include="pdbdialo.h" />
-    <ClInclude Include="Phylbase.h" />
-    <ClInclude Include="Phylnode.h" />
-    <ClInclude Include="Phylochi.h" />
-    <ClInclude Include="Phylodlg.h" />
-    <ClInclude Include="Phylovw.h" />
-    <ClInclude Include="Phylseq.h" />
     <ClInclude Include="Pictfile.h" />
     <ClInclude Include="Plex.h" />
     <ClInclude Include="Prints.h" />

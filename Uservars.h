@@ -134,7 +134,6 @@ typedef struct {
 	CString m_TitleScoreMatrix;
 
 	CString m_ParseString;
-	int m_DispTreeWeight;
 	
 	int m_ScoringMethod;
 

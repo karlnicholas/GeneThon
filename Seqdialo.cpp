@@ -1,21 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // seqdialo.cpp : implementation file
 //
 
@@ -195,84 +177,10 @@ void CSeqDialog::OnSeqdelete()
 		m_strSeqCount.SetWindowText(scount);
 		// CStatic
 
-		// Remove from tree, remove node if not root
-
-		m_pPGSeq = NULL;
-
-		pDoc->m_pPGBase->CallSDFromNamedSeq ( this, tCGSeg->GetTitle() );
-
-		if ( m_pPGSeq != NULL ) {
-
-			CPhyloNode *pPN = (CPhyloNode*)m_pPGSeq->m_pPGParent;
-
-			CPhyloNode *pPNUlt = (CPhyloNode *)pPN->m_pPGParent;
-			
-			if ( pPNUlt != NULL ) {
-				
-				POSITION Pos = pPNUlt->m_PhyloList.Find( pPN );
-
-				CPhyloGenBase *pPB2;
-				while ( (pPB2 = (CPhyloGenBase*)pPN->m_PhyloList.RemoveHead()) == m_pPGSeq ) {
-					delete pPB2;
-				}
-				
-
-				pPB2->m_pPGParent = pPNUlt;
-				pPB2->m_FirstSelection = 0;
-
-				pPNUlt->m_PhyloList.SetAt( Pos, pPB2 );
-
-				delete pPN;
-
-			} else {
-
-				POSITION Pos = pPN->m_PhyloList.Find( m_pPGSeq );
-				
-				pPN->m_PhyloList.RemoveAt(Pos);
-
-				delete m_pPGSeq;
-
-			}
-
-			pDoc->SetDepths();
-			pDoc->WriteString();
-		}
-
 		delete tCGSeg;
 
 		pDoc->SetModifiedFlag();
 
-		// Test for single Entry in root node. Special case.
-		// If true, delete it.
-		if ( pDoc->m_pPGBase->m_PhyloList.GetCount() == 1 ) {
-
-			if ( pDoc->m_pPGBase != NULL ) {
-				CPhyloNode *pPNDoc = pDoc->m_pPGBase;
-				CPhyloGenBase * pPGB = (CPhyloGenBase *)pPNDoc->m_PhyloList.GetHead();
-				if ( pPGB->IsKindOf( RUNTIME_CLASS(CPhyloNode) ) ) {
-					// Clear out old one
-					pPNDoc->m_PhyloList.RemoveHead();
-
-					CPhyloNode *pPN = (CPhyloNode *)pPGB;
-
-					CPhyloGenBase *pPB2 = (CPhyloGenBase*)pPN->m_PhyloList.RemoveHead();
-					pPB2->m_pPGParent = pPNDoc;
-					pPB2->m_FirstSelection = 0;
-					pPNDoc->m_PhyloList.AddHead( pPB2 );
-
-					pPB2 = (CPhyloGenBase*)pPN->m_PhyloList.RemoveHead();
-					pPB2->m_pPGParent = pPNDoc;
-					pPB2->m_FirstSelection = 0;
-					pPNDoc->m_PhyloList.AddTail( pPB2 );
-							
-					delete pPN;
-
-					pDoc->SetDepths();
-					pDoc->WriteString();
-
-				}
-			}
-		}
 
 	}
 
@@ -290,12 +198,6 @@ void CSeqDialog::OnSeqdelete()
 	pDoc->UpdateAllViews(NULL);
 }
 
-
-void 
-CSeqDialog::CallSDFromNamedSeq( CObject *p )
-{
-	m_pPGSeq = (CPhyloSeq *)p;
-}
 
 void 
 CSeqDialog::OnSeqdetails() 

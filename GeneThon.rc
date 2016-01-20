@@ -66,7 +66,6 @@ IDR_GENEDOTYPE          ICON    DISCARDABLE     "RES\\GENEDTHON.ICO"
 IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "RES\\TOOLBAR.BMP"
 IDB_SMALLLOGO           BITMAP  DISCARDABLE     "RES\\MEBITU.BMP"
 IDB_GENETHON             BITMAP  DISCARDABLE     "RES\\GENETHONU.BMP"
-IDB_PHYLOBAR            BITMAP  DISCARDABLE     "RES\\PHYLOBAR.BMP"
 IDB_GENEBAR             BITMAP  DISCARDABLE     "RES\\GENEBAR.BMP"
 IDB_DSTATBAR            BITMAP  DISCARDABLE     "RES\\DSTATBAR.BMP"
 IDB_INLOVE              BITMAP  DISCARDABLE     "RES\\INLOVE.BMP"
@@ -256,8 +255,6 @@ BEGIN
     POPUP "Sc&ore"
     BEGIN
         MENUITEM "Score by &Sum of Pairs",      IDM_GENESCOREPAIR
-        MENUITEM "Score by &Phylogen Tree",     IDM_GENESCORETREE
-        MENUITEM "Score by Num&bed Tree",       IDM_GENESCORENUMB
         MENUITEM "Score by &LogOdds",           IDM_GENESCORELO
         MENUITEM SEPARATOR
         MENUITEM "Select Co&lumns\tCtrl+L",     IDM_SELECTCOL
@@ -269,20 +266,6 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Show Score &Table",           IDM_SHOWTABLE
         MENUITEM "Scoring &Info Report",        IDM_GENESCOREINFO
-    END
-    POPUP "&Tree"
-    BEGIN
-        MENUITEM "&Copy to Clipboard",          IDM_PHYLOCOPY
-        MENUITEM SEPARATOR
-        MENUITEM "Create &Node",                IDM_PHYLOCREATE
-        MENUITEM "De&lete Node",                IDM_PHYLODELETE
-        MENUITEM "Move &Up\tCtrl+Up",           IDM_PHYLOMVUP
-        MENUITEM "Move &Down\tCtrl+Dn",         IDM_PHYLOMVDN
-        MENUITEM "Clear &Tree",                 IDM_PHYLOCLEAR
-        MENUITEM SEPARATOR
-        MENUITEM "Display Tree &Weights",       IDM_DISPTREEWEIGHT
-        MENUITEM SEPARATOR
-        MENUITEM "&Manage Expression",          IDM_PHYLODLG
     END
     POPUP "&Reports"
     BEGIN
@@ -331,9 +314,6 @@ BEGIN
         MENUITEM "&Alignment View",             IDM_GENEVIEW
         MENUITEM "S&ummary View",               IDM_SUMMARYVIEW
         MENUITEM "&Report View",                IDM_GENEREPORTVIEW
-        MENUITEM "&Phylogenetic Tree",          IDM_PHYLOVIEW
-        MENUITEM "&DStat/Plot Graph",           IDM_GENEDSTATVIEW
-        MENUITEM "&Gel View",                   IDM_GENEGELVIEW
         MENUITEM SEPARATOR
         MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
         MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
@@ -376,7 +356,6 @@ BEGIN
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     "U",            IDM_GENEEDITMODE,       VIRTKEY, CONTROL, NOINVERT
     "V",            ID_EDIT_COPYINV,        VIRTKEY, CONTROL, NOINVERT
-    VK_DOWN,        IDM_PHYLOMVDN,          VIRTKEY, CONTROL, NOINVERT
     VK_F1,          ID_HELP,                VIRTKEY, NOINVERT
     VK_F1,          ID_CONTEXT_HELP,        VIRTKEY, SHIFT, NOINVERT
     VK_F10,         IDM_FINDNEXT,           VIRTKEY, NOINVERT
@@ -390,7 +369,6 @@ BEGIN
     VK_F8,          IDM_COMPLIMENTSEL,      VIRTKEY, CONTROL, NOINVERT
     VK_F9,          IDM_FIND,               VIRTKEY, NOINVERT
     VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
-    VK_UP,          IDM_PHYLOMVUP,          VIRTKEY, CONTROL, NOINVERT
     "W",            IDM_GENECREATEWIN,      VIRTKEY, CONTROL, NOINVERT
     "X",            IDM_GENESCOREKEY,       VIRTKEY, CONTROL, NOINVERT
 END
@@ -458,10 +436,6 @@ BEGIN
     GROUPBOX        "S&coring",IDC_STATIC,233,3,64,57,WS_GROUP
     CONTROL         "Pair Wise",IDC_SCOREPAIR,"Button",BS_AUTORADIOBUTTON | 
                     WS_GROUP | WS_TABSTOP,237,16,44,10
-    CONTROL         "Tree",IDC_SCORETREE,"Button",BS_AUTORADIOBUTTON,237,26,
-                    27,10
-    CONTROL         "Numbed Tree",IDC_SCORETREENUMB,"Button",
-                    BS_AUTORADIOBUTTON,237,36,55,10
     CONTROL         "LogOdds",IDC_SCORELOG,"Button",BS_AUTORADIOBUTTON,237,
                     47,42,10
     GROUPBOX        "Gap &Ind.",IDC_STATIC,12,52,53,34,WS_GROUP
@@ -843,22 +817,6 @@ BEGIN
     PUSHBUTTON      "&Text",IDC_CHANGETEXT,13,50,32,14
     PUSHBUTTON      "&Back",IDC_CHANGEBACK,13,70,32,14
     PUSHBUTTON      "&Help",ID_HELP,59,96,42,14
-END
-
-IDD_PHYLOGEN DIALOG DISCARDABLE  0, 0, 327, 198
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Phylogenetic Tree"
-FONT 8, "MS Sans Serif"
-BEGIN
-    EDITTEXT        IDC_PHYLOEDIT,3,4,321,150,ES_MULTILINE | ES_AUTOVSCROLL | 
-                    ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
-    DEFPUSHBUTTON   "&OK",IDOK,4,172,39,14
-    PUSHBUTTON      "Cancel",IDCANCEL,51,172,39,14
-    PUSHBUTTON      "&Export",IDC_PHYLOEXPORT,98,172,39,14
-    PUSHBUTTON      "&Import",IDC_PHYLOIMPORT,145,172,39,14
-    PUSHBUTTON      "&Copy",IDC_PHYLOCOPY,192,172,39,14
-    PUSHBUTTON      "&Paste",IDC_PHYLOPASTE,237,172,39,14
-    PUSHBUTTON      "&Help",ID_HELP,284,172,39,14
 END
 
 IDD_SHOWTABLE DIALOG DISCARDABLE  0, 0, 312, 247
@@ -1769,9 +1727,6 @@ BEGIN
     IDS_DUPSEQNAME          "Sequence Name Already in Sequence List: Skipping: %1"
     IDR_SUMMARYVIEW         "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
     IDR_TEXTVIEW            "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
-    IDR_DSTATVIEW           "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
-    IDR_PHYLOVIEW           "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
-    IDR_GELVIEW             "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
 END
 
 STRINGTABLE PRELOAD DISCARDABLE 
@@ -1932,33 +1887,12 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     ID_EDIT_COPYINV0        "Copy as Display Resolution Bitmap (Inv)"
-    ID_PHYLOBAR             "Phylo Bar ID?"
     ID_EDIT_COPYINV8        "Copy as 256 Color Bitmap (Inv)"
     ID_EDIT_COPYBIT         "Copy the Select as a straight Bitmap."
     ID_EDIT_COPYINVBIT      "Copy of a Straight Inverted Bitmap."
-    IDM_PHYLODLG            "Edit, Import and Export Tree Expression.\nManage Expression"
-    IDM_PHYLOVIEW           "Open PhyloGenetic Tree View.\nPhylogenetic View"
-    IDM_PHYLODELETE         "Delet the currently selected node.\nDelete Node"
-    IDM_PHYLOCLEAR          "Clear All Nodes from Tree.\nClear All"
     IDM_GENEVIEW            "Open the Alignment View Window.\nAlignment View"
     IDM_GENESCOREPAIR       "Determine scores Pair Wise."
-    IDM_GENESCORETREE       "Determine Score using Phylogenetic Tree."
     IDM_GENECLEARSCORE      "Clear all Scores."
-    IDM_PHYLOCREATE         "Create a node from two selected tree components.\nCreate Node"
-    IDM_PHYLOMVUP           "Move Selected Item Up.\nMove Up"
-END
-
-STRINGTABLE DISCARDABLE 
-BEGIN
-    IDM_PHYLOMVDN           "Move Selected Item Down.\nMove Down"
-    IDM_PHYLOCOPY           "Copy Tree to the Clipboard\nCopy"
-    IDM_COPYTEXT            "Copy the Project to the clipboard as Text."
-    IDM_GENECOPYPICT        "Copy Selection to MAC Pict file."
-    IDM_GENEEDITMODE        "Toggle the Residue Edit Mode for Residue Editing.\nResidue Editing"
-    IDM_SHOWTABLE           "Show Current Score Table."
-    IDM_GENESCORENUMB       "Score with Numbed Phylogenetic Tree."
-    IDM_GENESCOREINFO       "Save and Show Scoring Information."
-    IDM_GENEMODESTRUCTURE   "Set Structure Shading Mode.\nStructure"
 END
 
 STRINGTABLE DISCARDABLE 
@@ -1980,7 +1914,6 @@ STRINGTABLE DISCARDABLE
 BEGIN
     IDM_STCLEARALL          "Clears all definitions."
     IDM_STCLOADEMBL         "Load Definitions for EMBL files."
-    IDM_GENEDSTATVIEW       "ReOpen Graph View.\nPlot View."
     IDM_DSTATCOPY           "Copy Graph to Clipboard"
     IDM_DSTATSCORE          "DStat Score Only Groups Sequences."
     IDM_DSTATGRAPHSETUP     "Configure DStat Graph Parameters."
@@ -2019,7 +1952,6 @@ BEGIN
     IDM_GENEGROUPSGCONX     "Shade Group Conserved with Cross Group Shading."
     IDM_GENEMODESEARCH      "Display Rebase/ProSite Search Mode\nRebase/Prosite Search"
     IDM_GENECOPYHTML        "Copy the Selected Blocks to a HTML file."
-    IDM_DISPTREEWEIGHT      "Toggle Display Tree Weights or Numbers.\nDistance Weights/Numbers"
     IDM_GENESCOREKEY        "Rescore area being worked on"
     IDM_GENESHADEGROUPDNA   "Perform DNA Set Group analysis."
     IDM_SRCHREPVIEW         "Create and view enzyme fragment report."
@@ -2064,7 +1996,6 @@ BEGIN
     IDM_DNAFFREQREP         "Base Composition Report.\nBase Composition Report"
     IDM_REPSAVEFILE         "Save Report as a File."
     IDM_REGAPDNA            "Apply Gaps in Protein Alignment to DNA Alignment."
-    IDM_GENEGELVIEW         "Show Gel View\nGel View"
     IDM_DNACOLFREQREP       "Column Composition Report"
     IDM_DNACOLFRWREP        "Create a Column Composition report using sequence weights."
     IDM_ALIGN               "Align Sequences or Alignment"

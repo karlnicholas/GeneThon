@@ -60,7 +60,6 @@ static char szGROUPCONSLEVEL[] = "GCLevel";
 static char szPCRSIMILARITIES[] = "PCRSIM";
 static char szPCRLEVEL[] = "PCRLEV";
 
-static char szDTREEWEIGHT[] = "Disp Tree Weight";
 static char szSCOREMETH[] = "Score Meth";
 
 static char szPICTWIDTH[] = "Pict Width";
@@ -602,13 +601,6 @@ CGenethonDoc::GetIniDefaults()
 		m_UserVars.m_GapInd = 0;
 	else
 		m_UserVars.m_GapInd = atoi(strBuffer);
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szDTREEWEIGHT);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_DispTreeWeight = 1;
-	else
-		m_UserVars.m_DispTreeWeight = atoi(strBuffer);
-
 
 	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szSCOREMETH);
 	if (strBuffer.IsEmpty())
@@ -1551,9 +1543,6 @@ CGenethonDoc::SetIniDefaults()
 
 	sprintf( szBuffer, "%d", m_UserVars.m_Vars.GetConsSubStyle() );
 	AfxGetApp()->WriteProfileString(szUDSection, szCONSSUBSTYLE, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_DispTreeWeight );
-	AfxGetApp()->WriteProfileString(szUDSection, szDTREEWEIGHT, szBuffer);
 
 	sprintf( szBuffer, "%d", m_UserVars.m_ScoringMethod );
 	AfxGetApp()->WriteProfileString(szUDSection, szSCOREMETH, szBuffer);

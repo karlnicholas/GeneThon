@@ -49,9 +49,6 @@ static UINT BASED_CODE buttons[] =
 	IDM_GENEVIEW,
 	IDM_SUMMARYVIEW, 
 	IDM_GENEREPORTVIEW, 
-	IDM_PHYLOVIEW, 
-	IDM_GENEDSTATVIEW, 
-	IDM_GENEGELVIEW, 
 		ID_SEPARATOR,
 	IDM_GENESTATFILE,
 	IDM_GENESCOREFILE, 
@@ -291,32 +288,6 @@ CMainFrame::OpenTextView()
 
 
 void 
-CMainFrame::OpenTreeView()
-{
-	CMDIChildWnd *pActiveChild = MDIGetActive();
-	CDocument *pDocument;
-	if ( pActiveChild == NULL ||
-		(pDocument = pActiveChild->GetActiveDocument()) == NULL ) 
-	{
-		AfxMessageBox( "Unknown Active Document", MB_OK | MB_ICONEXCLAMATION );
-		return;
-	}
-
-	// Create new frame
-	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pTreeViewTemplate;
-	ASSERT_VALID(pTemplate);
-	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
-
-	if ( pFrame == NULL )
-	{
-		AfxMessageBox("Create Tree View Fails", MB_OK | MB_ICONEXCLAMATION);
-		return;
-	}
-
-	pTemplate->InitialUpdateFrame( pFrame, pDocument );
-}
-
-void 
 CMainFrame::OpenGeneView()
 {
 	CMDIChildWnd *pActiveChild = MDIGetActive();
@@ -336,58 +307,6 @@ CMainFrame::OpenGeneView()
 	if ( pFrame == NULL )
 	{
 		AfxMessageBox("Create Tree View Fails", MB_OK | MB_ICONEXCLAMATION);
-		return;
-	}
-
-	pTemplate->InitialUpdateFrame( pFrame, pDocument );
-}
-
-void 
-CMainFrame::OpenDStatView()
-{
-	CMDIChildWnd *pActiveChild = MDIGetActive();
-	CDocument *pDocument;
-	if ( pActiveChild == NULL ||
-		(pDocument = pActiveChild->GetActiveDocument()) == NULL ) 
-	{
-		AfxMessageBox( "Create Score Info View Fails 1: File Only", MB_OK | MB_ICONEXCLAMATION );
-		return;
-	}
-
-	// Create new frame
-	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pDStatViewTemplate;
-	ASSERT_VALID(pTemplate);
-	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
-
-	if ( pFrame == NULL )
-	{
-		AfxMessageBox("Create Score Info View Fails 2: File Only", MB_OK | MB_ICONEXCLAMATION);
-		return;
-	}
-
-	pTemplate->InitialUpdateFrame( pFrame, pDocument );
-}
-
-void 
-CMainFrame::OpenGelView()
-{
-	CMDIChildWnd *pActiveChild = MDIGetActive();
-	CDocument *pDocument;
-	if ( pActiveChild == NULL ||
-		(pDocument = pActiveChild->GetActiveDocument()) == NULL ) 
-	{
-		AfxMessageBox( "Create Score Info View Fails 1: File Only", MB_OK | MB_ICONEXCLAMATION );
-		return;
-	}
-
-	// Create new frame
-	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pGelViewTemplate;
-	ASSERT_VALID(pTemplate);
-	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
-
-	if ( pFrame == NULL )
-	{
-		AfxMessageBox("Create Score Info View Fails 2: File Only", MB_OK | MB_ICONEXCLAMATION);
 		return;
 	}
 

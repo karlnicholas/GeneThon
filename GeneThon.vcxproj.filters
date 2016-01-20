@@ -99,9 +99,6 @@
     <ClCompile Include="DStatOb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DStatVw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dwordmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,13 +120,7 @@
     <ClCompile Include="Gdocfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gdphydoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gdsrch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GelView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Genbank.cpp">
@@ -225,21 +216,6 @@
     <ClCompile Include="Pdbdialo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Phylnode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Phylochi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Phylodlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Phylovw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Phylseq.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pictfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -300,9 +276,6 @@
     <ClCompile Include="Seqdetdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Seqdialo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Seqfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -360,9 +333,6 @@
     <ClCompile Include="Titlingf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Treescor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Userdef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -370,6 +340,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="genetdoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seqdialo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -424,9 +397,6 @@
     <ClInclude Include="Dstatob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Dstatvw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Dwordmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -437,9 +407,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Findrepl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Gelview.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Genbank.h">
@@ -526,24 +493,6 @@
     <ClInclude Include="pdbdialo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Phylbase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Phylnode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Phylochi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Phylodlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Phylovw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Phylseq.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pictfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -599,9 +548,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Seqdetdi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="seqdialo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Seqinp.h">
@@ -677,6 +623,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Genetvw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="seqdialo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

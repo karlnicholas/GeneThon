@@ -128,22 +128,7 @@ CGenethonDoc::Score( DWORD *nStartRange, DWORD *nEndRange )
 
 
 
-	if ( m_UserVars.m_ScoringMethod == SCORETREE || m_UserVars.m_ScoringMethod == SCORENUMB ) {
-		// option flags
-		m_NumbTreeFlag = (m_UserVars.m_ScoringMethod == SCORENUMB);
-
-//		m_TreeDebugOutput = 1;
-		//
-		if ( m_TreeDebugOutput ) {
-			GetTempFileName(PathName);
-		}
-
-		if ( !TreeScore(  nStartRange, nEndRange, &Score, RowCount, pSegArr, PathName ) ) {
-			AfxGetApp()->DoWaitCursor(-1);
-			delete pSegArr;
-			return;
-		}
-	} else if ( m_UserVars.m_ScoringMethod == SCOREPAIR ) {
+	if ( m_UserVars.m_ScoringMethod == SCOREPAIR ) {
 		if ( !PairWiseScore(  nStartRange, nEndRange, &Score, RowCount, pSegArr ) ) {
 			AfxGetApp()->DoWaitCursor(-1);
 			delete pSegArr;
@@ -228,19 +213,6 @@ CGenethonDoc::Score( DWORD *nStartRange, DWORD *nEndRange )
 		GlobalUnlock( tSegHandle );
 	}
 	delete pSegArr;
-
-	if ( m_TreeDebugOutput ) {
-		if ( m_pTextView == NULL ) {
-	
-			((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenTextView();
-		} else {
-			m_pTextView->GetParentFrame()->ActivateFrame();
-//			m_pScoreInfoView->Invalidate();
-		}
-		m_pTextView->LoadFile(PathName);
-		DeleteTempFile( PathName );
-	}
-
 	
 	AfxGetApp()->DoWaitCursor(-1);
 }

@@ -247,13 +247,6 @@ protected: // create from serialization only
 		ShadeSegStc *pSegArr 
 	);
 
-	int TreeScore( 
-		DWORD *nStartRange, 
-		DWORD *nEndRange, 
-		unsigned long *Score, 
-		int RowCount, 
-		ShadeSegStc *pSegArr, 
-		CString& PathName);
 	int LogOddsScore( 
 		DWORD *nStartRange, 
 		DWORD *nEndRange, 
@@ -297,11 +290,8 @@ protected: // create from serialization only
 	int WriteManRepFile( const char *FileName );
 
 	CTextView *m_pTextView;
-	CView *m_pTreeView;
 	CView *m_pGeneView;
 	CView *m_pSummaryView;
-	CView *m_pDStatView;
-	CView *m_pGelView;
 
 	CString ConvertPathname( const char *nExt );
 
@@ -322,10 +312,8 @@ protected: // create from serialization only
 	// The order here is tied to CConfDisplay.	
 	enum {
 		SCOREPAIR,
-		SCORETREE, 
-		SCORENUMB, 
 		SCORELOGODD, 
-		
+
 		SCORETYPEMAX
 		
 	};
@@ -390,7 +378,6 @@ protected: // create from serialization only
 	
 	void GetProjectType();
 
-	CPhyloNode *m_pPGBase;
 	int m_MaxDepth;
 	int m_NodeNumber;
 
@@ -408,49 +395,9 @@ protected: // create from serialization only
 	void CallSetObj( CObject *p );
 //	int m_CRDetected;
 	
-	typedef struct sTreeScoreWork {
-	
-		int UnionString[28];
-		int UnionStringLength;
-		int UnionParentAppended;
-	//
-		int DescendentTypeL;
-		int DescendentTypeR;
-		sTreeScoreWork *DescendentTSWL;
-		sTreeScoreWork *DescendentTSWR;
-		int DescendentCharL;
-		int DescendentCharR;
-	//
-		CPhyloNode *m_pPN;
-	//
-	//
-		int m_cAncestry;
-		int m_AssignedDescent;
-		int m_ScoreIndex;
-		int m_ScoreCarry;
-		
-		int m_SaveBestResidue;
-		int m_PrevBestResidue;
-	
-	} TreeScoreWork;
-
-	typedef struct TreeSaveBests {
-		int m_cAncestry;
-		int m_PrevBestResidue;
-	} TreeSaveBest;
-
-	CPtrList m_TreeScoreList;
 	CPtrList m_SaveBestList;
 
-	// option flags
-	int m_NumbTreeFlag;
-	int m_TreeDebugOutput;
-
 	void CallDrawDebug(CObject *p);
-	void DrawDebugNodeBox(CString &ResString, int StartX, CPhyloGenBase *pPGB );
-	void DoDrawDebugCmd ( CString& ResString, int DrawCmd, int Depth2, CPhyloGenBase* pPGB );
-	void OnDrawDebugTree();
-	int TreeTestGood( TreeScoreWork *TSArray, int TSWLEngth );
 
 	FILE * m_DebugFile;
 	unsigned long m_DebugScore;
@@ -480,12 +427,6 @@ public:
 	UserVars	m_UserVars;
 	int m_SummaryMessaged;
 
-	int ParseTree( const CString & ParseString, int ErrMsgs );
-	void SetDepths();
-	void WriteString ();
-	void ResetTree();
-	void CallDocFromDepth( CObject *p );
-	void CallDocFromSeq( CObject *p );
 	void DoConfigure(int ActivePage = ACTPAGENONE, int ReDraw = TRUE ); 
 	void DoGroupConfigure(int ActivePage = ACTPAGENONE, int ReDraw = TRUE ); 
 
@@ -523,23 +464,14 @@ protected:
 	afx_msg void OnGeneloadini();
 	afx_msg void OnTitlingf();
 	afx_msg void OnFileSaveAs();
-	afx_msg void OnPhylodlg();
-	afx_msg void OnPhyloview();
 	afx_msg void OnGeneview();
 	afx_msg void OnGenescorepair();
 	afx_msg void OnUpdateGenescorepair(CCmdUI* pCmdUI);
-	afx_msg void OnGenescoretree();
-	afx_msg void OnUpdateGenescoretree(CCmdUI* pCmdUI);
 	afx_msg void OnShowtable();
-	afx_msg void OnGenescorenumb();
-	afx_msg void OnUpdateGenescorenumb(CCmdUI* pCmdUI);
 	afx_msg void OnGenescoreinfo();
 	afx_msg void OnUpdateGenescoreinfo(CCmdUI* pCmdUI);
-	afx_msg void OnUpdatePhyloview(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateGenestatfile(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateGenescorefile(CCmdUI* pCmdUI);
-	afx_msg void OnEditstructure();
-	afx_msg void OnUpdateEditstructure(CCmdUI* pCmdUI);
 	afx_msg void OnEditgroupprop();
 	afx_msg void OnGeneshadegroups();
 	afx_msg void OnUpdateGeneshadegroups(CCmdUI* pCmdUI);
@@ -575,8 +507,6 @@ protected:
 	afx_msg void OnUpdateGenemodestructure(CCmdUI* pCmdUI);
 	afx_msg void OnGeneresiduemodediff();
 	afx_msg void OnUpdateGeneresiduemodediff(CCmdUI* pCmdUI);
-	afx_msg void OnGenedstatview();
-	afx_msg void OnUpdateGenedstatview(CCmdUI* pCmdUI);
 	afx_msg void OnGroupshadepcr();
 	afx_msg void OnUpdateGroupshadepcr(CCmdUI* pCmdUI);
 	afx_msg void OnGroupshadepcrsim();
@@ -626,8 +556,6 @@ protected:
 	afx_msg void OnGenereportview();
 	afx_msg void OnRegapdna();
 	afx_msg void OnSrchrepview();
-	afx_msg void OnGenegelview();
-	afx_msg void OnUpdateGenegelview(CCmdUI* pCmdUI);
 	afx_msg void OnAlign();
 	afx_msg void OnManshaderep();
 	afx_msg void OnUpdateManshaderep(CCmdUI* pCmdUI);

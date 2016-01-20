@@ -194,13 +194,6 @@ CGenethonDoc::DStatScore( DWORD StartRange, DWORD EndRange, int GroupOnly )
 
 	DStatObject.MyDocDStat();
 
-	if ( m_pDStatView == NULL ) {
-		((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenDStatView();
-	} else {
-		m_pDStatView->GetParentFrame()->ActivateFrame();
-		m_pDStatView->Invalidate();
-	}
-	
 ErrorOut:
 	
 	for ( i = 0; i < Count; ++i ) {
@@ -566,13 +559,6 @@ tdata:
 	
 
 	DStatObject.MyDocDStat();
-
-	if ( m_pDStatView == NULL ) {
-		((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenDStatView();
-	} else {
-		m_pDStatView->GetParentFrame()->ActivateFrame();
-		m_pDStatView->Invalidate();
-	}
 
 ErrorOut:
 	

@@ -27,9 +27,6 @@ public:
 	int m_OKOrientCheck;
 	CMultiDocTemplate *m_pSummaryViewTemplate;
 	CMultiDocTemplate *m_pTextViewTemplate;
-	CMultiDocTemplate *m_pTreeViewTemplate;
-	CMultiDocTemplate *m_pDStatViewTemplate;
-	CMultiDocTemplate *m_pGelViewTemplate;
 	int ExitInstance();
 	
 	int m_ReallyNewFlag;

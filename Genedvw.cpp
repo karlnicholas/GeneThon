@@ -3492,8 +3492,6 @@ void CGenethonView::OnGenecreatewin()
 	
 //	pnDoc->CopyUserVars( &pnDoc->m_UserVars, &pDoc->m_UserVars );	// To <- From
 
-	pnDoc->ParseTree( pDoc->m_UserVars.m_ParseString, 0 );
-
 	pnDoc->GetUserDefaults();	// To <- From
 
 	pnDoc->AutoShade(-1);
@@ -6704,8 +6702,6 @@ void CGenethonView::OnDnatrans()
 
 	
 //	pnDoc->CopyUserVars( &pnDoc->m_UserVars, &pDoc->m_UserVars );	// To <- From
-
-	pnDoc->ParseTree( pDoc->m_UserVars.m_ParseString, 0 );
 
 	pnDoc->GetUserDefaults();	// To <- From
 

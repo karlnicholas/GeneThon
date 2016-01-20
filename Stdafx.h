@@ -145,7 +145,6 @@ enum {
 #include "drawstc.h"
 
 #include "dstatchi.h"
-#include "phylochi.h"
 #include "genechi.h"
 
 // Main prog
@@ -161,11 +160,6 @@ enum {
 #include "gsegment.h"
 #include "gsfiller.h"
 
-// PhyloGenetic Tree
-#include "phylbase.h"
-#include "phylnode.h"
-#include "phylseq.h"
-
 // Views
 #include "textview.h"
 //#include "scoedit.h"
@@ -178,9 +172,6 @@ enum {
 
 // Main doc
 #include "genetdoc.h"
-
-#include "DStatVw.h"
-#include "GelView.h"
 
 // Alignment Object
 #include "pwalign.h"
@@ -210,11 +201,6 @@ enum {
 
 // Modal dialog
 #include "colorbar.h"
-// Phylogen Dialog
-#include "phylodlg.h"
-
-// Phylogen View
-#include "phylovw.h"
 
 // View
 #include "genetvw.h"

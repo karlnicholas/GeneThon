@@ -93,26 +93,6 @@ BOOL CGenethonApp::InitInstance()
 		RUNTIME_CLASS(CTextView)
 	);
 
-	m_pTreeViewTemplate = new CMultiDocTemplate(
-		IDR_PHYLOVIEW,
-		RUNTIME_CLASS(CGenethonDoc),
-		RUNTIME_CLASS(CPhyloMDIChildWnd),
-		RUNTIME_CLASS(CPhylogenView)
-	);
-
-	m_pDStatViewTemplate = new CMultiDocTemplate(
-		IDR_DSTATVIEW,
-		RUNTIME_CLASS(CGenethonDoc),
-		RUNTIME_CLASS(CDStatMDIChildWnd),
-		RUNTIME_CLASS(CDStatView)
-	);
-	m_pGelViewTemplate = new CMultiDocTemplate(
-		IDR_GELVIEW,
-		RUNTIME_CLASS(CGenethonDoc),
-		RUNTIME_CLASS(CMDIChildWnd),
-		RUNTIME_CLASS(CGelView)
-	);
-
 	// create main MDI Frame window
 	CMainFrame* pMainFrame = new CMainFrame;
 	if (!pMainFrame->LoadFrame(IDR_MAINFRAME))
@@ -322,9 +302,6 @@ CGenethonApp::ExitInstance()
 {
 	delete m_pSummaryViewTemplate;
 	delete m_pTextViewTemplate;
-	delete m_pTreeViewTemplate;
-	delete m_pDStatViewTemplate;
-	delete m_pGelViewTemplate;
 	return CWinApp::ExitInstance();
 }
 

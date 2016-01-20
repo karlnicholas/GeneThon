@@ -50,7 +50,6 @@
 #define GDCONSENSUS		"Consensus:"		// m_ConsensusLine;
 
 #define GDSHADEGROUPS	"Shade Groups:"
-#define GDPHYLOTREE		"PhTree"
 
 #define GDSCOREMETH		"Scor Meth:"
 
@@ -797,31 +796,6 @@ CGenethonDoc::GetUserDefaults( )
 			RowCount++;
 		}
 	}
-
-	TopCount = 1;
-	// CPtrArray
-
-	while ( 1 ) {
-	
-		sprintf ( DecodeBuff, "%s%d:", GDPHYLOTREE, TopCount );
-
-		tStr = GDUFindString ( DecodeBuff );
-		if ( tStr == NULL ) {
-			// Were done!!
-			break;
-		}
-		if ( TopCount == 1 ) {
-			// Clear out Old Array
-			m_UserVars.m_ParseString.Empty();
-		}
-		
-		tStr++;
-
-		m_UserVars.m_ParseString += tStr;
-
-		TopCount++;
-	}
-
 
 	
 	// Do base display vars ...

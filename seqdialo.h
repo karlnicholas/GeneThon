@@ -8,8 +8,6 @@ class CSeqDialog : public CDialog
 {
 
 private:
-	CPhyloSeq *m_pPGSeq;
-
 	int MoveUpFunc();
 	int MoveDownFunc();
 

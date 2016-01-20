@@ -219,8 +219,6 @@ CGenethonDoc::ProcessRows( CPtrList& CommentList, CPtrList& SequenceList, int Ap
 {
 	CGeneSegment *SaveCGSeg;
 
-	int AppendTree = Append;
-
 	if ( pGSFiller == NULL ) {
 		Append = 0;
 	}
@@ -288,25 +286,6 @@ CGenethonDoc::ProcessRows( CPtrList& CommentList, CPtrList& SequenceList, int Ap
 		pGSFiller->AddHeader( new CString("MSF: Main Filler ..") );
 	}
 		
-
-	if ( AppendTree ) {
-		if ( Append ) {
-			// For tree.
-			SetDepths();
-			WriteString();
-		} else {
-			ResetTree();
-		}
-	}
-
-	if ( Append ) {
-
-		SetDepths();
-		WriteString();
-
-		SetModifiedFlag();
-	}
-	
 
 	return 1;
 	
@@ -395,13 +374,6 @@ CGenethonDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 		// put it on the list
 		pGSFiller->AddData( tCGSeg );
 		
-		// check for append and add to tree if true.
-		if ( Append ) {
-			CPhyloGenBase *pPGTemp = new CPhyloSeq();
-			pPGTemp->m_pPGParent = m_pPGBase;
-			((CPhyloSeq *)pPGTemp)->SetSequence(tCGSeg);
-			m_pPGBase->m_PhyloList.AddTail( pPGTemp );
-		}
 
 	}
 
