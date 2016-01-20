@@ -1,21 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // genedoc.cpp : Defines the class behaviors for the application.
 //
 
@@ -79,11 +61,7 @@ BOOL CGenedocApp::InitInstance()
 	//  of your final executable, you should remove from the following
 	//  the specific initialization routines you do not need.
 	
-#ifdef _WIN32
-
 	SetRegistryKey( "" );
-
-#endif
 
 	SetDialogBkColor();        // Set dialog background color to gray
 	LoadStdProfileSettings();  // Load standard INI file options (including MRU)
@@ -142,11 +120,8 @@ BOOL CGenedocApp::InitInstance()
 	m_pMainWnd = pMainFrame;
 
 
-#ifdef _WIN32	
 	RegisterShellFileTypes(true);
-#else
-	RegisterShellFileTypes();
-#endif
+
 	// do other initialization after (possibly) creating the splash window
 	EnableShellOpen();
 	m_pMainWnd->DragAcceptFiles();
@@ -168,15 +143,6 @@ BOOL CGenedocApp::InitInstance()
 
 	// create a new (empty) document
 //	OnFileNew();
-#ifndef _WIN32
-	// read the file from the command line if it is there ..
-	if (m_lpCmdLine[0] != '\0')
-	{
-		// TODO: add command line processing here
-		OpenDocumentFile ( m_lpCmdLine );
-	}
-#endif
-#ifdef _WIN32
 	// Parse command line for standard shell commands, DDE, file open
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
@@ -188,8 +154,6 @@ BOOL CGenedocApp::InitInstance()
 	// The main window has been initialized, so show and update it.
 //	pMainFrame->ShowWindow(m_nCmdShow);
 //	pMainFrame->UpdateWindow();
-
-#endif
 
 	// The main window has been initialized, so show and update it.
 	// Old style ..pMainFrame->ShowWindow(m_nCmdShow);
@@ -257,8 +221,7 @@ void CGenedocApp::OnAppAbout()
 /////////////////////////////////////////////////////////////////////////////
 // CGenedocApp commands
 
-CDocument* 
-CGenedocApp::CreateNewDocument()
+CDocument* CGenedocApp::CreateNewDocument()
 {
 	CDocument* tDoc;
 	m_ReallyNewFlag = 0;
@@ -272,8 +235,7 @@ CGenedocApp::CreateNewDocument()
     return tDoc;
 }
 
-void
-CGenedocApp::OnMyFilePrintSetup()
+void CGenedocApp::OnMyFilePrintSetup()
 {
 	m_OKOrientCheck = 0;
 
@@ -295,8 +257,7 @@ CGenedocApp::OnMyFilePrintSetup()
 	m_OKOrientCheck = 1;
 }
 
-void 
-CGenedocApp::SetLandscape(int LSFlag)
+void CGenedocApp::SetLandscape(int LSFlag)
 {
     // Get default printer settings.
     PRINTDLG   pd;
@@ -384,11 +345,7 @@ void CAboutDlg::OnPaint()
 	poldbmp = memdc.SelectObject( &bmp );
  
       // Copy (BitBlt) bitmap from memory DC to screen DC
-#ifdef _WIN32
 	dc.BitBlt( 10, 10, 153, 198, &memdc, 0, 0, SRCCOPY );
-#else
-	dc.BitBlt( 20, 10, 153, 198, &memdc, 0, 0, SRCCOPY );
-#endif
 
 	bmp.DeleteObject();      
       
@@ -398,11 +355,7 @@ void CAboutDlg::OnPaint()
 	poldbmp = memdc.SelectObject( &bmp );
       
 	// Copy (BitBlt) bitmap from memory DC to screen DC
-#ifdef _WIN32
 	dc.BitBlt( 175, 3, 95, 38, &memdc, 0, 0, SRCCOPY );
-#else
-	dc.BitBlt( 210, 3, 95, 38, &memdc, 0, 0, SRCCOPY );
-#endif
 
 	memdc.SelectObject( poldbmp );
 	
@@ -414,11 +367,7 @@ void CAboutDlg::OnPaint()
 	poldbmp = memdc.SelectObject( &bmp );
       
 	// Copy (BitBlt) bitmap from memory DC to screen DC
-#ifdef _WIN32
 	dc.BitBlt( 169, 139, 107, 69, &memdc, 0, 0, SRCCOPY );
-#else
-	dc.BitBlt( 204, 139, 107, 69, &memdc, 0, 0, SRCCOPY );
-#endif
 
 	memdc.SelectObject( poldbmp );
 

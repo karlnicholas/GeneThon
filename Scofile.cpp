@@ -1,23 +1,4 @@
 
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
 #include "stdafx.h"
 
 
@@ -62,13 +43,7 @@ TRY {
 
 	GeneStor tGStor;
 
-#ifdef _WIN32
 	SYSTEMTIME LocTime;
-#else
-	time_t	cur;		/*	Current time	*/
-	struct tm	*cur_tm;	/*	Time struct	*/
-#endif
-
 
 	struct WorkStruct {
 		CGeneSegment * pCGSeg;
@@ -137,17 +112,9 @@ TRY {
 //	sprintf(BuildBuff, "%s\n", FileName );
 //	wFile.WriteString( BuildBuff );
 
-#ifdef _WIN32
 	GetLocalTime ( &LocTime );
 	sprintf(BuildBuff, "%d-%s-%d  %02d:%02d\n", LocTime.wDay, Scoremonths[LocTime.wMonth - 1],
 		LocTime.wYear, LocTime.wHour,	LocTime.wMinute );
-#else
-	cur = time(NULL);
-	cur_tm = localtime(&cur);
-	sprintf(BuildBuff, "%d-%s-%d  %02d:%02d\n", cur_tm->tm_mday, Scoremonths[cur_tm->tm_mon],
-		cur_tm->tm_year + 1900, cur_tm->tm_hour,
-		cur_tm->tm_min);
-#endif
 
 	wFile.WriteString ( BuildBuff );
 

@@ -240,13 +240,8 @@ END_CATCH
 
 
 /*
-#ifdef _WIN32
 	static char Filter[] = 
 		"Fasta (*.aa*)|*.aa*|Clustal (*.aln*)|*.aln*|Phylip (*.phy*)|*.phy*|PIR (*.pir*)|*.pir*|GCG MSF(*.msf*)|*.msf*|All Files (*.*)|*.*||";
-#else
-	static char Filter[] = 
-		"Fasta (*.aa)|*.aa|Clustal (*.aln)|*.aln|Phylip (*.phy*)|*.phy*|PIR (*.pir)|*.pir|GCG MSF(*.msf)|*.msf|All Files (*.*)|*.*||";
-#endif
 
 	CFileDialog tDlg( TRUE, NULL, NULL, 
 		OFN_HIDEREADONLY, 

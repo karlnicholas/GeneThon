@@ -1,21 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // phylodlg.cpp : implementation file
 //
 
@@ -105,9 +87,6 @@ void CPhyloGenDialog::GetParseFile( const CString& FileName )
 {
 	// TODO: Add your control notification handler code here
 TRY {
-#if !defined(_WIN32) || _MSC_VER < 999
-	char rbuff[1024];
-#endif
 	CString tString;
 	CString BuildString;
 	// Start, Open the file
@@ -116,16 +95,9 @@ TRY {
 	while (1) {
 		// clear out temp string.
 		tString.Empty();
-#if !defined(_WIN32) || _MSC_VER < 999
-		if ( iFile.ReadString( rbuff, sizeof(rbuff)) == NULL ) {
-			break;		
-		}
-		tString = rbuff;
-#else
 		if ( !iFile.ReadString( tString ) ) {
 			break;		
 		}
-#endif		
 //		tString.SetAt(tString.GetLength() - 1, '\r');
 		tString += '\r';
 		tString += '\n';

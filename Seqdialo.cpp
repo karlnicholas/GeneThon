@@ -1534,9 +1534,6 @@ void CSeqDialog::OnLoadsort()
 {
 	int Max = 0;
 
-#if !defined(_WIN32) || _MSC_VER < 999
-	char rbuff[1024];
-#endif	
 	CGSFiller *pGSFiller = pDoc->pGSFiller;
 	// Put the data rows on the list
 	if ( pGSFiller == NULL ) return;
@@ -1561,11 +1558,7 @@ void CSeqDialog::OnLoadsort()
 
 	if ( tDlg.DoModal() != IDOK ) return;
 
-#ifndef _WIN32
-	PathName = tDlg.GetFileTitle();
-#else
 	PathName = tDlg.GetFileName();
-#endif
 
 TRY {
 
@@ -1582,17 +1575,9 @@ TRY {
 
 		tString.Empty();
 
-#if !defined(_WIN32) || _MSC_VER < 999
-		if ( rFile.ReadString( rbuff, sizeof(rbuff) ) == NULL ) {
-			break;
-		}
-		// CString
-		tString = CString(rbuff).SpanExcluding("\n\r");
-#else
 		if ( !rFile.ReadString( tString ) ) {
 			break;
 		}
-#endif
 
 		for ( int j = 2; j < Max; ++j ) {
 

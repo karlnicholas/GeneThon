@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{892B07DD-600B-4097-B09D-A98ADF460DBA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Aligndlg.cpp" />
+    <ClCompile Include="autochem.cpp" />
+    <ClCompile Include="autocons.cpp" />
+    <ClCompile Include="autocont.cpp" />
+    <ClCompile Include="autodiff.cpp" />
+    <ClCompile Include="autodna.cpp" />
+    <ClCompile Include="autogcon.cpp" />
+    <ClCompile Include="autolog.cpp" />
+    <ClCompile Include="autopcr.cpp" />
+    <ClCompile Include="autoprop.cpp" />
+    <ClCompile Include="autoquan.cpp" />
+    <ClCompile Include="Autoshad.cpp" />
+    <ClCompile Include="autosim.cpp" />
+    <ClCompile Include="autosrch.cpp" />
+    <ClCompile Include="autostc.cpp" />
+    <ClCompile Include="charmap.cpp" />
+    <ClCompile Include="chemprop.cpp" />
+    <ClCompile Include="colorbar.cpp" />
+    <ClCompile Include="Confiden.cpp" />
+    <ClCompile Include="Cscored.cpp" />
+    <ClCompile Include="Cstcpdlg.cpp" />
+    <ClCompile Include="Dispgnm.cpp" />
+    <ClCompile Include="displayp.cpp" />
+    <ClCompile Include="dispvars.cpp" />
+    <ClCompile Include="dnatrans.cpp" />
+    <ClCompile Include="dstasco.cpp" />
+    <ClCompile Include="dstatchi.cpp" />
+    <ClCompile Include="DStatOb.cpp" />
+    <ClCompile Include="DStatVw.cpp" />
+    <ClCompile Include="dwordmap.cpp" />
+    <ClCompile Include="Exportdl.cpp" />
+    <ClCompile Include="filedef.cpp" />
+    <ClCompile Include="Finddlg.cpp" />
+    <ClCompile Include="Findrepl.cpp" />
+    <ClCompile Include="gdmenu.cpp" />
+    <ClCompile Include="Gdocfile.cpp" />
+    <ClCompile Include="gdphydoc.cpp" />
+    <ClCompile Include="gdsrch.cpp" />
+    <ClCompile Include="GelView.cpp" />
+    <ClCompile Include="Genbank.cpp" />
+    <ClCompile Include="Genechi.cpp" />
+    <ClCompile Include="geneddoc.cpp" />
+    <ClCompile Include="Genedoc.cpp" />
+    <ClCompile Include="genedvw.cpp" />
+    <ClCompile Include="Gprowvw.cpp" />
+    <ClCompile Include="gpsumvw.cpp" />
+    <ClCompile Include="GraphStp.cpp" />
+    <ClCompile Include="Groupsel.cpp" />
+    <ClCompile Include="Grpprop.cpp" />
+    <ClCompile Include="grppsht.cpp" />
+    <ClCompile Include="Gsegment.cpp" />
+    <ClCompile Include="Gsfiller.cpp" />
+    <ClCompile Include="Gstring.cpp" />
+    <ClCompile Include="Gvedit.cpp" />
+    <ClCompile Include="gvefill.cpp" />
+    <ClCompile Include="Gvelead.cpp" />
+    <ClCompile Include="Gvetail.cpp" />
+    <ClCompile Include="Gvsum.cpp" />
+    <ClCompile Include="Heapsort.cpp" />
+    <ClCompile Include="Htmlfile.cpp" />
+    <ClCompile Include="Htmlpicd.cpp" />
+    <ClCompile Include="Importty.cpp" />
+    <ClCompile Include="Logdlg.cpp" />
+    <ClCompile Include="Logodds.cpp" />
+    <ClCompile Include="Logsco.cpp" />
+    <ClCompile Include="Mainfrm.cpp" />
+    <ClCompile Include="Manrep.cpp" />
+    <ClCompile Include="Motseqdl.cpp" />
+    <ClCompile Include="Msffile.cpp" />
+    <ClCompile Include="Mycaret.cpp" />
+    <ClCompile Include="Pairwise.cpp" />
+    <ClCompile Include="Pdbdialo.cpp" />
+    <ClCompile Include="Phylnode.cpp" />
+    <ClCompile Include="Phylochi.cpp" />
+    <ClCompile Include="Phylodlg.cpp" />
+    <ClCompile Include="Phylovw.cpp" />
+    <ClCompile Include="Phylseq.cpp" />
+    <ClCompile Include="Pictfile.cpp" />
+    <ClCompile Include="Plex.cpp" />
+    <ClCompile Include="Prints.cpp" />
+    <ClCompile Include="Proped.cpp" />
+    <ClCompile Include="Property.cpp" />
+    <ClCompile Include="Propgp.cpp" />
+    <ClCompile Include="Propsht.cpp" />
+    <ClCompile Include="Pwalign.cpp" />
+    <ClCompile Include="Refiltdl.cpp" />
+    <ClCompile Include="Repdlg.cpp" />
+    <ClCompile Include="Rescore.cpp" />
+    <ClCompile Include="Rtffile.cpp" />
+    <ClCompile Include="scofile.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Scorecan.cpp" />
+    <ClCompile Include="Scoring.cpp" />
+    <ClCompile Include="Searchdl.cpp" />
+    <ClCompile Include="Selarrse.cpp" />
+    <ClCompile Include="Selproje.cpp" />
+    <ClCompile Include="Seqdetdi.cpp" />
+    <ClCompile Include="Seqdialo.cpp" />
+    <ClCompile Include="Seqfile.cpp" />
+    <ClCompile Include="Seqinp.cpp" />
+    <ClCompile Include="Seqseldl.cpp" />
+    <ClCompile Include="Setudef.cpp" />
+    <ClCompile Include="Shadeedi.cpp" />
+    <ClCompile Include="Shademp.cpp" />
+    <ClCompile Include="Showtabl.cpp" />
+    <ClCompile Include="Sortmat.cpp" />
+    <ClCompile Include="Srchdlg.cpp" />
+    <ClCompile Include="Srchrepd.cpp" />
+    <ClCompile Include="statfile.cpp" />
+    <ClCompile Include="stc.cpp" />
+    <ClCompile Include="Stcdatad.cpp" />
+    <ClCompile Include="Stcgrp.cpp" />
+    <ClCompile Include="Stdafx.cpp" />
+    <ClCompile Include="Sumcaret.cpp" />
+    <ClCompile Include="sumview.cpp" />
+    <ClCompile Include="Textview.cpp" />
+    <ClCompile Include="Titlingf.cpp" />
+    <ClCompile Include="Treescor.cpp" />
+    <ClCompile Include="Userdef.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GENEDOC.DEF" />
+    <None Include="hlp\genedoc.hm" />
+    <None Include="res\Genedoc.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="aligndlg.h" />
+    <ClInclude Include="Charmap.h" />
+    <ClInclude Include="Chemprop.h" />
+    <ClInclude Include="Colorbar.h" />
+    <ClInclude Include="Confiden.h" />
+    <ClInclude Include="Cscored.h" />
+    <ClInclude Include="Cstcpdlg.h" />
+    <ClInclude Include="Dispgnm.h" />
+    <ClInclude Include="Displayp.h" />
+    <ClInclude Include="Dispvars.h" />
+    <ClInclude Include="Dnatrans.h" />
+    <ClInclude Include="Drawstc.h" />
+    <ClInclude Include="Dstatchi.h" />
+    <ClInclude Include="Dstatob.h" />
+    <ClInclude Include="Dstatvw.h" />
+    <ClInclude Include="Dwordmap.h" />
+    <ClInclude Include="Exportdl.h" />
+    <ClInclude Include="Finddlg.h" />
+    <ClInclude Include="Findrepl.h" />
+    <ClInclude Include="Gelview.h" />
+    <ClInclude Include="Genbank.h" />
+    <ClInclude Include="Genechi.h" />
+    <ClInclude Include="geneddoc.h" />
+    <ClInclude Include="Genedoc.h" />
+    <ClInclude Include="Genedvw.h" />
+    <ClInclude Include="Genestor.h" />
+    <ClInclude Include="Gprowvw.h" />
+    <ClInclude Include="Gpsumvw.h" />
+    <ClInclude Include="Graphstp.h" />
+    <ClInclude Include="Groupsel.h" />
+    <ClInclude Include="Grpprop.h" />
+    <ClInclude Include="Grppsht.h" />
+    <ClInclude Include="Gsbase.h" />
+    <ClInclude Include="Gsegment.h" />
+    <ClInclude Include="Gsfiller.h" />
+    <ClInclude Include="Gstring.h" />
+    <ClInclude Include="Gvbase.h" />
+    <ClInclude Include="Gvedit.h" />
+    <ClInclude Include="Gvefill.h" />
+    <ClInclude Include="Gvelead.h" />
+    <ClInclude Include="Gvetail.h" />
+    <ClInclude Include="Gvsum.h" />
+    <ClInclude Include="Htmlfile.h" />
+    <ClInclude Include="Htmlpicd.h" />
+    <ClInclude Include="Importty.h" />
+    <ClInclude Include="Logdlg.h" />
+    <ClInclude Include="Logodds.h" />
+    <ClInclude Include="Mainfrm.h" />
+    <ClInclude Include="Motseqdl.h" />
+    <ClInclude Include="Mycaret.h" />
+    <ClInclude Include="pdbdialo.h" />
+    <ClInclude Include="Phylbase.h" />
+    <ClInclude Include="Phylnode.h" />
+    <ClInclude Include="Phylochi.h" />
+    <ClInclude Include="Phylodlg.h" />
+    <ClInclude Include="Phylovw.h" />
+    <ClInclude Include="Phylseq.h" />
+    <ClInclude Include="Pictfile.h" />
+    <ClInclude Include="Plex.h" />
+    <ClInclude Include="Prints.h" />
+    <ClInclude Include="Proped.h" />
+    <ClInclude Include="Property.h" />
+    <ClInclude Include="Propgp.h" />
+    <ClInclude Include="Propsht.h" />
+    <ClInclude Include="Pwalign.h" />
+    <ClInclude Include="Refiltdl.h" />
+    <ClInclude Include="repdlg.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Rtffile.h" />
+    <ClInclude Include="Scorecan.h" />
+    <ClInclude Include="Scorets.h" />
+    <ClInclude Include="Searchdl.h" />
+    <ClInclude Include="Segnames.h" />
+    <ClInclude Include="Selarrse.h" />
+    <ClInclude Include="Selproje.h" />
+    <ClInclude Include="Seqdetdi.h" />
+    <ClInclude Include="seqdialo.h" />
+    <ClInclude Include="Seqinp.h" />
+    <ClInclude Include="Seqseldl.h" />
+    <ClInclude Include="Shadecp.h" />
+    <ClInclude Include="Shadeedi.h" />
+    <ClInclude Include="Shadegp.h" />
+    <ClInclude Include="Shademp.h" />
+    <ClInclude Include="Shadeps.h" />
+    <ClInclude Include="Showtabl.h" />
+    <ClInclude Include="Srchdlg.h" />
+    <ClInclude Include="Srchrepd.h" />
+    <ClInclude Include="Stc.h" />
+    <ClInclude Include="Stccmapi.h" />
+    <ClInclude Include="Stcdatad.h" />
+    <ClInclude Include="Stcgrp.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Sumcaret.h" />
+    <ClInclude Include="Sumview.h" />
+    <ClInclude Include="Sviewret.h" />
+    <ClInclude Include="Textview.h" />
+    <ClInclude Include="Titlingf.h" />
+    <ClInclude Include="Usermess.h" />
+    <ClInclude Include="Uservars.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Genedoc.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

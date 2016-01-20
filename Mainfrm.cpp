@@ -1,21 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // mainfrm.cpp : implementation of the CMainFrame class
 //
 
@@ -121,11 +103,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CMDIFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
-#ifdef _WIN32
 	if (!m_wndToolBar.Create(this, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_TOOLTIPS) ||
-#else
-	if (!m_wndToolBar.Create(this, WS_CHILD | WS_VISIBLE | CBRS_TOP) ||
-#endif
 		!m_wndToolBar.LoadBitmap(IDR_MAINFRAME) ||
 		!m_wndToolBar.SetButtons(buttons,
 		  sizeof(buttons)/sizeof(UINT)))
@@ -270,7 +248,6 @@ CMainFrame::OpenSummaryView()
 void
 GetTempFileName (CString& PathName )
 {
-#ifdef _WIN32
 		CString TempPath;
 		char *pcp = TempPath.GetBuffer(MAX_PATH);
 		::GetTempPath( MAX_PATH, pcp );
@@ -278,12 +255,6 @@ GetTempFileName (CString& PathName )
 		::GetTempFileName( pcp, "gdc", 0, pcn );
 		TempPath.ReleaseBuffer();
 		PathName.ReleaseBuffer();
-#else
-		char * pcn = PathName.GetBuffer(1024);
-		::GetTempFileName( 0, "gdc", 0, pcn );
-		PathName.ReleaseBuffer();
-
-#endif
 }
 
 void

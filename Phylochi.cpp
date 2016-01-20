@@ -52,11 +52,7 @@ int CPhyloMDIChildWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
           return -1;
 
 	// CToolBar
-#ifdef _WIN32
 	if (!m_PhyloBar.Create(this, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_TOOLTIPS) ||
-#else
-	if (!m_PhyloBar.Create(this, WS_CHILD | WS_VISIBLE | CBRS_TOP) ||
-#endif
 		!m_PhyloBar.LoadBitmap ( IDB_PHYLOBAR ) ||
 		!m_PhyloBar.SetButtons( phylobut, sizeof(phylobut)/sizeof(UINT) )
 	) {

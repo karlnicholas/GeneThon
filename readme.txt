@@ -1,6 +1,6 @@
 
     GeneDoc: Multiple Sequence Alignement Editor.
-    Copyright (C) 2000 by Karl Nicholas
+    Copyright (C) 2016 by Karl Nicholas
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,4 +21,6 @@
 1: This program was written under MSVC 1.52 (16 bit version) and MSVC 6.0 (32 bit version)
 
 The 1.52 project and makefile are in the GeneDoc directories. The 32 bit project files are in the \Gene32 directory, but compile the source in the \GeneDoc directory.
+
+2: This program was compiled with Microsoft Visual Studio 2015 Community Version, and checked into GitHub.
 

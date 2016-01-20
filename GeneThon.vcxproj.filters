@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{96a7d21a-83be-4a4b-aed6-7949bb09d17e}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90</Extensions>
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{0b2b7f3d-3c25-4756-93eb-ea17b8cc5fad}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;fi;fd</Extensions>
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{61acb4a6-60a1-4623-82f7-2d592d5b13a1}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -186,13 +186,13 @@
     <ClCompile Include="Gvetail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GVSum.cpp">
+    <ClCompile Include="Gvsum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="heapsort.cpp">
+    <ClCompile Include="Heapsort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="htmlfile.cpp">
+    <ClCompile Include="Htmlfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Htmlpicd.cpp">
@@ -201,13 +201,13 @@
     <ClCompile Include="Importty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="logdlg.cpp">
+    <ClCompile Include="Logdlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="logodds.cpp">
+    <ClCompile Include="Logodds.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="logsco.cpp">
+    <ClCompile Include="Logsco.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mainfrm.cpp">
@@ -225,13 +225,13 @@
     <ClCompile Include="Mycaret.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pairwise.cpp">
+    <ClCompile Include="Pairwise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Pdbdialo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="phylnode.cpp">
+    <ClCompile Include="Phylnode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Phylochi.cpp">
@@ -243,22 +243,22 @@
     <ClCompile Include="Phylovw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="phylseq.cpp">
+    <ClCompile Include="Phylseq.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pictfile.cpp">
+    <ClCompile Include="Pictfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Plex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="prints.cpp">
+    <ClCompile Include="Prints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Proped.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="property.cpp">
+    <ClCompile Include="Property.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Propgp.cpp">
@@ -267,19 +267,19 @@
     <ClCompile Include="Propsht.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pwalign.cpp">
+    <ClCompile Include="Pwalign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Refiltdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="repdlg.cpp">
+    <ClCompile Include="Repdlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Rescore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rtffile.cpp">
+    <ClCompile Include="Rtffile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="scofile.cpp">
@@ -291,16 +291,16 @@
     <ClCompile Include="Scorecan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scoring.cpp">
+    <ClCompile Include="Scoring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Searchdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="selarrse.cpp">
+    <ClCompile Include="Selarrse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="selproje.cpp">
+    <ClCompile Include="Selproje.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Seqdetdi.cpp">
@@ -309,16 +309,16 @@
     <ClCompile Include="Seqdialo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="seqfile.cpp">
+    <ClCompile Include="Seqfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="seqinp.cpp">
+    <ClCompile Include="Seqinp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="seqseldl.cpp">
+    <ClCompile Include="Seqseldl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="setudef.cpp">
+    <ClCompile Include="Setudef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shadeedi.cpp">
@@ -330,7 +330,7 @@
     <ClCompile Include="Showtabl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sortmat.cpp">
+    <ClCompile Include="Sortmat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Srchdlg.cpp">
@@ -348,25 +348,25 @@
     <ClCompile Include="Stcdatad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stcgrp.cpp">
+    <ClCompile Include="Stcgrp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
+    <ClCompile Include="Stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sumcaret.cpp">
+    <ClCompile Include="Sumcaret.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sumview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextView.cpp">
+    <ClCompile Include="Textview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Titlingf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="treescor.cpp">
+    <ClCompile Include="Treescor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Userdef.cpp">
@@ -374,63 +374,63 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Genedoc.rc">
+    <None Include="GENEDOC.DEF">
       <Filter>Source Files</Filter>
-    </ResourceCompile>
+    </None>
+    <None Include="hlp\genedoc.hm">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="res\Genedoc.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Motseqdl.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sumcaret.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Aligndlg.h">
+    <ClInclude Include="aligndlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="charmap.h">
+    <ClInclude Include="Charmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="chemprop.h">
+    <ClInclude Include="Chemprop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="colorbar.h">
+    <ClInclude Include="Colorbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="confiden.h">
+    <ClInclude Include="Confiden.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cscored.h">
+    <ClInclude Include="Cscored.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cstcpdlg.h">
+    <ClInclude Include="Cstcpdlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dispgnm.h">
+    <ClInclude Include="Dispgnm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="displayp.h">
+    <ClInclude Include="Displayp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dispvars.h">
+    <ClInclude Include="Dispvars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dnatrans.h">
+    <ClInclude Include="Dnatrans.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Drawstc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dstatchi.h">
+    <ClInclude Include="Dstatchi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DStatOb.h">
+    <ClInclude Include="Dstatob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DStatVw.h">
+    <ClInclude Include="Dstatvw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dwordmap.h">
+    <ClInclude Include="Dwordmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Exportdl.h">
@@ -439,97 +439,100 @@
     <ClInclude Include="Finddlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="findrepl.h">
+    <ClInclude Include="Findrepl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GelView.h">
+    <ClInclude Include="Gelview.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Genbank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="genechi.h">
+    <ClInclude Include="Genechi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="geneddoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="genedoc.h">
+    <ClInclude Include="Genedoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="genedvw.h">
+    <ClInclude Include="Genedvw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Genestor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gprowvw.h">
+    <ClInclude Include="Gprowvw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gpsumvw.h">
+    <ClInclude Include="Gpsumvw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphStp.h">
+    <ClInclude Include="Graphstp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="groupsel.h">
+    <ClInclude Include="Groupsel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="grpprop.h">
+    <ClInclude Include="Grpprop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="grppsht.h">
+    <ClInclude Include="Grppsht.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gsbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gsegment.h">
+    <ClInclude Include="Gsegment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gsfiller.h">
+    <ClInclude Include="Gsfiller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gstring.h">
+    <ClInclude Include="Gstring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gvbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gvedit.h">
+    <ClInclude Include="Gvedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gvefill.h">
+    <ClInclude Include="Gvefill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gvelead.h">
+    <ClInclude Include="Gvelead.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gvetail.h">
+    <ClInclude Include="Gvetail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GVSum.h">
+    <ClInclude Include="Gvsum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="htmlfile.h">
+    <ClInclude Include="Htmlfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="htmlpicd.h">
+    <ClInclude Include="Htmlpicd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="importty.h">
+    <ClInclude Include="Importty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="logdlg.h">
+    <ClInclude Include="Logdlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="logodds.h">
+    <ClInclude Include="Logodds.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mainfrm.h">
+    <ClInclude Include="Mainfrm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mycaret.h">
+    <ClInclude Include="Motseqdl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mycaret.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pdbdialo.h">
@@ -538,46 +541,46 @@
     <ClInclude Include="Phylbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="phylnode.h">
+    <ClInclude Include="Phylnode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="phylochi.h">
+    <ClInclude Include="Phylochi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="phylodlg.h">
+    <ClInclude Include="Phylodlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="phylovw.h">
+    <ClInclude Include="Phylovw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="phylseq.h">
+    <ClInclude Include="Phylseq.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pictfile.h">
+    <ClInclude Include="Pictfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Plex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="prints.h">
+    <ClInclude Include="Prints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="proped.h">
+    <ClInclude Include="Proped.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="property.h">
+    <ClInclude Include="Property.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="propgp.h">
+    <ClInclude Include="Propgp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="propsht.h">
+    <ClInclude Include="Propsht.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PWAlign.h">
+    <ClInclude Include="Pwalign.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="refiltdl.h">
+    <ClInclude Include="Refiltdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="repdlg.h">
@@ -586,85 +589,91 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rtffile.h">
+    <ClInclude Include="Rtffile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="scorecan.h">
+    <ClInclude Include="Scorecan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scorets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="searchdl.h">
+    <ClInclude Include="Searchdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Segnames.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="selarrse.h">
+    <ClInclude Include="Selarrse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="selproje.h">
+    <ClInclude Include="Selproje.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="seqdetdi.h">
+    <ClInclude Include="Seqdetdi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="seqdialo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="seqinp.h">
+    <ClInclude Include="Seqinp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="seqseldl.h">
+    <ClInclude Include="Seqseldl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shadeedi.h">
+    <ClInclude Include="Shadecp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shadegp.h">
+    <ClInclude Include="Shadeedi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shademp.h">
+    <ClInclude Include="Shadegp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shademp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shadeps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="showtabl.h">
+    <ClInclude Include="Showtabl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="srchdlg.h">
+    <ClInclude Include="Srchdlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="srchrepd.h">
+    <ClInclude Include="Srchrepd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stc.h">
+    <ClInclude Include="Stc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stccmapi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stcdatad.h">
+    <ClInclude Include="Stcdatad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stcgrp.h">
+    <ClInclude Include="Stcgrp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="Stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sumview.h">
+    <ClInclude Include="Sumcaret.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sumview.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sviewret.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextView.h">
+    <ClInclude Include="Textview.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="titlingf.h">
+    <ClInclude Include="Titlingf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Usermess.h">
@@ -675,46 +684,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="RES\DSTATBAR.BMP">
+    <ResourceCompile Include="Genedoc.rc">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\GENEBAR.BMP">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\GENEDDOC.ICO">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\GENEDOC.ICO">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\GENEDOCU.BMP">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\INLOVE.BMP">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\MEBITU.BMP">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\PHYLOBAR.BMP">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Res\smlogo.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\TOOLBAR.BMP">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Changes.txt" />
-    <Text Include="copyrght.txt" />
-    <Text Include="Disc.txt" />
-    <Text Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="res\genedoc.rc2">
-      <Filter>Resource Files</Filter>
-    </CustomBuild>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

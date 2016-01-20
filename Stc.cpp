@@ -152,7 +152,6 @@ int CStc::SCMIEMBLLoaded()
 }
 int CStc::LoadSCMIPSDB()
 {
-#ifdef _WIN32
 
 	CString ReadString;
 
@@ -164,10 +163,6 @@ int CStc::LoadSCMIPSDB()
 	m_SCMIPSDBLoaded = 1;
 
 	return 1;
-#else
-	m_SCMIPSDBLoaded = 0;      
-	return 0;
-#endif
 }
 int CStc::SCMIPSDBLoaded()
 {

@@ -62,12 +62,7 @@ TRY {
 	char *BuildBuff3;
 	char LeadBuff[512];
 
-#ifdef _WIN32
 	SYSTEMTIME LocTime;
-#else
-	time_t	cur;		/*	Current time	*/
-	struct tm	*cur_tm;	/*	Time struct	*/
-#endif
 
 	struct WorkStruct {
 		CGeneSegment * pCGSeg;
@@ -174,17 +169,9 @@ TRY {
 //	sprintf(BuildBuff1, "%s\n", FileName );
 //	wFile.WriteString( BuildBuff1 );
 
-#ifdef _WIN32
 	GetLocalTime ( &LocTime );
 	sprintf(BuildBuff1, "%d-%s-%d  %02d:%02d\n\n", LocTime.wDay, Statmonths[LocTime.wMonth - 1],
 		LocTime.wYear, LocTime.wHour,	LocTime.wMinute );
-#else
-	cur = time(NULL);
-	cur_tm = localtime(&cur);
-	sprintf(BuildBuff1, "%d-%s-%d  %02d:%02d\n\n", cur_tm->tm_mday, Statmonths[cur_tm->tm_mon],
-		cur_tm->tm_year + 1900, cur_tm->tm_hour,
-		cur_tm->tm_min);
-#endif
 	wFile.WriteString( BuildBuff1 );
 
 /*

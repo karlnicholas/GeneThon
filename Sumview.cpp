@@ -1,38 +1,10 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // sumview.cpp : implementation of the CSummaryView class
 //
 
 #include "stdafx.h"
 
-#ifdef WIN32
-
 #define VIEW_CLIP_LEFT 1
 #define VIEW_CLIP_RIGHT 0
-
-#else 
-
-#define VIEW_CLIP_LEFT 0
-#define VIEW_CLIP_RIGHT 0
-
-#endif
-
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -94,9 +66,7 @@ BEGIN_MESSAGE_MAP(CSummaryView, CView)
 	ON_COMMAND(IDM_DSTATSCOREALL, OnDstatscoreall)
 	ON_UPDATE_COMMAND_UI(IDM_DSTATSCOREALL, OnUpdateDstatscoreall)
 	//}}AFX_MSG_MAP
-#ifdef WIN32
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, OnFilePrint)
-#endif
 END_MESSAGE_MAP()
 
 	// Standard printing commands
@@ -2839,14 +2809,10 @@ CSummaryView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
 		}
 	}
 
-#ifdef _WIN32
-
 	if ( (sizeYSize - sizeYPos) > 32767 ) {
 		AfxMessageBox("Select too large!");
 		return;
 	}
-#endif
-
 
 	CBitmap CopyBmp;
 
@@ -3063,8 +3029,6 @@ void CSummaryView::OnUpdateGenecopypict(CCmdUI* pCmdUI)
 void CSummaryView::OnCopymetaclip() 
 {
 
-#ifdef _WIN32
-
 	if ( !OpenClipboard() ) {
 		AfxMessageBox("Cannot Open Clipboard", MB_OK | MB_ICONEXCLAMATION);
 		return;
@@ -3166,28 +3130,20 @@ void CSummaryView::OnCopymetaclip()
 
 	pDoc->EndWaitCursor(); // Let em know
 
-#endif
-
 	return;
-
 	
 }
 
 void CSummaryView::OnUpdateCopymetaclip(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
-#ifdef _WIN32	
 	pCmdUI->Enable(m_CopyFlag);
-#else
-	pCmdUI->Enable(FALSE);
-#endif
 
 }
 
 void CSummaryView::OnCopymetafile() 
 {
 
-#ifdef _WIN32
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "Meta Files (*.emf)|*.emf|All Files (*.*)|*.*||";
 
@@ -3278,18 +3234,12 @@ void CSummaryView::OnCopymetafile()
 
 	pDoc->EndWaitCursor(); // Let em know
 
-#endif
-
 }
 
 void CSummaryView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
-#ifdef _WIN32	
 	pCmdUI->Enable(m_CopyFlag);
-#else
-	pCmdUI->Enable(FALSE);
-#endif
 	
 }
 

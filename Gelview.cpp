@@ -1,21 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // CGelView.cpp : implementation of the CGelView class
 //
 
@@ -803,80 +785,6 @@ CFont* CGelView::SelectDocFont(CDC* pDC, CFont& font, int Escapement )
 	return pDC->SelectObject(&font);
 }
 
-
-#ifndef _WIN32
-
-void CGelView::OnEditCopy() 
-{
-
-	if ( !OpenClipboard() ) {
-		AfxMessageBox("Cannot Open Clipboard", MB_OK | MB_ICONEXCLAMATION);
-		return;
-	}
-	
-	
-	if ( !EmptyClipboard() ) {
-		AfxMessageBox("Cannot Empty Clipboard", MB_OK | MB_ICONEXCLAMATION);
-		return;
-	}
-
-	CGenedocDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-
-	CMetaFileDC dcMeta;
-
-	dcMeta.Create();
-
-	CDC* pDC = GetDC();
-
-
-	double ypi = pDC->GetDeviceCaps(LOGPIXELSY);
-	double xpi = pDC->GetDeviceCaps(LOGPIXELSX);
-
-	int x = (int)((double)GetGelSize().cx/100.0 * xpi);
-	int y = (int)((double)GetGelSize().cy/100.0 * ypi);
-
-	CSize tSize(x,y);
-	pDC->DPtoHIMETRIC(&tSize);
-
-	dcMeta.SetAttribDC( pDC->m_hAttribDC );
-
-	OnPrepareDC( &dcMeta );
-
-	DrawGel( &dcMeta, CRect( 0, 0, tSize.cx, tSize.cy ) );
-
-	HGLOBAL hMF = GlobalAlloc( GMEM_DDESHARE | GMEM_ZEROINIT | GMEM_MOVEABLE , sizeof(METAFILEPICT) );
-
-	METAFILEPICT *pMFP = (METAFILEPICT *)GlobalLock( hMF );
-
-	pMFP->mm = MM_ANISOTROPIC;
-	pMFP->xExt = tSize.cx;
-	pMFP->yExt = tSize.cy;
-
-	HMETAFILE hMeta = dcMeta.Close();
-
-	pMFP->hMF = hMeta;
-
-	GlobalUnlock( hMF );
-
-	if ( SetClipboardData(CF_METAFILEPICT, hMF) == NULL ) {
-		AfxMessageBox( "Select Failed in SetClipBoardData", MB_OK | MB_ICONEXCLAMATION );
-	}
-
-// CBitmap
-//
-	if ( !CloseClipboard() ) {
-		AfxMessageBox( "CloseClipboard Failed", MB_OK | MB_ICONEXCLAMATION );
-	}
-
-	ReleaseDC( pDC );	// Moved this down here, needs testing.
-
-	return;
-
-}
-
-#else 
-
 void CGelView::OnEditCopy() 
 {
 
@@ -934,5 +842,3 @@ void CGelView::OnEditCopy()
 	return;
 
 }
-
-#endif

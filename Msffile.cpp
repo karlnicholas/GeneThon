@@ -1,22 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
 // This read .msf gene sequence files.
 
 // First accept free comments and find group names, sizes and
@@ -51,35 +32,16 @@ TRY {
 	int AllSumsOk = 1;
 	CString *cStr;
 
-
-#if !defined(_WIN32) || _MSC_VER < 999
-	char rbuff[1024];
-#endif	
 	char rbuff[1024];
 	CString tString;
 
-#ifdef _WIN32
 	CStdioFile rFile( FileName, CFile::modeRead | CFile::typeText | CFile::shareDenyNone );
-#else
-	CStdioFile rFile( FileName, CFile::modeRead | CFile::typeText );
-#endif
 
 	// First loop looks for comments
 	while (1) {
 		// clear out temp string.
 		tString.Empty();
 
-#if !defined(_WIN32) || _MSC_VER < 999
-		if ( rFile.ReadString( rbuff, sizeof(rbuff) ) == NULL ) {
-			// EOF too early
-			AfxMessageBox("Unexpected End Of File" );
-			// fclose( File );
-			rFile.Abort();
-			return 0;
-		}
-		// CString
-		tString = CString(rbuff).SpanExcluding("\n\r");
-#else
 		if ( !rFile.ReadString( tString ) ) {
 			// EOF too early
 			AfxMessageBox("Unexpected End Of File" );
@@ -87,7 +49,6 @@ TRY {
 			rFile.Abort();
 			return 0;
 		}
-#endif
 
 		// Must be a comment
 		CommentList->AddTail( new CString ( tString ) );
@@ -102,16 +63,6 @@ TRY {
 	while (1) {
 		// clear out temp string.
 		tString.Empty();
-#if !defined(_WIN32) || _MSC_VER < 999
-		if ( rFile.ReadString( rbuff, sizeof(rbuff)) == NULL ) {
-			// EOF too early
-			AfxMessageBox("Unexpected End Of File" );
-			// fclose( File );
-			rFile.Abort();
-			return 0;
-		}
-		tString = CString(rbuff).SpanExcluding("\n\r");
-#else
 		if ( !rFile.ReadString( tString ) ) {
 			// EOF too early
 			AfxMessageBox("Unexpected End Of File" );
@@ -119,7 +70,7 @@ TRY {
 			rFile.Abort();
 			return 0;
 		}
-#endif
+
 		// Check if we are done with sequence names
 		if ( tString.Find( "//" ) != -1 ) {
 			break;		// Found the Start Data Flag
@@ -269,20 +220,11 @@ TRY {
 	do {
 		// clear out temp string.
 		tString.Empty();
-#if !defined(_WIN32) || _MSC_VER < 999
-		if ( rFile.ReadString( rbuff, sizeof(rbuff) ) == NULL) {
-			// Done .. break out
-			EOFFLAG = 1;
-		}
-		tString = CString(rbuff).SpanExcluding("\n\r");
-#else
 		BOOL MYVAR = rFile.ReadString( tString );
 		if ( ! MYVAR ) {
 			// Done .. break out
 			EOFFLAG = 1;
 		}
-
-#endif
 
 		linecount++;
 
@@ -673,12 +615,7 @@ TRY {
 
 			DWORD	longest = 0;	/*	Longest alignment	*/
 			char	date[30];	/*	Holds the current date & time	*/
-#ifdef _WIN32
 			SYSTEMTIME LocTime;
-#else
-			time_t	cur;		/*	Current time	*/
-			struct tm	*cur_tm;	/*	Time struct	*/
-#endif
 			long NewSum = 0;
 
 			for ( i = 0; i < Count; ++i ) {
@@ -689,17 +626,10 @@ TRY {
 
 			date[0] = '\0';
 
-#ifdef _WIN32
 			GetLocalTime ( &LocTime );
 			sprintf(date, "%s %d, %d  %02d:%02d", MSFFILEmonths[LocTime.wMonth - 1],
 				LocTime.wDay, LocTime.wYear, LocTime.wHour,	LocTime.wMinute );
-#else
-			cur = time(NULL);
-			cur_tm = localtime(&cur);
-			sprintf(date, "%s %d, %d  %02d:%02d", MSFFILEmonths[cur_tm->tm_mon],
-				cur_tm->tm_mday, cur_tm->tm_year + 1900, cur_tm->tm_hour,
-				cur_tm->tm_min);
-#endif
+
 			char *pFile = (char *)FileName + strlen (FileName );
 			while ( (--pFile) != FileName ) {
 				if (*pFile == '\\' ) break;

@@ -1,38 +1,10 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // genedvw.cpp : implementation of the CGenedocView class
 //
 
 #include "stdafx.h"
 
-#ifdef WIN32
-
 #define VIEW_CLIP_LEFT 1
 #define VIEW_CLIP_RIGHT 0
-
-#else 
-
-#define VIEW_CLIP_LEFT 0
-#define VIEW_CLIP_RIGHT 0
-
-#endif
-
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -147,9 +119,7 @@ BEGIN_MESSAGE_MAP(CGenedocView, CView)
 	ON_COMMAND(IDM_DNACOLFRWREP, OnDnacolfrwrep)
 	ON_UPDATE_COMMAND_UI(IDM_DNACOLFRWREP, OnUpdateDnacolfrwrep)
 	//}}AFX_MSG_MAP
-#ifdef WIN32
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, OnFilePrint)
-#endif
 END_MESSAGE_MAP()
 
 	// Standard printing commands
@@ -1486,24 +1456,11 @@ void CGenedocView::OnPrint( CDC *pDC, CPrintInfo *pInfo )
 				sprintf ( bExtra0, "%s", pDoc->ConvertPathname( ".msf" ) );
 			}
 			if ( pDoc->m_UserVars.m_PrintDate ) {
-#ifdef _WIN32
 				SYSTEMTIME LocTime;
-#else
-				time_t	cur;		/*	Current time	*/
-				struct tm	*cur_tm;	/*	Time struct	*/
-#endif
 
-#ifdef _WIN32
 				GetLocalTime ( &LocTime );
 				sprintf(bExtra1, "%s %d, %d  %02d:%02d", MSFFILEmonths[LocTime.wMonth - 1],
 					LocTime.wDay, LocTime.wYear, LocTime.wHour,	LocTime.wMinute );
-#else
-				cur = time(NULL);
-				cur_tm = localtime(&cur);
-				sprintf(bExtra1, "%s %d, %d  %02d:%02d", MSFFILEmonths[cur_tm->tm_mon],
-					cur_tm->tm_mday, cur_tm->tm_year + 1900, cur_tm->tm_hour,
-					cur_tm->tm_min);
-#endif
 			}
 
 			sprintf(Buff, "%d %s %s", pInfo->m_nCurPage + pDoc->m_UserVars.m_PrintPageOffset, bExtra0, bExtra1 );
@@ -1676,24 +1633,10 @@ void CGenedocView::OnPrint( CDC *pDC, CPrintInfo *pInfo )
 				sprintf ( bExtra0, "%s", pDoc->ConvertPathname( ".msf" ) );
 			}
 			if ( pDoc->m_UserVars.m_PrintDate ) {
-#ifdef _WIN32
 				SYSTEMTIME LocTime;
-#else
-				time_t	cur;		/*	Current time	*/
-				struct tm	*cur_tm;	/*	Time struct	*/
-#endif
-
-#ifdef _WIN32
 				GetLocalTime ( &LocTime );
 				sprintf(bExtra1, "%s %d, %d  %02d:%02d", MSFFILEmonths[LocTime.wMonth - 1],
 					LocTime.wDay, LocTime.wYear, LocTime.wHour,	LocTime.wMinute );
-#else
-				cur = time(NULL);
-				cur_tm = localtime(&cur);
-				sprintf(bExtra1, "%s %d, %d  %02d:%02d", MSFFILEmonths[cur_tm->tm_mon],
-					cur_tm->tm_mday, cur_tm->tm_year + 1900, cur_tm->tm_hour,
-					cur_tm->tm_min);
-#endif
 			}
 
 			sprintf(Buff, "%d %s %s", pInfo->m_nCurPage + pDoc->m_UserVars.m_PrintPageOffset, bExtra0, bExtra1 );
@@ -4218,14 +4161,10 @@ CGenedocView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
 		}
 	}
 
-#ifdef _WIN32
-
 	if ( (sizeYSize - sizeYPos) > 32767 ) {
 		AfxMessageBox("Select too large!");
 		return;
 	}
-#endif
-
 
 	CBitmap CopyBmp;
 
@@ -4609,8 +4548,6 @@ void CGenedocView::OnUpdateGenecopyhtml(CCmdUI* pCmdUI)
 void CGenedocView::OnCopymetaclip() 
 {
 
-#ifdef _WIN32
-
 	if ( !OpenClipboard() ) {
 		AfxMessageBox("Cannot Open Clipboard", MB_OK | MB_ICONEXCLAMATION);
 		return;
@@ -4722,8 +4659,6 @@ void CGenedocView::OnCopymetaclip()
 
 	pDoc->EndWaitCursor(); // Let em know
 
-#endif
-
 	return;
 
 	
@@ -4733,18 +4668,13 @@ void CGenedocView::OnCopymetaclip()
 void CGenedocView::OnUpdateCopymetaclip(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
-#ifdef _WIN32	
 	pCmdUI->Enable(m_CopyFlag);
-#else
-	pCmdUI->Enable(FALSE);
-#endif
 
 }
 
 void CGenedocView::OnCopymetafile() 
 {
 
-#ifdef _WIN32
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "Meta Files (*.emf)|*.emf|All Files (*.*)|*.*||";
 
@@ -4835,18 +4765,13 @@ void CGenedocView::OnCopymetafile()
 
 	pDoc->EndWaitCursor(); // Let em know
 
-#endif
 
 }
 
 void CGenedocView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
-#ifdef _WIN32	
 	pCmdUI->Enable(m_CopyFlag);
-#else
-	pCmdUI->Enable(FALSE);
-#endif
 	
 }
 

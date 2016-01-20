@@ -1,21 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // TextView.cpp : implementation file
 //
 
@@ -54,9 +36,7 @@ BEGIN_MESSAGE_MAP(CTextView, VIEWBASE)
 	ON_COMMAND(IDM_REPSAVEFILE, OnRepsavefile)
 	//}}AFX_MSG_MAP
 	ON_COMMAND(ID_FILE_PRINT, VIEWBASE::OnFilePrint)
-#ifdef WIN32
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, VIEWBASE::OnFilePrint)
-#endif
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, VIEWBASE::OnFilePrintPreview)
 END_MESSAGE_MAP()
 
@@ -69,9 +49,7 @@ void CTextView::OnInitialUpdate()
 	VIEWBASE::OnInitialUpdate();
 
 	// Set the printing margins (720 twips = 1/2 inch).
-#ifdef WIN32
 	SetMargins(CRect(720, 720, 720, 720));
-#endif
 	
 }
 
@@ -97,8 +75,6 @@ CDocument *CTextView::GetDocument()
 
 /////////////////////////////////////////////////////////////////////////////
 // CTextView message handlers
-
-#ifdef WIN32
 
 CFile *txtFile;
 
@@ -133,32 +109,9 @@ void CTextView::LoadFile(CString& PathName)
 
 }
 
-#else
-
-void CTextView::LoadFile(CString& PathName)
-{
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
-	ASSERT_VALID(pDoc);
-
-	CFile txtFile;
-
-	txtFile.Open(PathName, CFile::modeRead );
-
-	CArchive archive(&txtFile, CArchive::load);
-
-	SerializeRaw( archive );
-
-//	txtFile.Close();
-
-}
-
-#endif
-
 int CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct) 
 {                               
-#ifdef WIN32
 	m_nWordWrap = VIEWBASE::WrapNone;
-#endif
 
 	if (VIEWBASE::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -169,11 +122,7 @@ int CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		FIXED_PITCH,"Courier New"));
 	SetFont(m_pFont);
 
-#ifdef WIN32
 	GetRichEditCtrl().SetOptions( ECOOP_OR, ECO_READONLY );
-#else
-	GetEditCtrl().SetReadOnly();
-#endif
   
 	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
@@ -197,8 +146,6 @@ void CTextView::OnRepsavefile()
 
 	
 }
-#ifdef WIN32
-
 
 DWORD CALLBACK TextWrite(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
 {
@@ -230,23 +177,3 @@ void CTextView::SaveFile(CString& PathName)
 	delete txtFile;
 
 }
-
-#else
-
-void CTextView::SaveFile(CString& PathName)
-{
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
-	ASSERT_VALID(pDoc);
-
-	CFile txtFile;
-
-	txtFile.Open( PathName, CFile::modeCreate | CFile::modeWrite );
-
-	CArchive archive(&txtFile, CArchive::store);
-
-	SerializeRaw( archive );
-
-	txtFile.Close();
-}
-
-#endif

@@ -1,39 +1,3 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 // geneddoc.cpp : implementation of the CGenedocDoc class
 //
 
@@ -1336,7 +1300,6 @@ void CGenedocDoc::DoConfigure(int ActivePage, int ReDraw )
 	CModalDisplayPropSheet tDlg;
 	// Get Base Display Vars
 
-#if defined(_WIN32) && _MSC_VER > 999
 	switch ( ActivePage ) {
 	case ACTPAGEHIGHLIGHTING:
 		tDlg.m_SetActivePage = &tDlg.m_ShadeModePage;
@@ -1363,34 +1326,6 @@ void CGenedocDoc::DoConfigure(int ActivePage, int ReDraw )
 		tDlg.m_SetActivePage = &tDlg.m_LogOddsPropPage;
 		break;
 	}
-#else
-	switch ( ActivePage ) {
-	case ACTPAGEHIGHLIGHTING:
-		tDlg.m_SetActivePage = 2;
-		break;
-	case ACTPAGEREPORTS:
-		tDlg.m_SetActivePage = 3;
-		break;
-	case ACTPAGEPROPERTY:
-		tDlg.m_SetActivePage = 4;
-		break;
-	case ACTPAGESEARCH:
-		tDlg.m_SetActivePage = 5;
-		break;
-	case ACTPAGESTRUCTURE:
-		tDlg.m_SetActivePage = 6;
-		break;
-	case ACTPAGEPHYSIOCHEM:
-		tDlg.m_SetActivePage = 7;
-		break;
-	case ACTPAGEIDENTITY:
-		tDlg.m_SetActivePage = 8;
-		break;
-	case ACTPAGELOGODDS:
-		tDlg.m_SetActivePage = 9;
-		break;
-	}        
-#endif
 
 	// Display Page	
 	tDlg.m_DisplayPage.pDoc = this;
@@ -1887,7 +1822,6 @@ CGenedocDoc::DoGroupConfigure(int ActivePage, int ReDraw )
 
 	if ( tDlg.m_NumGroups = m_UserVars.m_DisplayVars.GetCount() ) {
 
-#if defined(_WIN32) && _MSC_VER > 999
 		switch ( ActivePage ) {
 		case ACTPAGEHIGHLIGHTING:
 			tDlg.m_SetActivePage = &tDlg.m_ShadeModePage;
@@ -1906,26 +1840,6 @@ CGenedocDoc::DoGroupConfigure(int ActivePage, int ReDraw )
 			tDlg.m_GroupPropPage.m_ModifyAll = TRUE;
 			break;
 		}
-#else
-		switch ( ActivePage ) {
-		case ACTPAGEHIGHLIGHTING:
-			tDlg.m_SetActivePage = 1;
-			tDlg.m_GroupPropPage.m_ModifyAll = TRUE;
-			break;
-		case ACTPAGEPROPERTY:
-			tDlg.m_SetActivePage = 2;
-			tDlg.m_GroupPropPage.m_ModifyAll = TRUE;
-			break;
-		case ACTPAGESTRUCTURE:
-			tDlg.m_SetActivePage = 3;
-			tDlg.m_GroupPropPage.m_ModifyAll = TRUE;
-			break;
-		case ACTPAGEIDENTITY:
-			tDlg.m_SetActivePage = 4;
-			tDlg.m_GroupPropPage.m_ModifyAll = TRUE;
-			break;
-		}
-#endif
 
 		CDisplayVars * DisplayVars = (CDisplayVars *)m_UserVars.m_DisplayVars.GetHead();
 			
