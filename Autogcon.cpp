@@ -3,7 +3,7 @@
 
 
 void 
-CGenedocDoc::AutoShadeGroupConserve(
+CGenethonDoc::AutoShadeGroupConserve(
 	ShadeSegStc* pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -101,7 +101,7 @@ CGenedocDoc::AutoShadeGroupConserve(
 
 
 void 
-CGenedocDoc::AutoGroupConsCross(
+CGenethonDoc::AutoGroupConsCross(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 

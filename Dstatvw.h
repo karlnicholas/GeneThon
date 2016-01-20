@@ -29,7 +29,7 @@ protected: // create from serialization only
 // Attributes
 public:
 	void ResyncScrollSizes();
-	CGenedocDoc* GetDocument();
+	CGenethonDoc* GetDocument();
 
 // Operations
 public:
@@ -73,8 +73,8 @@ protected:
 };
 
 #ifndef _DEBUG  // debug version in DStatView.cpp
-inline CGenedocDoc* CDStatView::GetDocument()
-   { return (CGenedocDoc*)m_pDocument; }
+inline CGenethonDoc* CDStatView::GetDocument()
+   { return (CGenethonDoc*)m_pDocument; }
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

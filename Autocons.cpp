@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 void 
-CGenedocDoc::AutoShadeConserve(
+CGenethonDoc::AutoShadeConserve(
 	ShadeSegStc* pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -211,7 +211,7 @@ CGenedocDoc::AutoShadeConserve(
 }
 
 void 
-CGenedocDoc::GetDNAAmbiguous( 
+CGenethonDoc::GetDNAAmbiguous( 
 	ShadePairStruct *pSPS, 
 	ShadeSegStc *pSegArr, 
 	int RowCount, 

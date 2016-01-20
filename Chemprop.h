@@ -1,5 +1,5 @@
 /*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
+    GeneThon: Multiple Sequence Alignment Editing Utility
     Copyright (C) 2000, Karl Nicholas
 
     This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@ class CChemPropProperty : public CPropertyPage
 // Construction
 public:
 	CChemPropProperty(CWnd* pParent = NULL);	// standard constructor
-//	CGenedocDoc *pDoc;
+//	CGenethonDoc *pDoc;
 	int ChemPropEnabled[12];
 	stcChemProp ChemGroup[12];
 	stcChemProp ChemGroupRed[12];

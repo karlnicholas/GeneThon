@@ -1,7 +1,7 @@
 
 #include "stdafx.h"
 
-BOOL CGenedocDoc::SetStructureAlignment(CDisplayVars *DisplayVars)
+BOOL CGenethonDoc::SetStructureAlignment(CDisplayVars *DisplayVars)
 {
 
 	int RowCount;
@@ -199,7 +199,7 @@ ErrorOut:
 }
 
 void 
-CGenedocDoc::AutoShadeStructure(
+CGenethonDoc::AutoShadeStructure(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 

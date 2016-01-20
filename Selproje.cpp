@@ -45,11 +45,11 @@ BOOL CSelProject::OnInitDialog()
 	// TODO: Add extra initialization here
 	CString DocName;
 	// CWinApp
-	CMultiDocTemplate* pMDTmpl = ((CGenedocApp *)AfxGetApp())->m_pGenedocTemplate;
+	CMultiDocTemplate* pMDTmpl = ((CGenethonApp *)AfxGetApp())->m_pGenethonTemplate;
 
 	POSITION dPos = pMDTmpl->GetFirstDocPosition( );
 	while ( dPos != NULL ) {
-		poDoc = (CGenedocDoc*)pMDTmpl->GetNextDoc(dPos);
+		poDoc = (CGenethonDoc*)pMDTmpl->GetNextDoc(dPos);
 		if ( poDoc == pDoc ) continue;
 		DocName = poDoc->GetTitle();
 		int aloc = m_listProj.AddString( DocName );
@@ -68,7 +68,7 @@ void CSelProject::OnSelchangeProjlist()
 	// TODO: Add your control notification handler code here
 	int aloc = m_listProj.GetCurSel();
 	if ( aloc == LB_ERR ) return;
-	poDoc = (CGenedocDoc *)m_listProj.GetItemDataPtr(aloc);
+	poDoc = (CGenethonDoc *)m_listProj.GetItemDataPtr(aloc);
 	
 }
 

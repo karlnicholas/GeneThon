@@ -109,8 +109,8 @@ CPhyloSeq::CallFromSeq( CView* pView )
 void
 CPhyloSeq::CallDocFromSeq( CDocument* pDoc )
 {
-	ASSERT( pDoc->IsKindOf( RUNTIME_CLASS(CGenedocDoc)));
-	CGenedocDoc* pGDoc = (CGenedocDoc*)pDoc;
+	ASSERT( pDoc->IsKindOf( RUNTIME_CLASS(CGenethonDoc)));
+	CGenethonDoc* pGDoc = (CGenethonDoc*)pDoc;
 	pGDoc->CallDocFromSeq(this);
 }
 

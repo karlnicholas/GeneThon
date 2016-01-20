@@ -17,13 +17,13 @@ BOOL UseGSFiller;
 extern stcEncodeVars EncodeBaseVars[];
 extern stcEncodeVars EncodeDisplayVars[];
 
-CGenedocDoc *gpDoc;
+CGenethonDoc *gpDoc;
 
 int EncodeVars ( CString& strCode, stcEncodeVars * CodeVars );
 int DecodeVars ( CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 
 void 
-CGenedocDoc::GetNewUserDefaults( )
+CGenethonDoc::GetNewUserDefaults( )
 {
 
 	CString strDef;
@@ -206,7 +206,7 @@ CGenedocDoc::GetNewUserDefaults( )
 #define WBUG(ostr)
 
 void 
-CGenedocDoc::SetUserDefaults( )
+CGenethonDoc::SetUserDefaults( )
 {
 
 //wFile.Open( "debug.txt", CFile::modeWrite | CFile::typeText | CFile::modeCreate );

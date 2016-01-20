@@ -1,22 +1,4 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-// genedvw.h : interface of the CGenedocView class
+// genedvw.h : interface of the CGenethonView class
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -36,11 +18,11 @@ public:
 //	void RightUp( UINT XPosition, DWORD YPosition, CView *pView );
 };
 
-class CGenedocView : public CView
+class CGenethonView : public CView
 {
 protected: // create from serialization only
-	CGenedocView();
-	DECLARE_DYNCREATE(CGenedocView)
+	CGenethonView();
+	DECLARE_DYNCREATE(CGenethonView)
 	
 	friend CGDocViewCaret;
 	CGDocViewCaret m_MyCaret;
@@ -200,7 +182,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	CGenedocDoc* GetDocument();
+	CGenethonDoc* GetDocument();
 
 	CObList m_RowViewList;
 	void CleanRowViewList();
@@ -233,7 +215,7 @@ public:
 
 // Implementation
 public:
-	virtual ~CGenedocView();
+	virtual ~CGenethonView();
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -255,7 +237,7 @@ protected:
 
 // Generated message map functions
 protected:
-	//{{AFX_MSG(CGenedocView)
+	//{{AFX_MSG(CGenethonView)
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
@@ -362,8 +344,8 @@ protected:
 };
 
 #ifndef _DEBUG  // debug version in genedvw.cpp
-inline CGenedocDoc* CGenedocView::GetDocument()
-   { return (CGenedocDoc*)m_pDocument; }
+inline CGenethonDoc* CGenethonView::GetDocument()
+   { return (CGenethonDoc*)m_pDocument; }
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

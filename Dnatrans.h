@@ -1,5 +1,5 @@
 /*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
+    GeneThon: Multiple Sequence Alignment Editing Utility
     Copyright (C) 2000, Karl Nicholas
 
     This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@ class CDNATrans : public CDialog
 // Construction
 public:
 	CDNATrans(CWnd* pParent = NULL);	// standard constructor
-	CGenedocDoc* pDoc;
+	CGenethonDoc* pDoc;
 
 	CFont m_Font;
 

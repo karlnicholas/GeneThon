@@ -110,7 +110,7 @@ CDisplayVars::CopyDisplayVars( DisplayVars *pDV, CDisplayVars *nDisplayVars, CDo
 
 	CPtrList *listGN = nDisplayVars->GetGroupList();
 
-	CGenedocDoc *pDoc = (CGenedocDoc *)pDC;
+	CGenethonDoc *pDoc = (CGenethonDoc *)pDC;
 
 	POSITION tPos = listGN->GetHeadPosition();
 
@@ -199,7 +199,7 @@ CDisplayVars::SetDisplayVars( DisplayVars *pDV, CDocument *pDC )
 
 	CPtrList& listGN = pDV->m_GroupList;
 
-	CGenedocDoc *pDoc = (CGenedocDoc *)pDC;
+	CGenethonDoc *pDoc = (CGenethonDoc *)pDC;
 
 	POSITION tPos = listGN.GetHeadPosition();
 

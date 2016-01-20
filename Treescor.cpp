@@ -8,7 +8,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 
 void
-CGenedocDoc::CallSetObj(CObject *p)
+CGenethonDoc::CallSetObj(CObject *p)
 {
 	ASSERT( p->IsKindOf( RUNTIME_CLASS(CPhyloNode) ) );
 	CPhyloNode *pPN = (CPhyloNode *)p;
@@ -18,7 +18,7 @@ CGenedocDoc::CallSetObj(CObject *p)
 
 
 BOOL 
-CGenedocDoc::DocPeekMessage(HWND hCanDlg)
+CGenethonDoc::DocPeekMessage(HWND hCanDlg)
 {
 	MSG msg;
 
@@ -39,7 +39,7 @@ CGenedocDoc::DocPeekMessage(HWND hCanDlg)
 }
 
 int 
-CGenedocDoc::TreeScore( DWORD *nStartRange, DWORD *nEndRange, 
+CGenethonDoc::TreeScore( DWORD *nStartRange, DWORD *nEndRange, 
 unsigned long *Score, int RowCount, ShadeSegStc *pSegArr, CString& PathName )
 {
 
@@ -559,7 +559,7 @@ AbortExit:
 
 
 int
-CGenedocDoc::TreeTestGood( TreeScoreWork *TSArray, int TSWLength )
+CGenethonDoc::TreeTestGood( TreeScoreWork *TSArray, int TSWLength )
 {	
 	int TreeGood = 1;
 	
@@ -593,7 +593,7 @@ CGenedocDoc::TreeTestGood( TreeScoreWork *TSArray, int TSWLength )
 
 
 void 
-CGenedocDoc::CallDrawDebug(CObject *p)
+CGenethonDoc::CallDrawDebug(CObject *p)
 {
 	CString ResultString;
 	
@@ -655,7 +655,7 @@ CGenedocDoc::CallDrawDebug(CObject *p)
 }
 
 void
-CGenedocDoc::DrawDebugNodeBox(CString &ResString, int StartX, CPhyloGenBase *pPGB ) 
+CGenethonDoc::DrawDebugNodeBox(CString &ResString, int StartX, CPhyloGenBase *pPGB ) 
 {
 	CPhyloNode *pPN = (CPhyloNode *)pPGB;
 	char Buff[7];
@@ -715,7 +715,7 @@ CGenedocDoc::DrawDebugNodeBox(CString &ResString, int StartX, CPhyloGenBase *pPG
 }
 
 void
-CGenedocDoc::DoDrawDebugCmd ( CString& ResString, int DrawCmd, int Depth2, CPhyloGenBase* pPGB )
+CGenethonDoc::DoDrawDebugCmd ( CString& ResString, int DrawCmd, int Depth2, CPhyloGenBase* pPGB )
 {
 	char NameBuff[20];
 	int i, length;
@@ -864,7 +864,7 @@ CGenedocDoc::DoDrawDebugCmd ( CString& ResString, int DrawCmd, int Depth2, CPhyl
 }
 
 void 
-CGenedocDoc::OnDrawDebugTree()
+CGenethonDoc::OnDrawDebugTree()
 {
 
 	m_CallSwitch = CALLDRAWDEBUG;

@@ -90,7 +90,7 @@ CGVEditTail::OnDraw( DrawStruct *DrawStc )
 	
 	tOut[1] = 0;
 
-	CGenedocDoc *pDoc = ((CGenedocView *)DrawStc->pView)->GetDocument();
+	CGenethonDoc *pDoc = ((CGenethonView *)DrawStc->pView)->GetDocument();
 
 
 	if ( DrawStc->pDC->IsPrinting() ) {
@@ -232,19 +232,19 @@ CGVEditTail::UpdateGeneRange(CGVEdit *tEdit, int eval, CView *pWnd)
 
 	char pszTail[32];
 	memset ( pszTail, ' ', 32 );
-	pszTail[((CGenedocView*)pWnd)->m_IndLength] = 0;
+	pszTail[((CGenethonView*)pWnd)->m_IndLength] = 0;
 
 	if ( !StorSize ) {
 		// _snprintf( tBuff, m_GVETailLength, "  :%5s", "-" );
-		pszTail[((CGenedocView*)pWnd)->m_IndLength - 1] = '-';
+		pszTail[((CGenethonView*)pWnd)->m_IndLength - 1] = '-';
 	} else {
 		// _snprintf( tBuff, m_GVETailLength, "  :%5ld", pStor->GeneSeqNumber );
 		char pszConv[32];
 		_ltoa( pStor->GeneSeqNumber, pszConv, 10 );
-		strcpy( &pszTail[((CGenedocView*)pWnd)->m_IndLength - strlen(pszConv)], pszConv );
+		strcpy( &pszTail[((CGenethonView*)pWnd)->m_IndLength - strlen(pszConv)], pszConv );
 	}
 
-	strcpy ( tBuff, ((CGenedocView*)pWnd)->GetDocument()->m_UserVars.m_strTail );
+	strcpy ( tBuff, ((CGenethonView*)pWnd)->GetDocument()->m_UserVars.m_strTail );
 	strcat ( tBuff, pszTail );
 
 	*tStr = tBuff;
@@ -252,11 +252,11 @@ CGVEditTail::UpdateGeneRange(CGVEdit *tEdit, int eval, CView *pWnd)
 
 	if ( redrawflag ) {
 
-		UINT XSize = m_CharWidth * (((CGenedocView*)pWnd)->m_GVETailLength - 3);
+		UINT XSize = m_CharWidth * (((CGenethonView*)pWnd)->m_GVETailLength - 3);
 		DWORD YSize = m_LineHeight;
 		
-		if ( ((CGenedocView*)pWnd)->IsVisible( sXLoc, sYLoc, XSize, YSize ) ) {
-			((CGenedocView*)pWnd)->InvalidateRectLP( sXLoc, sYLoc, XSize, YSize );
+		if ( ((CGenethonView*)pWnd)->IsVisible( sXLoc, sYLoc, XSize, YSize ) ) {
+			((CGenethonView*)pWnd)->InvalidateRectLP( sXLoc, sYLoc, XSize, YSize );
 		}
 	}
 }
@@ -291,7 +291,7 @@ CGVEditTail::CountCopyText(DWORD *dwCount)
 
 
 void 
-CGVEditTail::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditTail::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	POSITION tPos = ViewDataList.GetHeadPosition();
@@ -315,7 +315,7 @@ CGVEditTail::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenedocDoc *pDoc )
 
 
 void 
-CGVEditTail::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditTail::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	POSITION tPos = ViewDataList.GetHeadPosition();
@@ -339,7 +339,7 @@ CGVEditTail::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc *pDoc )
 
 
 void 
-CGVEditTail::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditTail::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	POSITION tPos = ViewDataList.GetHeadPosition();

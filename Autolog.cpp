@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 int 
-CGenedocDoc::LogOddsReport(CString& PathName)
+CGenethonDoc::LogOddsReport(CString& PathName)
 {
 
 	char outbuf[256];
@@ -175,7 +175,7 @@ END_CATCH
 }
 
 int 
-CGenedocDoc::ScanMemeMotifs(const CString& PathName, CPtrList *listLogOdds)
+CGenethonDoc::ScanMemeMotifs(const CString& PathName, CPtrList *listLogOdds)
 {
 
 	GeneStor ** pGSArr = NULL;
@@ -357,7 +357,7 @@ END_CATCH
 
 
 void 
-CGenedocDoc::ClearLogOdds(UserVars *dUV)
+CGenethonDoc::ClearLogOdds(UserVars *dUV)
 {
 	while ( !dUV->m_listLogOdds.IsEmpty() ) {
 		stcLogOdds *ps = (stcLogOdds *)dUV->m_listLogOdds.RemoveHead();
@@ -369,7 +369,7 @@ CGenedocDoc::ClearLogOdds(UserVars *dUV)
 
 
 void 
-CGenedocDoc::AutoShadeLogOdds(
+CGenethonDoc::AutoShadeLogOdds(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -441,7 +441,7 @@ CGenedocDoc::AutoShadeLogOdds(
 
 
 void 
-CGenedocDoc::LogOddsShadeBetter( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
+CGenethonDoc::LogOddsShadeBetter( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
 {
 	typedef struct {
 		double Score;
@@ -549,7 +549,7 @@ CGenedocDoc::LogOddsShadeBetter( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWOR
 
 
 void 
-CGenedocDoc::LogOddsShadeThree( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
+CGenethonDoc::LogOddsShadeThree( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
 {
 	// end for ..
 	int sLen = pLogOdds->iLogOddsCount;
@@ -647,7 +647,7 @@ CGenedocDoc::LogOddsShadeThree( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD
 }
 
 void 
-CGenedocDoc::LogOddsShadeBestN( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
+CGenethonDoc::LogOddsShadeBestN( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
 {
 	typedef struct {
 		double Score;
@@ -771,7 +771,7 @@ CGenedocDoc::LogOddsShadeBestN( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD
 
 
 void 
-CGenedocDoc::LogOddsShade( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
+CGenethonDoc::LogOddsShade( stcLogOdds *pLogOdds, GeneStor *pGeneStor, DWORD OuterCount )
 {
 	// end for ..
 	int sLen = pLogOdds->iLogOddsCount;

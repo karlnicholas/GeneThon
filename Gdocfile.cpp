@@ -10,7 +10,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 int i;
 
 int   
-CGenedocDoc::ReadGenbankFile( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
+CGenethonDoc::ReadGenbankFile( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
 {
 	// Determine File Type.
 	CString LOCUS;
@@ -203,7 +203,7 @@ END_CATCH
 
 
 int   
-CGenedocDoc::ReadFasNTFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
+CGenethonDoc::ReadFasNTFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
 {
 	// Determine File Type.
 
@@ -390,7 +390,7 @@ END_CATCH
 
 
 int 
-CGenedocDoc::WriteFasNTFile( const CString& PathName, int Selected )
+CGenethonDoc::WriteFasNTFile( const CString& PathName, int Selected )
 {
 	int i, rc = 1;
 
@@ -535,7 +535,7 @@ END_CATCH
 
 
 int   
-CGenedocDoc::ReadTextFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName, 
+CGenethonDoc::ReadTextFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName, 
 	const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC )
 {
 	// Determine File Type.
@@ -653,7 +653,7 @@ END_CATCH
 }
 
 int 
-CGenedocDoc::WriteTextFile( const CString& PathName, int Selected )
+CGenethonDoc::WriteTextFile( const CString& PathName, int Selected )
 {
 	int i, rc = 1;
 
@@ -795,7 +795,7 @@ END_CATCH
 }
 
 int 
-CGenedocDoc::WriteTNoGapFile( const CString& PathName, int Selected )
+CGenethonDoc::WriteTNoGapFile( const CString& PathName, int Selected )
 {
 	int i, rc = 1;
 
@@ -937,7 +937,7 @@ END_CATCH
 }
 
 int   
-CGenedocDoc::ReadPhylipIFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
+CGenethonDoc::ReadPhylipIFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
 {
 
 TRY {
@@ -1199,7 +1199,7 @@ END_CATCH
 }
 
 int 
-CGenedocDoc::WritePhylipFile( const CString& PathName, int Selected )
+CGenethonDoc::WritePhylipFile( const CString& PathName, int Selected )
 {
 
 	int i, rc = 1;
@@ -1396,7 +1396,7 @@ END_CATCH
 
 
 int   
-CGenedocDoc::ReadPIRFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
+CGenethonDoc::ReadPIRFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
 {
 	// Determine File Type.
 
@@ -1575,7 +1575,7 @@ END_CATCH
 
 
 int 
-CGenedocDoc::WritePIRFile( const CString& PathName, int Selected )
+CGenethonDoc::WritePIRFile( const CString& PathName, int Selected )
 {
 	int i, rc = 1;
 
@@ -1765,7 +1765,7 @@ END_CATCH
 
 
 int   
-CGenedocDoc::ReadFastaFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
+CGenethonDoc::ReadFastaFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName )
 {
 	// Determine File Type.
 
@@ -1956,7 +1956,7 @@ END_CATCH
 
 
 int 
-CGenedocDoc::WriteFastaFile( const CString& PathName, int Selected )
+CGenethonDoc::WriteFastaFile( const CString& PathName, int Selected )
 {
 	int i, rc = 1;
 
@@ -2101,7 +2101,7 @@ END_CATCH
 
 
 int 
-CGenedocDoc::WriteALNFile( const CString& PathName, int Selected )
+CGenethonDoc::WriteALNFile( const CString& PathName, int Selected )
 {
 
 	int i, rc = 1;
@@ -2293,7 +2293,7 @@ END_CATCH
 }
 
 int 
-CGenedocDoc::ReadALNFile( CPtrList* CommentList, CPtrList* SequenceList, CString& PathName )
+CGenethonDoc::ReadALNFile( CPtrList* CommentList, CPtrList* SequenceList, CString& PathName )
 {
 
 	// Determine File Type.
@@ -2440,7 +2440,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFile( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFile( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	CString tFile = szFilename;
@@ -2516,7 +2516,7 @@ CGenedocDoc::GetDataTypeValuesFile( const CString& szFilename, CStcGroup *StcGro
 */
 
 
-void CGenedocDoc::OnStcloaduserfile() 
+void CGenethonDoc::OnStcloaduserfile() 
 {
 	// TODO: Add your command handler code here
 
@@ -2540,7 +2540,7 @@ All Files (*.*)|*.*||";
 }
 
 BOOL 
-CGenedocDoc::LoadUserSduFile(const CString& PathName)
+CGenethonDoc::LoadUserSduFile(const CString& PathName)
 {
 
 TRY {
@@ -2599,7 +2599,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFileStu( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFileStu( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.
@@ -2888,7 +2888,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFilePrd( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFilePrd( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.
@@ -3155,7 +3155,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFileSsp( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFileSsp( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.
@@ -3390,7 +3390,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFilePhd( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFilePhd( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.
@@ -3707,7 +3707,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFileDss( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFileDss( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.
@@ -3985,7 +3985,7 @@ END_CATCH
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFileSeq( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFileSeq( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.
@@ -4359,7 +4359,7 @@ GetRes( const CString& ResStr )
 
 
 BOOL
-CGenedocDoc::GetDataTypeValuesFilePDB( const CString& szFilename, CStcGroup *StcGroup )
+CGenethonDoc::GetDataTypeValuesFilePDB( const CString& szFilename, CStcGroup *StcGroup )
 {
 
 	// Determine File Type.

@@ -3,7 +3,7 @@
 
 
 void 
-CGenedocDoc::AutoShadeContrast(
+CGenethonDoc::AutoShadeContrast(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -108,7 +108,7 @@ CGenedocDoc::AutoShadeContrast(
 }
 
 int 
-CGenedocDoc::PairwiseCheckOther( 
+CGenethonDoc::PairwiseCheckOther( 
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	ShadeSegStc *pOSegArr, 
@@ -154,7 +154,7 @@ CGenedocDoc::PairwiseCheckOther(
 }
 
 int 
-CGenedocDoc::PairwiseCheck( ShadeSegStc *pSegArr, int pSegCount, DWORD tCount, int *PWScr )
+CGenethonDoc::PairwiseCheck( ShadeSegStc *pSegArr, int pSegCount, DWORD tCount, int *PWScr )
 {
 
 	int CheckReturn = 1;

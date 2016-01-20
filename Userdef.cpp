@@ -92,7 +92,7 @@
 
 
 const char *
-CGenedocDoc::GDUFindString ( const CString& FindString )
+CGenethonDoc::GDUFindString ( const CString& FindString )
 {
 	int FindLoc;
 	const char * rStr;
@@ -113,7 +113,7 @@ CGenedocDoc::GDUFindString ( const CString& FindString )
 
 
 void 
-CGenedocDoc::GetUserDefaults( )
+CGenethonDoc::GetUserDefaults( )
 {
 
 	const char * tStr;
@@ -1009,7 +1009,7 @@ CGenedocDoc::GetUserDefaults( )
 
 
 void 
-CGenedocDoc::GetUserDefaultsDVars( const CString& AppStr, CDisplayVars* DisplayVars )
+CGenethonDoc::GetUserDefaultsDVars( const CString& AppStr, CDisplayVars* DisplayVars )
 {
 TRY {
 	const char * tStr;
@@ -1274,7 +1274,7 @@ END_CATCH
 /*
 
 void 
-CGenedocDoc::SetUserDefaults( )
+CGenethonDoc::SetUserDefaults( )
 {
 
 TRY {
@@ -1787,7 +1787,7 @@ END_CATCH
 }
 
 void 
-CGenedocDoc::SetUserDefaultsDVars( const CString& AppStr, CDisplayVars* DisplayVars )
+CGenethonDoc::SetUserDefaultsDVars( const CString& AppStr, CDisplayVars* DisplayVars )
 {
 
 TRY {

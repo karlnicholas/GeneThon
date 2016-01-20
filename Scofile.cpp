@@ -23,7 +23,7 @@ char	*Scoremonths[] = {
 
 
 int
-CGenedocDoc::WriteScoreFile( 
+CGenethonDoc::WriteScoreFile( 
 	const char *FileName
 ) {
 

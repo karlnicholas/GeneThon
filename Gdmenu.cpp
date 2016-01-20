@@ -8,13 +8,13 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
 
-void CGenedocDoc::OnGeneautoshade4() 
+void CGenethonDoc::OnGeneautoshade4() 
 {
 	// TODO: Add your command handler code here
 	AutoShadeMenuFunc( SHADELEVEL4, m_UserVars.m_AutoShade4Structure ); 
 }
 
-void CGenedocDoc::OnUpdateGeneautoshade4(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGeneautoshade4(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -42,14 +42,14 @@ void CGenedocDoc::OnUpdateGeneautoshade4(CCmdUI* pCmdUI)
 	}
 }
 
-void CGenedocDoc::OnGeneautoshade3() 
+void CGenethonDoc::OnGeneautoshade3() 
 {
 	// TODO: Add your command handler code here
 	AutoShadeMenuFunc( SHADELEVEL3, m_UserVars.m_AutoShade3Structure );
 
 }
 
-void CGenedocDoc::OnUpdateGeneautoshade3(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGeneautoshade3(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -77,12 +77,12 @@ void CGenedocDoc::OnUpdateGeneautoshade3(CCmdUI* pCmdUI)
 	}
 }
 
-void CGenedocDoc::OnGeneautoshade2() 
+void CGenethonDoc::OnGeneautoshade2() 
 {
 	AutoShadeMenuFunc( SHADELEVEL2, m_UserVars.m_AutoShade2Structure );
 }
 
-void CGenedocDoc::OnUpdateGeneautoshade2(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGeneautoshade2(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -111,17 +111,17 @@ void CGenedocDoc::OnUpdateGeneautoshade2(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::AutoShadeMenuFunc( int SHADELEVEL, CString& strAutoShadeStructure ) 
+void CGenethonDoc::AutoShadeMenuFunc( int SHADELEVEL, CString& strAutoShadeStructure ) 
 {
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
 		if ( !m_UserVars.m_DisplayVars.GetCount() ) return;
 		CDisplayVars *DisplayVars = (CDisplayVars*)m_UserVars.m_DisplayVars.GetHead();
 		if ( DisplayVars->GetModeConserved() == SHADESTRUCTURE ) {
 			if (strAutoShadeStructure.IsEmpty() ) {
-				DoGroupConfigure( CGenedocDoc::ACTPAGESTRUCTURE, FALSE );
+				DoGroupConfigure( CGenethonDoc::ACTPAGESTRUCTURE, FALSE );
 				strAutoShadeStructure = DisplayVars->GetStcGroup().GetCurrentDataType();
 			} else if ( strAutoShadeStructure == DisplayVars->GetStcGroup().GetCurrentDataType() ) {
-				DoGroupConfigure( CGenedocDoc::ACTPAGESTRUCTURE, FALSE );
+				DoGroupConfigure( CGenethonDoc::ACTPAGESTRUCTURE, FALSE );
 				strAutoShadeStructure = DisplayVars->GetStcGroup().GetCurrentDataType();
 			}
 			POSITION tPos = m_UserVars.m_DisplayVars.GetHeadPosition();
@@ -142,10 +142,10 @@ void CGenedocDoc::AutoShadeMenuFunc( int SHADELEVEL, CString& strAutoShadeStruct
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() == SHADESTRUCTURE ) {
 			if ( strAutoShadeStructure.IsEmpty() ) {
-				DoConfigure( CGenedocDoc::ACTPAGESTRUCTURE, FALSE );
+				DoConfigure( CGenethonDoc::ACTPAGESTRUCTURE, FALSE );
 				strAutoShadeStructure = m_UserVars.m_Vars.GetStcGroup().GetCurrentDataType();
 			} else if ( strAutoShadeStructure == m_UserVars.m_Vars.GetStcGroup().GetCurrentDataType() ) { 
-				DoConfigure( CGenedocDoc::ACTPAGESTRUCTURE, FALSE );
+				DoConfigure( CGenethonDoc::ACTPAGESTRUCTURE, FALSE );
 				strAutoShadeStructure = m_UserVars.m_Vars.GetStcGroup().GetCurrentDataType();
 			}
 			m_UserVars.m_Vars.GetStcGroup().SetCurrentDataType(strAutoShadeStructure );
@@ -156,7 +156,7 @@ void CGenedocDoc::AutoShadeMenuFunc( int SHADELEVEL, CString& strAutoShadeStruct
 
 }
 
-void CGenedocDoc::OnGeneclearshade()
+void CGenethonDoc::OnGeneclearshade()
 {
 	// TODO: Add your command handler code here
 	SetModifiedFlag();
@@ -165,7 +165,7 @@ void CGenedocDoc::OnGeneclearshade()
 	
 }
 
-void CGenedocDoc::OnUpdateGeneclearshade(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGeneclearshade(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -179,7 +179,7 @@ void CGenedocDoc::OnUpdateGeneclearshade(CCmdUI* pCmdUI)
 	
 }
 
-void CGenedocDoc::OnGenemodeconserved() 
+void CGenethonDoc::OnGenemodeconserved() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -190,20 +190,20 @@ void CGenedocDoc::OnGenemodeconserved()
 				DisplayVars->SetModeConserved( SHADECONSERVED );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADECONSERVED ) {
 			m_UserVars.m_Vars.SetModeConserved( SHADECONSERVED);
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	}
 	SetModifiedFlag();
 	AutoShade( -1 );
 }
 
-void CGenedocDoc::OnUpdateGenemodeconserved(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenemodeconserved(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -217,7 +217,7 @@ void CGenedocDoc::OnUpdateGenemodeconserved(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGenemodesearch() 
+void CGenethonDoc::OnGenemodesearch() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -228,13 +228,13 @@ void CGenedocDoc::OnGenemodesearch()
 				DisplayVars->SetModeConserved( SHADESEARCH );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADESEARCH ) {
 			m_UserVars.m_Vars.SetModeConserved( SHADESEARCH);
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGESEARCH, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGESEARCH, FALSE );
 		}
 	}
 	SetModifiedFlag();
@@ -242,7 +242,7 @@ void CGenedocDoc::OnGenemodesearch()
 	
 }
 
-void CGenedocDoc::OnUpdateGenemodesearch(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenemodesearch(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -259,7 +259,7 @@ void CGenedocDoc::OnUpdateGenemodesearch(CCmdUI* pCmdUI)
 
 
 
-void CGenedocDoc::OnGenemodelogodds() 
+void CGenethonDoc::OnGenemodelogodds() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -270,13 +270,13 @@ void CGenedocDoc::OnGenemodelogodds()
 				DisplayVars->SetModeConserved( SHADELOGODDS );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADELOGODDS ) {
 			m_UserVars.m_Vars.SetModeConserved( SHADELOGODDS);
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGELOGODDS, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGELOGODDS, FALSE );
 		}
 	}
 	SetModifiedFlag();
@@ -284,7 +284,7 @@ void CGenedocDoc::OnGenemodelogodds()
 	
 }
 
-void CGenedocDoc::OnUpdateGenemodelogodds(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenemodelogodds(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -299,7 +299,7 @@ void CGenedocDoc::OnUpdateGenemodelogodds(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGenemodequantify() 
+void CGenethonDoc::OnGenemodequantify() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -311,20 +311,20 @@ void CGenedocDoc::OnGenemodequantify()
 				DisplayVars->SetModeConserved( SHADEQUANTIFY );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADEQUANTIFY ) {
 			m_UserVars.m_Vars.SetModeConserved( SHADEQUANTIFY);
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	}
 	SetModifiedFlag();
 	AutoShade( -1 );
 }
 
-void CGenedocDoc::OnUpdateGenemodequantify(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenemodequantify(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -338,7 +338,7 @@ void CGenedocDoc::OnUpdateGenemodequantify(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGenemodeproperty()
+void CGenethonDoc::OnGenemodeproperty()
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -350,20 +350,20 @@ void CGenedocDoc::OnGenemodeproperty()
 				DisplayVars->SetModeConserved( SHADEPROPERTY );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEPROPERTY, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEPROPERTY, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADEPROPERTY ) {
 			m_UserVars.m_Vars.SetModeConserved( SHADEPROPERTY );
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGEPROPERTY, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGEPROPERTY, FALSE );
 		}
 	}
 	SetModifiedFlag();
 	AutoShade( -1 );
 }
 
-void CGenedocDoc::OnUpdateGenemodeproperty(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenemodeproperty(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -376,7 +376,7 @@ void CGenedocDoc::OnUpdateGenemodeproperty(CCmdUI* pCmdUI)
 	}
 }
 
-void CGenedocDoc::OnGenemodestructure()
+void CGenethonDoc::OnGenemodestructure()
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -388,7 +388,7 @@ void CGenedocDoc::OnGenemodestructure()
 				DisplayVars->SetModeConserved( SHADESTRUCTURE );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGESTRUCTURE, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGESTRUCTURE, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADESTRUCTURE ) {
@@ -396,7 +396,7 @@ void CGenedocDoc::OnGenemodestructure()
 //			SetModifiedFlag();
 //			AutoShade( -1 );
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGESTRUCTURE, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGESTRUCTURE, FALSE );
 		}
 	}
 	SetModifiedFlag();
@@ -404,7 +404,7 @@ void CGenedocDoc::OnGenemodestructure()
 }
 
 
-void CGenedocDoc::OnUpdateGenemodestructure(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenemodestructure(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -419,7 +419,7 @@ void CGenedocDoc::OnUpdateGenemodestructure(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGenemodephysiochem() 
+void CGenethonDoc::OnGenemodephysiochem() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -431,7 +431,7 @@ void CGenedocDoc::OnGenemodephysiochem()
 				DisplayVars->SetModeConserved( SHADEPHYSIOCHEM );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEHIGHLIGHTING, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEHIGHLIGHTING, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADEPHYSIOCHEM ) {
@@ -439,7 +439,7 @@ void CGenedocDoc::OnGenemodephysiochem()
 //			SetModifiedFlag();
 //			AutoShade( -1 );
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGEPHYSIOCHEM, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGEPHYSIOCHEM, FALSE );
 		}
 	}
 	SetModifiedFlag();
@@ -448,7 +448,7 @@ void CGenedocDoc::OnGenemodephysiochem()
 }
 
 
-void CGenedocDoc::OnUpdateGenemodephysiochem(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenemodephysiochem(CCmdUI* pCmdUI) 
 {
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
 		if ( !m_UserVars.m_DisplayVars.GetCount() ) return;
@@ -461,7 +461,7 @@ void CGenedocDoc::OnUpdateGenemodephysiochem(CCmdUI* pCmdUI)
 
 }
 
-void CGenedocDoc::OnGenemodesimilarity() 
+void CGenethonDoc::OnGenemodesimilarity() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -473,7 +473,7 @@ void CGenedocDoc::OnGenemodesimilarity()
 				DisplayVars->SetModeConserved( SHADEIDENTITY );
 			}
 		} else {
-			DoGroupConfigure( CGenedocDoc::ACTPAGEIDENTITY, FALSE );
+			DoGroupConfigure( CGenethonDoc::ACTPAGEIDENTITY, FALSE );
 		}
 	} else {
 		if ( m_UserVars.m_Vars.GetModeConserved() != SHADEIDENTITY ) {
@@ -481,7 +481,7 @@ void CGenedocDoc::OnGenemodesimilarity()
 //			SetModifiedFlag();
 //			AutoShade( -1 );
 		} else {
-			DoConfigure( CGenedocDoc::ACTPAGEIDENTITY, FALSE );
+			DoConfigure( CGenethonDoc::ACTPAGEIDENTITY, FALSE );
 		}
 	}
 	SetModifiedFlag();
@@ -490,7 +490,7 @@ void CGenedocDoc::OnGenemodesimilarity()
 }
 
 
-void CGenedocDoc::OnUpdateGenemodesimilarity(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenemodesimilarity(CCmdUI* pCmdUI) 
 {
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
 		if ( !m_UserVars.m_DisplayVars.GetCount() ) return;
@@ -504,7 +504,7 @@ void CGenedocDoc::OnUpdateGenemodesimilarity(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGeneresiduemodediff()
+void CGenethonDoc::OnGeneresiduemodediff()
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -533,7 +533,7 @@ void CGenedocDoc::OnGeneresiduemodediff()
 	AutoShade( -1 );
 }
 
-void CGenedocDoc::OnUpdateGeneresiduemodediff(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGeneresiduemodediff(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -547,7 +547,7 @@ void CGenedocDoc::OnUpdateGeneresiduemodediff(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGenegroupenable() 
+void CGenethonDoc::OnGenegroupenable() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -577,7 +577,7 @@ void CGenedocDoc::OnGenegroupenable()
 
 }
 
-void CGenedocDoc::OnUpdateGenegroupenable(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenegroupenable(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_GroupDisplayMode == GROUPDISPSETUP ) {
@@ -592,7 +592,7 @@ void CGenedocDoc::OnUpdateGenegroupenable(CCmdUI* pCmdUI)
 
 
 
-void CGenedocDoc::OnGeneview()
+void CGenethonDoc::OnGeneview()
 {
 	// TODO: Add your command handler code here
 	if ( m_pGeneView == NULL ) {
@@ -604,7 +604,7 @@ void CGenedocDoc::OnGeneview()
 	
 }
 
-void CGenedocDoc::OnGenescorepair()
+void CGenethonDoc::OnGenescorepair()
 {
 	// TODO: Add your command handler code here
 	m_UserVars.m_ScoringMethod = SCOREPAIR;
@@ -617,7 +617,7 @@ void CGenedocDoc::OnGenescorepair()
 	UpdateAllViews(NULL);
 }
 
-void CGenedocDoc::OnUpdateGenescorepair(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenescorepair(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCOREPAIR );
@@ -625,7 +625,7 @@ void CGenedocDoc::OnUpdateGenescorepair(CCmdUI* pCmdUI)
 
 
 
-void CGenedocDoc::OnGenescorelo() 
+void CGenethonDoc::OnGenescorelo() 
 {
 	// TODO: Add your command handler code here
 	// TODO: Add your command handler code here
@@ -640,13 +640,13 @@ void CGenedocDoc::OnGenescorelo()
 
 }
 
-void CGenedocDoc::OnUpdateGenescorelo(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenescorelo(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCORELOGODD );
 }
 
-void CGenedocDoc::OnGenescoretree()
+void CGenethonDoc::OnGenescoretree()
 {
 	// TODO: Add your command handler code here
 
@@ -670,14 +670,14 @@ void CGenedocDoc::OnGenescoretree()
 	UpdateAllViews(NULL);
 }
 
-void CGenedocDoc::OnUpdateGenescoretree(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenescoretree(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCORETREE );
 	
 }
 
-void CGenedocDoc::OnShowtable()
+void CGenethonDoc::OnShowtable()
 {
 	// TODO: Add your command handler code here
 	
@@ -789,7 +789,7 @@ void CGenedocDoc::OnShowtable()
 	tDlg.DoModal();
 }
 
-void CGenedocDoc::OnGenescorenumb()
+void CGenethonDoc::OnGenescorenumb()
 {
 	// TODO: Add your command handler code here
 	
@@ -810,13 +810,13 @@ void CGenedocDoc::OnGenescorenumb()
 	UpdateAllViews(NULL);
 }
 
-void CGenedocDoc::OnUpdateGenescorenumb(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenescorenumb(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_UserVars.m_ScoringMethod == SCORENUMB );
 }
 
-void CGenedocDoc::OnGenescoreinfo()
+void CGenethonDoc::OnGenescoreinfo()
 {
 	// TODO: Add your command handler code here
 	if ( m_TreeDebugOutput ) m_TreeDebugOutput  = 0;
@@ -826,19 +826,19 @@ void CGenedocDoc::OnGenescoreinfo()
 	}
 }
 
-void CGenedocDoc::OnUpdateGenescoreinfo(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenescoreinfo(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_TreeDebugOutput );
 	
 }
 
-void CGenedocDoc::OnEditgroupprop()
+void CGenethonDoc::OnEditgroupprop()
 {
 	DoGroupConfigure();
 }
 
-void CGenedocDoc::OnGeneshadegroups()
+void CGenethonDoc::OnGeneshadegroups()
 {
 	// TODO: Add your command handler code here
 	// Paranoia
@@ -861,7 +861,7 @@ void CGenedocDoc::OnGeneshadegroups()
 	}
 }
 
-void CGenedocDoc::OnUpdateGeneshadegroups(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGeneshadegroups(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -874,7 +874,7 @@ void CGenedocDoc::OnUpdateGeneshadegroups(CCmdUI* pCmdUI)
 	}
 }
 
-void CGenedocDoc::OnGeneshadecontrast()
+void CGenethonDoc::OnGeneshadecontrast()
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -888,7 +888,7 @@ void CGenedocDoc::OnGeneshadecontrast()
 	}
 }
 
-void CGenedocDoc::OnGeneshadegroupconserve()
+void CGenethonDoc::OnGeneshadegroupconserve()
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -903,7 +903,7 @@ void CGenedocDoc::OnGeneshadegroupconserve()
 	
 }
 
-void CGenedocDoc::OnUpdateGeneshadecontrast(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGeneshadecontrast(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -917,7 +917,7 @@ void CGenedocDoc::OnUpdateGeneshadecontrast(CCmdUI* pCmdUI)
 	
 }
 
-void CGenedocDoc::OnUpdateGeneshadegroupconserve(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGeneshadegroupconserve(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -932,7 +932,7 @@ void CGenedocDoc::OnUpdateGeneshadegroupconserve(CCmdUI* pCmdUI)
 
 
 
-void CGenedocDoc::OnGenegroupsgconx() 
+void CGenethonDoc::OnGenegroupsgconx() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -947,7 +947,7 @@ void CGenedocDoc::OnGenegroupsgconx()
 	
 }
 
-void CGenedocDoc::OnUpdateGenegroupsgconx(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenegroupsgconx(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -961,7 +961,7 @@ void CGenedocDoc::OnUpdateGenegroupsgconx(CCmdUI* pCmdUI)
 	
 }
 
-void CGenedocDoc::OnGeneshadecontrastnogap()
+void CGenethonDoc::OnGeneshadecontrastnogap()
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -975,7 +975,7 @@ void CGenedocDoc::OnGeneshadecontrastnogap()
 	}
 }
 
-void CGenedocDoc::OnUpdateGeneshadecontrastnogap(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGeneshadecontrastnogap(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -989,7 +989,7 @@ void CGenedocDoc::OnUpdateGeneshadecontrastnogap(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnGroupshadepcr() 
+void CGenethonDoc::OnGroupshadepcr() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1005,7 +1005,7 @@ void CGenedocDoc::OnGroupshadepcr()
 
 }
 
-void CGenedocDoc::OnUpdateGroupshadepcr(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGroupshadepcr(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1019,7 +1019,7 @@ void CGenedocDoc::OnUpdateGroupshadepcr(CCmdUI* pCmdUI)
 	
 }
 
-void CGenedocDoc::OnGroupshadepcrsim() 
+void CGenethonDoc::OnGroupshadepcrsim() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1034,7 +1034,7 @@ void CGenedocDoc::OnGroupshadepcrsim()
 	}
 }
 
-void CGenedocDoc::OnUpdateGroupshadepcrsim(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGroupshadepcrsim(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1048,7 +1048,7 @@ void CGenedocDoc::OnUpdateGroupshadepcrsim(CCmdUI* pCmdUI)
 
 }
 
-void CGenedocDoc::OnGeneshadegroupphyschem() 
+void CGenethonDoc::OnGeneshadegroupphyschem() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1063,7 +1063,7 @@ void CGenedocDoc::OnGeneshadegroupphyschem()
 
 }
 
-void CGenedocDoc::OnUpdateGeneshadegroupphyschem(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGeneshadegroupphyschem(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1077,7 +1077,7 @@ void CGenedocDoc::OnUpdateGeneshadegroupphyschem(CCmdUI* pCmdUI)
 	
 }
 
-void CGenedocDoc::OnGeneshadegroupdna() 
+void CGenethonDoc::OnGeneshadegroupdna() 
 {
 	// TODO: Add your command handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1092,7 +1092,7 @@ void CGenedocDoc::OnGeneshadegroupdna()
 	
 }
 
-void CGenedocDoc::OnUpdateGeneshadegroupdna(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGeneshadegroupdna(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( m_UserVars.m_DisplayVars.GetCount() ) {
@@ -1106,7 +1106,7 @@ void CGenedocDoc::OnUpdateGeneshadegroupdna(CCmdUI* pCmdUI)
 
 }
 
-void CGenedocDoc::OnStcloadembl() 
+void CGenethonDoc::OnStcloadembl() 
 {
 	// TODO: Add your command handler code here
 	
@@ -1118,7 +1118,7 @@ void CGenedocDoc::OnStcloadembl()
 
 }
 
-void CGenedocDoc::OnUpdateStcloadembl(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateStcloadembl(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( pGSFiller != NULL ) {
@@ -1128,7 +1128,7 @@ void CGenedocDoc::OnUpdateStcloadembl(CCmdUI* pCmdUI)
 	}
 }
 
-void CGenedocDoc::OnStcloadpsdb() 
+void CGenethonDoc::OnStcloadpsdb() 
 {
 	// TODO: Add your command handler code here
 	
@@ -1140,7 +1140,7 @@ void CGenedocDoc::OnStcloadpsdb()
 
 }
 
-void CGenedocDoc::OnUpdateStcloadpsdb(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateStcloadpsdb(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( pGSFiller != NULL ) {
@@ -1152,7 +1152,7 @@ void CGenedocDoc::OnUpdateStcloadpsdb(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnStcloadpdb() 
+void CGenethonDoc::OnStcloadpdb() 
 {
 	// TODO: Add your command handler code here
 	BeginWaitCursor();
@@ -1164,7 +1164,7 @@ void CGenedocDoc::OnStcloadpdb()
 	
 }
 
-void CGenedocDoc::OnUpdateStcloadpdb(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateStcloadpdb(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	if ( pGSFiller != NULL ) {
@@ -1175,7 +1175,7 @@ void CGenedocDoc::OnUpdateStcloadpdb(CCmdUI* pCmdUI)
 	
 }
 
-void CGenedocDoc::OnStclearall() 
+void CGenethonDoc::OnStclearall() 
 {
 	// TODO: Add your command handler code here
 	m_UserVars.m_Stc.ClearAll();
@@ -1197,7 +1197,7 @@ void CGenedocDoc::OnStclearall()
 }
 
 
-void CGenedocDoc::OnGenedstatview()
+void CGenethonDoc::OnGenedstatview()
 {
 	// TODO: Add your command handler code here
 	if ( m_pPGBase != NULL ) {
@@ -1211,14 +1211,14 @@ void CGenedocDoc::OnGenedstatview()
 	}
 }
 
-void CGenedocDoc::OnUpdateGenedstatview(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenedstatview(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL && m_pDStatView != NULL );
 }
 
 
-void CGenedocDoc::OnGenegelview() 
+void CGenethonDoc::OnGenegelview() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -1232,13 +1232,13 @@ void CGenedocDoc::OnGenegelview()
 	}
 }
 
-void CGenedocDoc::OnUpdateGenegelview(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateGenegelview(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
 }
 
-void CGenedocDoc::OnSummaryview()
+void CGenethonDoc::OnSummaryview()
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -1252,13 +1252,13 @@ void CGenedocDoc::OnSummaryview()
 	}
 }
 
-void CGenedocDoc::OnUpdateSummaryview(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateSummaryview(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
 }
 
-void CGenedocDoc::OnFileimport() 
+void CGenethonDoc::OnFileimport() 
 {
 	// TODO: Add your command handler code here
 	SequenceImport();
@@ -1266,42 +1266,42 @@ void CGenedocDoc::OnFileimport()
 	AutoShade(-1);
 }
 
-void CGenedocDoc::OnFileexport() 
+void CGenethonDoc::OnFileexport() 
 {
 	// TODO: Add your command handler code here
 	SequenceExport();
 }
 
 
-void CGenedocDoc::OnPlotstatdstat() 
+void CGenethonDoc::OnPlotstatdstat() 
 {
 	// TODO: Add your command handler code here
 	DStatStat(0);
 	
 }
 
-void CGenedocDoc::OnPlotfavsubs() 
+void CGenethonDoc::OnPlotfavsubs() 
 {
 	// TODO: Add your command handler code here
 	DStatStat(1);
 	
 }
 
-void CGenedocDoc::OnPlotgroup() 
+void CGenethonDoc::OnPlotgroup() 
 {
 	// TODO: Add your command handler code here
 	DStatStat(2);
 
 }
 
-void CGenedocDoc::OnPlotgroupfav() 
+void CGenethonDoc::OnPlotgroupfav() 
 {
 	// TODO: Add your command handler code here
 	DStatStat(3);
 	
 }
 
-void CGenedocDoc::OnGeneeditseq() 
+void CGenethonDoc::OnGeneeditseq() 
 {
 	// TODO: Add your command handler code here
 	CSeqDialog tDlg;
@@ -1318,7 +1318,7 @@ void CGenedocDoc::OnGeneeditseq()
 
 }
 
-void CGenedocDoc::OnGeneloadini()
+void CGenethonDoc::OnGeneloadini()
 {
 
 	int sType = m_UserVars.m_ProjectType;
@@ -1332,7 +1332,7 @@ void CGenedocDoc::OnGeneloadini()
 	SetModifiedFlag();
 }
 
-void CGenedocDoc::OnTitlingf()
+void CGenethonDoc::OnTitlingf()
 {
 	CTitlingFDialog tDlg;
 //	int fFirst = 1;
@@ -1446,7 +1446,7 @@ void CGenedocDoc::OnTitlingf()
 }
 
 
-void CGenedocDoc::OnPlotfrag() 
+void CGenethonDoc::OnPlotfrag() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -1462,7 +1462,7 @@ void CGenedocDoc::OnPlotfrag()
 	}	
 }
 
-BOOL CGenedocDoc::CheckMatch( char cF, char cS)
+BOOL CGenethonDoc::CheckMatch( char cF, char cS)
 {
 	BOOL match = FALSE;
 
@@ -1493,7 +1493,7 @@ BOOL CGenedocDoc::CheckMatch( char cF, char cS)
 	return match;
 }
 
-int CGenedocDoc::OnFind(CView *pView ) 
+int CGenethonDoc::OnFind(CView *pView ) 
 {
 	if ( pGSFiller == NULL ) return 0;
 	if ( m_pFS.FindStr.GetLength() == 0 ) return 0;
@@ -1524,7 +1524,7 @@ TRY {
 		}
 	}
 
-	CGenedocView* pGEView = (CGenedocView*)pView;
+	CGenethonView* pGEView = (CGenethonView*)pView;
 
 	UINT XPosition;
 	DWORD YPosition;
@@ -1750,7 +1750,7 @@ END_CATCH
 */
 
 
-void CGenedocDoc::OnCopycons() 
+void CGenethonDoc::OnCopycons() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) return;
@@ -1901,7 +1901,7 @@ void CGenedocDoc::OnCopycons()
 	
 }
 
-void CGenedocDoc::OnUpdateCopycons(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateCopycons(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
@@ -1909,7 +1909,7 @@ void CGenedocDoc::OnUpdateCopycons(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::OnConsprosite() 
+void CGenethonDoc::OnConsprosite() 
 {
 	// TODO: Add your command handler code here
 	// TODO: Add your command handler code here
@@ -2149,40 +2149,40 @@ void CGenedocDoc::OnConsprosite()
 }
 
 
-void CGenedocDoc::OnUpdateConsprosite(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateConsprosite(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
 
 }
 
-void CGenedocDoc::OnShowmanshade()
+void CGenethonDoc::OnShowmanshade()
 {
 	m_UserVars.m_ShowManShade = !m_UserVars.m_ShowManShade;
 	AutoShade( -1 );
 }
 
-void CGenedocDoc::OnUpdateShowman(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateShowman(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_UserVars.m_ShowManShade );
 
 }
 
-void CGenedocDoc::OnShowcomments()
+void CGenethonDoc::OnShowcomments()
 {
 	m_UserVars.m_ShowComments = !m_UserVars.m_ShowComments;
 	AutoShade( -1 );
 }
 
-void CGenedocDoc::OnUpdateShowcom(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateShowcom(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_UserVars.m_ShowComments );
 
 }
 
-void CGenedocDoc::OnClearcomments() 
+void CGenethonDoc::OnClearcomments() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) return;
@@ -2200,7 +2200,7 @@ void CGenedocDoc::OnClearcomments()
 	
 }
 
-void CGenedocDoc::OnClearmanshade() 
+void CGenethonDoc::OnClearmanshade() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) return;
@@ -2219,7 +2219,7 @@ void CGenedocDoc::OnClearmanshade()
 }
 
 
-void CGenedocDoc::OnSelectarrseq() 
+void CGenethonDoc::OnSelectarrseq() 
 {
 	// TODO: Add your command handler code here
 	CSelArrSeq tDlg;
@@ -2228,7 +2228,7 @@ void CGenedocDoc::OnSelectarrseq()
 	UpdateAllViews(NULL);
 }
 
-void CGenedocDoc::OnRescoreall() 
+void CGenethonDoc::OnRescoreall() 
 {
 	// TODO: Add your command handler code here
 	ReScoreAll(1);	
@@ -2236,7 +2236,7 @@ void CGenedocDoc::OnRescoreall()
 }
 
 
-void CGenedocDoc::OnComplimentsel() 
+void CGenethonDoc::OnComplimentsel() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) return;
@@ -2257,7 +2257,7 @@ void CGenedocDoc::OnComplimentsel()
 	
 }
 
-void CGenedocDoc::OnGenereportview() 
+void CGenethonDoc::OnGenereportview() 
 {
 	
 	if ( m_pTextView == NULL ) {
@@ -2271,7 +2271,7 @@ void CGenedocDoc::OnGenereportview()
 	
 }
 
-void CGenedocDoc::OnGenescorefile() 
+void CGenethonDoc::OnGenescorefile() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -2300,14 +2300,14 @@ void CGenedocDoc::OnGenescorefile()
 }
 
 
-void CGenedocDoc::OnUpdateGenescorefile(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenescorefile(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
 }
 
 
-void CGenedocDoc::OnGenestatfile() 
+void CGenethonDoc::OnGenestatfile() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -2334,14 +2334,14 @@ void CGenedocDoc::OnGenestatfile()
 	}
 }
 
-void CGenedocDoc::OnUpdateGenestatfile(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdateGenestatfile(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
 }
 
 
-void CGenedocDoc::OnSrchrepview() 
+void CGenethonDoc::OnSrchrepview() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -2368,7 +2368,7 @@ void CGenedocDoc::OnSrchrepview()
 	}
 }
 
-void CGenedocDoc::OnLogoddsview() 
+void CGenethonDoc::OnLogoddsview() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -2396,7 +2396,7 @@ void CGenedocDoc::OnLogoddsview()
 	
 }
 
-void CGenedocDoc::OnUpdateLogoddsview(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateLogoddsview(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
@@ -2404,7 +2404,7 @@ void CGenedocDoc::OnUpdateLogoddsview(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::DNAFreqRep(DWORD StartRange, DWORD EndRange) 
+void CGenethonDoc::DNAFreqRep(DWORD StartRange, DWORD EndRange) 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL && m_UserVars.m_ProjectType ) {
@@ -2687,7 +2687,7 @@ void CGenedocDoc::DNAFreqRep(DWORD StartRange, DWORD EndRange)
 }
 
 
-void CGenedocDoc::OnManshaderep() 
+void CGenethonDoc::OnManshaderep() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL ) {
@@ -2716,7 +2716,7 @@ void CGenedocDoc::OnManshaderep()
 }
 
 
-void CGenedocDoc::OnUpdateManshaderep(CCmdUI* pCmdUI) 
+void CGenethonDoc::OnUpdateManshaderep(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(	pGSFiller != NULL );
@@ -2724,17 +2724,17 @@ void CGenedocDoc::OnUpdateManshaderep(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocDoc::ReplaceFromProj(DWORD StartPos, DWORD EndPos) 
+void CGenethonDoc::ReplaceFromProj(DWORD StartPos, DWORD EndPos) 
 {
 	// TODO: Add your command handler code here
 
 	int count = 0;
-	CGenedocDoc *poDoc;
-	CMultiDocTemplate* pMDTmpl = ((CGenedocApp *)AfxGetApp())->m_pGenedocTemplate;
+	CGenethonDoc *poDoc;
+	CMultiDocTemplate* pMDTmpl = ((CGenethonApp *)AfxGetApp())->m_pGenethonTemplate;
 
 	POSITION dPos = pMDTmpl->GetFirstDocPosition( );
 	while ( dPos != NULL ) {
-		poDoc = (CGenedocDoc*)pMDTmpl->GetNextDoc(dPos);
+		poDoc = (CGenethonDoc*)pMDTmpl->GetNextDoc(dPos);
 		if ( poDoc == this ) continue;
 		count++;
 		break;
@@ -2786,19 +2786,19 @@ void CGenedocDoc::ReplaceFromProj(DWORD StartPos, DWORD EndPos)
 	SetModifiedFlag();
 }
 
-void CGenedocDoc::OnRegapdna() 
+void CGenethonDoc::OnRegapdna() 
 {
 	// TODO: Add your command handler code here
 
 	int count = 0;
 	BOOL ret;
-	CGenedocDoc *poDoc;
+	CGenethonDoc *poDoc;
 	CString ErrStr;
-	CMultiDocTemplate* pMDTmpl = ((CGenedocApp *)AfxGetApp())->m_pGenedocTemplate;
+	CMultiDocTemplate* pMDTmpl = ((CGenethonApp *)AfxGetApp())->m_pGenethonTemplate;
 
 	POSITION dPos = pMDTmpl->GetFirstDocPosition( );
 	while ( dPos != NULL ) {
-		poDoc = (CGenedocDoc*)pMDTmpl->GetNextDoc(dPos);
+		poDoc = (CGenethonDoc*)pMDTmpl->GetNextDoc(dPos);
 		if ( poDoc == this ) continue;
 		count++;
 		break;
@@ -2862,7 +2862,7 @@ void CGenedocDoc::OnRegapdna()
 	poDoc->OnGeneview();
 }
 
-void CGenedocDoc::ColFreqRep(DWORD StartRange, DWORD EndRange, int UseWeights) 
+void CGenethonDoc::ColFreqRep(DWORD StartRange, DWORD EndRange, int UseWeights) 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller != NULL && m_UserVars.m_ProjectType ) {
@@ -3156,7 +3156,7 @@ void CGenedocDoc::ColFreqRep(DWORD StartRange, DWORD EndRange, int UseWeights)
 
 }
 
-void CGenedocDoc::OnShadingRep() 
+void CGenethonDoc::OnShadingRep() 
 {
 	static char *aatrans[] = {
 		"Ala", "", "Cys", "Asp", "Glu", "Phe", "Gly", "His", "Ile", "", "Lys",

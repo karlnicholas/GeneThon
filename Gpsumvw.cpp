@@ -127,7 +127,7 @@ CGPSumView::OnLButtonDown(UINT nFlags, UINT XPoint, DWORD YPoint, CView *pWnd, V
 //		CRect tRect = tGVB->GetViewRect();
 //		tRect.NormalizeRect();
 		if ( 
-			pViewRet->DDevice == CGenedocView::KEYBRD 
+			pViewRet->DDevice == CGenethonView::KEYBRD 
 			&& tGVB->IsKindOf(RUNTIME_CLASS(CGVSummary))
 		) {
 			tGVB->OnLButtonDown(nFlags, XPoint, YPoint, pWnd, pViewRet );
@@ -152,7 +152,7 @@ CGPSumView::OnMouseMove(UINT nFlags, UINT XPoint, DWORD YPoint, CView *pWnd, VIE
 //		CRect tRect = tGVB->GetViewRect();
 //		tRect.NormalizeRect();
 		if ( 
-			pViewRet->DDevice == CGenedocView::KEYBRD 
+			pViewRet->DDevice == CGenethonView::KEYBRD 
 			&& tGVB->IsKindOf(RUNTIME_CLASS(CGVSummary))
 		) {
 			tGVB->OnMouseMove(nFlags, XPoint, YPoint, pWnd, pViewRet );
@@ -176,7 +176,7 @@ CGPSumView::OnLButtonUp(UINT nFlags, UINT XPoint, DWORD YPoint, CView *pWnd, VIE
 //		CRect tRect = tGVB->GetViewRect();
 //		tRect.NormalizeRect();
 		if ( 
-			pViewRet->DDevice == CGenedocView::KEYBRD 
+			pViewRet->DDevice == CGenethonView::KEYBRD 
 			&& tGVB->IsKindOf(RUNTIME_CLASS(CGVSummary))
 		) {
 			tGVB->OnLButtonUp(nFlags, XPoint, YPoint, pWnd, pViewRet );
@@ -224,7 +224,7 @@ CGPSumView::InvalNewEndPoint( CView *pWnd, DWORD Range1, DWORD Range2)
 
 // RowNumber Not Used Here
 void 
-CGPSumView::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenedocDoc* pDoc )
+CGPSumView::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc )
 {
 	CGeneViewBase *tGVB;
 

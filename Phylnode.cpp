@@ -267,8 +267,8 @@ CPhyloNode::CallDocFromSeq( CDocument* pDoc )
 void
 CPhyloNode::CallDocFromDepth( CDocument* pDoc, int Depth )
 {
-	ASSERT( pDoc->IsKindOf( RUNTIME_CLASS(CGenedocDoc)));
-	CGenedocDoc* pGDoc = (CGenedocDoc*)pDoc;
+	ASSERT( pDoc->IsKindOf( RUNTIME_CLASS(CGenethonDoc)));
+	CGenethonDoc* pGDoc = (CGenethonDoc*)pDoc;
 
 	if ( m_Depth == Depth ) {
 		pGDoc->CallDocFromDepth(this);

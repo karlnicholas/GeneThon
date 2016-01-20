@@ -593,7 +593,7 @@ void CMultAl::BigPass( CAlignSeq *A, CAlignSeq *B )
 }
 
 
-int CMultAl::PWAlign(CGenedocDoc *pDoc)
+int CMultAl::PWAlign(CGenethonDoc *pDoc)
 {
 	int i, j;
 

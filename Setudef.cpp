@@ -185,7 +185,7 @@ static char szLocAfterName[] = "LocAfterName";
 static char szLocAfterSeq[] = "LocAfterSeq";
 
 void
-CGenedocDoc::GetIniDisplayVars(CDisplayVars *DisplayVars)
+CGenethonDoc::GetIniDisplayVars(CDisplayVars *DisplayVars)
 {
 	// Start Of Display Vars....
 	CString strBuffer;
@@ -402,7 +402,7 @@ DecodeColor( const char *tStr, COLORREF *tRef )
 }
 
 void
-CGenedocDoc::GetIniDefaults()
+CGenethonDoc::GetIniDefaults()
 {
 
 	// Start User Vars default init
@@ -1390,7 +1390,7 @@ CGenedocDoc::GetIniDefaults()
 }
 
 void
-CGenedocDoc::SetIniDefaults()
+CGenethonDoc::SetIniDefaults()
 {
 
 	TCHAR szBuffer[256];

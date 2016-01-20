@@ -44,7 +44,7 @@ public:
 	//}}AFX_DATA
 
 	int m_Modify;
-	CGenedocDoc *pDoc;
+	CGenethonDoc *pDoc;
 	void CallSDFromNamedSeq( CObject *p );
 // Overrides
 public:

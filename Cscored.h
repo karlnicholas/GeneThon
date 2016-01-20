@@ -1,5 +1,5 @@
 /*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
+    GeneThon: Multiple Sequence Alignment Editing Utility
     Copyright (C) 2000, Karl Nicholas
 
     This program is free software; you can redistribute it and/or modify
@@ -39,7 +39,7 @@ public:
 	int m_CurrentScoreTable;
 	CListBox *m_listScore;
 	void SetScoreTableArray(CPtrArray *nScoreTableArray, int ScoreType);
-	CGenedocDoc *pDoc;					// Filled out at init Time.
+	CGenethonDoc *pDoc;					// Filled out at init Time.
 	int m_ProjectType;
 
 	CPtrArray m_ShadePairArray;		// Hoding a list of ShadePairStruct's

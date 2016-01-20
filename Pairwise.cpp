@@ -3,7 +3,7 @@
 
 
 int 
-CGenedocDoc::PairWiseScore( DWORD *nStartRange, DWORD *nEndRange, 
+CGenethonDoc::PairWiseScore( DWORD *nStartRange, DWORD *nEndRange, 
 unsigned long *Score, int RowCount, ShadeSegStc *pSegArr )
 {
 

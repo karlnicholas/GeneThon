@@ -127,7 +127,7 @@ CGPRowView::OnLButtonDown(UINT nFlags, UINT XPoint, DWORD YPoint, CView *pWnd, V
 //		CRect tRect = tGVB->GetViewRect();
 //		tRect.NormalizeRect();
 		if ( 
-			pViewRet->DDevice == CGenedocView::KEYBRD 
+			pViewRet->DDevice == CGenethonView::KEYBRD 
 			&& tGVB->IsKindOf(RUNTIME_CLASS(CGVEdit))
 		) {
 			tGVB->OnLButtonDown(nFlags, XPoint, YPoint, pWnd, pViewRet );
@@ -152,7 +152,7 @@ CGPRowView::OnMouseMove(UINT nFlags, UINT XPoint, DWORD YPoint, CView *pWnd, VIE
 //		CRect tRect = tGVB->GetViewRect();
 //		tRect.NormalizeRect();
 		if ( 
-			pViewRet->DDevice == CGenedocView::KEYBRD 
+			pViewRet->DDevice == CGenethonView::KEYBRD 
 			&& tGVB->IsKindOf(RUNTIME_CLASS(CGVEdit))
 		) {
 			tGVB->OnMouseMove(nFlags, XPoint, YPoint, pWnd, pViewRet );
@@ -176,7 +176,7 @@ CGPRowView::OnLButtonUp(UINT nFlags, UINT XPoint, DWORD YPoint, CView *pWnd, VIE
 //		CRect tRect = tGVB->GetViewRect();
 //		tRect.NormalizeRect();
 		if ( 
-			pViewRet->DDevice == CGenedocView::KEYBRD 
+			pViewRet->DDevice == CGenethonView::KEYBRD 
 			&& tGVB->IsKindOf(RUNTIME_CLASS(CGVEdit))
 		) {
 			tGVB->OnLButtonUp(nFlags, XPoint, YPoint, pWnd, pViewRet );
@@ -261,7 +261,7 @@ CGPRowView::CheckMoveRanges( CView *pWnd, CGeneSegment *pCGSeg, UINT Row,
 		if ( tGVB->IsKindOf(RUNTIME_CLASS(CGVEdit) ) ) {
 			if ( ((CGVEdit*)tGVB)->CheckMoveRanges( pWnd, pCGSeg, Row, InvScore, ScoreStart, ScoreEnd ) ) {
 
-				CGenedocDoc* pDoc = ((CGenedocView *)pWnd)->GetDocument();
+				CGenethonDoc* pDoc = ((CGenethonView *)pWnd)->GetDocument();
 				ASSERT_VALID(pDoc);
 
 				// Check this.	
@@ -353,7 +353,7 @@ CGPRowView::CountCopyText(DWORD *dwCount )
 
 // RowNumber Not Used Here
 void 
-CGPRowView::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenedocDoc* pDoc )
+CGPRowView::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc )
 {
 	CGeneViewBase *tGVB;
 
@@ -377,7 +377,7 @@ CGPRowView::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenedocDoc* pDoc )
 }
 
 void 
-CGPRowView::WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc* pDoc )
+CGPRowView::WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc* pDoc )
 {
 	CGeneViewBase *tGVB;
 
@@ -406,7 +406,7 @@ CGPRowView::WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc* pDoc )
 }
 
 void 
-CGPRowView::WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenedocDoc* pDoc )
+CGPRowView::WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc* pDoc )
 {
 	CGeneViewBase *tGVB;
 

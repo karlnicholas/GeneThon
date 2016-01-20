@@ -1,5 +1,5 @@
 /*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
+    GeneThon: Multiple Sequence Alignment Editing Utility
     Copyright (C) 2000, Karl Nicholas
 
     This program is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@ public:
 	CStructurePropDialog();	// standard constructor
 	~CStructurePropDialog();	// standard destructor
 
-	CGenedocDoc *pDoc;
+	CGenethonDoc *pDoc;
 	CPtrList	m_DataLabelList;
 	// CString m_ResultDataType;
 	CDisplayVars *m_DisplayVars;

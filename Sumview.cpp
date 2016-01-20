@@ -91,7 +91,7 @@ CSummaryView::CSummaryView()
 
 CSummaryView::~CSummaryView()
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pSummaryView = NULL;
 }
@@ -351,7 +351,7 @@ CSummaryView::AddHead( CGVSummary* tGEh, CGPSumView* tRowView )
 void 
 CSummaryView::ResetGPSize(CDC* pDC, UINT MaxX )
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	CleanRowViewList();
@@ -826,7 +826,7 @@ CSummaryView::SetScrollVariables()
 	ReleaseDC(pDC);
 	
 //
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
     CDC* tDC = GetDC();
@@ -991,7 +991,7 @@ void CSummaryView::OnDraw(CDC* pDC)
 void CSummaryView::DoDraw(CDC* pDC, int InvFlag1, int InvFlag2 )
 {
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// This is a special case for if OnDraw gets called and there is no data.
@@ -1136,7 +1136,7 @@ void CSummaryView::OnPrint( CDC *pDC, CPrintInfo *pInfo )
 	// Count pages.
 
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_UserVars.m_PrintStringFlag != 0 || pDoc->m_UserVars.m_PrintPageNumber != 0) {
@@ -1375,7 +1375,7 @@ BOOL CSummaryView::OnPreparePrinting(CPrintInfo* pInfo)
 void 
 CSummaryView::CalculateMargins(CDC* pDC)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	POINT pt;
@@ -1439,7 +1439,7 @@ void CSummaryView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 	CalculateMargins(pDC);
 
 	// TODO: add extra initialization before printing
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	int res = pDC->GetDeviceCaps( HORZRES );
@@ -1604,10 +1604,10 @@ void CSummaryView::Dump(CDumpContext& dc) const
 	CView::Dump(dc);
 }
 
-CGenedocDoc* CSummaryView::GetDocument() // non-debug version is inline
+CGenethonDoc* CSummaryView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
-	return (CGenedocDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
+	return (CGenethonDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
@@ -1630,7 +1630,7 @@ int CSummaryView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	
 	// TODO: Add your specialized creation code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->m_pSummaryView = this;
@@ -2460,7 +2460,7 @@ void CSummaryView::OnUpdateSelectcol(CCmdUI* pCmdUI)
 void CSummaryView::OnGenecreatewin() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -2479,8 +2479,8 @@ void CSummaryView::OnGenecreatewin()
 
 	CGSFiller *pGSFiller = pDoc->pGSFiller;
 
-	CGenedocDoc* pnDoc = (CGenedocDoc *)((CGenedocApp *)AfxGetApp())->CreateNewDocument();
-	ASSERT ( pnDoc->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
+	CGenethonDoc* pnDoc = (CGenethonDoc *)((CGenethonApp *)AfxGetApp())->CreateNewDocument();
+	ASSERT ( pnDoc->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
 	
 	CGSFiller * pnGSFiller;
 	pnGSFiller = new CGSFiller;
@@ -2561,10 +2561,10 @@ CSummaryView::OnActivateView( BOOL bActivate, CView* pActivateView, CView* pDeac
 	CView::OnActivateView( bActivate, pActivateView, pDeactiveView );
 
 	if ( bActivate && !m_PrintOnly) {
-		if ( ((CGenedocApp *)AfxGetApp())->m_OKOrientCheck ) {
-			CGenedocDoc* pDoc = GetDocument();
+		if ( ((CGenethonApp *)AfxGetApp())->m_OKOrientCheck ) {
+			CGenethonDoc* pDoc = GetDocument();
 			ASSERT_VALID(pDoc);
-			((CGenedocApp *)AfxGetApp())->SetLandscape( pDoc->m_UserVars.m_Orientation );
+			((CGenethonApp *)AfxGetApp())->SetLandscape( pDoc->m_UserVars.m_Orientation );
 		}
 	}
 
@@ -2583,7 +2583,7 @@ void CSummaryView::OnFilePrint()
 
 	OnUpdate( NULL, 0L, NULL );
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	pDoc->CheckOrientation();
@@ -2602,7 +2602,7 @@ CSummaryView::OnEndPrintPreview( CDC* pDC, CPrintInfo* pInfo, POINT point, CPrev
 
 	OnUpdate( NULL, 0L, NULL );
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	pDoc->CheckOrientation();
@@ -2624,7 +2624,7 @@ void CSummaryView::OnFilePrintPreview()
 void 
 CSummaryView::InvalNewEndPoint( DWORD Range1, DWORD Range2)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// TODO: add draw code for native data here
@@ -2783,7 +2783,7 @@ CSummaryView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->BeginWaitCursor(); // Let em know
@@ -2928,7 +2928,7 @@ void CSummaryView::OnGenecopypict()
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "Pict Files (*.pct)|*.pct|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -3040,7 +3040,7 @@ void CSummaryView::OnCopymetaclip()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CDC* pDC = GetDC();
@@ -3147,7 +3147,7 @@ void CSummaryView::OnCopymetafile()
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "Meta Files (*.emf)|*.emf|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -3247,7 +3247,7 @@ void CSummaryView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 void CSummaryView::OnDstatscore()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -3279,7 +3279,7 @@ void CSummaryView::OnUpdateDstatscore(CCmdUI* pCmdUI)
 void CSummaryView::OnDstatscoreall()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {

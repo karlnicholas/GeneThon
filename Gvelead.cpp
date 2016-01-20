@@ -87,7 +87,7 @@ CGVEditLead::OnDraw( DrawStruct *DrawStc )
 	
 	tOut[1] = 0;
 
-	CGenedocDoc *pDoc = ((CGenedocView *)DrawStc->pView)->GetDocument();
+	CGenethonDoc *pDoc = ((CGenethonView *)DrawStc->pView)->GetDocument();
 
 	if ( DrawStc->pDC->IsPrinting() ) {
 		if ( pDoc->m_UserVars.m_PrintShading ) return;
@@ -146,7 +146,7 @@ CGVEditLead::OnDraw( DrawStruct *DrawStc )
 
 					} else {
 						pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
-//						if ( StopColor && !DrawStc->pDC->IsPrinting() && ((CGenedocView *)DrawStc->pView)->m_SelectSeq ) {
+//						if ( StopColor && !DrawStc->pDC->IsPrinting() && ((CGenethonView *)DrawStc->pView)->m_SelectSeq ) {
 						if ( StopColor && !DrawStc->pDC->IsPrinting() ) {
 							if ( tCGSeg->GetArrangeFlag() ) {
 								COLORREF tColor = BkColor;
@@ -247,7 +247,7 @@ CGVEditLead::CountCopyText(DWORD *dwCount )
 }
 
 void 
-CGVEditLead::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditLead::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	POSITION tPos = ViewDataList.GetHeadPosition();
@@ -298,7 +298,7 @@ CGVEditLead::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenedocDoc *pDoc )
 }
 
 void 
-CGVEditLead::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditLead::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	POSITION tPos = ViewDataList.GetHeadPosition();
@@ -350,7 +350,7 @@ CGVEditLead::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc *pDoc )
 
 
 void 
-CGVEditLead::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditLead::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	POSITION tPos = ViewDataList.GetHeadPosition();

@@ -43,7 +43,7 @@ CString BuildRebaseSrch( const CString& iSearch )
 }
 
 void 
-CGenedocDoc::PlotUniqueFrags()
+CGenethonDoc::PlotUniqueFrags()
 {
 
 	ShadeSegStc *pSegArr = NULL;
@@ -286,7 +286,7 @@ CGenedocDoc::PlotUniqueFrags()
 
 
 BOOL 
-CGenedocDoc::RebaseReport(CString& PathName)
+CGenethonDoc::RebaseReport(CString& PathName)
 {
 
 	ShadeSegStc *pSegArr = NULL;
@@ -1086,7 +1086,7 @@ END_CATCH
 
 
 void 
-CGenedocDoc::SearchRebaseReport( 
+CGenethonDoc::SearchRebaseReport( 
 	stcSearch *pSearch, 
 	ShadeSegStc *pSegArr, 
 	CPtrArray& RepArr, 
@@ -1168,7 +1168,7 @@ CGenedocDoc::SearchRebaseReport(
 
 
 int 
-CGenedocDoc::SearchRebase( 
+CGenethonDoc::SearchRebase( 
 	stcSearch *pSearch, 
 	GeneStor *pGeneStor, 
 	DWORD OuterCount, 
@@ -1249,7 +1249,7 @@ CGenedocDoc::SearchRebase(
 }
 
 int 
-CGenedocDoc::ScanRebaseFile(const CString& PathName, CPtrList *listSearch)
+CGenethonDoc::ScanRebaseFile(const CString& PathName, CPtrList *listSearch)
 {
 
 	GeneStor ** pGSArr = NULL;
@@ -1553,7 +1553,7 @@ END_CATCH
 
 
 int 
-CGenedocDoc::ScanPrositeMotifs(const CString& PathName, CPtrList *listSearch)
+CGenethonDoc::ScanPrositeMotifs(const CString& PathName, CPtrList *listSearch)
 {
 
 	GeneStor ** pGSArr = NULL;
@@ -1743,7 +1743,7 @@ END_CATCH
 
 
 void 
-CGenedocDoc::ClearSearch(UserVars *dUV)
+CGenethonDoc::ClearSearch(UserVars *dUV)
 {
 	while ( !dUV->listSearch.IsEmpty() ) {
 		stcSearch *ps = (stcSearch *)dUV->listSearch.RemoveHead();

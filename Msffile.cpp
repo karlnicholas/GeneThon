@@ -18,7 +18,7 @@ static long CheckSeq(const char *strand, DWORD Len);
 
 
 int
-CGenedocDoc::ReadMSFFile( 
+CGenethonDoc::ReadMSFFile( 
 	CPtrList *CommentList, 
 	CPtrList *SequenceList, 
 	const char *FileName
@@ -513,7 +513,7 @@ char	*MSFFILEmonths[] = {
 };
 
 int
-CGenedocDoc::WriteMSFFile( 
+CGenethonDoc::WriteMSFFile( 
 	const char *FileName
 ) {
 

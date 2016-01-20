@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 void 
-CGenedocDoc::AutoShadeDifference(
+CGenethonDoc::AutoShadeDifference(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 

@@ -10,7 +10,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 
 int 
-CGenedocDoc::SequenceImport()
+CGenethonDoc::SequenceImport()
 {
 	// TODO: Add your control notification handler code here
 
@@ -23,7 +23,7 @@ CGenedocDoc::SequenceImport()
 }
 
 
-int CGenedocDoc::SequenceExport(int Selected) 
+int CGenethonDoc::SequenceExport(int Selected) 
 {
 	// TODO: Add your command handler code here
 
@@ -40,7 +40,7 @@ int CGenedocDoc::SequenceExport(int Selected)
 }
 
 int
-CGenedocDoc::GetPhylipFile( CString PathName, int Append )
+CGenethonDoc::GetPhylipFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -65,7 +65,7 @@ CGenedocDoc::GetPhylipFile( CString PathName, int Append )
 
 
 int
-CGenedocDoc::GetPIRFile( CString PathName, int Append )
+CGenethonDoc::GetPIRFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -88,7 +88,7 @@ CGenedocDoc::GetPIRFile( CString PathName, int Append )
 }
 
 int
-CGenedocDoc::GetALNFile( CString PathName, int Append )
+CGenethonDoc::GetALNFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -113,7 +113,7 @@ CGenedocDoc::GetALNFile( CString PathName, int Append )
 }
 
 int
-CGenedocDoc::GetMSFFile( CString PathName, int Append )
+CGenethonDoc::GetMSFFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -138,7 +138,7 @@ CGenedocDoc::GetMSFFile( CString PathName, int Append )
 }
 
 int 
-CGenedocDoc::GetFasNTFile( CString PathName, int Append )
+CGenethonDoc::GetFasNTFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -157,7 +157,7 @@ CGenedocDoc::GetFasNTFile( CString PathName, int Append )
 }
 
 int 
-CGenedocDoc::GetFastaFile( CString PathName, int Append )
+CGenethonDoc::GetFastaFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -176,7 +176,7 @@ CGenedocDoc::GetFastaFile( CString PathName, int Append )
 }
 
 int 
-CGenedocDoc::GetTextFile( CString PathName, int Append, 
+CGenethonDoc::GetTextFile( CString PathName, int Append, 
 	const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC )
 {
 
@@ -196,7 +196,7 @@ CGenedocDoc::GetTextFile( CString PathName, int Append,
 }
 
 int 
-CGenedocDoc::GetGenbankFile( CString PathName, int Append )
+CGenethonDoc::GetGenbankFile( CString PathName, int Append )
 {
 
 	CPtrList CommentList;
@@ -215,7 +215,7 @@ CGenedocDoc::GetGenbankFile( CString PathName, int Append )
 }
 
 int
-CGenedocDoc::ProcessRows( CPtrList& CommentList, CPtrList& SequenceList, int Append )
+CGenethonDoc::ProcessRows( CPtrList& CommentList, CPtrList& SequenceList, int Append )
 {
 	CGeneSegment *SaveCGSeg;
 
@@ -313,7 +313,7 @@ CGenedocDoc::ProcessRows( CPtrList& CommentList, CPtrList& SequenceList, int App
 }
 
 int
-CGenedocDoc::ReSizeRows()
+CGenethonDoc::ReSizeRows()
 {
 	DWORD MaxSize = 0;
 
@@ -344,7 +344,7 @@ CGenedocDoc::ReSizeRows()
 
 
 int
-CGenedocDoc::AppendDataRows(CPtrList& SequenceList, int Append )
+CGenethonDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 {
 
 	// Put the data rows on the list
@@ -415,7 +415,7 @@ CGenedocDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 
 
 int
-CGenedocDoc::CreateBottomRows()
+CGenethonDoc::CreateBottomRows()
 {
 	HGLOBAL hComSeg;
 	char *pc;
@@ -467,7 +467,7 @@ CGenedocDoc::CreateBottomRows()
 }
 
 int
-CGenedocDoc::CreateTopRows()
+CGenethonDoc::CreateTopRows()
 {
 	HGLOBAL hComSeg;
 	char *pc;

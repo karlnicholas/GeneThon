@@ -9,7 +9,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 // CPtrList
 void 
-CGenedocDoc::ResetTree()
+CGenethonDoc::ResetTree()
 {
 
 	if ( pGSFiller == NULL ) return;
@@ -46,7 +46,7 @@ CGenedocDoc::ResetTree()
 
 
 int 
-CGenedocDoc::ParseTree( const CString& ParseString, int ErrMsgs )
+CGenethonDoc::ParseTree( const CString& ParseString, int ErrMsgs )
 {
 
 	CPhyloGenBase *pPGCurrent;
@@ -262,7 +262,7 @@ CGenedocDoc::ParseTree( const CString& ParseString, int ErrMsgs )
 }
 
 void
-CGenedocDoc::SetDepths()
+CGenethonDoc::SetDepths()
 {
 	m_pPGBase->SetDepth( 0 );
 	m_MaxDepth = 0;
@@ -278,7 +278,7 @@ CGenedocDoc::SetDepths()
 }
 
 void 
-CGenedocDoc::CallDocFromDepth( CObject *p )
+CGenethonDoc::CallDocFromDepth( CObject *p )
 {
 	switch ( m_CallSwitch ) {
 	case CALLSETOBJ:
@@ -291,14 +291,14 @@ CGenedocDoc::CallDocFromDepth( CObject *p )
 }
 
 void 
-CGenedocDoc::CallSetNumber( CObject *p )
+CGenethonDoc::CallSetNumber( CObject *p )
 {
 	CPhyloGenBase *pPGB = (CPhyloGenBase *)p;
 	pPGB->m_Number = ++m_NodeNumber;
 }
 
 void 
-CGenedocDoc::CallDocFromSeq( CObject *p )
+CGenethonDoc::CallDocFromSeq( CObject *p )
 {
 	switch ( m_CallSwitch ) {
 	case CALLSETMAX:
@@ -314,7 +314,7 @@ CGenedocDoc::CallDocFromSeq( CObject *p )
 }
 
 void 
-CGenedocDoc::CallSetMax( CObject *p )
+CGenethonDoc::CallSetMax( CObject *p )
 {
 	ASSERT( p->IsKindOf(RUNTIME_CLASS(CPhyloSeq)) );
 	CPhyloSeq *pPS = (CPhyloSeq *)p;
@@ -326,7 +326,7 @@ CGenedocDoc::CallSetMax( CObject *p )
 }
 
 void 
-CGenedocDoc::WriteString()
+CGenethonDoc::WriteString()
 {
 	m_UserVars.m_ParseString.Empty();
 
@@ -335,7 +335,7 @@ CGenedocDoc::WriteString()
 }
 
 
-void CGenedocDoc::OnPhylodlg()
+void CGenethonDoc::OnPhylodlg()
 {
 	
 	CPhyloGenDialog tDlg;
@@ -355,7 +355,7 @@ void CGenedocDoc::OnPhylodlg()
 
 }
 
-void CGenedocDoc::OnPhyloview()
+void CGenethonDoc::OnPhyloview()
 {
 	if ( m_pPGBase != NULL ) {
 		// TODO: Add your command handler code here
@@ -368,7 +368,7 @@ void CGenedocDoc::OnPhyloview()
 	}
 }
 
-void CGenedocDoc::OnUpdatePhyloview(CCmdUI* pCmdUI)
+void CGenethonDoc::OnUpdatePhyloview(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable( m_pPGBase != NULL );

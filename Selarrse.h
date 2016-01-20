@@ -28,7 +28,7 @@ class CSelArrSeq : public CDialog
 public:
 	CSelArrSeq(CWnd* pParent = NULL);	// standard constructor
 
-	CGenedocDoc *pDoc;
+	CGenethonDoc *pDoc;
 
 // Dialog Data
 	//{{AFX_DATA(CSelArrSeq)

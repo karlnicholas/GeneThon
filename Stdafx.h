@@ -148,7 +148,7 @@ enum {
 #include "genechi.h"
 
 // Main prog
-#include "genedoc.h"
+#include "genethon.h"
 
 // PictFile
 #include "pictfile.h"
@@ -176,7 +176,7 @@ enum {
 #include "DStatOb.h"
 
 // Main doc
-#include "geneddoc.h"
+#include "genetdoc.h"
 
 #include "DStatVw.h"
 #include "GelView.h"
@@ -216,7 +216,7 @@ enum {
 #include "phylovw.h"
 
 // View
-#include "genedvw.h"
+#include "genetvw.h"
 #include "sumview.h"
 
 //dialog

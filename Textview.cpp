@@ -23,7 +23,7 @@ CTextView::CTextView()
 
 CTextView::~CTextView()
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pTextView = NULL;
 	delete m_pFont;
@@ -89,7 +89,7 @@ DWORD CALLBACK TextRead(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
  
 void CTextView::LoadFile(CString& PathName)
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	txtFile = new CFile();
@@ -124,7 +124,7 @@ int CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	GetRichEditCtrl().SetOptions( ECOOP_OR, ECO_READONLY );
   
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->m_pTextView = this;
@@ -157,7 +157,7 @@ DWORD CALLBACK TextWrite(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
 
 void CTextView::SaveFile(CString& PathName)
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	txtFile = new CFile();

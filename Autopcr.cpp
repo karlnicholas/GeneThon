@@ -3,7 +3,7 @@
 
 
 void 
-CGenedocDoc::AutoShadePCR(
+CGenethonDoc::AutoShadePCR(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -317,7 +317,7 @@ END_CATCH
 
 // The char for the comment string is returned in rSPS[n].RowNum
 void
-CGenedocDoc::PCRMatchArr( int MatchArr[2][26], ShadePairStruct* rSPS, int *Count )
+CGenethonDoc::PCRMatchArr( int MatchArr[2][26], ShadePairStruct* rSPS, int *Count )
 {
 	// Code to include
 	int i, j;

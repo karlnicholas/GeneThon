@@ -1,4 +1,4 @@
-// geneddoc.cpp : implementation of the CGenedocDoc class
+// geneddoc.cpp : implementation of the CGenethonDoc class
 //
 
 #include "stdafx.h"
@@ -12,7 +12,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 
 int
-CGenedocDoc::FindScore ( DWORD Location, DWORD *nStartRange, DWORD *nEndRange )
+CGenethonDoc::FindScore ( DWORD Location, DWORD *nStartRange, DWORD *nEndRange )
 {
 	CGeneSegment *tCGSeg;
 	HANDLE tSegHandle;
@@ -76,7 +76,7 @@ CGenedocDoc::FindScore ( DWORD Location, DWORD *nStartRange, DWORD *nEndRange )
 
 
 void
-CGenedocDoc::Score( DWORD *nStartRange, DWORD *nEndRange )
+CGenethonDoc::Score( DWORD *nStartRange, DWORD *nEndRange )
 {
 	int RowCount;
 	DWORD StartRange = *nStartRange;
@@ -247,7 +247,7 @@ CGenedocDoc::Score( DWORD *nStartRange, DWORD *nEndRange )
 
 /*
 int
-CGenedocDoc::ScoreCurrentArray( char n1, char n2 ) 
+CGenethonDoc::ScoreCurrentArray( char n1, char n2 ) 
 {
 	
 	int Loc1, Loc2;

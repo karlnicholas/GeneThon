@@ -4,7 +4,7 @@
 
 
 int 
-CGenedocDoc::LogOddsScore( 
+CGenethonDoc::LogOddsScore( 
 	DWORD *nStartRange, 
 	DWORD *nEndRange, 
 	unsigned long *Score, 
@@ -30,7 +30,7 @@ extern void HCount( double MPC, double *Frac,
 	double DiffRes, double TotalRes  );
 
 	
-void CGenedocDoc::ScoreProtLO(	
+void CGenethonDoc::ScoreProtLO(	
 	DWORD *nStartRange, 
 	DWORD *nEndRange, 
 	unsigned long *Score, 
@@ -216,7 +216,7 @@ extern void HCountDNA( double MPC, double *Frac,
 	double DiffRes, double TotalRes  );
 
 
-void CGenedocDoc::ScoreDNALO(
+void CGenethonDoc::ScoreDNALO(
 	DWORD *nStartRange, 
 	DWORD *nEndRange, 
 	unsigned long *Score, 

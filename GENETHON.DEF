@@ -1,7 +1,7 @@
 ; genedoc.def : Declares the module parameters for the application.
 
-NAME         GENEDOC
-DESCRIPTION  'GENEDOC Windows Application'
+NAME         GENETHON
+DESCRIPTION  'GENETHON Windows Application'
 EXETYPE      WINDOWS
 
 CODE         PRELOAD MOVEABLE DISCARDABLE

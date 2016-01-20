@@ -32,7 +32,7 @@
 // Hydrophobic: ILVCAGMFYWH       TP   X -
 
 void 
-CGenedocDoc::AutoShadeGroupChem(
+CGenethonDoc::AutoShadeGroupChem(
 	ShadeSegStc* pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -133,7 +133,7 @@ CGenedocDoc::AutoShadeGroupChem(
 }
 
 void 
-CGenedocDoc::AutoShadeGroupChemCons(
+CGenethonDoc::AutoShadeGroupChemCons(
 	ShadeSegStc* pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 

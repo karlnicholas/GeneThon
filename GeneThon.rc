@@ -38,7 +38,7 @@ END
 
 3 TEXTINCLUDE DISCARDABLE 
 BEGIN
-    "#include ""res\\genedoc.rc2""  // non-App Studio edited resources\r\n"
+    "#include ""res\\genethon.rc2""  // non-App Studio edited resources\r\n"
     "\r\n"
     "#include ""afxres.rc""  \t// Standard components\r\n"
     "#include ""afxprint.rc""\t// printing/print preview resources\r\n"
@@ -55,8 +55,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "RES\\GENEDOC.ICO"
-IDR_GENEDOTYPE          ICON    DISCARDABLE     "RES\\GENEDDOC.ICO"
+IDR_MAINFRAME           ICON    DISCARDABLE     "RES\\GENETHON.ICO"
+IDR_GENEDOTYPE          ICON    DISCARDABLE     "RES\\GENEDTHON.ICO"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -65,7 +65,7 @@ IDR_GENEDOTYPE          ICON    DISCARDABLE     "RES\\GENEDDOC.ICO"
 
 IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "RES\\TOOLBAR.BMP"
 IDB_SMALLLOGO           BITMAP  DISCARDABLE     "RES\\MEBITU.BMP"
-IDB_GENEDOC             BITMAP  DISCARDABLE     "RES\\GENEDOCU.BMP"
+IDB_GENETHON             BITMAP  DISCARDABLE     "RES\\GENETHONU.BMP"
 IDB_PHYLOBAR            BITMAP  DISCARDABLE     "RES\\PHYLOBAR.BMP"
 IDB_GENEBAR             BITMAP  DISCARDABLE     "RES\\GENEBAR.BMP"
 IDB_DSTATBAR            BITMAP  DISCARDABLE     "RES\\DSTATBAR.BMP"
@@ -100,7 +100,7 @@ BEGIN
         MENUITEM "&Index",                      ID_HELP_INDEX
         MENUITEM "&Using Help",                 ID_HELP_USING
         MENUITEM "",                            1
-        MENUITEM "&About GeneDoc...",           ID_APP_ABOUT
+        MENUITEM "&About GeneThon...",           ID_APP_ABOUT
     END
 END
 
@@ -347,7 +347,7 @@ BEGIN
         MENUITEM "&Index",                      ID_HELP_INDEX
         MENUITEM "&Using Help",                 ID_HELP_USING
         MENUITEM SEPARATOR
-        MENUITEM "&About GeneDoc...",           ID_APP_ABOUT
+        MENUITEM "&About GeneThon...",           ID_APP_ABOUT
     END
 END
 
@@ -403,7 +403,7 @@ END
 
 IDD_ABOUTBOX DIALOG DISCARDABLE  34, 22, 195, 201
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About GeneDoc"
+CAPTION "About GeneThon"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Multiple Sequence\n  Alignment Editor\n && Shading Utility\n  Version 2.7.000",
@@ -412,9 +412,9 @@ BEGIN
                     64,18
     DEFPUSHBUTTON   "OK",IDOK,152,180,32,14,WS_GROUP
     GROUPBOX        "Citations",IDC_STATIC,0,136,186,39
-    LTEXT           "Nicholas, Karl B., and Nicholas, Hugh B. Jr., 1997, GeneDoc: a tool for editing and annotating multiple sequence alignments. Distributed by the author.",
+    LTEXT           "Nicholas, Karl B., and Nicholas, Hugh B. Jr., 1997, GeneThon: a tool for editing and annotating multiple sequence alignments. Distributed by the author.",
                     IDC_STATIC,9,145,173,26
-    LTEXT           "www.psc.edu/biomed/genedoc",IDC_STATIC,12,183,130,8
+    LTEXT           "www.psc.edu/biomed/genethon",IDC_STATIC,12,183,130,8
 END
 
 IDD_SHADEEDITDLG DIALOG DISCARDABLE  0, 0, 126, 63
@@ -1764,19 +1764,19 @@ END
 
 STRINGTABLE PRELOAD DISCARDABLE 
 BEGIN
-    IDR_MAINFRAME           "GeneDoc"
-    IDR_GENEDOTYPE          "\nGene\nGeneDoc Document\nMulti Sequence (*.msf)\n.msf\nGeneDoc.Document\nGeneDoc Document"
+    IDR_MAINFRAME           "GeneThon"
+    IDR_GENEDOTYPE          "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
     IDS_DUPSEQNAME          "Sequence Name Already in Sequence List: Skipping: %1"
-    IDR_SUMMARYVIEW         "\nGene\nGeneDoc Document\nMulti Sequence (*.msf)\n.msf\nGeneDoc.Document\nGeneDoc Document"
-    IDR_TEXTVIEW            "\nGene\nGeneDoc Document\nMulti Sequence (*.msf)\n.msf\nGeneDoc.Document\nGeneDoc Document"
-    IDR_DSTATVIEW           "\nGene\nGeneDoc Document\nMulti Sequence (*.msf)\n.msf\nGeneDoc.Document\nGeneDoc Document"
-    IDR_PHYLOVIEW           "\nGene\nGeneDoc Document\nMulti Sequence (*.msf)\n.msf\nGeneDoc.Document\nGeneDoc Document"
-    IDR_GELVIEW             "\nGene\nGeneDoc Document\nMulti Sequence (*.msf)\n.msf\nGeneDoc.Document\nGeneDoc Document"
+    IDR_SUMMARYVIEW         "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
+    IDR_TEXTVIEW            "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
+    IDR_DSTATVIEW           "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
+    IDR_PHYLOVIEW           "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
+    IDR_GELVIEW             "\nGene\nGeneThon Document\nMulti Sequence (*.msf)\n.msf\nGeneThon.Document\nGeneThon Document"
 END
 
 STRINGTABLE PRELOAD DISCARDABLE 
 BEGIN
-    AFX_IDS_APP_TITLE       "GeneDoc"
+    AFX_IDS_APP_TITLE       "GeneThon"
     AFX_IDS_IDLEMESSAGE     "For Help, press F1"
     AFX_IDS_HELPMODEMESSAGE "Select an object on which to get Help"
 END
@@ -1855,7 +1855,7 @@ BEGIN
     ID_EDIT_REDO            "Redo the previously undone action"
     IDS_SEQDELSEQ           "Deleting Sequence!!\n\n %1\n\nAre you sure??"
     IDS_NOMOREPAGES         "Cannot print any more than %1 pages\nat this printer resolution.\nPlease see Help on Printer Resolutions."
-    IDS_DISPLAYMAX          "This current combination of Data File Size and Display Width requires more Sequence Rows than can be shown in this version of GeneDoc. I am truncating the number of Sequence Rows on the Display. Please see the help file on Display Limitations."
+    IDS_DISPLAYMAX          "This current combination of Data File Size and Display Width requires more Sequence Rows than can be shown in this version of GeneThon. I am truncating the number of Sequence Rows on the Display. Please see the help file on Display Limitations."
 END
 
 STRINGTABLE DISCARDABLE 
@@ -1885,7 +1885,7 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     ID_EDIT_COPYINV         "Copy the selection and put it on the ClipBoard inverted."
-    IDM_CONFIGURE           "Configure GeneDoc user settings.\nConfiguration Dialog"
+    IDM_CONFIGURE           "Configure GeneThon user settings.\nConfiguration Dialog"
     IDM_GENEARRANGE         "Enable Grab and Drag Mode.\nGrab and Drag"
 END
 
@@ -1917,9 +1917,9 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDM_GENEGROUPENABLE     "If checked, then similarity groups enabled.\nToggle Similarity Groups"
-    ID_ON_HELP              "Get help on GeneDoc."
+    ID_ON_HELP              "Get help on GeneThon."
     IDM_GENESTATFILE        "Create a Similarity Matrix Statistics Report\nStatistics Report"
-    IDM_GENESCOREFILE       "Create Inter Sequence GeneDoc Score Report\nScore Report"
+    IDM_GENESCOREFILE       "Create Inter Sequence GeneThon Score Report\nScore Report"
     IDM_GENESAVEINI         "Save Current User Settings as the defaults."
     IDM_GENELOADINI         "Load User Defaults into Current Defaults"
     IDM_GENEMODEPROPERTY    "Set Shading Mode to Chemical Property.\nProperties"
@@ -2084,7 +2084,7 @@ END
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
-#include "res\genedoc.rc2"  // non-App Studio edited resources
+#include "res\genethon.rc2"  // non-App Studio edited resources
 
 #include "afxres.rc"  	// Standard components
 #include "afxprint.rc"	// printing/print preview resources

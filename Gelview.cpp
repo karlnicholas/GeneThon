@@ -61,7 +61,7 @@ CGelView::~CGelView()
 	}
 	m_listGel.RemoveAll();
 
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pGelView = NULL;
 }
@@ -117,10 +117,10 @@ void CGelView::Dump(CDumpContext& dc) const
 	CFormView::Dump(dc);
 }
 
-CGenedocDoc* CGelView::GetDocument() // non-debug version is inline
+CGenethonDoc* CGelView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
-	return (CGenedocDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
+	return (CGenethonDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
@@ -133,7 +133,7 @@ int CGelView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	
 	// TODO: Add your specialized creation code here
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pGelView = this;
 	
@@ -149,7 +149,7 @@ void CGelView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 void
 CGelView::RebuildBox()
 {
-	CGenedocDoc *pDoc = GetDocument();
+	CGenethonDoc *pDoc = GetDocument();
 	
 	m_listSequences.ResetContent();
 
@@ -239,7 +239,7 @@ void CGelView::OnSize(UINT nType, int cx, int cy)
 	CFormView::OnSize(nType, cx, cy);
 	
 	// TODO: Add your message handler code here
-	CGenedocDoc *pDoc = GetDocument();
+	CGenethonDoc *pDoc = GetDocument();
 
 
 //	if ( pDoc->IsEmbedded() && m_GelView ) {
@@ -371,7 +371,7 @@ CGelView::SearchRebaseGel(
 void CGelView::OnRungel() 
 {
 	// TODO: Add your control notification handler code here
-	CGenedocDoc *pDoc = GetDocument();
+	CGenethonDoc *pDoc = GetDocument();
 
 //	MakeGel(m_listSequences, m_listEnzymes);
 //	pDoc->SetModifiedFlag();
@@ -798,7 +798,7 @@ void CGelView::OnEditCopy()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CDC* pDC = GetDC();

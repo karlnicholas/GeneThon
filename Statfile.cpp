@@ -51,7 +51,7 @@ char	*Statmonths[] = {
 */
 
 int
-CGenedocDoc::WriteStatFile( 
+CGenethonDoc::WriteStatFile( 
 	const char *FileName
 ) {
 

@@ -1,4 +1,4 @@
-// geneddoc.cpp : implementation of the CGenedocDoc class
+// geneddoc.cpp : implementation of the CGenethonDoc class
 //
 
 #include "stdafx.h"
@@ -10,12 +10,12 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocDoc
+// CGenethonDoc
 
-IMPLEMENT_DYNCREATE(CGenedocDoc, CDocument)
+IMPLEMENT_DYNCREATE(CGenethonDoc, CDocument)
 
-BEGIN_MESSAGE_MAP(CGenedocDoc, CDocument)
-	//{{AFX_MSG_MAP(CGenedocDoc)
+BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
+	//{{AFX_MSG_MAP(CGenethonDoc)
 	ON_COMMAND(IDM_GENESCOREFILE, OnGenescorefile)
 	ON_COMMAND(IDM_GENESTATFILE, OnGenestatfile)
 	ON_COMMAND(IDM_CONFIGURE, OnConfigure)
@@ -138,7 +138,7 @@ BEGIN_MESSAGE_MAP(CGenedocDoc, CDocument)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocDoc construction/destruction
+// CGenethonDoc construction/destruction
 ScoreTableStruct ScoreInit[] = {
 	{ "Blosum 35", Blosum35, "DE,NQ,ST,KR,FYW,LIVM,","Blosum 35 in 1/4 bits, Entropy = 0.2111, Expected = -0.1550", 0}, 
 	{ "Blosum 45", Blosum45, "DE,NH,ST,QKR,FYW,LIVM,", "Blosum 45 in 1/3 bits, Entropy = 0.3795, Expected = -0.2789", 0}, 
@@ -164,7 +164,7 @@ ScoreTableStruct ScoreInit[] = {
 };
 
 
-CGenedocDoc::CGenedocDoc()
+CGenethonDoc::CGenethonDoc()
 {
 	int i;
 	// TODO: add one-time construction code here
@@ -216,7 +216,7 @@ CGenedocDoc::CGenedocDoc()
 	// Load User Defaults
 	GetIniDefaults();
 
-	((CGenedocApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
+	((CGenethonApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
 
 
 	// Load up score table	// CptrArray
@@ -225,7 +225,7 @@ CGenedocDoc::CGenedocDoc()
 
 }
 
-CGenedocDoc::~CGenedocDoc()
+CGenethonDoc::~CGenethonDoc()
 {
 	if ( pGSFiller != NULL ) {
 		delete pGSFiller;
@@ -249,7 +249,7 @@ CGenedocDoc::~CGenedocDoc()
 
 
 void
-CGenedocDoc::SetShadeGroupDefault(CPtrArray *ShadePairArray, int NewScoreTable)
+CGenethonDoc::SetShadeGroupDefault(CPtrArray *ShadePairArray, int NewScoreTable)
 { 
 	int i;
 	ShadePairStruct *tSPS;
@@ -300,7 +300,7 @@ CGenedocDoc::SetShadeGroupDefault(CPtrArray *ShadePairArray, int NewScoreTable)
 } 
 
 const char * 
-CGenedocDoc::GetScoreTableDescr(int ScoreTable)
+CGenethonDoc::GetScoreTableDescr(int ScoreTable)
 {
 	ASSERT ( ScoreTable < (sizeof(ScoreInit) / sizeof(ScoreTableStruct)));
 	
@@ -310,7 +310,7 @@ CGenedocDoc::GetScoreTableDescr(int ScoreTable)
 
 
 void
-CGenedocDoc::SetShadePairArray(CPtrArray *nShadePairArray, CPtrArray *oShadePairArray)
+CGenethonDoc::SetShadePairArray(CPtrArray *nShadePairArray, CPtrArray *oShadePairArray)
 {
 	ShadePairStruct *tSPS;
 	ShadePairStruct *tSPSn;
@@ -339,7 +339,7 @@ CGenedocDoc::SetShadePairArray(CPtrArray *nShadePairArray, CPtrArray *oShadePair
 
 }
 
-CString CGenedocDoc::ConvertPathname( const char *nExt )
+CString CGenethonDoc::ConvertPathname( const char *nExt )
 {
 	char *pName;
    	CString PathName = GetPathName();
@@ -375,9 +375,9 @@ CString CGenedocDoc::ConvertPathname( const char *nExt )
 
 
 void
-CGenedocDoc::CheckOrientation()
+CGenethonDoc::CheckOrientation()
 {
-	int nLS = ((CGenedocApp *)AfxGetApp())->GetLandscape();
+	int nLS = ((CGenethonApp *)AfxGetApp())->GetLandscape();
 	if ( nLS != m_UserVars.m_Orientation ) {
 		m_UserVars.m_Orientation = nLS;
 		SetModifiedFlag();
@@ -385,7 +385,7 @@ CGenedocDoc::CheckOrientation()
 }
 
 void
-CGenedocDoc::SetFilePath(const char *pszPathName)
+CGenethonDoc::SetFilePath(const char *pszPathName)
 {
    	m_PathName = pszPathName;
 
@@ -407,7 +407,7 @@ CGenedocDoc::SetFilePath(const char *pszPathName)
 }
  
 void 
-CGenedocDoc::GetProjectType()
+CGenethonDoc::GetProjectType()
 {
 	
 	int tType = 0, rc;
@@ -434,7 +434,7 @@ CGenedocDoc::GetProjectType()
 
 
 BOOL 
-CGenedocDoc::OnOpenDocument(const char *pszPathName)
+CGenethonDoc::OnOpenDocument(const char *pszPathName)
 {
 	if (IsModified())
 		TRACE0("Warning: OnOpenDocument replaces an unsaved document\n");
@@ -462,7 +462,7 @@ CGenedocDoc::OnOpenDocument(const char *pszPathName)
 	GetUserDefaults( );
 
 	// Set printer orientation for this file.
-	((CGenedocApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
+	((CGenethonApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
 	
 	// Set Gap Char Correctly
 	ChangeGapChar();
@@ -508,12 +508,12 @@ CGenedocDoc::OnOpenDocument(const char *pszPathName)
 }
 
 BOOL 
-CGenedocDoc::OnNewDocument()
+CGenethonDoc::OnNewDocument()
 {
 
 	GetProjectType();
 	
-/*	if ( ((CGenedocApp*)AfxGetApp())->m_ReallyNewFlag ) {
+/*	if ( ((CGenethonApp*)AfxGetApp())->m_ReallyNewFlag ) {
 		
 		CProjTypeDialog	tDlg;
 		
@@ -530,7 +530,7 @@ CGenedocDoc::OnNewDocument()
 	return TRUE;
 }
 
-void CGenedocDoc::OnFileSave() 
+void CGenethonDoc::OnFileSave() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) {
@@ -541,7 +541,7 @@ void CGenedocDoc::OnFileSave()
 	CDocument::OnFileSave();
 }
 
-void CGenedocDoc::OnFileSaveAs()
+void CGenethonDoc::OnFileSaveAs()
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) {
@@ -556,11 +556,11 @@ void CGenedocDoc::OnFileSaveAs()
 
 
 BOOL 
-CGenedocDoc::OnSaveDocument(const char *pszPathName)
+CGenethonDoc::OnSaveDocument(const char *pszPathName)
 {
 
 	// Get printer orientation for this file.
-	m_UserVars.m_Orientation = ((CGenedocApp *)AfxGetApp())->GetLandscape();
+	m_UserVars.m_Orientation = ((CGenethonApp *)AfxGetApp())->GetLandscape();
 	
 	if ( 
 		(strlen ( m_UserVars.m_TitleProgram ) == 0 )
@@ -585,9 +585,9 @@ CGenedocDoc::OnSaveDocument(const char *pszPathName)
 	return TRUE;
 }
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocDoc serialization
+// CGenethonDoc serialization
 
-void CGenedocDoc::Serialize(CArchive& ar)
+void CGenethonDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
@@ -600,27 +600,27 @@ void CGenedocDoc::Serialize(CArchive& ar)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocDoc diagnostics
+// CGenethonDoc diagnostics
 
 #ifdef _DEBUG
-void CGenedocDoc::AssertValid() const
+void CGenethonDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
 
-void CGenedocDoc::Dump(CDumpContext& dc) const
+void CGenethonDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
 #endif //_DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocDoc commands
+// CGenethonDoc commands
 
 // Working Spot
 
 void
-CGenedocDoc::CopyGSFiller( CGSFiller *npGSFiller )
+CGenethonDoc::CopyGSFiller( CGSFiller *npGSFiller )
 {
 	pGSFiller = npGSFiller;
 
@@ -630,7 +630,7 @@ CGenedocDoc::CopyGSFiller( CGSFiller *npGSFiller )
 }
 
 void 
-CGenedocDoc::ClearShade() 
+CGenethonDoc::ClearShade() 
 {
 	if ( pGSFiller == NULL ) {
 		return;
@@ -715,7 +715,7 @@ CGenedocDoc::ClearShade()
 
 
 void 
-CGenedocDoc::ClearScore() 
+CGenethonDoc::ClearScore() 
 {
 	if ( pGSFiller == NULL ) {
 		return;
@@ -751,7 +751,7 @@ CGenedocDoc::ClearScore()
 
 
 void 
-CGenedocDoc::ChangeGapChar() 
+CGenethonDoc::ChangeGapChar() 
 {
 	
 	if ( pGSFiller == NULL ) {
@@ -771,7 +771,7 @@ CGenedocDoc::ChangeGapChar()
 
 
 void 
-CGenedocDoc::InsertFillerRange(DWORD StartRange, DWORD EndRange) 
+CGenethonDoc::InsertFillerRange(DWORD StartRange, DWORD EndRange) 
 {
 	
 	if ( pGSFiller == NULL ) {
@@ -830,7 +830,7 @@ CGenedocDoc::InsertFillerRange(DWORD StartRange, DWORD EndRange)
 }
 
 void 
-CGenedocDoc::DeleteFillerRange(DWORD StartRange, DWORD EndRange, int DelData ) 
+CGenethonDoc::DeleteFillerRange(DWORD StartRange, DWORD EndRange, int DelData ) 
 {
 	
 	if ( pGSFiller == NULL ) {
@@ -895,7 +895,7 @@ CGenedocDoc::DeleteFillerRange(DWORD StartRange, DWORD EndRange, int DelData )
 }
 
 
-void CGenedocDoc::OnCleargapcols() 
+void CGenethonDoc::OnCleargapcols() 
 {
 	// TODO: Add your command handler code here
 	if ( pGSFiller == NULL ) {
@@ -943,7 +943,7 @@ void CGenedocDoc::OnCleargapcols()
 }
 
 int 
-CGenedocDoc::GetNumColors(CDisplayVars *DisplayVars)
+CGenethonDoc::GetNumColors(CDisplayVars *DisplayVars)
 {
 	if ( DisplayVars->GetModeConserved() == SHADEPROPERTY ) {
 		if ( DisplayVars->GetLastShadeLevel() >= SHADELEVEL2 ) {
@@ -960,7 +960,7 @@ CGenedocDoc::GetNumColors(CDisplayVars *DisplayVars)
 }
 
 void
-CGenedocDoc::GetLevelColors( CDisplayVars *DisplayVars, int Level, COLORREF * TextColor, COLORREF *BkColor )
+CGenethonDoc::GetLevelColors( CDisplayVars *DisplayVars, int Level, COLORREF * TextColor, COLORREF *BkColor )
 {
 	// Check for special case properties shading
 	int LastShadeLevel = DisplayVars->GetLastShadeLevel();
@@ -1001,7 +1001,7 @@ CGenedocDoc::GetLevelColors( CDisplayVars *DisplayVars, int Level, COLORREF * Te
 
 
 CGeneSegment* 
-CGenedocDoc::GetSequenceFromName( const CString& Name )
+CGenethonDoc::GetSequenceFromName( const CString& Name )
 {
 	if ( pGSFiller == NULL ) return NULL;
 
@@ -1035,7 +1035,7 @@ int *nEnab, int *oEnab
 );
 
 void 
-CGenedocDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
+CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 {
 
 	// Start User Variables ....
@@ -1081,7 +1081,7 @@ CGenedocDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 	nUserVars->m_ShowTail = oUserVars->m_ShowTail;
 
 	nUserVars->m_Orientation = oUserVars->m_Orientation;
-	((CGenedocApp *)AfxGetApp())->SetLandscape( nUserVars->m_Orientation );
+	((CGenethonApp *)AfxGetApp())->SetLandscape( nUserVars->m_Orientation );
 
 	nUserVars->m_GapInd = oUserVars->m_GapInd;
 	
@@ -1255,7 +1255,7 @@ CGenedocDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 }
 
 void
-CGenedocDoc::ClearUserVars( UserVars * dUserVars )
+CGenethonDoc::ClearUserVars( UserVars * dUserVars )
 {
 	ShadePairStruct *tSPS;
 	int count = dUserVars->m_ShadePairArray.GetSize();
@@ -1283,13 +1283,13 @@ CGenedocDoc::ClearUserVars( UserVars * dUserVars )
 
 
 
-void CGenedocDoc::OnConfigure() 
+void CGenethonDoc::OnConfigure() 
 {
 	DoConfigure();
 }	
 
 
-void CGenedocDoc::DoConfigure(int ActivePage, int ReDraw ) 
+void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw ) 
 {
 	// TODO: Add your command handler code here
 
@@ -1669,7 +1669,7 @@ void CGenedocDoc::DoConfigure(int ActivePage, int ReDraw )
 	m_UserVars.m_PrintDate = tDlg.m_PrintPage.m_PrintDate;
 
 	// Set printer orientation for this file.
-	((CGenedocApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
+	((CGenethonApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
 
 //
 //	if ( tDlg.m_PrintPage.m_DisplayMethodChanged ) {
@@ -1814,7 +1814,7 @@ void CGenedocDoc::DoConfigure(int ActivePage, int ReDraw )
 }
 
 void 
-CGenedocDoc::DoGroupConfigure(int ActivePage, int ReDraw )
+CGenethonDoc::DoGroupConfigure(int ActivePage, int ReDraw )
 {
 	
 	// TODO: Add your command handler code here
@@ -1950,7 +1950,7 @@ CGenedocDoc::DoGroupConfigure(int ActivePage, int ReDraw )
 
 
 
-void CGenedocDoc::OnAlign() 
+void CGenethonDoc::OnAlign() 
 {
 	// TODO: Add your command handler code here
 	CMultAl *MultAl = new CMultAl();
@@ -1963,10 +1963,10 @@ void CGenedocDoc::OnAlign()
 	delete MultAl;
 }
 
-void CGenedocDoc::OnConfigreport() 
+void CGenethonDoc::OnConfigreport() 
 {
 	// TODO: Add your command handler code here
-	DoConfigure( CGenedocDoc::ACTPAGEREPORTS, FALSE );
+	DoConfigure( CGenethonDoc::ACTPAGEREPORTS, FALSE );
 	
 }
 

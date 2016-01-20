@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 void
-CGenedocDoc::ReScoreAll(int ScoreAll)
+CGenethonDoc::ReScoreAll(int ScoreAll)
 {
 	if ( pGSFiller == NULL ) {
 		return;

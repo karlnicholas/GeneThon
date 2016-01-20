@@ -51,7 +51,7 @@ CPhylogenView::CPhylogenView()
 
 CPhylogenView::~CPhylogenView()
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pTreeView = NULL;
 }
@@ -274,7 +274,7 @@ CPhylogenView::DoDrawCmd ( CDC*pDC, int DrawCmd, int Depth2, const CString &Name
 void 
 CPhylogenView::OnDraw(CDC* pDC)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// TODO: add draw code for native data here
@@ -367,7 +367,7 @@ void CPhylogenView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint )
 {
 	CSize sizeTotal;
 	// TODO: calculate the total size of this view
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -455,10 +455,10 @@ void CPhylogenView::Dump(CDumpContext& dc) const
 	CScrollView::Dump(dc);
 }
 
-CGenedocDoc* CPhylogenView::GetDocument() // non-debug version is inline
+CGenethonDoc* CPhylogenView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
-	return (CGenedocDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
+	return (CGenethonDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
@@ -470,7 +470,7 @@ void CPhylogenView::OnMouseMove(UINT nFlags, CPoint point)
 	CScrollView::OnMouseMove(nFlags, point);
 	// TODO: Add your message handler code here and/or call default CView
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	CClientDC dc(this);
@@ -524,7 +524,7 @@ void CPhylogenView::OnLButtonDown(UINT nFlags, CPoint point)
 void 
 CPhylogenView::SelectFunction()
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	POSITION Pos;
@@ -576,7 +576,7 @@ void CPhylogenView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	int Flag = 0;
 
 	POSITION Pos;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -603,7 +603,7 @@ void
 CPhylogenView::DeleteFunction()
 {
 	POSITION Pos;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -643,7 +643,7 @@ CPhylogenView::DeleteFunction()
 int 
 CPhylogenView::ClearSelected(int *Selection)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	*Selection = 0;
@@ -672,7 +672,7 @@ CPhylogenView::ClearSelected(int *Selection)
 void 
 CPhylogenView::SetSelected(int Selection, int CheckScroll )
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	m_LastKeySelect = Selection;
 	CPhyloGenBase * pPGB;
@@ -724,7 +724,7 @@ void CPhylogenView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// TODO: Add your message handler code here and/or call default
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	POSITION Pos;
 	CPhyloGenBase *pPGB;
@@ -871,7 +871,7 @@ int CPhylogenView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 	// TODO: Add your specialized creation code here
 	
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pTreeView = this;
 	
@@ -890,7 +890,7 @@ void CPhylogenView::OnUpdatePhylodelete(CCmdUI* pCmdUI)
 	int Flag = 0;
 
 	POSITION Pos;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -916,7 +916,7 @@ void CPhylogenView::OnPhyloclear()
 	// TODO: Add your command handler code here
 	if ( AfxMessageBox( "OK to Delete ALL nodes?", MB_OKCANCEL ) != IDOK ) return;
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -946,7 +946,7 @@ CPhylogenView::CreateFunction()
 	int Flag = 0;
 
 	POSITION Pos;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -1019,7 +1019,7 @@ CPhylogenView::GetFSCount()
 	int Flag = 0;
 
 	POSITION Pos;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_pPGBase != NULL ) {
@@ -1041,7 +1041,7 @@ void CPhylogenView::OnPhylomvdn()
 {
 	// TODO: Add your command handler code here
 	POSITION Pos, PosFirst;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 
@@ -1082,7 +1082,7 @@ void CPhylogenView::OnPhylomvup()
 {
 	// TODO: Add your command handler code here
 	POSITION Pos, PosLast = NULL, PosPrev = NULL;
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 
@@ -1134,7 +1134,7 @@ CPhylogenView::ClipFunction()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->BeginWaitCursor(); // Let em know

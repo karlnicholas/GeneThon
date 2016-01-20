@@ -232,7 +232,7 @@ CMainFrame::OpenSummaryView()
 	}
 
 	// Create new frame
-	CDocTemplate *pTemplate = ((CGenedocApp *) AfxGetApp())->m_pSummaryViewTemplate;
+	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pSummaryViewTemplate;
 	ASSERT_VALID(pTemplate);
 	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
 
@@ -276,7 +276,7 @@ CMainFrame::OpenTextView()
 	}
 
 	// Create new frame
-	CDocTemplate *pTemplate = ((CGenedocApp *) AfxGetApp())->m_pTextViewTemplate;
+	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pTextViewTemplate;
 	ASSERT_VALID(pTemplate);
 	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
 
@@ -303,7 +303,7 @@ CMainFrame::OpenTreeView()
 	}
 
 	// Create new frame
-	CDocTemplate *pTemplate = ((CGenedocApp *) AfxGetApp())->m_pTreeViewTemplate;
+	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pTreeViewTemplate;
 	ASSERT_VALID(pTemplate);
 	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
 
@@ -329,7 +329,7 @@ CMainFrame::OpenGeneView()
 	}
 
 	// Create new frame
-	CDocTemplate *pTemplate = ((CGenedocApp *) AfxGetApp())->m_pGenedocTemplate;
+	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pGenethonTemplate;
 	ASSERT_VALID(pTemplate);
 	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
 
@@ -355,7 +355,7 @@ CMainFrame::OpenDStatView()
 	}
 
 	// Create new frame
-	CDocTemplate *pTemplate = ((CGenedocApp *) AfxGetApp())->m_pDStatViewTemplate;
+	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pDStatViewTemplate;
 	ASSERT_VALID(pTemplate);
 	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
 
@@ -381,7 +381,7 @@ CMainFrame::OpenGelView()
 	}
 
 	// Create new frame
-	CDocTemplate *pTemplate = ((CGenedocApp *) AfxGetApp())->m_pGelViewTemplate;
+	CDocTemplate *pTemplate = ((CGenethonApp *) AfxGetApp())->m_pGelViewTemplate;
 	ASSERT_VALID(pTemplate);
 	CFrameWnd *pFrame = pTemplate->CreateNewFrame(pDocument, pActiveChild);
 

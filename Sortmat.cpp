@@ -4,7 +4,7 @@
 
 // The char for the comment string is returned in rSPS[n].RowNum
 void
-CGenedocDoc::SortMatchArr( CDisplayVars *DisplayVars, int MatchArr[2][26], ShadePairStruct* rSPS, int *Count, int Depth )
+CGenethonDoc::SortMatchArr( CDisplayVars *DisplayVars, int MatchArr[2][26], ShadePairStruct* rSPS, int *Count, int Depth )
 {
 	// Code to include
 	int i, j, k;

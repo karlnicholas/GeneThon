@@ -50,7 +50,7 @@ public:
 	void AddTail( CGeneViewBase * pGP );
 	void AddHead( CGeneViewBase * pGP );
 	
-	void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenedocDoc* pDoc );
+	void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc );
 
 	void SetStatusBar(UINT nFlags, UINT XPoint, DWORD YPoint);
 

@@ -138,12 +138,6 @@
     <ClCompile Include="Genechi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="geneddoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Genedoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="genedvw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -372,15 +366,18 @@
     <ClCompile Include="Userdef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Genethon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="genetdoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="GENEDOC.DEF">
+    <None Include="GENETHON.DEF">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="hlp\genedoc.hm">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="res\Genedoc.rc2">
+    <None Include="res\GeneThon.rc2">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -449,15 +446,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Genechi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="geneddoc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Genedoc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Genedvw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Genestor.h">
@@ -682,9 +670,18 @@
     <ClInclude Include="Uservars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneThon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="genetdoc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Genetvw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Genedoc.rc">
+    <ResourceCompile Include="GeneThon.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

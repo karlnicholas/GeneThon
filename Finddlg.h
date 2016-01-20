@@ -27,7 +27,7 @@ class CFindDlg : public CDialog
 // Construction
 public:
 	CFindDlg(CWnd* pParent = NULL);	// standard constructor
-	CGenedocDoc *pDoc;
+	CGenethonDoc *pDoc;
 
 // Dialog Data
 	//{{AFX_DATA(CFindDlg)

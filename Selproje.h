@@ -27,8 +27,8 @@ class CSelProject : public CDialog
 // Construction
 public:
 	CSelProject(CWnd* pParent = NULL);	// standard constructor
-	CGenedocDoc *pDoc;
-	CGenedocDoc *poDoc;
+	CGenethonDoc *pDoc;
+	CGenethonDoc *poDoc;
 
 // Dialog Data
 	//{{AFX_DATA(CSelProject)

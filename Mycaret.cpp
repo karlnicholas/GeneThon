@@ -351,7 +351,7 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 	if ( !nomove ) {
 
 		// For find again ..	
-		CGenedocDoc* pDoc = ((CGenedocView*)pView)->GetDocument();
+		CGenethonDoc* pDoc = ((CGenethonView*)pView)->GetDocument();
 		ASSERT_VALID(pDoc);
 		pDoc->m_pFS.PrevSeq = -1;
 
@@ -375,8 +375,8 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 		    	m_ScrollYPosition += m_YPosition - OldYPos;
 		    }
 		    	
-	    	((CGenedocView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
-	    	((CGenedocView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
+	    	((CGenethonView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
+	    	((CGenethonView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
 
 		} else if ( m_YPosition < m_ScrollYPosition  ) {
 
@@ -387,8 +387,8 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 		    	m_ScrollYPosition -= OldYPos - m_YPosition;
 		    }
 	    	
-	    	((CGenedocView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
-	    	((CGenedocView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
+	    	((CGenethonView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
+	    	((CGenethonView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
 	    
 		} else if ( m_XPosition - m_ScrollXPosition >= m_ViewXSize && m_XPosition >= m_ScrollXPosition ) {
 	    	m_ScrollXPosition += m_XPosition - OldXPos;
@@ -396,8 +396,8 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 				m_ScrollXPosition += m_xi;
 			}
 	    	
-	    	((CGenedocView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
-	    	((CGenedocView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
+	    	((CGenethonView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
+	    	((CGenethonView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
 		
 		} else if ( m_XPosition < m_ScrollXPosition ) {
 			if ( OldXPos - m_XPosition > m_ScrollXPosition ) {
@@ -406,8 +406,8 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 		    	m_ScrollXPosition -= OldXPos - m_XPosition;
 			}
 	    	
-	    	((CGenedocView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
-	    	((CGenedocView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
+	    	((CGenethonView*)pView)->ScrollToPosition ( m_ScrollXPosition, m_ScrollYPosition );
+	    	((CGenethonView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
 		}
 
 		
@@ -430,8 +430,8 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 			if ( m_maxy > m_ViewYSize ) tY = m_maxy - m_ViewYSize;
 			tYPos = m_YPosition < tY ? m_YPosition: tY;
 			tXPos = m_XPosition < tX ? m_XPosition: tX;
-    		((CGenedocView*)pView)->ScrollToPosition ( tXPos, tYPos );
-    		((CGenedocView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
+    		((CGenethonView*)pView)->ScrollToPosition ( tXPos, tYPos );
+    		((CGenethonView*)pView)->GetScrollPosition( &m_ScrollXPosition, &m_ScrollYPosition);
 		}
 
 
@@ -440,11 +440,11 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 	}
 
 {
-	POSITION tPos = ((CGenedocView*)pView)->m_RowViewList.GetHeadPosition();
+	POSITION tPos = ((CGenethonView*)pView)->m_RowViewList.GetHeadPosition();
 	CGPRowView *tGP;
 
 	while ( tPos != NULL ) {
-		tGP = (CGPRowView *)((CGenedocView*)pView)->m_RowViewList.GetNext(tPos);
+		tGP = (CGPRowView *)((CGenethonView*)pView)->m_RowViewList.GetNext(tPos);
 		if ( tGP->IsPointWithin( m_XPosition, m_YPosition ) ) {
 			tGP->SetStatusBar(nFlags, m_XPosition, m_YPosition );
 			break;

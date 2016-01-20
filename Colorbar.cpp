@@ -50,7 +50,7 @@ BOOL CColorBar::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
-	CGenedocDoc *pDoc = ((CGenedocView *)m_pParent)->GetDocument();
+	CGenethonDoc *pDoc = ((CGenethonView *)m_pParent)->GetDocument();
 	
 	int Levels = pDoc->GetNumColors(&pDoc->m_UserVars.m_Vars);
 	PropertyStruct *pPS;
@@ -200,7 +200,7 @@ void CColorBar::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 		int tFontWeight;
 		memset ( &tLOGFONT, 0, sizeof(tLOGFONT) );
 
-		CGenedocDoc *pDoc = ((CGenedocView *)m_pParent)->GetDocument();
+		CGenethonDoc *pDoc = ((CGenethonView *)m_pParent)->GetDocument();
 
 		tFontWeight = pDoc->m_UserVars.m_FontWeight;
         
@@ -336,7 +336,7 @@ void CColorBar::OnSelchangeColorlist()
 		
 		m_ShadeLevel = m_ColorList.GetCurSel();
 
-		CGenedocDoc *pDoc = ((CGenedocView *)m_pParent)->GetDocument();
+		CGenethonDoc *pDoc = ((CGenethonView *)m_pParent)->GetDocument();
 
 		pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, m_ShadeLevel, &m_TextColor, &m_BackColor );
 

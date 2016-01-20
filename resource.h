@@ -26,7 +26,7 @@
 #define IDD_COLORBAR                    134
 #define IDB_PHYLOBAR                    142
 #define IDB_GENEBAR                     143
-#define IDB_GENEDOC                     144
+#define IDB_GENETHON                    144
 #define IDB_SMALLLOGO                   145
 #define IDD_SHOWTABLE                   146
 #define IDB_DSTATBAR                    146

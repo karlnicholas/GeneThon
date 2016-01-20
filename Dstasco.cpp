@@ -6,7 +6,7 @@
 
 
 void 
-CGenedocDoc::DStatScore( DWORD StartRange, DWORD EndRange, int GroupOnly ) 
+CGenethonDoc::DStatScore( DWORD StartRange, DWORD EndRange, int GroupOnly ) 
 {
 	int i, j;
 
@@ -217,7 +217,7 @@ ErrorOut:
 
 
 void 
-CGenedocDoc::DStatStat(int Opt) 
+CGenethonDoc::DStatStat(int Opt) 
 {
 	int i, j;
 	int GroupNum1, GroupNum2;

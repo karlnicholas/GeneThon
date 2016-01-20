@@ -58,9 +58,9 @@ public:
 	void CountCopyText(DWORD *dwCount );
 
 	void CopyText(char *tString, DWORD *dwCount, UINT RowNumber );
-	void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenedocDoc* pDoc );
-	void WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc* pDoc );
-	void WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenedocDoc* pDoc );
+	void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc );
+	void WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc* pDoc );
+	void WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc* pDoc );
 
 	void SetStatusBar(UINT nFlags, UINT XPoint, DWORD YPoint);
 	DWORD ColPosFromCaret(UINT XPosition, DWORD YPosition );

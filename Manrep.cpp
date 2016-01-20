@@ -3,7 +3,7 @@
 
 
 int
-CGenedocDoc::WriteManRepFile( 
+CGenethonDoc::WriteManRepFile( 
 	const char *FileName
 ) {
 

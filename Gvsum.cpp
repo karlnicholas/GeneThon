@@ -168,7 +168,7 @@ CGVSummary::OnDraw( DrawStruct *DrawStc )
 {
 
 	char tOut[2];
-	CGenedocDoc *pDoc = ((CSummaryView *)DrawStc->pView)->GetDocument();
+	CGenethonDoc *pDoc = ((CSummaryView *)DrawStc->pView)->GetDocument();
 	
 	POSITION tPos = ViewDataList.GetHeadPosition();
 	DWORD CurrentDisplayLoc = m_YPosition;
@@ -835,7 +835,7 @@ CGVSummary::OnLButtonDblClk(UINT nFlags, UINT PointXPosition, DWORD PointYPositi
 }
 
 void 
-CGVSummary::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVSummary::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 	COLORREF tBrush;

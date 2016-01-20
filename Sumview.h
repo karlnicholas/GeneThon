@@ -148,7 +148,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	CGenedocDoc* GetDocument();
+	CGenethonDoc* GetDocument();
 
 	CObList m_RowViewList;
 	void CleanRowViewList();
@@ -248,8 +248,8 @@ protected:
 };
 
 #ifndef _DEBUG  // debug version in genedvw.cpp
-inline CGenedocDoc* CSummaryView::GetDocument()
-   { return (CGenedocDoc*)m_pDocument; }
+inline CGenethonDoc* CSummaryView::GetDocument()
+   { return (CGenethonDoc*)m_pDocument; }
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

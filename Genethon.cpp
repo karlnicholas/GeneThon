@@ -1,4 +1,4 @@
-// genedoc.cpp : Defines the class behaviors for the application.
+// Genethon.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"
@@ -9,35 +9,35 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocApp
+// CGenethonApp
 
-BEGIN_MESSAGE_MAP(CGenedocApp, CWinApp)
-	//{{AFX_MSG_MAP(CGenedocApp)
+BEGIN_MESSAGE_MAP(CGenethonApp, CWinApp)
+	//{{AFX_MSG_MAP(CGenethonApp)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 	//}}AFX_MSG_MAP
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
 	// Standard print setup command
-	ON_COMMAND(ID_FILE_PRINT_SETUP, CGenedocApp::OnMyFilePrintSetup)
+	ON_COMMAND(ID_FILE_PRINT_SETUP, CGenethonApp::OnMyFilePrintSetup)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocApp construction
+// CGenethonApp construction
 
-CGenedocApp::CGenedocApp()
+CGenethonApp::CGenethonApp()
 {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// The one and only CGenedocApp object
+// The one and only CGenethonApp object
 
-CGenedocApp NEAR theApp;
+CGenethonApp NEAR theApp;
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocApp initialization
+// CGenethonApp initialization
 static BOOL NEAR PASCAL SetRegKey(LPCSTR lpszKey, LPCSTR lpszValue) { 
    if (::RegSetValue(HKEY_CLASSES_ROOT, lpszKey, REG_SZ, lpszValue,
           lstrlen(lpszValue)) != ERROR_SUCCESS)
@@ -51,7 +51,7 @@ static BOOL NEAR PASCAL SetRegKey(LPCSTR lpszKey, LPCSTR lpszValue) {
 } 
 
 
-BOOL CGenedocApp::InitInstance()
+BOOL CGenethonApp::InitInstance()
 {
 	// A flag to test if really a NewDocument or a 'CreateNewWindow' command
 	m_ReallyNewFlag = 1;
@@ -70,45 +70,45 @@ BOOL CGenedocApp::InitInstance()
 	// Register the application's document templates.  Document templates
 	//  serve as the connection between documents, frame windows and views.
 
-	m_pGenedocTemplate = new CMultiDocTemplate(
+	m_pGenethonTemplate = new CMultiDocTemplate(
 		IDR_GENEDOTYPE,
-		RUNTIME_CLASS(CGenedocDoc),
+		RUNTIME_CLASS(CGenethonDoc),
 		RUNTIME_CLASS(CGeneMDIChildWnd),        // standard MDI child frame
-		RUNTIME_CLASS(CGenedocView)
+		RUNTIME_CLASS(CGenethonView)
 	);
 
-	AddDocTemplate(m_pGenedocTemplate);
+	AddDocTemplate(m_pGenethonTemplate);
 
 	m_pSummaryViewTemplate = new CMultiDocTemplate(
 		IDR_SUMMARYVIEW,	
-		RUNTIME_CLASS(CGenedocDoc),
+		RUNTIME_CLASS(CGenethonDoc),
 		RUNTIME_CLASS(CGeneMDIChildWnd),
 		RUNTIME_CLASS(CSummaryView)
 	);
 
 	m_pTextViewTemplate = new CMultiDocTemplate(
 		IDR_TEXTVIEW,
-		RUNTIME_CLASS(CGenedocDoc),
+		RUNTIME_CLASS(CGenethonDoc),
 		RUNTIME_CLASS(CMDIChildWnd),
 		RUNTIME_CLASS(CTextView)
 	);
 
 	m_pTreeViewTemplate = new CMultiDocTemplate(
 		IDR_PHYLOVIEW,
-		RUNTIME_CLASS(CGenedocDoc),
+		RUNTIME_CLASS(CGenethonDoc),
 		RUNTIME_CLASS(CPhyloMDIChildWnd),
 		RUNTIME_CLASS(CPhylogenView)
 	);
 
 	m_pDStatViewTemplate = new CMultiDocTemplate(
 		IDR_DSTATVIEW,
-		RUNTIME_CLASS(CGenedocDoc),
+		RUNTIME_CLASS(CGenethonDoc),
 		RUNTIME_CLASS(CDStatMDIChildWnd),
 		RUNTIME_CLASS(CDStatView)
 	);
 	m_pGelViewTemplate = new CMultiDocTemplate(
 		IDR_GELVIEW,
-		RUNTIME_CLASS(CGenedocDoc),
+		RUNTIME_CLASS(CGenethonDoc),
 		RUNTIME_CLASS(CMDIChildWnd),
 		RUNTIME_CLASS(CGelView)
 	);
@@ -132,7 +132,7 @@ BOOL CGenedocApp::InitInstance()
    CString      strFileTypeName;
 
    // Position used if more than one document template.
-   m_pGenedocTemplate->GetDocString(strFileTypeName, CDocTemplate::regFileTypeId);
+   m_pGenethonTemplate->GetDocString(strFileTypeName, CDocTemplate::regFileTypeId);
 
    // Add another file extension to registration database.
    // If you double-click a .APP or .SAV file in File Manager it
@@ -212,21 +212,21 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
-void CGenedocApp::OnAppAbout()
+void CGenethonApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocApp commands
+// CGenethonApp commands
 
-CDocument* CGenedocApp::CreateNewDocument()
+CDocument* CGenethonApp::CreateNewDocument()
 {
 	CDocument* tDoc;
 	m_ReallyNewFlag = 0;
 
-	tDoc = m_pGenedocTemplate->OpenDocumentFile(NULL);
+	tDoc = m_pGenethonTemplate->OpenDocumentFile(NULL);
     // if returns NULL, the user has already been alerted
     
 	m_ReallyNewFlag = 1;
@@ -235,7 +235,7 @@ CDocument* CGenedocApp::CreateNewDocument()
     return tDoc;
 }
 
-void CGenedocApp::OnMyFilePrintSetup()
+void CGenethonApp::OnMyFilePrintSetup()
 {
 	m_OKOrientCheck = 0;
 
@@ -248,8 +248,8 @@ void CGenedocApp::OnMyFilePrintSetup()
 
 	if ( tDoc != NULL ) {
 
-		ASSERT( tDoc->IsKindOf(RUNTIME_CLASS(CGenedocDoc)) );
-		CGenedocDoc *pDoc = (CGenedocDoc *)tDoc;
+		ASSERT( tDoc->IsKindOf(RUNTIME_CLASS(CGenethonDoc)) );
+		CGenethonDoc *pDoc = (CGenethonDoc *)tDoc;
 		
 		pDoc->CheckOrientation();
 	}
@@ -257,7 +257,7 @@ void CGenedocApp::OnMyFilePrintSetup()
 	m_OKOrientCheck = 1;
 }
 
-void CGenedocApp::SetLandscape(int LSFlag)
+void CGenethonApp::SetLandscape(int LSFlag)
 {
     // Get default printer settings.
     PRINTDLG   pd;
@@ -286,7 +286,7 @@ void CGenedocApp::SetLandscape(int LSFlag)
 }
 
 int 
-CGenedocApp::GetLandscape()
+CGenethonApp::GetLandscape()
 {
 
     // Get default printer settings.
@@ -318,7 +318,7 @@ CGenedocApp::GetLandscape()
 
 
 int 
-CGenedocApp::ExitInstance()
+CGenethonApp::ExitInstance()
 {
 	delete m_pSummaryViewTemplate;
 	delete m_pTextViewTemplate;
@@ -349,7 +349,7 @@ void CAboutDlg::OnPaint()
 
 	bmp.DeleteObject();      
       
-	bmp.LoadBitmap( IDB_GENEDOC );
+	bmp.LoadBitmap( IDB_GENETHON );
  
 	// Select the bitmap into the DC
 	poldbmp = memdc.SelectObject( &bmp );

@@ -28,7 +28,7 @@ class CSearchPropPage : public CPropertyPage
 public:
 	CSearchPropPage();	// standard constructor
 
-	CGenedocDoc *pDoc;
+	CGenethonDoc *pDoc;
 	int m_SearchChanged;
 	CPtrList m_listCopy;
 	COLORREF m_OverlapColor;

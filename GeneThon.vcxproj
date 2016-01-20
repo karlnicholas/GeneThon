@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{892B07DD-600B-4097-B09D-A98ADF460DBA}</ProjectGuid>
+    <ProjectGuid>{D281011C-734C-49C3-8052-9FEEC24AF3A1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,8 +140,8 @@
     <ClCompile Include="GelView.cpp" />
     <ClCompile Include="Genbank.cpp" />
     <ClCompile Include="Genechi.cpp" />
-    <ClCompile Include="geneddoc.cpp" />
-    <ClCompile Include="Genedoc.cpp" />
+    <ClCompile Include="genetdoc.cpp" />
+    <ClCompile Include="Genethon.cpp" />
     <ClCompile Include="genedvw.cpp" />
     <ClCompile Include="Gprowvw.cpp" />
     <ClCompile Include="gpsumvw.cpp" />
@@ -220,9 +220,8 @@
     <ClCompile Include="Userdef.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GENEDOC.DEF" />
-    <None Include="hlp\genedoc.hm" />
-    <None Include="res\Genedoc.rc2" />
+    <None Include="GENETHON.DEF" />
+    <None Include="res\GeneThon.rc2" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aligndlg.h" />
@@ -247,9 +246,9 @@
     <ClInclude Include="Gelview.h" />
     <ClInclude Include="Genbank.h" />
     <ClInclude Include="Genechi.h" />
-    <ClInclude Include="geneddoc.h" />
-    <ClInclude Include="Genedoc.h" />
-    <ClInclude Include="Genedvw.h" />
+    <ClInclude Include="genetdoc.h" />
+    <ClInclude Include="GeneThon.h" />
+    <ClInclude Include="Genetvw.h" />
     <ClInclude Include="Genestor.h" />
     <ClInclude Include="Gprowvw.h" />
     <ClInclude Include="Gpsumvw.h" />
@@ -326,7 +325,7 @@
     <ClInclude Include="Uservars.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Genedoc.rc" />
+    <ResourceCompile Include="GeneThon.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

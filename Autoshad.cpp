@@ -8,7 +8,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
 void
-CGenedocDoc::AutoShade( int ShadeLevel, int ScoreAll) 
+CGenethonDoc::AutoShade( int ShadeLevel, int ScoreAll) 
 {
 	if ( pGSFiller == NULL ) {
 		return;
@@ -502,7 +502,7 @@ CGenedocDoc::AutoShade( int ShadeLevel, int ScoreAll)
 }
 
 void
-CGenedocDoc::DoMarkerLine()
+CGenethonDoc::DoMarkerLine()
 {
 
 	CGeneSegment *tCGSeg;

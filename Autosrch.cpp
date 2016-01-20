@@ -9,7 +9,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 
 void 
-CGenedocDoc::AutoShadeSearch(
+CGenethonDoc::AutoShadeSearch(
 	ShadeSegStc *pSegArr, 
 	int RowCount, 
 	int ShadeLevel, 
@@ -111,7 +111,7 @@ CGenedocDoc::AutoShadeSearch(
 
 
 int 
-CGenedocDoc::MotifLength( const char *motif )
+CGenethonDoc::MotifLength( const char *motif )
 {
     register int result;
     const char *ptr;
@@ -138,7 +138,7 @@ CGenedocDoc::MotifLength( const char *motif )
 }
 
 int 
-CGenedocDoc::BuildMatrix( const char *motif )
+CGenethonDoc::BuildMatrix( const char *motif )
 {
     int index, pos;
     int repeat;
@@ -281,7 +281,7 @@ ErrorOut:
 
 
 int 
-CGenedocDoc::LocateMotif( GeneStor *ptr, int pos, int length, GeneStor *end )
+CGenethonDoc::LocateMotif( GeneStor *ptr, int pos, int length, GeneStor *end )
 {
     int len,i;
 
@@ -329,7 +329,7 @@ CGenedocDoc::LocateMotif( GeneStor *ptr, int pos, int length, GeneStor *end )
 
 
 int 
-CGenedocDoc::ProcessRecord( stcSearch *pSearch, GeneStor *pGeneStor, DWORD SeqLength, int Test )
+CGenethonDoc::ProcessRecord( stcSearch *pSearch, GeneStor *pGeneStor, DWORD SeqLength, int Test )
 {
     GeneStor *end, *begin;
     GeneStor *ptr;

@@ -39,7 +39,7 @@ CDStatView::CDStatView()
 
 CDStatView::~CDStatView()
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pDStatView = NULL;
 
@@ -58,7 +58,7 @@ BOOL CDStatView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CDStatView::OnDraw(CDC* pDC)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->DStatObject.DoDraw( pDC );
@@ -119,10 +119,10 @@ void CDStatView::Dump(CDumpContext& dc) const
 	CScrollView::Dump(dc);
 }
 
-CGenedocDoc* CDStatView::GetDocument() // non-debug version is inline
+CGenethonDoc* CDStatView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
-	return (CGenedocDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
+	return (CGenethonDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
@@ -142,7 +142,7 @@ void CDStatView::OnEditCopy()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CDC* pDC = GetDC();
@@ -221,7 +221,7 @@ void CDStatView::OnEditCopyfile()
 {
 	static char BASED_CODE szFilter[] = "Meta Files (*.emf)|*.emf|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -271,7 +271,7 @@ int CDStatView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 	// TODO: Add your specialized creation code here
 
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pDStatView = this;
 	
@@ -283,7 +283,7 @@ void CDStatView::OnGraphsetup()
 {
 	// TODO: Add your command handler code here
 
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->DStatObject.OnGraphsetup();
@@ -295,7 +295,7 @@ void CDStatView::OnGraphsetup()
 void CDStatView::OnDstatwritescore()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	static char Filter[] = "Sco Files (*.sco)|*.sco||";
@@ -315,7 +315,7 @@ void CDStatView::OnWriteoutput()
 	// TODO: Add your command handler code here
 	// CDocument
 
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 //	if ( pDoc->DStatObject.m_ScoreCount1 == 0 ||  pDoc->DStatObject.m_ScoreCount2  == 0 ) {
@@ -338,7 +338,7 @@ void CDStatView::OnWriteoutput()
 void CDStatView::OnDatafile() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	static char Filter[] = "All Files (*.*)|*.*||";
@@ -374,7 +374,7 @@ void CDStatView::OnReadset1()
 		return;
 	}
 
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->DStatObject.DeleteSet1();
@@ -395,7 +395,7 @@ void CDStatView::OnReadset2()
 		return;
 	}
 
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->DStatObject.DeleteSet2();

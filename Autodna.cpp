@@ -8,7 +8,7 @@
 
 
 void 
-CGenedocDoc::AutoShadeDNASet() 
+CGenethonDoc::AutoShadeDNASet() 
 {
 TRY {
 

@@ -27,7 +27,7 @@ class CExportDlg : public CDialog
 // Construction
 public:
 	CExportDlg(CWnd* pParent = NULL);	// standard constructor
-	CGenedocDoc *pDoc;
+	CGenethonDoc *pDoc;
 
 // Dialog Data
 	//{{AFX_DATA(CExportDlg)

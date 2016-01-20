@@ -1,4 +1,4 @@
-// genedvw.cpp : implementation of the CGenedocView class
+// genedvw.cpp : implementation of the CGenethonView class
 //
 
 #include "stdafx.h"
@@ -12,12 +12,12 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocView
+// CGenethonView
 
-IMPLEMENT_DYNCREATE(CGenedocView, CView)
+IMPLEMENT_DYNCREATE(CGenethonView, CView)
 
-BEGIN_MESSAGE_MAP(CGenedocView, CView)
-	//{{AFX_MSG_MAP(CGenedocView)
+BEGIN_MESSAGE_MAP(CGenethonView, CView)
+	//{{AFX_MSG_MAP(CGenethonView)
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_KEYDOWN()
@@ -126,9 +126,9 @@ END_MESSAGE_MAP()
 //	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
 //	ON_COMMAND(ID_FILE_PRINT_PREVIEW, CView::OnFilePrintPreview)
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocView construction/destruction
+// CGenethonView construction/destruction
 
-CGenedocView::CGenedocView()
+CGenethonView::CGenethonView()
 {
 	// TODO: add construction code here
 
@@ -149,18 +149,18 @@ CGenedocView::CGenedocView()
 	ClearMenu();
 }
 
-CGenedocView::~CGenedocView()
+CGenethonView::~CGenethonView()
 {
-	CGenedocDoc* pDoc = (CGenedocDoc*)GetDocument();
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
 	ASSERT_VALID(pDoc);
 	pDoc->m_pGeneView = NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocView drawing
+// CGenethonView drawing
 
 void
-CGenedocView::CleanRowViewList()
+CGenethonView::CleanRowViewList()
 {
 	while ( !m_RowViewList.IsEmpty() ) {
 		CGPRowView *tRV = ( CGPRowView *)m_RowViewList.RemoveHead();
@@ -172,7 +172,7 @@ CGenedocView::CleanRowViewList()
 }
 
 void
-CGenedocView::AddHeadTail( CGVEdit* tGEt, CGVEdit* tGEh, CGPRowView* tRowView )
+CGenethonView::AddHeadTail( CGVEdit* tGEt, CGVEdit* tGEh, CGPRowView* tRowView )
 {
 	char tBuff[128];
 	CString *tStr;
@@ -347,7 +347,7 @@ CGenedocView::AddHeadTail( CGVEdit* tGEt, CGVEdit* tGEh, CGPRowView* tRowView )
 }
 
 void
-CGenedocView::AddHead( CGVEdit* tGEh, CGPRowView* tRowView )
+CGenethonView::AddHead( CGVEdit* tGEh, CGPRowView* tRowView )
 {
 	char tBuff[128];
 	CString *tStr;
@@ -411,9 +411,9 @@ CGenedocView::AddHead( CGVEdit* tGEh, CGPRowView* tRowView )
 }
 
 void 
-CGenedocView::ResetGPSize(CDC* pDC, UINT MaxX )
+CGenethonView::ResetGPSize(CDC* pDC, UINT MaxX )
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	CleanRowViewList();
@@ -550,7 +550,7 @@ CGenedocView::ResetGPSize(CDC* pDC, UINT MaxX )
 }
 
 void
-CGenedocView::ResetGPAdd( CGeneSegBase *pGSBase )
+CGenethonView::ResetGPAdd( CGeneSegBase *pGSBase )
 {
     CGPRowView* tRowView;
 	
@@ -596,7 +596,7 @@ CGenedocView::ResetGPAdd( CGeneSegBase *pGSBase )
 }
 
 void
-CGenedocView::BuildRowViews( CGeneSegBase *pGSBase, DWORD StartPos )
+CGenethonView::BuildRowViews( CGeneSegBase *pGSBase, DWORD StartPos )
 {
 //	CString *tStr;
 	DWORD tnChars;
@@ -863,9 +863,9 @@ CGenedocView::BuildRowViews( CGeneSegBase *pGSBase, DWORD StartPos )
 
 
 void 
-CGenedocView::ExpandedSegments(VIEWRETSTRUCT *pViewRet)
+CGenethonView::ExpandedSegments(VIEWRETSTRUCT *pViewRet)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
     CGPRowView* tRowView, *spRowView;
@@ -1073,7 +1073,7 @@ CGenedocView::ExpandedSegments(VIEWRETSTRUCT *pViewRet)
 //   UPDATE
 //
 
-void CGenedocView::OnUpdate ( CView* pSender, LPARAM lHint, CObject *pHint )
+void CGenethonView::OnUpdate ( CView* pSender, LPARAM lHint, CObject *pHint )
 {
 	if ( !m_InitialUpdateDone ) return;
 
@@ -1087,7 +1087,7 @@ void CGenedocView::OnUpdate ( CView* pSender, LPARAM lHint, CObject *pHint )
 
 
 void 
-CGenedocView::SetScrollVariables()
+CGenethonView::SetScrollVariables()
 {
 
 	// Get Display rect Sizes
@@ -1103,7 +1103,7 @@ CGenedocView::SetScrollVariables()
 	ReleaseDC(pDC);
 	
 //
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
     CDC* tDC = GetDC();
@@ -1209,7 +1209,7 @@ CGenedocView::SetScrollVariables()
 	
 
 void 
-CGenedocView::SetScrollBars()
+CGenethonView::SetScrollBars()
 {
 
 	if ( m_TotalHeight > m_DisplayHeight ) {
@@ -1240,7 +1240,7 @@ CGenedocView::SetScrollBars()
 }
 
 
-void CGenedocView::OnInitialUpdate()
+void CGenethonView::OnInitialUpdate()
 {
 
 	m_DisplayXPosition = 0;
@@ -1266,7 +1266,7 @@ void CGenedocView::OnInitialUpdate()
 
 }
 
-void CGenedocView::OnDraw(CDC* pDC)
+void CGenethonView::OnDraw(CDC* pDC)
 {
 	// A repaint comes before end of printing.
 	if ( m_PrintOnly )
@@ -1277,10 +1277,10 @@ void CGenedocView::OnDraw(CDC* pDC)
 
 }
 
-void CGenedocView::DoDraw(CDC* pDC, int InvFlag1, int InvFlag2 )
+void CGenethonView::DoDraw(CDC* pDC, int InvFlag1, int InvFlag2 )
 {
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// This is a special case for if OnDraw gets called and there is no data.
@@ -1400,7 +1400,7 @@ void CGenedocView::DoDraw(CDC* pDC, int InvFlag1, int InvFlag2 )
 }
 
 
-void CGenedocView::OnSize(UINT nType, int cx, int cy) 
+void CGenethonView::OnSize(UINT nType, int cx, int cy) 
 {
 	if ( m_InitialUpdateDone ) {
 
@@ -1415,18 +1415,18 @@ void CGenedocView::OnSize(UINT nType, int cx, int cy)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocView printing
+// CGenethonView printing
 extern char	*MSFFILEmonths[];
 
   
-void CGenedocView::OnPrint( CDC *pDC, CPrintInfo *pInfo )
+void CGenethonView::OnPrint( CDC *pDC, CPrintInfo *pInfo )
 {
 	// Print headers and/or footers, if desired.
 	// Find portion of document corresponding to pInfo->m_nCurPage.
 	// Count pages.
 
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_UserVars.m_PrintStringFlag != 0 || pDoc->m_UserVars.m_PrintPageNumber != 0) {
@@ -1671,7 +1671,7 @@ void CGenedocView::OnPrint( CDC *pDC, CPrintInfo *pInfo )
 }
 
 void 
-CGenedocView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
+CGenethonView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
 {
 
 	CView::OnPrepareDC ( pDC, pInfo );
@@ -1685,16 +1685,16 @@ CGenedocView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
 }
 
 
-BOOL CGenedocView::OnPreparePrinting(CPrintInfo* pInfo)
+BOOL CGenethonView::OnPreparePrinting(CPrintInfo* pInfo)
 {
 	// default preparation
 	return DoPreparePrinting(pInfo);
 }
 
 void 
-CGenedocView::CalculateMargins(CDC* pDC)
+CGenethonView::CalculateMargins(CDC* pDC)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	POINT pt;
@@ -1748,7 +1748,7 @@ CGenedocView::CalculateMargins(CDC* pDC)
 }
  
 
-void CGenedocView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
+void CGenethonView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 {
 	m_SaveDisplayXPosition = m_DisplayXPosition;
 	m_SaveDisplayYPosition = m_DisplayYPosition;
@@ -1758,7 +1758,7 @@ void CGenedocView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 	CalculateMargins(pDC);
 
 	// TODO: add extra initialization before printing
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	int res = pDC->GetDeviceCaps( HORZRES );
@@ -1902,7 +1902,7 @@ void CGenedocView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 }
 
 
-void CGenedocView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo */)
+void CGenethonView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo */)
 {
 	m_DisplayXPosition = m_SaveDisplayXPosition;
 	m_DisplayYPosition = m_SaveDisplayYPosition;
@@ -1910,32 +1910,32 @@ void CGenedocView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo */)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocView diagnostics
+// CGenethonView diagnostics
 
 #ifdef _DEBUG
-void CGenedocView::AssertValid() const
+void CGenethonView::AssertValid() const
 {
 	CView::AssertValid();
 }
 
-void CGenedocView::Dump(CDumpContext& dc) const
+void CGenethonView::Dump(CDumpContext& dc) const
 {
 	CView::Dump(dc);
 }
 
-CGenedocDoc* CGenedocView::GetDocument() // non-debug version is inline
+CGenethonDoc* CGenethonView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
-	return (CGenedocDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
+	return (CGenethonDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
-// CGenedocView message handlers
+// CGenethonView message handlers
 
 	
 
-void CGenedocView::OnDestroy() 
+void CGenethonView::OnDestroy() 
 {
 	CleanRowViewList();
 
@@ -1943,13 +1943,13 @@ void CGenedocView::OnDestroy()
 
 }
 
-int CGenedocView::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CGenethonView::OnCreate(LPCREATESTRUCT lpCreateStruct) 
 {
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	
 	// TODO: Add your specialized creation code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->m_pGeneView = this;
@@ -1960,7 +1960,7 @@ int CGenedocView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 
-void CGenedocView::OnKillFocus(CWnd* pNewWnd) 
+void CGenethonView::OnKillFocus(CWnd* pNewWnd) 
 {
 	CView::OnKillFocus(pNewWnd);
 	
@@ -1968,7 +1968,7 @@ void CGenedocView::OnKillFocus(CWnd* pNewWnd)
 	// TODO: Add your message handler code here
 }
 
-void CGenedocView::OnSetFocus(CWnd* pOldWnd) 
+void CGenethonView::OnSetFocus(CWnd* pOldWnd) 
 {
 
 	CView::OnSetFocus(pOldWnd);
@@ -1986,7 +1986,7 @@ void CGenedocView::OnSetFocus(CWnd* pOldWnd)
 }
 
 void
-CGenedocView::RebuildShowCaret()
+CGenethonView::RebuildShowCaret()
 {
 
 	if ( m_GeneEditMode == 0 ) {
@@ -2003,7 +2003,7 @@ CGenedocView::RebuildShowCaret()
 }
 
 
-void CGenedocView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CGenethonView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
 	// TODO: Add your message handler code here and/or call default
 	
@@ -2012,7 +2012,7 @@ void CGenedocView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
-void CGenedocView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CGenethonView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
 	// TODO: Add your message handler code here and/or call default
 	m_MyCaret.OnKeyUp ( nChar, nRepCnt, nFlags, this);
@@ -2024,7 +2024,7 @@ void
 CGDocViewCaret::Select( UINT XPosition, DWORD YPosition, CView* pView )
 {
 
-	CGenedocView* pGEView = (CGenedocView*)pView;
+	CGenethonView* pGEView = (CGenethonView*)pView;
 
 	POSITION tPos = pGEView->m_RowViewList.GetHeadPosition();
 	CGPRowView *tGP;
@@ -2043,7 +2043,7 @@ CGDocViewCaret::Select( UINT XPosition, DWORD YPosition, CView* pView )
 
 
 void 
-CGenedocView::InvalidateRectLP(UINT tXPosition, DWORD tYPosition, UINT tXSize, DWORD tYSize )
+CGenethonView::InvalidateRectLP(UINT tXPosition, DWORD tYPosition, UINT tXSize, DWORD tYSize )
 {
 	CRect InvRect( 
 		tXPosition - m_DisplayXPosition, (int)(tYPosition - m_DisplayYPosition), 
@@ -2054,7 +2054,7 @@ CGenedocView::InvalidateRectLP(UINT tXPosition, DWORD tYPosition, UINT tXSize, D
 }
 
 void 
-CGenedocView::InvalidateGVBLP( CGeneViewBase *pGVB )
+CGenethonView::InvalidateGVBLP( CGeneViewBase *pGVB )
 {
 	UINT tXPosition;
 	DWORD tYPosition;
@@ -2072,7 +2072,7 @@ CGenedocView::InvalidateGVBLP( CGeneViewBase *pGVB )
 
 }
 
-BOOL CGenedocView::IsVisible( UINT XPosition, DWORD YPosition, UINT XSize, DWORD YSize )
+BOOL CGenethonView::IsVisible( UINT XPosition, DWORD YPosition, UINT XSize, DWORD YSize )
 {
 	if ( (YPosition+YSize)>=m_DisplayYPosition && YPosition<=(m_DisplayYPosition+m_DisplayHeight) ) {
 		if ( (XPosition+XSize)>=m_DisplayXPosition && XPosition<=(m_DisplayXPosition+m_DisplayWidth) ) {
@@ -2084,7 +2084,7 @@ BOOL CGenedocView::IsVisible( UINT XPosition, DWORD YPosition, UINT XSize, DWORD
 
 
 void 
-CGenedocView::DeSelectAll()
+CGenethonView::DeSelectAll()
 {
 	if ( m_GeneSelect == 1 ) {
 		POSITION tPos = m_RowViewList.GetHeadPosition();
@@ -2115,7 +2115,7 @@ int
 CGDocViewCaret::Comment( char nChar, UINT XPosition, DWORD YPosition, CView* pView )
 {
 
-	CGenedocView* pGEView = (CGenedocView*)pView;
+	CGenethonView* pGEView = (CGenethonView*)pView;
 
 	POSITION tPos = pGEView->m_RowViewList.GetHeadPosition();
 	CGPRowView *tGP;
@@ -2137,86 +2137,86 @@ CGDocViewCaret::Comment( char nChar, UINT XPosition, DWORD YPosition, CView* pVi
 void 
 CGDocViewCaret::InsKey( UINT XPosition, DWORD YPosition, CView* pView )
 {
-	int sGeneShade = ((CGenedocView *)pView)->m_GeneShade;
-	int sGeneArrange = ((CGenedocView *)pView)->m_GeneArrange;
-	int sGeneMove = ((CGenedocView *)pView)->m_GeneMove;
-	int sGeneInsertDash = ((CGenedocView *)pView)->m_GeneInsertDash;
-	int sGeneDeleteDash = ((CGenedocView *)pView)->m_GeneDeleteDash;
-	int sGeneInsertOther = ((CGenedocView *)pView)->m_GeneInsertOther;
-	int sGeneDeleteOther = ((CGenedocView *)pView)->m_GeneDeleteOther;
-	int sGeneInsertOne = ((CGenedocView *)pView)->m_GeneInsertOne;
-	int sGeneDeleteOne = ((CGenedocView *)pView)->m_GeneDeleteOne;
-	int sGeneEditMode = ((CGenedocView *)pView)->m_GeneEditMode;
+	int sGeneShade = ((CGenethonView *)pView)->m_GeneShade;
+	int sGeneArrange = ((CGenethonView *)pView)->m_GeneArrange;
+	int sGeneMove = ((CGenethonView *)pView)->m_GeneMove;
+	int sGeneInsertDash = ((CGenethonView *)pView)->m_GeneInsertDash;
+	int sGeneDeleteDash = ((CGenethonView *)pView)->m_GeneDeleteDash;
+	int sGeneInsertOther = ((CGenethonView *)pView)->m_GeneInsertOther;
+	int sGeneDeleteOther = ((CGenethonView *)pView)->m_GeneDeleteOther;
+	int sGeneInsertOne = ((CGenethonView *)pView)->m_GeneInsertOne;
+	int sGeneDeleteOne = ((CGenethonView *)pView)->m_GeneDeleteOne;
+	int sGeneEditMode = ((CGenethonView *)pView)->m_GeneEditMode;
 
-	CPoint tPoint ( (int)(XPosition - ((CGenedocView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenedocView*)pView)->m_DisplayYPosition));
-	((CGenedocView *)pView)->m_GeneShade = 0;
-	((CGenedocView *)pView)->m_GeneArrange = 0;
-	((CGenedocView *)pView)->m_GeneMove = 0;
-	((CGenedocView *)pView)->m_GeneInsertDash = 0;
-	((CGenedocView *)pView)->m_GeneDeleteDash = 0;
-	((CGenedocView *)pView)->m_GeneInsertOther = 0;
-	((CGenedocView *)pView)->m_GeneDeleteOther = 0;
-	((CGenedocView *)pView)->m_GeneInsertOne = 0;
-	((CGenedocView *)pView)->m_GeneDeleteOne = 0;
-	((CGenedocView *)pView)->m_GeneEditMode = 0;
+	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
+	((CGenethonView *)pView)->m_GeneShade = 0;
+	((CGenethonView *)pView)->m_GeneArrange = 0;
+	((CGenethonView *)pView)->m_GeneMove = 0;
+	((CGenethonView *)pView)->m_GeneInsertDash = 0;
+	((CGenethonView *)pView)->m_GeneDeleteDash = 0;
+	((CGenethonView *)pView)->m_GeneInsertOther = 0;
+	((CGenethonView *)pView)->m_GeneDeleteOther = 0;
+	((CGenethonView *)pView)->m_GeneInsertOne = 0;
+	((CGenethonView *)pView)->m_GeneDeleteOne = 0;
+	((CGenethonView *)pView)->m_GeneEditMode = 0;
 
-	((CGenedocView *)pView)->m_GeneInsertDash = 1;
+	((CGenethonView *)pView)->m_GeneInsertDash = 1;
 
-	((CGenedocView *)pView)->LeftDownFunc( 0, tPoint, CGenedocView::KEYBRD );
+	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
-	((CGenedocView *)pView)->m_GeneShade = sGeneShade;
-	((CGenedocView *)pView)->m_GeneArrange = sGeneArrange;
-	((CGenedocView *)pView)->m_GeneMove = sGeneMove;
-	((CGenedocView *)pView)->m_GeneInsertDash = sGeneInsertDash;
-	((CGenedocView *)pView)->m_GeneDeleteDash = sGeneDeleteDash;
-	((CGenedocView *)pView)->m_GeneInsertOther = sGeneInsertOther;
-	((CGenedocView *)pView)->m_GeneDeleteOther = sGeneDeleteOther;
-	((CGenedocView *)pView)->m_GeneInsertOne = sGeneInsertOne;
-	((CGenedocView *)pView)->m_GeneDeleteOne = sGeneDeleteOne;
-	((CGenedocView *)pView)->m_GeneEditMode = sGeneEditMode;
+	((CGenethonView *)pView)->m_GeneShade = sGeneShade;
+	((CGenethonView *)pView)->m_GeneArrange = sGeneArrange;
+	((CGenethonView *)pView)->m_GeneMove = sGeneMove;
+	((CGenethonView *)pView)->m_GeneInsertDash = sGeneInsertDash;
+	((CGenethonView *)pView)->m_GeneDeleteDash = sGeneDeleteDash;
+	((CGenethonView *)pView)->m_GeneInsertOther = sGeneInsertOther;
+	((CGenethonView *)pView)->m_GeneDeleteOther = sGeneDeleteOther;
+	((CGenethonView *)pView)->m_GeneInsertOne = sGeneInsertOne;
+	((CGenethonView *)pView)->m_GeneDeleteOne = sGeneDeleteOne;
+	((CGenethonView *)pView)->m_GeneEditMode = sGeneEditMode;
 
 }
 
 void 
 CGDocViewCaret::DelKey( UINT XPosition, DWORD YPosition, CView* pView )
 {
-	int sGeneShade = ((CGenedocView *)pView)->m_GeneShade;
-	int sGeneArrange = ((CGenedocView *)pView)->m_GeneArrange;
-	int sGeneMove = ((CGenedocView *)pView)->m_GeneMove;
-	int sGeneInsertDash = ((CGenedocView *)pView)->m_GeneInsertDash;
-	int sGeneDeleteDash = ((CGenedocView *)pView)->m_GeneDeleteDash;
-	int sGeneInsertOther = ((CGenedocView *)pView)->m_GeneInsertOther;
-	int sGeneDeleteOther = ((CGenedocView *)pView)->m_GeneDeleteOther;
-	int sGeneInsertOne = ((CGenedocView *)pView)->m_GeneInsertOne;
-	int sGeneDeleteOne = ((CGenedocView *)pView)->m_GeneDeleteOne;
-	int sGeneEditMode = ((CGenedocView *)pView)->m_GeneEditMode;
+	int sGeneShade = ((CGenethonView *)pView)->m_GeneShade;
+	int sGeneArrange = ((CGenethonView *)pView)->m_GeneArrange;
+	int sGeneMove = ((CGenethonView *)pView)->m_GeneMove;
+	int sGeneInsertDash = ((CGenethonView *)pView)->m_GeneInsertDash;
+	int sGeneDeleteDash = ((CGenethonView *)pView)->m_GeneDeleteDash;
+	int sGeneInsertOther = ((CGenethonView *)pView)->m_GeneInsertOther;
+	int sGeneDeleteOther = ((CGenethonView *)pView)->m_GeneDeleteOther;
+	int sGeneInsertOne = ((CGenethonView *)pView)->m_GeneInsertOne;
+	int sGeneDeleteOne = ((CGenethonView *)pView)->m_GeneDeleteOne;
+	int sGeneEditMode = ((CGenethonView *)pView)->m_GeneEditMode;
 
-	CPoint tPoint ( (int)(XPosition - ((CGenedocView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenedocView*)pView)->m_DisplayYPosition));
-	((CGenedocView *)pView)->m_GeneShade = 0;
-	((CGenedocView *)pView)->m_GeneArrange = 0;
-	((CGenedocView *)pView)->m_GeneMove = 0;
-	((CGenedocView *)pView)->m_GeneInsertDash = 0;
-	((CGenedocView *)pView)->m_GeneDeleteDash = 0;
-	((CGenedocView *)pView)->m_GeneInsertOther = 0;
-	((CGenedocView *)pView)->m_GeneDeleteOther = 0;
-	((CGenedocView *)pView)->m_GeneInsertOne = 0;
-	((CGenedocView *)pView)->m_GeneDeleteOne = 0;
-	((CGenedocView *)pView)->m_GeneEditMode = 0;
+	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
+	((CGenethonView *)pView)->m_GeneShade = 0;
+	((CGenethonView *)pView)->m_GeneArrange = 0;
+	((CGenethonView *)pView)->m_GeneMove = 0;
+	((CGenethonView *)pView)->m_GeneInsertDash = 0;
+	((CGenethonView *)pView)->m_GeneDeleteDash = 0;
+	((CGenethonView *)pView)->m_GeneInsertOther = 0;
+	((CGenethonView *)pView)->m_GeneDeleteOther = 0;
+	((CGenethonView *)pView)->m_GeneInsertOne = 0;
+	((CGenethonView *)pView)->m_GeneDeleteOne = 0;
+	((CGenethonView *)pView)->m_GeneEditMode = 0;
 
-	((CGenedocView *)pView)->m_GeneDeleteDash = 1;
+	((CGenethonView *)pView)->m_GeneDeleteDash = 1;
 
-	((CGenedocView *)pView)->LeftDownFunc( 0, tPoint, CGenedocView::KEYBRD );
+	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
-	((CGenedocView *)pView)->m_GeneShade = sGeneShade;
-	((CGenedocView *)pView)->m_GeneArrange = sGeneArrange;
-	((CGenedocView *)pView)->m_GeneMove = sGeneMove;
-	((CGenedocView *)pView)->m_GeneInsertDash = sGeneInsertDash;
-	((CGenedocView *)pView)->m_GeneDeleteDash = sGeneDeleteDash;
-	((CGenedocView *)pView)->m_GeneInsertOther = sGeneInsertOther;
-	((CGenedocView *)pView)->m_GeneDeleteOther = sGeneDeleteOther;
-	((CGenedocView *)pView)->m_GeneInsertOne = sGeneInsertOne;
-	((CGenedocView *)pView)->m_GeneDeleteOne = sGeneDeleteOne;
-	((CGenedocView *)pView)->m_GeneEditMode = sGeneEditMode;
+	((CGenethonView *)pView)->m_GeneShade = sGeneShade;
+	((CGenethonView *)pView)->m_GeneArrange = sGeneArrange;
+	((CGenethonView *)pView)->m_GeneMove = sGeneMove;
+	((CGenethonView *)pView)->m_GeneInsertDash = sGeneInsertDash;
+	((CGenethonView *)pView)->m_GeneDeleteDash = sGeneDeleteDash;
+	((CGenethonView *)pView)->m_GeneInsertOther = sGeneInsertOther;
+	((CGenethonView *)pView)->m_GeneDeleteOther = sGeneDeleteOther;
+	((CGenethonView *)pView)->m_GeneInsertOne = sGeneInsertOne;
+	((CGenethonView *)pView)->m_GeneDeleteOne = sGeneDeleteOne;
+	((CGenethonView *)pView)->m_GeneEditMode = sGeneEditMode;
 
 }
 
@@ -2224,8 +2224,8 @@ void
 CGDocViewCaret::LeftDown( UINT XPosition, DWORD YPosition, CView* pView )
 {
 
-	CPoint tPoint ( (int)(XPosition - ((CGenedocView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenedocView*)pView)->m_DisplayYPosition));
-	((CGenedocView *)pView)->LeftDownFunc( 0, tPoint, CGenedocView::KEYBRD );
+	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
+	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
 }
 
@@ -2233,14 +2233,14 @@ void
 CGDocViewCaret::RightDown( UINT XPosition, DWORD YPosition, CView* pView )
 {
 
-	CPoint tPoint ( (int)(XPosition - ((CGenedocView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenedocView*)pView)->m_DisplayYPosition));
+	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
 
-	((CGenedocView *)pView)->RightDownFunc( 0, tPoint, CGenedocView::KEYBRD );
+	((CGenethonView *)pView)->RightDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
 }
 
 void 
-CGenedocView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
+CGenethonView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
 {
 
 	if ( m_SelectDevice != NONE )
@@ -2395,12 +2395,12 @@ CGenedocView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
 void 
 CGDocViewCaret::Move( UINT XPosition, DWORD YPosition, CView* pView )
 {
-	CPoint tPoint ( (int)(XPosition - ((CGenedocView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenedocView*)pView)->m_DisplayYPosition));
-	((CGenedocView*)pView)->MoveFunc( 0, tPoint, CGenedocView::KEYBRD );
+	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
+	((CGenethonView*)pView)->MoveFunc( 0, tPoint, CGenethonView::KEYBRD );
 }
 
 void
-CGenedocView::AdjustEndToPoint( CGPRowView *tGP, UINT PointXPosition, DWORD PointYPosition, CView *pWnd )
+CGenethonView::AdjustEndToPoint( CGPRowView *tGP, UINT PointXPosition, DWORD PointYPosition, CView *pWnd )
 {
 	CGPRowView* cGP;
 	CGPRowView* nGP;
@@ -2463,7 +2463,7 @@ CGenedocView::AdjustEndToPoint( CGPRowView *tGP, UINT PointXPosition, DWORD Poin
 
 
 void 
-CGenedocView::MoveFunc(UINT nFlags, CPoint point, int DDevice) 
+CGenethonView::MoveFunc(UINT nFlags, CPoint point, int DDevice) 
 {
 	if ( GetCapture() == this && m_SelectDevice == DDevice ) {
 
@@ -2576,11 +2576,11 @@ void
 CGDocViewCaret::LeftUp( UINT XPosition, DWORD YPosition, CView* pView )
 {
 
-	CPoint tPoint ( (int)(XPosition - ((CGenedocView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenedocView*)pView)->m_DisplayYPosition));
-	((CGenedocView*)pView)->LeftUpFunc( 0, tPoint, CGenedocView::KEYBRD );
+	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
+	((CGenethonView*)pView)->LeftUpFunc( 0, tPoint, CGenethonView::KEYBRD );
 }
 
-void CGenedocView::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+void CGenethonView::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: Add your message handler code here and/or call default
 	
@@ -2667,7 +2667,7 @@ void CGenedocView::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	
 }
 
-void CGenedocView::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+void CGenethonView::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: Add your message handler code here and/or call default
 	UINT sDisplayXPosition = m_DisplayXPosition;
@@ -2742,7 +2742,7 @@ void CGenedocView::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 
 
-void CGenedocView::ScrollToPosition ( UINT ScrollXPosition, DWORD ScrollYPosition )
+void CGenethonView::ScrollToPosition ( UINT ScrollXPosition, DWORD ScrollYPosition )
 {
 	
 	DWORD sDisplayYPosition = m_DisplayYPosition;
@@ -2802,14 +2802,14 @@ void CGenedocView::ScrollToPosition ( UINT ScrollXPosition, DWORD ScrollYPositio
 	}
 }
 
-void CGenedocView::GetScrollPosition( UINT *ScrollXPosition, DWORD *ScrollYPosition)
+void CGenethonView::GetScrollPosition( UINT *ScrollXPosition, DWORD *ScrollYPosition)
 {
 	*ScrollXPosition = m_DisplayXPosition;
 	*ScrollYPosition = m_DisplayYPosition;
 }
 
 
-void CGenedocView::OnRButtonDblClk(UINT nFlags, CPoint point) 
+void CGenethonView::OnRButtonDblClk(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
 	RightDownFunc( nFlags, point, MOUSE );
@@ -2817,7 +2817,7 @@ void CGenedocView::OnRButtonDblClk(UINT nFlags, CPoint point)
 	CView::OnRButtonDblClk(nFlags, point);
 }
 
-void CGenedocView::OnRButtonDown(UINT nFlags, CPoint point) 
+void CGenethonView::OnRButtonDown(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
 	RightDownFunc( nFlags, point, MOUSE );
@@ -2825,7 +2825,7 @@ void CGenedocView::OnRButtonDown(UINT nFlags, CPoint point)
 	CView::OnRButtonDown(nFlags, point);
 }
 
-void CGenedocView::RightDownFunc( UINT nFlags, CPoint point, int DDevice )
+void CGenethonView::RightDownFunc( UINT nFlags, CPoint point, int DDevice )
 {
 	int MenuFunc = GetMenuFunction();
 	if ( MenuFunc == DEF_GENEINSERTDASH 
@@ -2892,14 +2892,14 @@ void CGenedocView::RightDownFunc( UINT nFlags, CPoint point, int DDevice )
 	}
 }
 
-void CGenedocView::OnLButtonDown(UINT nFlags, CPoint point) 
+void CGenethonView::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	LeftDownFunc ( nFlags, point, MOUSE );
 
 	CView::OnLButtonDown(nFlags, point);
 }
 
-void CGenedocView::OnMouseMove(UINT nFlags, CPoint point) 
+void CGenethonView::OnMouseMove(UINT nFlags, CPoint point) 
 {
 	MoveFunc( nFlags, point, MOUSE);
 	// TODO: Add your message handler code here and/or call default
@@ -2907,7 +2907,7 @@ void CGenedocView::OnMouseMove(UINT nFlags, CPoint point)
 	CView::OnMouseMove(nFlags, point);
 }
 
-void CGenedocView::OnLButtonUp(UINT nFlags, CPoint point) 
+void CGenethonView::OnLButtonUp(UINT nFlags, CPoint point) 
 {
 	LeftUpFunc(nFlags, point, MOUSE);
 	// TODO: Add your message handler code here and/or call default
@@ -2919,20 +2919,20 @@ void CGenedocView::OnLButtonUp(UINT nFlags, CPoint point)
 #ifdef _MAC
 
 void 
-CGenedocView::ClipCursor(const CRect& cRect )
+CGenethonView::ClipCursor(const CRect& cRect )
 {
 	m_ClipFuncClipFunc = TRUE;
 	m_ClipFuncClipRect = cRect;
 }
 
 void 
-CGenedocView::ClipCursor(const int iVal )
+CGenethonView::ClipCursor(const int iVal )
 {
 	m_ClipFuncClipFunc = FALSE;
 }
 
 BOOL 
-CGenedocView::CheckClipCursor(const CPoint& point )
+CGenethonView::CheckClipCursor(const CPoint& point )
 {
 	if ( m_ClipFuncClipFunc == TRUE ) {
 		CRect WindowRect;
@@ -2946,7 +2946,7 @@ CGenedocView::CheckClipCursor(const CPoint& point )
 
 #endif
 
-void CGenedocView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice) 
+void CGenethonView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice) 
 {
 
 	if ( (GetCapture() == this) && (m_SelectDevice == DDevice) ) {
@@ -3013,7 +3013,7 @@ NoPoint:
 }
 
 void 
-CGenedocView::OnLButtonDblClk(UINT nFlags, CPoint point) 
+CGenethonView::OnLButtonDblClk(UINT nFlags, CPoint point) 
 {
 
 	int MenuFunc = GetMenuFunction();
@@ -3098,7 +3098,7 @@ CGenedocView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 		m_MyCaret.FollowMouse( PointXPosition, PointYPosition );
 		// For find again ..	
-		CGenedocDoc* pDoc = GetDocument();
+		CGenethonDoc* pDoc = GetDocument();
 		ASSERT_VALID(pDoc);
 		pDoc->m_pFS.PrevSeq = -1;
 	}
@@ -3110,11 +3110,11 @@ CGenedocView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 
 void 
-CGenedocView::CheckMoveRanges( CGeneSegment *pCGSeg, int Row )
+CGenethonView::CheckMoveRanges( CGeneSegment *pCGSeg, int Row )
 {
 
 	// TODO: add draw code for native data here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// Do score pre inval function
@@ -3142,9 +3142,9 @@ CGenedocView::CheckMoveRanges( CGeneSegment *pCGSeg, int Row )
 
 
 void 
-CGenedocView::InvalNewEndPoint( DWORD Range1, DWORD Range2)
+CGenethonView::InvalNewEndPoint( DWORD Range1, DWORD Range2)
 {
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// TODO: add draw code for native data here
@@ -3160,7 +3160,7 @@ CGenedocView::InvalNewEndPoint( DWORD Range1, DWORD Range2)
 
 
 void
-CGenedocView::ClearMenu()
+CGenethonView::ClearMenu()
 {
 	m_GeneShade = 0;
 	m_GeneArrange = 0;
@@ -3185,7 +3185,7 @@ CGenedocView::ClearMenu()
 }
 
 unsigned int 
-CGenedocView::GetMenuFunction()
+CGenethonView::GetMenuFunction()
 {
 	int ret = 0;
 	ret += m_GeneShade * DEF_SHADE;
@@ -3204,7 +3204,7 @@ CGenedocView::GetMenuFunction()
 	return ret;
 }
 
-void CGenedocView::OnGenearrange() 
+void CGenethonView::OnGenearrange() 
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3217,14 +3217,14 @@ void CGenedocView::OnGenearrange()
 	Invalidate(FALSE);
 }
 
-void CGenedocView::OnUpdateGenearrange(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenearrange(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneArrange );
 	
 }
 
-void CGenedocView::OnGenemove() 
+void CGenethonView::OnGenemove() 
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3237,14 +3237,14 @@ void CGenedocView::OnGenemove()
 	Invalidate(FALSE);
 }
 
-void CGenedocView::OnUpdateGenemove(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenemove(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneMove );
 	
 }
 
-void CGenedocView::OnSelect() 
+void CGenethonView::OnSelect() 
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3256,13 +3256,13 @@ void CGenedocView::OnSelect()
 	}
 }
 
-void CGenedocView::OnUpdateSelect(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateSelect(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneSelect );
 }
 
-void CGenedocView::OnGenedeletedash()
+void CGenethonView::OnGenedeletedash()
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3276,13 +3276,13 @@ void CGenedocView::OnGenedeletedash()
 	
 }
 
-void CGenedocView::OnUpdateGenedeletedash(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGenedeletedash(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneDeleteDash );
 }
 
-void CGenedocView::OnGeneinsertdash()
+void CGenethonView::OnGeneinsertdash()
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3295,7 +3295,7 @@ void CGenedocView::OnGeneinsertdash()
 	Invalidate(FALSE);
 }
 
-void CGenedocView::OnUpdateGeneinsertdash(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGeneinsertdash(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneInsertDash );
@@ -3303,7 +3303,7 @@ void CGenedocView::OnUpdateGeneinsertdash(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocView::OnGeneinsertother() 
+void CGenethonView::OnGeneinsertother() 
 {
 	// TODO: Add your command handler code here
 	
@@ -3317,14 +3317,14 @@ void CGenedocView::OnGeneinsertother()
 	Invalidate(FALSE);
 }
 
-void CGenedocView::OnUpdateGeneinsertother(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGeneinsertother(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneInsertOther );
 	
 }
 
-void CGenedocView::OnGenedeleteother() 
+void CGenethonView::OnGenedeleteother() 
 {
 	// TODO: Add your command handler code here
 	
@@ -3338,13 +3338,13 @@ void CGenedocView::OnGenedeleteother()
 	Invalidate(FALSE);
 }
 
-void CGenedocView::OnUpdateGenedeleteother(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenedeleteother(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneDeleteOther );
 }
 
-void CGenedocView::OnGeneinsertone() 
+void CGenethonView::OnGeneinsertone() 
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3358,13 +3358,13 @@ void CGenedocView::OnGeneinsertone()
 	
 }
 
-void CGenedocView::OnUpdateGeneinsertone(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGeneinsertone(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneInsertOne );
 }
 
-void CGenedocView::OnGenedeleteone() 
+void CGenethonView::OnGenedeleteone() 
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3378,7 +3378,7 @@ void CGenedocView::OnGenedeleteone()
 	
 }
 
-void CGenedocView::OnUpdateGenedeleteone(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenedeleteone(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneDeleteOne );
@@ -3387,7 +3387,7 @@ void CGenedocView::OnUpdateGenedeleteone(CCmdUI* pCmdUI)
 //
 // SHADING
 //
-void CGenedocView::OnSelectcol() 
+void CGenethonView::OnSelectcol() 
 {
 	// TODO: Add your command handler code here
 	DeSelectAll();
@@ -3402,16 +3402,16 @@ void CGenedocView::OnSelectcol()
 	
 }
 
-void CGenedocView::OnUpdateSelectcol(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateSelectcol(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneSelectCol );
 }
 
-void CGenedocView::OnGenecreatewin() 
+void CGenethonView::OnGenecreatewin() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -3430,8 +3430,8 @@ void CGenedocView::OnGenecreatewin()
 
 	CGSFiller *pGSFiller = pDoc->pGSFiller;
 
-	CGenedocDoc* pnDoc = (CGenedocDoc *)((CGenedocApp *)AfxGetApp())->CreateNewDocument();
-	ASSERT ( pnDoc->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
+	CGenethonDoc* pnDoc = (CGenethonDoc *)((CGenethonApp *)AfxGetApp())->CreateNewDocument();
+	ASSERT ( pnDoc->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
 	
 	CGSFiller * pnGSFiller;
 	pnGSFiller = new CGSFiller;
@@ -3499,14 +3499,14 @@ void CGenedocView::OnGenecreatewin()
 	pnDoc->AutoShade(-1);
 }
 
-void CGenedocView::OnUpdateGenecreatewin(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenecreatewin(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
 	
 }
 
-void CGenedocView::OnGenescorekey()
+void CGenethonView::OnGenescorekey()
 {
 
 	// TODO: Add your command handler code here
@@ -3537,10 +3537,10 @@ void CGenedocView::OnGenescorekey()
 }
 
 
-void CGenedocView::OnGenescore() 
+void CGenethonView::OnGenescore() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -3571,16 +3571,16 @@ void CGenedocView::OnGenescore()
 
 }
 
-void CGenedocView::OnUpdateGenescore(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGenescore(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
 }
 
-void CGenedocView::OnGeneinsertfill()
+void CGenethonView::OnGeneinsertfill()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -3602,17 +3602,17 @@ void CGenedocView::OnGeneinsertfill()
 
 }
 
-void CGenedocView::OnUpdateGeneinsertfill(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGeneinsertfill(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
 }
 
-void CGenedocView::OnGenedeletefill()
+void CGenethonView::OnGenedeletefill()
 {
 	// TODO: Add your command handler code here
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -3634,38 +3634,38 @@ void CGenedocView::OnGenedeletefill()
 
 }
 
-void CGenedocView::OnUpdateGenedeletefill(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGenedeletefill(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
 }
 
 void 
-CGenedocView::OnActivateView( BOOL bActivate, CView* pActivateView, CView* pDeactiveView )
+CGenethonView::OnActivateView( BOOL bActivate, CView* pActivateView, CView* pDeactiveView )
 {
 	CView::OnActivateView( bActivate, pActivateView, pDeactiveView );
 
 	if ( bActivate && !m_PrintOnly) {
-		if ( ((CGenedocApp *)AfxGetApp())->m_OKOrientCheck ) {
-			CGenedocDoc* pDoc = GetDocument();
+		if ( ((CGenethonApp *)AfxGetApp())->m_OKOrientCheck ) {
+			CGenethonDoc* pDoc = GetDocument();
 			ASSERT_VALID(pDoc);
-			((CGenedocApp *)AfxGetApp())->SetLandscape( pDoc->m_UserVars.m_Orientation );
+			((CGenethonApp *)AfxGetApp())->SetLandscape( pDoc->m_UserVars.m_Orientation );
 		}
 	}
 
 }
 
 
-void CGenedocView::OnManualshade()
+void CGenethonView::OnManualshade()
 {
 	// TODO: Add your command handler code here
 	DoManualShade();
 }
 
 void 
-CGenedocView::DoManualShade()
+CGenethonView::DoManualShade()
 {
-	CGenedocDoc *pDoc = GetDocument();
+	CGenethonDoc *pDoc = GetDocument();
 
 	CColorBar tDlg(this);	// CDialog
 
@@ -3695,17 +3695,17 @@ CGenedocView::DoManualShade()
 
 }
 
-void CGenedocView::OnUpdateManualshade(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateManualshade(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck(m_GeneShade);
 	
 }
 
-void CGenedocView::OnGeneclearscore()
+void CGenethonView::OnGeneclearscore()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	// Zero flag is for clearing.
@@ -3732,7 +3732,7 @@ void CGenedocView::OnGeneclearscore()
 }
 
 
-void CGenedocView::OnGeneeditmode()
+void CGenethonView::OnGeneeditmode()
 {
 	// TODO: Add your command handler code here
 
@@ -3750,14 +3750,14 @@ void CGenedocView::OnGeneeditmode()
 	Invalidate(FALSE);
 }
 
-void CGenedocView::OnUpdateGeneeditmode(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGeneeditmode(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck( m_GeneEditMode );
 	
 }
 
-void CGenedocView::OnFilePrint()
+void CGenethonView::OnFilePrint()
 {
 	// TODO: Add your command handler code here // CView
 	
@@ -3769,7 +3769,7 @@ void CGenedocView::OnFilePrint()
 
 	OnUpdate( NULL, 0L, NULL );
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	pDoc->CheckOrientation();
@@ -3777,7 +3777,7 @@ void CGenedocView::OnFilePrint()
 }
 
 void 
-CGenedocView::OnEndPrintPreview( CDC* pDC, CPrintInfo* pInfo, POINT point, CPreviewView* pView )
+CGenethonView::OnEndPrintPreview( CDC* pDC, CPrintInfo* pInfo, POINT point, CPreviewView* pView )
 {
 // pDC    Points to the printer device context.
 // pInfo    Points to a CPrintInfo structure that describes the current print job. 
@@ -3788,7 +3788,7 @@ CGenedocView::OnEndPrintPreview( CDC* pDC, CPrintInfo* pInfo, POINT point, CPrev
 
 	OnUpdate( NULL, 0L, NULL );
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	pDoc->CheckOrientation();
@@ -3797,7 +3797,7 @@ CGenedocView::OnEndPrintPreview( CDC* pDC, CPrintInfo* pInfo, POINT point, CPrev
 	CView::OnEndPrintPreview( pDC, pInfo,point, pView );
 }
 
-void CGenedocView::OnFilePrintPreview() 
+void CGenethonView::OnFilePrintPreview() 
 {
 	// TODO: Add your command handler code here
 	
@@ -3809,108 +3809,108 @@ void CGenedocView::OnFilePrintPreview()
 
 
 
-void CGenedocView::OnEditCopy() 
+void CGenethonView::OnEditCopy() 
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 0, 4, 0 );
 	
 }
 
-void CGenedocView::OnUpdateEditCopy(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateEditCopy(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopyinv() 
+void CGenethonView::OnEditCopyinv() 
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 1, 4, 0 );
 	
 }
 
-void CGenedocView::OnUpdateEditCopyinv(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateEditCopyinv(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopy0()
+void CGenethonView::OnEditCopy0()
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 0, 0, 0 );
 }
 
-void CGenedocView::OnUpdateEditCopy0(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateEditCopy0(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopy8()
+void CGenethonView::OnEditCopy8()
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 0, 8, 0 );
 }
 
-void CGenedocView::OnUpdateEditCopy8(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateEditCopy8(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopyinv0()
+void CGenethonView::OnEditCopyinv0()
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 1, 0, 0 );
 }
 
-void CGenedocView::OnUpdateEditCopyinv0(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateEditCopyinv0(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopyinv8()
+void CGenethonView::OnEditCopyinv8()
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 1, 8, 0 );
 }
 
-void CGenedocView::OnUpdateEditCopyinv8(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateEditCopyinv8(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopyinvbit()
+void CGenethonView::OnEditCopyinvbit()
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 1, 0, 1 );
 	
 }
 
-void CGenedocView::OnUpdateEditCopyinvbit(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateEditCopyinvbit(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnEditCopybit()
+void CGenethonView::OnEditCopybit()
 {
 	// TODO: Add your command handler code here
 	ClipFunction( 0, 0, 1 );
 	
 }
 
-void CGenedocView::OnUpdateEditCopybit(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateEditCopybit(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
@@ -4116,7 +4116,7 @@ HANDLE DibFromBitmap (
 
 
 void 
-CGenedocView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
+CGenethonView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
 {
 
 	UINT sizeXPos = (UINT)-1, sizeXSize = 0;
@@ -4135,7 +4135,7 @@ CGenedocView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	pDoc->BeginWaitCursor(); // Let em know
@@ -4275,10 +4275,10 @@ CGenedocView::ClipFunction( int InvFlag, int ResFlag, int BitFlag )
 	return;
 }
 
-void CGenedocView::OnCopytext()
+void CGenethonView::OnCopytext()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( !OpenClipboard() ) {
@@ -4350,12 +4350,12 @@ void CGenedocView::OnCopytext()
 	
 }
 
-void CGenedocView::OnGenecopypict()
+void CGenethonView::OnGenecopypict()
 {
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "Pict Files (*.pct)|*.pct|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -4439,18 +4439,18 @@ void CGenedocView::OnGenecopypict()
 }
 
 
-void CGenedocView::OnUpdateGenecopypict(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateGenecopypict(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 }
 
-void CGenedocView::OnGenecopyhtml() 
+void CGenethonView::OnGenecopyhtml() 
 {
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "HTML Files (*.htm)|*.htm|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -4538,14 +4538,14 @@ void CGenedocView::OnGenecopyhtml()
 	
 }
 
-void CGenedocView::OnUpdateGenecopyhtml(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenecopyhtml(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
 	
 }
 
-void CGenedocView::OnCopymetaclip() 
+void CGenethonView::OnCopymetaclip() 
 {
 
 	if ( !OpenClipboard() ) {
@@ -4560,7 +4560,7 @@ void CGenedocView::OnCopymetaclip()
 	}
 
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CDC* pDC = GetDC();
@@ -4665,20 +4665,20 @@ void CGenedocView::OnCopymetaclip()
 }
 
 
-void CGenedocView::OnUpdateCopymetaclip(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateCopymetaclip(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);
 
 }
 
-void CGenedocView::OnCopymetafile() 
+void CGenethonView::OnCopymetafile() 
 {
 
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "Meta Files (*.emf)|*.emf|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -4768,7 +4768,7 @@ void CGenedocView::OnCopymetafile()
 
 }
 
-void CGenedocView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);
@@ -4776,10 +4776,10 @@ void CGenedocView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocView::OnDstatscore()
+void CGenethonView::OnDstatscore()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -4801,17 +4801,17 @@ void CGenedocView::OnDstatscore()
 	DeSelectAll();
 }
 
-void CGenedocView::OnUpdateDstatscore(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateDstatscore(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
 	
 }
 
-void CGenedocView::OnDstatscoreall()
+void CGenethonView::OnDstatscoreall()
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -4834,18 +4834,18 @@ void CGenedocView::OnDstatscoreall()
 	
 }
 
-void CGenedocView::OnUpdateDstatscoreall(CCmdUI* pCmdUI)
+void CGenethonView::OnUpdateDstatscoreall(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
 	
 }
 
-void CGenedocView::OnGenefindreplace() 
+void CGenethonView::OnGenefindreplace() 
 {
 	// TODO: Add your command handler code here
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	m_MyCaret.ClearKeys();
 
@@ -4923,10 +4923,10 @@ void CGenedocView::OnGenefindreplace()
 }
 
 
-void CGenedocView::OnGenecopyseq() 
+void CGenethonView::OnGenecopyseq() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -4987,7 +4987,7 @@ void CGenedocView::OnGenecopyseq()
 	
 }
 
-void CGenedocView::OnUpdateGenecopyseq(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenecopyseq(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
@@ -4995,12 +4995,12 @@ void CGenedocView::OnUpdateGenecopyseq(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocView::OnGenecopyrtf() 
+void CGenethonView::OnGenecopyrtf() 
 {
 	// TODO: Add your command handler code here
 	static char BASED_CODE szFilter[] = "RTF Files (*.rtf)|*.rtf|All Files (*.*)|*.*||";
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// CDocument
@@ -5121,7 +5121,7 @@ void CGenedocView::OnGenecopyrtf()
 	
 }
 
-void CGenedocView::OnUpdateGenecopyrtf(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenecopyrtf(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
@@ -5371,10 +5371,10 @@ void HCountDNA( double MPC, double *Frac,
 extern char ProteinLocArray[];
 
 
-void CGenedocView::OnGenewritelogodds() 
+void CGenethonView::OnGenewritelogodds() 
 {
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	if ( pDoc->m_UserVars.m_ProjectType > 1 ) {
@@ -5384,7 +5384,7 @@ void CGenedocView::OnGenewritelogodds()
 	}
 }
 	
-void CGenedocView::DoProtLO()
+void CGenethonView::DoProtLO()
 {
 	// TODO: Add your command handler code here
 	
@@ -5402,7 +5402,7 @@ void CGenedocView::DoProtLO()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	
@@ -5784,7 +5784,7 @@ int iPAM90pseudo[] = {
 };
 
 
-void CGenedocView::DoDNALO()
+void CGenethonView::DoDNALO()
 {
 	// TODO: Add your command handler code here
 	
@@ -5802,7 +5802,7 @@ void CGenedocView::DoDNALO()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	
@@ -6095,7 +6095,7 @@ END_CATCH
 
 }
 
-void CGenedocView::OnUpdateGenewritelogodds(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateGenewritelogodds(CCmdUI* pCmdUI) 
 {
 
 	// TODO: Add your command update UI handler code here
@@ -6104,10 +6104,10 @@ void CGenedocView::OnUpdateGenewritelogodds(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocView::OnDelcolumns() 
+void CGenethonView::OnDelcolumns() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	
 	if ( !m_ColSelBegin ) {
@@ -6130,7 +6130,7 @@ void CGenedocView::OnDelcolumns()
 	
 }
 
-void CGenedocView::OnUpdateDelcolumns(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateDelcolumns(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
@@ -6138,12 +6138,12 @@ void CGenedocView::OnUpdateDelcolumns(CCmdUI* pCmdUI)
 }
 
 
-void CGenedocView::OnFindnext() 
+void CGenethonView::OnFindnext() 
 {
 	// TODO: Add your command handler code here
 	m_MyCaret.ClearKeys();
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	// If From From Begin, then set to find foward.
@@ -6159,12 +6159,12 @@ void CGenedocView::OnFindnext()
 	}
 }
 
-void CGenedocView::OnFind() 
+void CGenethonView::OnFind() 
 {
 	// TODO: Add your command handler code here
 	m_MyCaret.ClearKeys();
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CFindDlg fDlg;
@@ -6197,7 +6197,7 @@ void CGenedocView::OnFind()
 
 }
 
-DWORD CGenedocView::ColPosFromCaret(UINT XPosition, DWORD YPosition ) 
+DWORD CGenethonView::ColPosFromCaret(UINT XPosition, DWORD YPosition ) 
 {
 
 	POSITION tPos = m_RowViewList.GetHeadPosition();
@@ -6214,7 +6214,7 @@ DWORD CGenedocView::ColPosFromCaret(UINT XPosition, DWORD YPosition )
 	return 0;
 }
 
-void CGenedocView::CaretPosFromColSeq( DWORD tCount, CGeneSegment* pCGSeg )
+void CGenethonView::CaretPosFromColSeq( DWORD tCount, CGeneSegment* pCGSeg )
 {
 	POSITION tPos = m_RowViewList.GetHeadPosition();
 	CGPRowView *tGP;
@@ -6264,7 +6264,7 @@ void CGenedocView::CaretPosFromColSeq( DWORD tCount, CGeneSegment* pCGSeg )
 }
 
 
-void CGenedocView::OnReplacefromproj() 
+void CGenethonView::OnReplacefromproj() 
 {
 	// TODO: Add your command handler code here
 	if ( !m_ColSelBegin ) {
@@ -6272,7 +6272,7 @@ void CGenedocView::OnReplacefromproj()
 		return;
 	}
 
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	DWORD StartRange, EndRange;
@@ -6289,7 +6289,7 @@ void CGenedocView::OnReplacefromproj()
 	EndWaitCursor();
 }
 
-void CGenedocView::OnUpdateReplacefromproj(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateReplacefromproj(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_ColSelBegin);
@@ -6297,7 +6297,7 @@ void CGenedocView::OnUpdateReplacefromproj(CCmdUI* pCmdUI)
 }
 
 
-char GetDNATrans(GeneStor *pc, DWORD tCount, CGenedocDoc *pDoc)
+char GetDNATrans(GeneStor *pc, DWORD tCount, CGenethonDoc *pDoc)
 {
 
 	int loc = 0;
@@ -6332,7 +6332,7 @@ char GetDNATrans(GeneStor *pc, DWORD tCount, CGenedocDoc *pDoc)
 	return '?';
 }
 
-char GetDNATransStart(GeneStor *pc, DWORD tCount, CGenedocDoc *pDoc)
+char GetDNATransStart(GeneStor *pc, DWORD tCount, CGenethonDoc *pDoc)
 {
 
 	int loc = 0;
@@ -6367,11 +6367,11 @@ char GetDNATransStart(GeneStor *pc, DWORD tCount, CGenedocDoc *pDoc)
 	return '-';
 }
 
-void CGenedocView::OnDnatrans() 
+void CGenethonView::OnDnatrans() 
 {
 
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	char tGapChar = pDoc->m_UserVars.m_GapInd ? '.' : '-';
 
@@ -6429,8 +6429,8 @@ void CGenedocView::OnDnatrans()
 	DWORD tLen = EndRange - StartRange + 1;
 	if ( tLen < 3 ) return;
 
-	CGenedocDoc* pnDoc = (CGenedocDoc *)((CGenedocApp *)AfxGetApp())->CreateNewDocument();
-	ASSERT ( pnDoc->IsKindOf(RUNTIME_CLASS(CGenedocDoc)));
+	CGenethonDoc* pnDoc = (CGenethonDoc *)((CGenethonApp *)AfxGetApp())->CreateNewDocument();
+	ASSERT ( pnDoc->IsKindOf(RUNTIME_CLASS(CGenethonDoc)));
 	
 
 	BeginWaitCursor();
@@ -6719,10 +6719,10 @@ void CGenedocView::OnDnatrans()
 }
 
 
-void CGenedocView::OnDnaffreqrep() 
+void CGenethonView::OnDnaffreqrep() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CGSFiller *pGSFiller = pDoc->pGSFiller;
@@ -6751,19 +6751,19 @@ void CGenedocView::OnDnaffreqrep()
 	pDoc->DNAFreqRep( StartRange, EndRange );
 }
 
-void CGenedocView::OnUpdateDnaffreqrep(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateDnaffreqrep(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	pCmdUI->Enable(	pDoc->pGSFiller != NULL );
 	
 }
 
-void CGenedocView::OnDnacolfreqrep() 
+void CGenethonView::OnDnacolfreqrep() 
 {
 	// TODO: Add your command handler code here
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CGSFiller *pGSFiller = pDoc->pGSFiller;
@@ -6793,17 +6793,17 @@ void CGenedocView::OnDnacolfreqrep()
 	
 }
 
-void CGenedocView::OnUpdateDnacolfreqrep(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateDnacolfreqrep(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	pCmdUI->Enable(	pDoc->pGSFiller != NULL );
 }	
 
-void CGenedocView::OnDnacolfrwrep() 
+void CGenethonView::OnDnacolfrwrep() 
 {
 	// TODO: Add your command handler code here
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
 	CGSFiller *pGSFiller = pDoc->pGSFiller;
@@ -6833,11 +6833,11 @@ void CGenedocView::OnDnacolfrwrep()
 	
 }
 
-void CGenedocView::OnUpdateDnacolfrwrep(CCmdUI* pCmdUI) 
+void CGenethonView::OnUpdateDnacolfrwrep(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	
-	CGenedocDoc* pDoc = GetDocument();
+	CGenethonDoc* pDoc = GetDocument();
 	pCmdUI->Enable(	pDoc->pGSFiller != NULL );
 }
 

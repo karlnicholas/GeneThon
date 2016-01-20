@@ -66,7 +66,7 @@ CGVEditFill::CalcDrawSize(CDC* pDC, UINT *XSize, DWORD *YSize, int)
 void 
 CGVEditFill::OnDraw( DrawStruct *DrawStc )
 {
-	CGenedocDoc *pDoc = ((CGenedocView *)DrawStc->pView)->GetDocument();
+	CGenethonDoc *pDoc = ((CGenethonView *)DrawStc->pView)->GetDocument();
 
 	CBrush tBrush;
 
@@ -126,13 +126,13 @@ CGVEditFill::CountCopyText(DWORD *dwCount )
 }
 
 void 
-CGVEditFill::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditFill::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 }
 
 void 
-CGVEditFill::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenedocDoc *pDoc )
+CGVEditFill::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 
 }

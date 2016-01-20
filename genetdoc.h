@@ -1,22 +1,4 @@
-/*
-    GeneDoc: Multiple Sequence Alignment Editing Utility
-    Copyright (C) 2000, Karl Nicholas
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-// geneddoc.h : interface of the CGenedocDoc class
+// geneddoc.h : interface of the CGenethonDoc class
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -36,11 +18,11 @@ typedef struct {
 } FindStc;
 
 
-class CGenedocDoc : public CDocument
+class CGenethonDoc : public CDocument
 {
 protected: // create from serialization only
-	CGenedocDoc();
-	DECLARE_DYNCREATE(CGenedocDoc)
+	CGenethonDoc();
+	DECLARE_DYNCREATE(CGenethonDoc)
 
 	void DoMarkerLine();
 
@@ -518,7 +500,7 @@ public:
 
 // Implementation
 public:
-	virtual ~CGenedocDoc();
+	virtual ~CGenethonDoc();
 	virtual void Serialize(CArchive& ar);   // overridden for document i/o
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -532,7 +514,7 @@ protected:
 
 // Generated message map functions
 protected:
-	//{{AFX_MSG(CGenedocDoc)
+	//{{AFX_MSG(CGenethonDoc)
 	afx_msg void OnGenescorefile();
 	afx_msg void OnGenestatfile();
 	afx_msg void OnConfigure();
