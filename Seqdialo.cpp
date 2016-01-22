@@ -20,6 +20,10 @@ CSeqDialog::CSeqDialog(CWnd* pParent /*=NULL*/)
 }
 
 
+void CSeqDialog::CallSDFromNamedSeq(CObject * p)
+{
+}
+
 void CSeqDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -44,7 +48,6 @@ BEGIN_MESSAGE_MAP(CSeqDialog, CDialog)
 	ON_BN_CLICKED(IDC_REVERSE, OnReverse)
 	ON_BN_CLICKED(IDC_SEQEXPORT, OnSeqexport)
 	ON_BN_CLICKED(IDC_DUPLICATE, OnDuplicate)
-	ON_BN_CLICKED(IDC_WRITESCR, OnWritescr)
 	ON_WM_DRAWITEM()
 	ON_WM_MEASUREITEM()
 	ON_BN_CLICKED(IDC_SORTNAME, OnSortname)
@@ -146,31 +149,6 @@ void CSeqDialog::OnSeqdelete()
 
 		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
 		pGSFiller->SegDataList.RemoveAt (tPos);
-
-		// Remove from Groups List.
-
-		// Is it in a group already?
-		if ( tCGSeg->m_DisplayGroup != 0 ) {
-			int GrpNum = 0;
-			CDisplayVars *DisplayVars = NULL;
-			POSITION tPos = pDoc->m_UserVars.m_DisplayVars.GetHeadPosition();
-			while ( tPos != NULL ) {
-				DisplayVars = (CDisplayVars *)pDoc->m_UserVars.m_DisplayVars.GetNext(tPos);
-				GrpNum++;
-				if ( GrpNum == tCGSeg->m_DisplayGroup ) break;
-			}
-
-			tCGSeg->m_DisplayGroup = 0;
-
-			CPtrList *pDVGL;
-			if ( DisplayVars != NULL ) pDVGL = DisplayVars->GetGroupList();
-
-			POSITION oPos = pDVGL->Find( tCGSeg );
-						
-			if ( oPos != NULL ) pDVGL->RemoveAt( oPos );
-						
-		}
-
 
 		char scount[256];
 		wsprintf(scount, "%d Seq", Count );
@@ -905,7 +883,7 @@ void CSeqDialog::OnWritescr()
 
 	
 	COLORREF TextC, BkC;
-	pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextC, &BkC );
+	pDoc->GetColors( &TextC, &BkC );
 
 	int OffSet = 0;
 
@@ -927,43 +905,7 @@ void CSeqDialog::OnWritescr()
 
 	CFileDialog fDlg(FALSE, "scr", possName, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter, this );
 
-
-	CPDBDialog tDlg;
 	CPtrList m_ColorList;
-
-	// Fill out color list.
-	for ( DWORD i = 0; i < tCount; ++i ) {
-		POSITION tPos = tDlg.m_ColorList.GetHeadPosition();
-		int found = 0;
-		while ( tPos != NULL ) {
-			stcPDBCOLOR *pPDBC = (stcPDBCOLOR *)tDlg.m_ColorList.GetNext(tPos);
-			if ( pPDBC->rgbText == pGS[i].TextColor
-				&& pPDBC->rgbBack == pGS[i].BackColor
-			) {
-				found = 1;
-				break;
-			}
-		}
-		if ( !found  ) {
-			stcPDBCOLOR *pPDBC = new stcPDBCOLOR;
-			pPDBC->rgbText = pGS[i].TextColor;
-			pPDBC->rgbBack = pGS[i].BackColor;
-			tDlg.m_ColorList.AddTail( pPDBC );
-
-			if ( !(pGS[i].TextColor == TextC && pGS[i].BackColor == BkC) ) {
-				stcPDBCOLOR *pPDBC2 = new stcPDBCOLOR;
-				pPDBC2->rgbText = pGS[i].TextColor;
-				pPDBC2->rgbBack = pGS[i].BackColor;
-				m_ColorList.AddTail( pPDBC2 );
-			}
-		}
-	}
-
-	if ( tDlg.DoModal() != IDOK ) goto Out;
-
-
-	// CDocument
-	OffSet = tDlg.m_PDBOffset;
 
 	if ( fDlg.DoModal() != IDOK ) goto Out;
 
@@ -972,57 +914,10 @@ TRY
 {
 	CStdioFile oFile( fDlg.GetPathName() ,CFile::modeCreate | CFile::modeWrite | CFile::typeText );
 
-	if ( tDlg.m_ClearAll ) {
-		oFile.WriteString( "select all\n" );
-		oFile.WriteString( "colour bonds none\n" );
-		oFile.WriteString( "colour backbone none\n" );
-		oFile.WriteString( "colour hbonds none\n" );
-		oFile.WriteString( "colour ssbonds none\n" );
-		oFile.WriteString( "colour ribbons none\n" );
-		oFile.WriteString( "colour white\n" );
-	}
-
-	if ( tDlg.m_DispSidechain && tDlg.m_ClearAll ) {
-		oFile.WriteString( "wireframe off\n" );
-		oFile.WriteString( "spacefill off\n" );
-		oFile.WriteString( "cartoon off\n" );
-	}
-
-	CString ShadeWhich;
-	ShadeWhich = " ";
-	if ( tDlg.m_ShadeWhich == 1 ) {
-		ShadeWhich = " and backbone";
-	} else if ( tDlg.m_ShadeWhich == 2 ) {
-		ShadeWhich = " and sidechain";
-	}
-
 	for ( DWORD i = 0; i < tCount; ++i ) {
 		char tChar = toupper(pGS[i].CharGene );
 		if ( tChar >= 'A' && tChar <= 'Z' ) {
 
-			if ( !tDlg.m_IncludeBase ) {
-				if ( pGS[i].BackColor == pDoc->m_UserVars.m_BackColor0 
-					&& pGS[i].TextColor == pDoc->m_UserVars.m_ForeColor0 
-				) continue;
-			}
-
-			if ( tDlg.m_SafeMode ) {
-				sprintf( OutBuf, "select %s%ld%s\ncolour [%d,%d,%d]\n", 
-					aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-					(const char *)ShadeWhich, 
-					GetRValue( pGS[i].BackColor ), 
-					GetGValue( pGS[i].BackColor ), 
-					GetBValue( pGS[i].BackColor ) 
-				);
-			} else {
-				sprintf( OutBuf, "select %ld%s\ncolour [%d,%d,%d]\n", 
-					pGS[i].GeneSeqNumber + OffSet, 
-					(const char *)ShadeWhich, 
-					GetRValue( pGS[i].BackColor ), 
-					GetGValue( pGS[i].BackColor ), 
-					GetBValue( pGS[i].BackColor ) 
-				);
-			}
 			oFile.WriteString( OutBuf );
 
 		}
@@ -1030,152 +925,7 @@ TRY
 
 	oFile.WriteString( "select all\n" );
 
-	if ( tDlg.m_GroupSel ) {
-
-
-		UINT ocount = 0;
-		UINT scount = 1;
-		UINT gcount = 1;
-		tPos = m_ColorList.GetHeadPosition();
-		while ( tPos != NULL ) {
-			stcPDBCOLOR *pPDBC = (stcPDBCOLOR *)m_ColorList.GetNext(tPos);
-			sprintf( OutBuf, "#colour [%d,%d,%d]\nselect ", 
-				GetRValue( pPDBC->rgbBack ), 
-				GetGValue( pPDBC->rgbBack ), 
-				GetBValue( pPDBC->rgbBack ) 
-			);
-			oFile.WriteString( OutBuf );
-			for (int i = 0; i < tCount; ++i ) {
-				char tChar = toupper(pGS[i].CharGene );
-				if ( tChar >= 'A' && tChar <= 'Z' ) {
-
-					if ( pPDBC->rgbText == pGS[i].TextColor
-						&& pPDBC->rgbBack == pGS[i].BackColor
-					) {
-						if ( ocount++ >= 10 ) {
-							sprintf( OutBuf, "\ndefine gsel%03d%03d selected\nselect ", gcount, scount++ );
-							oFile.WriteString( OutBuf );
-							ocount = 0;
-						}
-						sprintf( OutBuf, "%s%ld%s or ", 
-							aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-							(const char *)ShadeWhich 
-						);
-						oFile.WriteString( OutBuf );
-					}
-				}
-			}
-			int i;
-			sprintf( OutBuf, "\n" );
-			oFile.WriteString( OutBuf );
-			if ( scount != 1 ) {
-				ocount = 0;
-				sprintf( OutBuf, "define gsel%03d%03d selected\nselect ", gcount, scount++ );
-				oFile.WriteString( OutBuf );
-				for ( i = 1; i < scount; ++i ) {
-					if ( ocount++ >= 8 ) {
-						sprintf( OutBuf, "\ndefine gsel%03d%03d selected\nselect gsel%03d%03d or ", gcount, scount, gcount, scount );
-						scount++;
-						oFile.WriteString( OutBuf );
-						ocount = 0;
-					}
-					sprintf( OutBuf, "gsel%03d%03d or ", gcount, i );
-					oFile.WriteString( OutBuf );
-				}
-	//			sprintf( OutBuf, "\ndefine gsel%03d%03d selected\n", gcount, scount++ );
-	//			oFile.WriteString( OutBuf );
-				oFile.WriteString( "\n" );
-			}
-			sprintf( OutBuf, "define group%d selected\n", gcount++ );
-			oFile.WriteString( OutBuf );
-			scount = 1;
-			ocount = 0;
-		}
-	}
-
-	while ( !m_ColorList.IsEmpty() ) {
-		delete (stcPDBCOLOR*) m_ColorList.RemoveHead();
-	}
-
 	oFile.WriteString( "select all\n" );
-
-	if ( tDlg.m_DispSidechain ) {
-		CString strBack;
-		if ( tDlg.m_ExcludeO ) {
-			strBack = "select backbone and not *.o\n";
-		} else {
-			strBack = "select backbone\n";
-		}
-		if ( tDlg.m_ComboBack == "Stick" ) {
-			strBack += "wireframe 80\n";
-		} else if ( tDlg.m_ComboBack == "SpaceFill" ) {
-			strBack += "spacefill\n";
-		} else if ( tDlg.m_ComboBack == "Ball&Stick" ) {
-			strBack += "spacefill 120\nwireframe 40\n";
-		} else if ( tDlg.m_ComboBack == "WireFrame" ) {
-			strBack += "wireframe\n";
-		} else if ( tDlg.m_ComboBack == "Ribbon" ) {
-			strBack += "ribbon\n";
-		} else if ( tDlg.m_ComboBack == "Cartoon" ) {
-			strBack += "cartoon\n";
-		}
-
-		oFile.WriteString( strBack );
-
-		CString strDisp;
-		if ( tDlg.m_SideDisp == "Stick" ) {
-			strDisp = "wireframe 80";
-		} else if ( tDlg.m_SideDisp == "SpaceFill" ) {
-			strDisp = "spacefill";
-		} else if ( tDlg.m_SideDisp == "Ball&Stick" ) {
-			strDisp = "spacefill 120\nwireframe 40";
-		} else if ( tDlg.m_SideDisp == "WireFrame" ) {
-			strDisp = "wireframe";
-		}
-
-		for (int i = 0; i < tCount; ++i ) {
-			char tChar = toupper(pGS[i].CharGene );
-			if ( tChar >= 'A' && tChar <= 'Z' ) {
-				POSITION cPos = tDlg.m_ColorList.GetHeadPosition();
-				int found = 0;
-				while ( cPos != NULL ) {
-					stcPDBCOLOR *pPDBC = (stcPDBCOLOR *)tDlg.m_ColorList.GetNext(cPos);
-					if ( pGS[i].BackColor == pPDBC->rgbBack && pGS[i].TextColor == pPDBC->rgbText ) {
-						found = 1;
-						break;
-					}
-				}
-				if ( found ) {
-					if ( tDlg.m_SafeMode ) {
-						// Thanks God ...
-						if ( tChar == 'P' ) {
-							sprintf( OutBuf, "select %s%ld and sidechain or %s%ld.ca or %s%ld.n\n%s\n", 
-								aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-								aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-								aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-								strDisp
-							);
-						} else {
-							sprintf( OutBuf, "select %s%ld and sidechain or %s%ld.ca\n%s\n", 
-								aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-								aatrans[tChar-'A'], pGS[i].GeneSeqNumber + OffSet, 
-								strDisp
-							);
-						}
-					} else {
-						sprintf( OutBuf, "select %ld and sidechain or ld.ca\n%s\n", 
-							pGS[i].GeneSeqNumber + OffSet, 
-							pGS[i].GeneSeqNumber + OffSet, 
-							strDisp
-						);
-					}
-					oFile.WriteString( OutBuf );
-				}
-			}
-		}
-		
-		oFile.WriteString( "select all\n" );
-	}
 	
 	oFile.Close();
 
@@ -1189,7 +939,6 @@ END_CATCH
 Out:
 	GlobalUnlock( tCGSeg->GetTextHandle() );
 
-	while ( !tDlg.m_ColorList.IsEmpty() ) delete (stcPDBCOLOR *)tDlg.m_ColorList.RemoveHead();
 }
 
 

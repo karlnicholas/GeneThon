@@ -101,9 +101,7 @@ CGenethonDoc::GetNewUserDefaults( )
 
 				DecodeVars ( strRec, EncodeDisplayVars, 0 );
 				iSLoc += strRec.GetLength();
-				const CString& CurType = sDisplayVars.m_StcGroup.GetCurrentDataType();
 				sUserVars.m_Vars.SetDisplayVars ( &sDisplayVars, this );
-				sUserVars.m_Vars.GetStcGroup().SetCurrentDataType(CurType, 1 );
 
 			}
 			break;
@@ -118,11 +116,9 @@ CGenethonDoc::GetNewUserDefaults( )
 
 				DecodeVars ( strRec, EncodeDisplayVars, 0 );
 				iSLoc += strRec.GetLength();
-				const CString& CurType = sDisplayVars.m_StcGroup.GetCurrentDataType();
 				CDisplayVars *pDV = new CDisplayVars;
 				GetIniDisplayVars(pDV);
 				pDV->SetDisplayVars ( &sDisplayVars, this );
-				pDV->GetStcGroup().SetCurrentDataType(CurType, 1);
 				sUserVars.m_DisplayVars.AddTail( pDV );
 			}
 			break;
@@ -134,53 +130,6 @@ CGenethonDoc::GetNewUserDefaults( )
 	// Remove Old Storage ..
 	ClearUserVars( &m_UserVars );
 	CopyUserVars( &m_UserVars, &sUserVars);
-	// Some More Things ..
-	tPos = m_UserVars.m_StcDefUser.GetHeadPosition();
-	while ( tPos != NULL ) {
-		CString& StcFile = m_UserVars.m_StcDefUser.GetNext(tPos);
-		LoadUserSduFile( m_PathName + StcFile );
-	}
-
-	const CString& CurType = sUserVars.m_Vars.GetStcGroup().GetCurrentDataType();
-	CStcGroup& StcGroup = m_UserVars.m_Vars.GetStcGroup();
-	const CStringList& StcFileNames = StcGroup.GetFileNames();
-	POSITION fPos = StcFileNames.GetHeadPosition();
-	while ( fPos != NULL ) {
-		const CString& fString = StcFileNames.GetNext(fPos);
-		GetDataTypeValuesFile( m_PathName + fString, &m_UserVars.m_Vars.GetStcGroup() );
-	}
-	m_UserVars.m_Vars.GetStcGroup().SetCurrentDataType(CurType);
-	if ( m_UserVars.m_GroupDisplayMode == 0 ) {
-		SetStructureAlignment(&m_UserVars.m_Vars);
-	}
-
-	int GrpNum = 1;
-	tPos = m_UserVars.m_DisplayVars.GetHeadPosition();
-	POSITION oPos = sUserVars.m_DisplayVars.GetHeadPosition();
-	while ( tPos != NULL ) {
-		CDisplayVars * pDV = (CDisplayVars *)m_UserVars.m_DisplayVars.GetNext(tPos);
-		CDisplayVars * pDVo = (CDisplayVars *)sUserVars.m_DisplayVars.GetNext(oPos);
-		const CString& CurType = pDVo->GetStcGroup().GetCurrentDataType();
-		CStcGroup& StcGroup = pDV->GetStcGroup();
-		const CStringList& StcFileNames = StcGroup.GetFileNames();
-		POSITION fPos = StcFileNames.GetHeadPosition();
-		while ( fPos != NULL ) {
-			const CString& fString = StcFileNames.GetNext(fPos);
-			GetDataTypeValuesFile( m_PathName + fString, &pDV->GetStcGroup() );
-		}
-		pDV->GetStcGroup().SetCurrentDataType(CurType);
-		if ( m_UserVars.m_GroupDisplayMode != 0 ) {
-			SetStructureAlignment(pDV);
-		}
-
-		CPtrList *pGList = pDV->GetGroupList();
-		POSITION gPos = pGList->GetHeadPosition();
-		while ( gPos != NULL ) {
-			CGeneSegment *pCGSeg = (CGeneSegment *)pGList->GetNext( gPos );
-			pCGSeg->m_DisplayGroup = GrpNum;
-		}
-		GrpNum++;
-	}
 
 	ClearUserVars( &sUserVars );
 
@@ -383,16 +332,11 @@ enum {
 	STOREFLAG, 
 	STORECHAR, 
 	STORESHADEPAIR, 
-	STORECHEMPROP12, 
-	STORECHEMPROP3, 
 	STOREFILELIST,
-	STOREPROPERTY, 
-	STORESTRUCTURE, 
 	STORESEQNAMES, 
 	STORESEARCH, 
 	STORESEQSTART, 
 	STORESEENAB, 
-	STORELOGODDS, 
 	STORESEQDESCR, 
 	STORECPAIR, 
 	STORECOMMENT, 
@@ -403,15 +347,10 @@ enum {
 };
 
 int EncodeShadePair(CString& strCode, stcEncodeVars * CodeVars );
-int EncodeChemProp(CString& strCode, stcEncodeVars * CodeVars, UINT count );
 int EncodeFileList(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeProperty(CString& strCode, stcEncodeVars * CodeVars );
-int EncodeStructure(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqNames(CString& strCode, stcEncodeVars * CodeVars );
-int EncodeSearch(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqStart(CString& strCode, stcEncodeVars * CodeVars );
-int EncodeSeEnab(CString& strCode, stcEncodeVars * CodeVars );
-int EncodeLogOdds(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqDescr(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeCPAIR(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeComment(CString& strCode, stcEncodeVars * CodeVars );
@@ -420,15 +359,9 @@ int EncodeComment2(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqDescr2(CString& strCode, stcEncodeVars * CodeVars );
 
 int DecodeShadePair(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
-int DecodeChemProp(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeFileList(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
-int DecodeProperty(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
-int DecodeStructure(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeSeqNames(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
-int DecodeSearch(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeSeqStart(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
-int DecodeSeEnab(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
-int DecodeLogOdds(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeSeqDescr(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeCPAIR(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeComment(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
@@ -437,40 +370,17 @@ int DecodeComment2(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 int DecodeSeqDescr2(CString& strCode, stcEncodeVars * CodeVars, int iSLoc );
 
 stcEncodeVars EncodeDisplayVars[] = {
-	{ &sDisplayVars.m_GroupEnabled,		STOREFLAG },
-	{ &sDisplayVars.m_PrimaryLevel,		STOREDOUBLE },
-	{ &sDisplayVars.m_SecondaryLevel,	STOREDOUBLE }, 
-	{ &sDisplayVars.m_TertiaryLevel,	STOREDOUBLE }, 
-	{ &sDisplayVars.m_ModeConserved,	STORECHAR }, 
-	{ &sDisplayVars.m_LastShadeLevel,	STOREFLAG }, 
 	{ &sDisplayVars.m_ResidueMode,		STOREFLAG }, 
 	{ &sDisplayVars.m_DiffMode,			STOREFLAG }, 
 	{ &sDisplayVars.m_PropStyle,		STOREFLAG }, 
 	{ &sDisplayVars.m_TitleTextColor,	STORECOLOR }, 
 	{ &sDisplayVars.m_TitleBkColor,		STORECOLOR }, 
-	{ &sDisplayVars.m_Property,			STOREPROPERTY }, 
-	{ &sDisplayVars.m_StcGroup,			STORESTRUCTURE }, 
-	{ &sDisplayVars.m_GroupName,		STORESTRING }, 
-	{ &sDisplayVars.m_GroupList,		STORESEQNAMES }, 
-	{ &sDisplayVars.m_ConsSubStyle,		STOREFLAG }, 
-	{ &sDisplayVars.m_IdentTextColor,	STORECOLOR }, 
-	{ &sDisplayVars.m_IdentBkColor,		STORECOLOR }, 
-	{ &sDisplayVars.m_IdentList,		STORESEQNAMES }, 
-	{ &sDisplayVars.m_IdentDisplayStyle,STOREFLAG }, 
 	{ NULL, 0 } 
 };
 
 stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_FontWeight,				STOREINT },
 	{&sUserVars.m_FontSize,					STOREINT },
-	{&sUserVars.m_ForeColor100,				STORECOLOR },
-	{&sUserVars.m_ForeColor80,				STORECOLOR },
-	{&sUserVars.m_ForeColor60,				STORECOLOR },
-	{&sUserVars.m_ForeColor0,				STORECOLOR },
-	{&sUserVars.m_BackColor100,				STORECOLOR },
-	{&sUserVars.m_BackColor80,				STORECOLOR },
-	{&sUserVars.m_BackColor60,				STORECOLOR },
-	{&sUserVars.m_BackColor0,				STORECOLOR },
 	{&sUserVars.m_LeftBorder,				STOREDOUBLE },
 	{&sUserVars.m_RightBorder,				STOREDOUBLE },
 	{&sUserVars.m_TopBorder,				STOREDOUBLE },
@@ -485,7 +395,6 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_PrintFontName,			STORESTRING },
 	{&sUserVars.m_WidthMode,				STOREFLAG },
 	{&sUserVars.m_FixedXSize,				STOREINT },
-	{&sUserVars.m_CurrentScoreTable,		STOREINT },
 	{&sUserVars.m_PictWidth,				STOREINT },
 	{&sUserVars.m_PictHeight,				STOREINT },
 	{&sUserVars.m_PictAscent,				STOREINT },
@@ -500,12 +409,6 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_Orientation,				STOREFLAG },
 	{&sUserVars.m_GapInd,					STOREFLAG },
 	{&sUserVars.m_ProjectType,				STOREFLAG },
-	{&sUserVars.m_ScoringMethod,			STOREFLAG },
-	{&sUserVars.m_GroupDisplayMode,			STOREFLAG },
-	{&sUserVars.m_ColorSeqNames,			STOREFLAG },
-	{&sUserVars.m_AutoShade4Structure,		STORESTRING },
-	{&sUserVars.m_AutoShade3Structure,		STORESTRING },
-	{&sUserVars.m_AutoShade2Structure,		STORESTRING },
 	{&sUserVars.m_MarkerSymb,				STORECHAR },
 	{&sUserVars.m_MarkerSpacing,			STOREINT },
 	{&sUserVars.m_MarkerReplace,			STOREINT },
@@ -513,58 +416,15 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_MarkerEnable,				STOREFLAG },
 	{&sUserVars.m_ConservedGap,				STORECHAR },
 	{&sUserVars.m_ResidueUpper,				STOREFLAG },
-	{&sUserVars.m_ChemPropCysteine,			STOREFLAG },
-	{&sUserVars.m_ChemPropShowProp,			STOREFLAG },
 	{&sUserVars.m_MaxNameLength,			STOREINT },
 	{&sUserVars.m_strLead,					STORESTRING },
 	{&sUserVars.m_strTail,					STORESTRING },
-	{&sUserVars.m_GroupConsLevel,			STOREDOUBLE },
-	{&sUserVars.m_PCRSimilarities,			STORESTRING },
-	{&sUserVars.m_PCRLevel,					STOREDOUBLE },
-	{&sUserVars.ChemGroupOxi,				STORECHEMPROP12 },
-	{&sUserVars.ChemGroupRed,				STORECHEMPROP12 },
-	{&sUserVars.ChemCons,					STORECHEMPROP3 },
-	{&sUserVars.m_StcDefUser,				STOREFILELIST },
-	{&sUserVars.listSearch,					STORESEARCH },
-	{&sUserVars.m_ProSite,					STOREFLAG },
-	{&sUserVars.m_DNAAmbEn,					STOREFLAG },
-	{&sUserVars.ChemPropEnabled[0],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[1],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[2],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[3],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[4],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[5],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[6],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[7],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[8],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[9],			STOREFLAG },
-	{&sUserVars.ChemPropEnabled[10],		STOREFLAG },
-	{&sUserVars.ChemPropEnabled[11],		STOREFLAG },
-	{&sUserVars.m_OverlapColor,				STORECOLOR },
 	{&sUserVars.m_PrintShading,				STOREFLAG },
 	{&UseGSFiller,							STORESEQSTART }, 
 	{&sUserVars.m_SumDefDis,				STOREFLAG }, 
 	{&sUserVars.m_SumColInch,				STOREINT }, 
 	{&sUserVars.m_Sum2Wid,					STOREFLAG }, 
 	{&sUserVars.m_SumTextBlack,				STOREFLAG }, 
-	{&sUserVars.listSearch,					STORESEENAB },
-	{&sUserVars.m_strLogOddsFile,			STORESTRING }, 
-	{&sUserVars.m_dLogOddsMin,				STOREDOUBLE }, 
-	{&sUserVars.m_iLogOddsBestN,			STOREINT }, 
-	{&sUserVars.m_iLogOddsMode,				STOREFLAG }, 
-	{&sUserVars.m_rgbLogOddsOverlap,		STORECOLOR }, 
-	{&sUserVars.m_iLogOddsNoOv,				STOREFLAG }, 
-	{&sUserVars.m_dLogOddsTL1,				STOREDOUBLE }, 
-	{&sUserVars.m_dLogOddsTL2,				STOREDOUBLE }, 
-	{&sUserVars.m_dLogOddsTL3,				STOREDOUBLE },
-	{&sUserVars.m_listLogOdds,				STORELOGODDS },
-	{&sUserVars.m_iLogOddsOutTab,			STOREINT }, 
-	{&sUserVars.m_dLogOddsMPC,				STOREDOUBLE }, 
-	{&sUserVars.m_iLogOddsBack,				STOREFLAG }, 
-	{&sUserVars.m_dLogOddsStA,				STOREDOUBLE }, 
-	{&sUserVars.m_dLogOddsStC,				STOREDOUBLE }, 
-	{&sUserVars.m_dLogOddsStG,				STOREDOUBLE }, 
-	{&sUserVars.m_dLogOddsStT,				STOREDOUBLE }, 
 	{&UseGSFiller,							STORESEQDESCR }, 
 	{&sUserVars.m_PrintFileName,			STOREFLAG }, 
 	{&sUserVars.m_PrintDate,				STOREFLAG }, 
@@ -573,20 +433,8 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_ShowComments,				STOREFLAG }, 
 	{&UseGSFiller,							STORECPAIR }, 
 	{&UseGSFiller,							STORECOMMENT }, 
-	{&sUserVars.m_DNATransName,				STORESTRING }, 
-	{&sUserVars.m_DNATrans,					STORESTRING }, 
-	{&sUserVars.m_DNATransStart,			STORESTRING }, 
-	{&sUserVars.m_RepExactMatch,			STOREFLAG }, 
-	{&sUserVars.m_RepJuxtaposition,			STOREFLAG }, 
-	{&sUserVars.m_RepAlignedGaps,			STOREFLAG }, 
-	{&sUserVars.m_RepAbsoluteVal,			STOREFLAG }, 
-	{&sUserVars.m_RepPercentVal,			STOREFLAG }, 
-	{&sUserVars.m_RepOutMatrix,				STOREINT }, 
-	{&sUserVars.m_RepLabelTop,				STOREINT }, 
-	{&sUserVars.m_RepLabelSingle,			STOREINT }, 
 	{&UseGSFiller,							STORECPAIR2 }, 
 	{&UseGSFiller,							STORECOMMENT2 }, 
-	{&sUserVars.m_RepIncAA,					STOREFLAG }, 
 	{&sUserVars.m_MakeBackups,					STOREFLAG }, 
 	{&sUserVars.m_LocAfterName,					STOREFLAG }, 
 	{&sUserVars.m_LocAfterSeq,					STOREFLAG }, 
@@ -697,53 +545,18 @@ DecodeVars ( CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
 			Length += ic;
 			iSLoc += ic;
 			break;
-		case STORECHEMPROP12:
-			ic = DecodeChemProp(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break;
-		case STORECHEMPROP3:
-			ic = DecodeChemProp(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break;
 		case STOREFILELIST:
 			ic = DecodeFileList(strCode, CodeVars, iSLoc );
 			Length += ic;
 			iSLoc += ic;
 			break;
-		case STOREPROPERTY:
-			ic = DecodeProperty(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break;
-		case STORESTRUCTURE:
-			ic = DecodeStructure(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break; 
 		case STORESEQNAMES:
 			ic = DecodeSeqNames(strCode, CodeVars, iSLoc );
 			Length += ic;
 			iSLoc += ic;
 			break;
-		case STORESEARCH:
-			ic = DecodeSearch(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break;
 		case STORESEQSTART:
 			ic = DecodeSeqStart(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break;
-		case STORESEENAB:
-			ic = DecodeSeEnab(strCode, CodeVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-			break;
-		case STORELOGODDS:
-			ic = DecodeLogOdds(strCode, CodeVars, iSLoc );
 			Length += ic;
 			iSLoc += ic;
 			break;
@@ -915,49 +728,18 @@ WBUG( "Encode 14\n")
 			Length += EncodeShadePair(strCode, CodeVars );
 WBUG( "Encode 15\n")
 			break;
-		case STORECHEMPROP12:
-WBUG( "Encode 16\n")
-			Length += EncodeChemProp(strCode, CodeVars, 12 );
-WBUG( "Encode 17\n")
-			break;
-		case STORECHEMPROP3:
-WBUG( "Encode 18\n")
-			Length += EncodeChemProp(strCode, CodeVars, 3 );
-WBUG( "Encode 19\n")
-			break;
 		case STOREFILELIST:
 WBUG( "Encode 20\n")
 			Length += EncodeFileList(strCode, CodeVars );
 WBUG( "Encode 21\n")
-			break;
-		case STOREPROPERTY:
-WBUG( "Encode 22\n")
-			Length += EncodeProperty(strCode, CodeVars );
-WBUG( "Encode 23\n")
-			break;
-		case STORESTRUCTURE:
-WBUG( "Encode 24\n")
-			Length += EncodeStructure(strCode, CodeVars );
-WBUG( "Encode 25\n")
 			break;
 		case STORESEQNAMES:
 WBUG( "Encode 26\n")
 			Length += EncodeSeqNames(strCode, CodeVars );
 WBUG( "Encode 27\n")
 			break;
-		case STORESEARCH:
-WBUG( "Encode 28\n")
-			Length += EncodeSearch(strCode, CodeVars );
-WBUG( "Encode 29\n")
-			break;
 		case STORESEQSTART:
 			Length += EncodeSeqStart(strCode, CodeVars );
-			break;
-		case STORESEENAB:
-			Length += EncodeSeEnab(strCode, CodeVars );
-			break;
-		case STORELOGODDS:
-			Length += EncodeLogOdds(strCode, CodeVars );
 			break;
 		case STORESEQDESCR:
 			Length += EncodeSeqDescr(strCode, CodeVars );
@@ -1237,354 +1019,6 @@ WBUG( "Shade 5\n")
 
 }
 
-stcChemProp CP;
-
-stcEncodeVars EncodeCPVars[] = {
-	{ &CP.Chem, STORESTRING }, 
-	{ &CP.TextColor, STORECOLOR }, 
-	{ &CP.BackColor, STORECOLOR },
-	{ NULL, 0 }
-};
-
-int 
-DecodeChemProp(CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
-{
-	stcChemProp *pCPArr = (stcChemProp *)CodeVars->pData;
-
-
-	int Length = 0;
-
-	// CHAR
-	char conv[3];
-	conv[0] = strCode[iSLoc++];
-	conv[1] = strCode[iSLoc++];
-	conv[2] = 0;
-	int props = (int)strtol( conv, NULL, 16 );
-	Length += 2;
-		
-	for ( int i = 0; i < props; ++i ) { 
-		int ic = DecodeVars( strCode, EncodeCPVars, iSLoc );
-		Length += ic;
-		iSLoc += ic;
-
-		pCPArr[i].Chem = CP.Chem;
-		pCPArr[i].TextColor = CP.TextColor;
-		pCPArr[i].BackColor = CP.BackColor;
-
-	}
-
-	return Length;
-
-}
-
-int 
-EncodeChemProp(CString& strCode, stcEncodeVars * CodeVars, UINT count )
-{
-	stcChemProp *pCPArr = (stcChemProp *)CodeVars->pData;
-
-
-	int Length = 0;
-
-WBUG( "Chem 1\n")
-	// CHAR
-	char conv[10];
-	_itoa( count , conv, 16 );
-	conv[2] = 0;
-	for ( UINT i = 2; i > strlen(conv); --i ) strCode += '0';
-	strCode += conv;
-
-WBUG( "Chem 2\n")
-	Length += 2;
-		
-	for (int i = 0; i < count; ++i ) { 
-		stcChemProp *tCP = &pCPArr[i];
-
-		CP.Chem = tCP->Chem;
-		CP.TextColor = tCP->TextColor;
-		CP.BackColor = tCP->BackColor;
-
-WBUG( "Chem 3\n")
-		Length += EncodeVars( strCode, EncodeCPVars );
-WBUG( "Chem 4\n")
-	}
-
-WBUG( "Chem 5\n")
-	return Length;
-
-}
-
-struct sPS {
-	int RowNum;
-	CString Group;
-	COLORREF TextColor;
-	COLORREF BkColor;
-} PS;
-
-stcEncodeVars EncodePVars[] = {
-	{ &PS.RowNum, STORECHAR }, 
-	{ &PS.Group, STORESTRING }, 
-	{ &PS.TextColor, STORECOLOR }, 
-	{ &PS.BkColor, STORECOLOR },
-	{ NULL, 0 }
-};
-
-int 
-DecodeProperty(CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
-{
-	CProperty *pProp = (CProperty *)CodeVars->pData;
-
-	int Length = 0;
-
-	// Char of 3 sets ..
-	char conv[3];
-	conv[0] = strCode[iSLoc++];
-	conv[1] = strCode[iSLoc++];
-	conv[2] = 0;
-	int count1 = (int)strtol( conv, NULL, 16 );
-	Length += 2;
-
-	for ( int ipc = 0; ipc < count1; ++ ipc ) {
-
-		CPtrArray *pPArr = (CPtrArray *)pProp->GetArray(ipc);
-		// CHAR
-		conv[0] = strCode[iSLoc++];
-		conv[1] = strCode[iSLoc++];
-		conv[2] = 0;
-		int count2 = (int)strtol( conv, NULL, 16 );
-		Length += 2;
-
-		for ( int i = 0; i < count2; ++i ) { 
-
-			int ic = DecodeVars( strCode, EncodePVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-
-			PropertyStruct *pPS = new PropertyStruct;
-
-			pPS->RowNum = PS.RowNum;
-			strcpy ( pPS->Group, (const char *)PS.Group );
-			pPS->TextColor = PS.TextColor;
-			pPS->BkColor = PS.BkColor;
-
-			pPArr->Add(pPS);
-		}
-	}
-
-	return Length;
-
-}
-
-int 
-EncodeProperty(CString& strCode, stcEncodeVars * CodeVars )
-{
-	CProperty *pProp = (CProperty *)CodeVars->pData;
-
-
-	int Length = 0;
-
-	// Char of 3 sets ..
-	strCode += "03";
-	Length += 2;
-
-WBUG( "Prop 1\n")
-	
-
-	for ( int ipc = 0; ipc < 3; ++ ipc ) {
-
-		CPtrArray *pPArr = (CPtrArray *)pProp->GetArray(ipc);
-		// CHAR
-		UINT count = pPArr->GetSize();
-
-WBUG( "Prop 2\n")
-		char conv[10];
-		_itoa( count , conv, 16 );
-		conv[2] = 0;
-		for ( UINT i = 2; i > strlen(conv); --i ) strCode += '0';
-		strCode += conv;
-		Length += 2;
-
-WBUG( "Prop 3\n")
-		for (int i = 0; i < count; ++i ) { 
-			PropertyStruct *pPS = (PropertyStruct *)pPArr->GetAt(i);
-
-			PS.RowNum = pPS->RowNum;
-			PS.Group = pPS->Group;
-			PS.TextColor = pPS->TextColor;
-			PS.BkColor = pPS->BkColor;
-WBUG( "Prop 4\n")
-			Length += EncodeVars( strCode, EncodePVars );
-WBUG( "Prop 5\n")
-		}
-WBUG( "Prop 6\n")
-	}
-
-WBUG( "Prop 7\n")
-	return Length;
-
-}
-
-struct sSS {
-	CString MasterSeq;
-	CString DataType;
-	CStringList FileNames;
-} SS;
-
-stcEncodeVars EncodeSVars[] = {
-	{ &SS.MasterSeq, STORESTRING }, 
-	{ &SS.DataType, STORESTRING }, 
-	{ &SS.FileNames, STOREFILELIST }, 
-	{ NULL, 0 }
-};
-
-int 
-DecodeStructure(CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
-{
-	CStcGroup *pSGrp = (CStcGroup *)CodeVars->pData;
-
-
-	int Length = 0;
-	SS.FileNames.RemoveAll();
-	int ic = DecodeVars( strCode, EncodeSVars, iSLoc );
-	Length += ic;
-	iSLoc += ic;
-
-	// Another various flags string
-	pSGrp->SetMasterSeq(SS.MasterSeq);
-	pSGrp->SetCurrentDataType(SS.DataType, 1);	// Force it
-
-	// STOREFILELIST
-	POSITION tPos = SS.FileNames.GetHeadPosition();
-	while ( tPos != NULL ) {
-		pSGrp->AddFileName( SS.FileNames.GetNext(tPos) );
-	}
-
-	return Length;
-
-}
-
-int 
-EncodeStructure(CString& strCode, stcEncodeVars * CodeVars )
-{
-	CStcGroup *pSGrp = (CStcGroup *)CodeVars->pData;
-
-
-	int Length = 0;
-
-WBUG( "Stc 1\n")
-	SS.FileNames.RemoveAll();
-
-	// Another various flags string
-	SS.MasterSeq = pSGrp->GetMasterSeq();
-WBUG( "Stc 2\n")
-	SS.DataType = pSGrp->GetCurrentDataType();
-WBUG( "Stc 3\n")
-
-	// STOREFILELIST
-	const CStringList& listS = pSGrp->GetFileNames();
-	POSITION tPos = listS.GetHeadPosition();
-	while ( tPos != NULL ) {
-		SS.FileNames.AddTail( listS.GetNext(tPos) );
-	}
-WBUG( "Stc 4\n")
-
-	Length += EncodeVars( strCode, EncodeSVars );
-
-WBUG( "Stc 5\n")
-	return Length;
-
-}
-
-
-stcSearch SE;
-
-stcEncodeVars EncodeSEVars[] = {
-	{ &SE.strSearch, STORESTRING }, 
-	{ &SE.strName, STORESTRING }, 
-	{ &SE.strDescrip, STORESTRING }, 
-	{ &SE.rgbText, STORECOLOR }, 
-	{ &SE.rgbBack, STORECOLOR },
-	{ NULL, 0 }
-};
-
-int 
-DecodeSearch(CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
-{
-	// CPtrList	m_GroupList;	// CGeneSequence *
-	CPtrList *pSCH = (CPtrList *)CodeVars->pData;
-
-	int Length = 0;
-
-	// CHAR
-
-	char conv[3];
-	conv[0] = strCode[iSLoc++];
-	conv[1] = strCode[iSLoc++];
-	conv[2] = 0;
-	int count = (int)strtol( conv, NULL, 16 );
-	Length += 2;
-
-	for ( int i = 0; i < count; ++i ) {
-			int ic = DecodeVars( strCode, EncodeSEVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-
-			stcSearch *pSE = new stcSearch;
-
-			pSE->iEnabled = 1;
-
-			pSE->strSearch = SE.strSearch;
-			pSE->strName = SE.strName;
-			pSE->strDescrip = SE.strDescrip;
-			pSE->rgbText = SE.rgbText;
-			pSE->rgbBack = SE.rgbBack;
-
-			pSCH->AddTail(pSE);
-	}
-	
-	return Length;
-
-}
-
-int 
-EncodeSearch(CString& strCode, stcEncodeVars * CodeVars )
-{
-	// CPtrList	m_GroupList;	// CGeneSequence *
-	CPtrList *pSCH = (CPtrList *)CodeVars->pData;
-
-	int Length = 0;
-
-WBUG( "Sch 1\n")
-	UINT count = pSCH->GetCount();
-
-	char conv[10];
-	_itoa( count , conv, 16 );
-	conv[2] = 0;
-	for ( UINT i = 2; i > strlen(conv); --i ) strCode += '0';
-	strCode += conv;
-	Length += 2;
-
-WBUG( "Sch 2\n")
-	POSITION tPos = pSCH->GetHeadPosition();
-	while ( tPos != NULL ) {
-		stcSearch *pSE = (stcSearch *)pSCH->GetNext(tPos);
-
-WBUG( "Sch 3\n")
-		SE.strSearch = pSE->strSearch;
-		SE.strName = pSE->strName;
-		SE.strDescrip = pSE->strDescrip;
-		SE.rgbText = pSE->rgbText;
-		SE.rgbBack = pSE->rgbBack;
-WBUG( "Sch 4\n")
-
-		Length += EncodeVars( strCode, EncodeSEVars );
-WBUG( "Sch 5\n")
-	}
-
-WBUG( "Sch 6\n")
-	return Length;
-
-}
-
 
 struct sSQS {
 	DWORD Start;
@@ -1673,230 +1107,12 @@ EncodeSeqStart(CString& strCode, stcEncodeVars * CodeVars )
 
 }
 
-
-void
-CopyPhysioChemVars( 
-	int *nCy, int *oCy,
-	int*nShow, int* oShow, 
-	stcChemProp* nOxi, stcChemProp* oOxi, 
-	stcChemProp* nRed, stcChemProp* oRed, 
-	stcChemProp* nCons, stcChemProp* oCons, 
-	int *nEnab, int *oEnab 
-)
-{
-	// TODO: Add your command handler code here
-	*nCy = *oCy;
-	*nShow = *oShow;
-	for ( int i=0; i < 12; ++i ) {
-		nOxi[i].Chem = oOxi[i].Chem;
-		nOxi[i].TextColor = oOxi[i].TextColor;
-		nOxi[i].BackColor = oOxi[i].BackColor;
-		//
-		nRed[i].Chem = oRed[i].Chem;
-		nRed[i].TextColor = oRed[i].TextColor;
-		nRed[i].BackColor = oRed[i].BackColor;
-		//
-		nEnab[i] = oEnab[i];
-	}
-	for (int i=0; i < 3; ++i ) {
-		nCons[i].Chem = oCons[i].Chem;
-		nCons[i].TextColor = oCons[i].TextColor;
-		nCons[i].BackColor = oCons[i].BackColor;
-	}
-
-}
-
-
 int g_iEnabled;
 
 stcEncodeVars EncodeSEEVars[] = {
 	{ &g_iEnabled, STOREFLAG }, 
 	{ NULL, 0 }
 };
-
-int 
-DecodeSeEnab(CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
-{
-	// CPtrList	m_GroupList;	// CGeneSequence *
-	CPtrList *pSCH = (CPtrList *)CodeVars->pData;
-
-	int Length = 0;
-
-	// CHAR
-
-	char conv[3];
-	conv[0] = strCode[iSLoc++];
-	conv[1] = strCode[iSLoc++];
-	conv[2] = 0;
-	int count = (int)strtol( conv, NULL, 16 );
-	Length += 2;
-
-	int lcount = pSCH->GetCount();
-
-	for ( int i = 0; i < count; ++i ) {
-			int ic = DecodeVars( strCode, EncodeSEEVars, iSLoc );
-			Length += ic;
-			iSLoc += ic;
-
-			// Paranoia
-			if ( i >= lcount ) continue;
-
-			stcSearch *pSE = (stcSearch *)pSCH->GetAt( pSCH->FindIndex( i ) );
-			pSE->iEnabled = g_iEnabled;
-	}
-	
-	return Length;
-
-}
-
-
-// fuck
-
-int 
-EncodeSeEnab(CString& strCode, stcEncodeVars * CodeVars )
-{
-	// CPtrList	m_GroupList;	// CGeneSequence *
-	CPtrList *pSCH = (CPtrList *)CodeVars->pData;
-
-	int Length = 0;
-
-	UINT count = pSCH->GetCount();
-
-	char conv[10];
-	_itoa( count , conv, 16 );
-	conv[2] = 0;
-	for ( UINT i = 2; i > strlen(conv); --i ) strCode += '0';
-	strCode += conv;
-	Length += 2;
-
-	POSITION tPos = pSCH->GetHeadPosition();
-	while ( tPos != NULL ) {
-		stcSearch *pSE = (stcSearch *)pSCH->GetNext(tPos);
-
-		g_iEnabled = pSE->iEnabled;
-
-		Length += EncodeVars( strCode, EncodeSEEVars );
-	}
-
-	return Length;
-
-}
-
-
-stcLogOdds LO;
-
-stcEncodeVars EncodeLOVars[] = {
-	{ &LO.strMotif, STORESTRING }, 
-	{ &LO.strName, STORESTRING }, 
-	{ &LO.strDescrip, STORESTRING }, 
-	{ &LO.rgbText, STORECOLOR }, 
-	{ &LO.rgbBack, STORECOLOR },
-	{ &LO.iEnabled, STOREFLAG },
-	{ NULL, 0 }
-};
-
-int 
-DecodeLogOdds(CString& strCode, stcEncodeVars * CodeVars, int iSLoc )
-{
-	// CPtrList	m_GroupList;	// CGeneSequence *
-	CPtrList *pLO = (CPtrList *)CodeVars->pData;
-
-	int Length = 0;
-	stcLogOdds *pstcLO;
-
-	int fscan = 0;
-	// CHAR
-	if ( sUserVars.m_strLogOddsFile.GetLength() ) {
-		fscan = gpDoc->ScanMemeMotifs(gpDoc->m_PathName + sUserVars.m_strLogOddsFile, pLO);
-	}
-
-	POSITION tPos = pLO->GetHeadPosition();
-	while ( tPos != NULL ) {
-		pstcLO = (stcLogOdds *)pLO->GetNext(tPos);
-		pstcLO->iEnabled = -1;
-	}
-
-
-	char conv[3];
-	conv[0] = strCode[iSLoc++];
-	conv[1] = strCode[iSLoc++];
-	conv[2] = 0;
-	int count = (int)strtol( conv, NULL, 16 );
-	Length += 2;
-
-	for ( int i = 0; i < count; ++i ) {
-		int ic = DecodeVars( strCode, EncodeLOVars, iSLoc );
-		Length += ic;
-		iSLoc += ic;
-
-		int found = 0;
-		tPos = pLO->GetHeadPosition();
-		while ( tPos != NULL ) {
-			pstcLO = (stcLogOdds *)pLO->GetNext(tPos);
-			if ( pstcLO->strName == LO.strName ) {
-				found = 1;
-				break;
-			}
-		}
-
-		if ( found && fscan ) {
-			pstcLO->iEnabled = LO.iEnabled;
-			pstcLO->strMotif = LO.strMotif;
-			pstcLO->strDescrip = LO.strDescrip;
-			pstcLO->rgbText = LO.rgbText;
-			pstcLO->rgbBack = LO.rgbBack;
-		}
-	}
-	
-	tPos = pLO->GetHeadPosition();
-	while ( tPos != NULL ) {
-		POSITION sPos = tPos;
-		pstcLO = (stcLogOdds *)pLO->GetNext(tPos);
-		if ( pstcLO->iEnabled == -1 ) {
-			pLO->RemoveAt(sPos);
-			delete [] pstcLO->dLogOddsArr;
-			delete pstcLO;
-		}
-	}
-
-	return Length;
-
-}
-
-int 
-EncodeLogOdds(CString& strCode, stcEncodeVars * CodeVars )
-{
-	// CPtrList	m_GroupList;	// CGeneLOquence *
-	CPtrList *pLO = (CPtrList *)CodeVars->pData;
-
-	int Length = 0;
-
-	UINT count = pLO->GetCount();
-
-	char conv[10];
-	_itoa( count , conv, 16 );
-	conv[2] = 0;
-	for ( UINT i = 2; i > strlen(conv); --i ) strCode += '0';
-	strCode += conv;
-	Length += 2;
-
-	POSITION tPos = pLO->GetHeadPosition();
-	while ( tPos != NULL ) {
-		stcLogOdds *pstcLO = (stcLogOdds *)pLO->GetNext(tPos);
-
-		LO.strMotif = pstcLO->strMotif;
-		LO.strName = pstcLO->strName;
-		LO.strDescrip = pstcLO->strDescrip;
-		LO.rgbText = pstcLO->rgbText;
-		LO.rgbBack = pstcLO->rgbBack;
-		LO.iEnabled = pstcLO->iEnabled;
-
-		Length += EncodeVars( strCode, EncodeLOVars );
-	}
-
-	return Length;
-
-}
 
 struct sSQD {
 	CString Descr;

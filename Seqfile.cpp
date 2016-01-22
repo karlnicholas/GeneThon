@@ -361,7 +361,7 @@ CGenethonDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 			return 0;
 		}
 
-		if ( !tCGSeg->Create( LINESEQUENCE, tSNS->Name, tSNS->Descr, tSNS->Weight, tSNS->hText, tSNS->Len, tSNS->Start, tGapChar, &m_UserVars.m_ForeColor0, &m_UserVars.m_BackColor0 ) ) {
+		if ( !tCGSeg->Create( LINESEQUENCE, tSNS->Name, tSNS->Descr, tSNS->Weight, tSNS->hText, tSNS->Len, tSNS->Start, tGapChar, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 			AfxMessageBox("GetMSFFile:Create Fail 2" );
 			delete pGSFiller;
 			pGSFiller = NULL;
@@ -424,7 +424,7 @@ CGenethonDoc::CreateBottomRows()
 		return 0;
 	}
 
-	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, tGapChar, &m_UserVars.m_ForeColor0, &m_UserVars.m_BackColor0 ) ) {
+	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, tGapChar, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 3" );
 		delete pGSFiller;
 		pGSFiller = NULL;
@@ -486,8 +486,8 @@ CGenethonDoc::CreateTopRows()
 			gMaxStrSize, 
 			1, 
 			tGapChar, 
-			&m_UserVars.m_ForeColor0, 
-			&m_UserVars.m_BackColor0 
+			&m_UserVars.m_ForeColor, 
+			&m_UserVars.m_BackColor 
 	) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 0" );
 		delete pGSFiller;
@@ -528,7 +528,7 @@ CGenethonDoc::CreateTopRows()
 		return 0;
 	}
 
-	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, tGapChar, &m_UserVars.m_ForeColor0, &m_UserVars.m_BackColor0 ) ) {
+	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, tGapChar, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 1" );
 		delete pGSFiller;
 		pGSFiller = NULL;

@@ -120,7 +120,7 @@ CGVEditTail::OnDraw( DrawStruct *DrawStc )
 
 					COLORREF TextColor, BkColor;
 
-					pDoc->GetLevelColors(&pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
+					pDoc->GetColors( &TextColor, &BkColor );
 
 					CRect tcRect( 
 						tXLoc2 - DrawStc->DisplayXPosition, 
@@ -303,8 +303,8 @@ CGVEditTail::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 			for ( int i = 0; i < StrCount; ++i ) {
 				pPictFile->CharOut ( 
 					(*tGStr)[i], 
-					pDoc->m_UserVars.m_ForeColor0, 
-					pDoc->m_UserVars.m_BackColor0
+					pDoc->m_UserVars.m_ForeColor, 
+					pDoc->m_UserVars.m_BackColor
 				);
 			}
 			return;
@@ -327,8 +327,8 @@ CGVEditTail::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc 
 			for ( int i = 0; i < StrCount; ++i ) {
 				pHTMLFile->CharOut ( 
 					(*tGStr)[i], 
-					pDoc->m_UserVars.m_ForeColor0, 
-					pDoc->m_UserVars.m_BackColor0
+					pDoc->m_UserVars.m_ForeColor, 
+					pDoc->m_UserVars.m_BackColor
 				);
 			}
 			return;
@@ -351,8 +351,8 @@ CGVEditTail::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 			for ( int i = 0; i < StrCount; ++i ) {
 				pRTFFile->CharOut ( 
 					(*tGStr)[i], 
-					pDoc->m_UserVars.m_ForeColor0, 
-					pDoc->m_UserVars.m_BackColor0
+					pDoc->m_UserVars.m_ForeColor, 
+					pDoc->m_UserVars.m_BackColor
 				);
 			}
 			return;

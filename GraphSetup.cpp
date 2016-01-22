@@ -24,16 +24,12 @@ CGraphSetup::CGraphSetup(CWnd* pParent /*=NULL*/)
 	m_TSide = -1;
 	m_ChartTitle = _T("");
 	m_xChtTitPct = 0;
-	m_yDStatPct = 0;
-	m_xKSprPct = 0;
-	m_yKSprPct = 0;
 	m_LineWidth = 0;
 	m_RoundingFactor = 0.0;
 	m_xXAxTPct = 0;
 	m_xBorderPct = 0;
 	m_yBorderPct = 0;
 	m_yYAxTPct = 0;
-	m_xDStatPct = 0;
 	m_XAxisTitle = _T("");
 	m_YAxisTitle = _T("");
 	//}}AFX_DATA_INIT
@@ -51,16 +47,12 @@ void CGraphSetup::DoDataExchange(CDataExchange* pDX)
 	DDX_Radio(pDX, IDC_TSIDE1, m_TSide);
 	DDX_Text(pDX, IDC_CHARTTITLE, m_ChartTitle);
 	DDX_Text(pDX, IDC_CHARTTITLEPCT, m_xChtTitPct);
-	DDX_Text(pDX, IDC_DSTATYPCT, m_yDStatPct);
-	DDX_Text(pDX, IDC_KSPRXPCT, m_xKSprPct);
-	DDX_Text(pDX, IDC_KSPRYPCT, m_yKSprPct);
 	DDX_Text(pDX, IDC_LINEWIDTH, m_LineWidth);
 	DDX_Text(pDX, IDC_XAXISROUNDING, m_RoundingFactor);
 	DDX_Text(pDX, IDC_XAXISTITLEPCT, m_xXAxTPct);
 	DDX_Text(pDX, IDC_XBORDERPCT, m_xBorderPct);
 	DDX_Text(pDX, IDC_YBORDERPCT, m_yBorderPct);
 	DDX_Text(pDX, IDC_YAXISTITLEPCT, m_yYAxTPct);
-	DDX_Text(pDX, IDC_DSTATXPCT, m_xDStatPct);
 	DDX_Text(pDX, IDC_XAXISTITLE, m_XAxisTitle);
 	DDX_Text(pDX, IDC_YAXISTITLE, m_YAxisTitle);
 	//}}AFX_DATA_MAP
@@ -71,6 +63,7 @@ BEGIN_MESSAGE_MAP(CGraphSetup, CDialog)
 	//{{AFX_MSG_MAP(CGraphSetup)
 	ON_BN_CLICKED(IDC_CHGFONT, OnChgfont)
 	//}}AFX_MSG_MAP
+	ON_EN_CHANGE(IDC_XBORDERPCT2, &CGraphSetup::OnEnChangeXborderpct2)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -90,4 +83,15 @@ void CGraphSetup::OnChgfont()
 		// m_crText = dlg.GetColor();
 		m_logFont = lf;
 	}
+}
+
+
+void CGraphSetup::OnEnChangeXborderpct2()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
 }

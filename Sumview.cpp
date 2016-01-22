@@ -61,10 +61,6 @@ BEGIN_MESSAGE_MAP(CSummaryView, CView)
 	ON_COMMAND(IDM_COPYMETAFILE, OnCopymetafile)
 	ON_UPDATE_COMMAND_UI(IDM_COPYMETACLIP, OnUpdateCopymetaclip)
 	ON_UPDATE_COMMAND_UI(IDM_COPYMETAFILE, OnUpdateCopymetafile)
-	ON_COMMAND(IDM_DSTATSCORE, OnDstatscore)
-	ON_UPDATE_COMMAND_UI(IDM_DSTATSCORE, OnUpdateDstatscore)
-	ON_COMMAND(IDM_DSTATSCOREALL, OnDstatscoreall)
-	ON_UPDATE_COMMAND_UI(IDM_DSTATSCOREALL, OnUpdateDstatscoreall)
 	//}}AFX_MSG_MAP
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, OnFilePrint)
 END_MESSAGE_MAP()
@@ -3241,69 +3237,4 @@ void CSummaryView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 	
 }
 
-
-void CSummaryView::OnDstatscore()
-{
-	// TODO: Add your command handler code here
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-	
-	pDoc->DStatScore ( StartRange, EndRange, 1 );
-
-	DeSelectAll();
-}
-
-void CSummaryView::OnUpdateDstatscore(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-	
-}
-
-void CSummaryView::OnDstatscoreall()
-{
-	// TODO: Add your command handler code here
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-	
-	pDoc->DStatScore ( StartRange, EndRange, 0 );
-
-	DeSelectAll();
-	
-}
-
-void CSummaryView::OnUpdateDstatscoreall(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-	
-}
 

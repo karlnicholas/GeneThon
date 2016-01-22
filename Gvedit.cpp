@@ -232,37 +232,37 @@ CGVEdit::OnDraw( DrawStruct *DrawStc )
 
 						switch ( BkColor ) {
 						case  1:
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							tBrush.CreateHatchBrush( HS_BDIAGONAL, RGB(0,0,0) );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
 							break;
 						case  2:
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							tBrush.CreateHatchBrush( HS_CROSS, RGB(0,0,0) );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
 							break;
 						case  3:
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							tBrush.CreateHatchBrush( HS_DIAGCROSS, RGB(0,0,0) );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
 							break;
 						case  4:
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							tBrush.CreateHatchBrush( HS_FDIAGONAL, RGB(0,0,0) );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
 							break;
 						case  5:
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							tBrush.CreateHatchBrush( HS_HORIZONTAL, RGB(0,0,0) );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
 							break;
 						case 6:
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							tBrush.CreateHatchBrush( HS_VERTICAL, RGB(0,0,0) );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
@@ -321,7 +321,7 @@ CGVEdit::OnDraw( DrawStruct *DrawStc )
 
 						if ( BkColor >= 1 && BkColor <= 6 ) {
 
-							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor0 );
+							DrawStc->pDC->SetBkColor( pDoc->m_UserVars.m_BackColor );
 							DrawStc->pDC->SetBkMode ( TRANSPARENT );
 							DrawStc->pDC->FillRect ( tcRect, &tBrush );
 							tBrush.DeleteObject();
@@ -851,17 +851,11 @@ CGVEdit::OnLButtonDown(UINT nFlags, UINT PointXPosition, DWORD PointYPosition, C
 				CGenethonDoc *pDoc = pView->GetDocument();
 				pViewRet->Expanded = 0;
 
-				if ( pDoc->GetNumColors( &pDoc->m_UserVars.m_Vars ) != pView->m_SaveShadeLevels ) {
-					pView->DoManualShade();
-					pViewRet->Expanded = 1;
-					break;
-				}
-
 				UINT tCount = (PointXPosition - sXLoc) / m_CharWidth;
 				COLORREF TextColor, BackColor;
 				tGStr->GetShade( tCount, &TextColor, &BackColor );
 				if ( TextColor == ShadeTextColor && BackColor == ShadeBackColor ) { 
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &m_SaveShadeText, &m_SaveShadeBack );
+					pDoc->GetColors(&m_SaveShadeText, &m_SaveShadeBack );
 					AddRemShade = 0;
 				} else {
 					m_SaveShadeText = ShadeTextColor;
@@ -1311,36 +1305,6 @@ CGVEdit::OnLButtonDblClk(UINT nFlags, UINT PointXPosition, DWORD PointYPosition,
 {
 }
 
-int
-CGVEdit::ReScoreFunction( UINT PointXPosition, DWORD PointYPosition, CView* pWnd) 
-{
-
-	int rc = 0;
-	CGeneString * tGStr = (CGeneString *)ViewDataList.GetHead();
-
-	UINT tCount = (PointXPosition - m_XPosition) / m_CharWidth;
-	DWORD StartRange, EndRange;
-
-	rc = ((CGenethonView*)pWnd)->GetDocument()->FindScore ( 
-		(DWORD)(tGStr->GetStartPos() + tCount),
-		&StartRange, &EndRange 
-	);
-
-	if ( rc ) {
-		((CGenethonView*)pWnd)->GetDocument()->Score ( &StartRange, &EndRange );
-
-		if ( ViewDataList.GetCount() ) {
-			CGeneSegment * tCGSeg = tGStr->GetGeneSegment();
-			tCGSeg->m_StartRange = StartRange;
-			tCGSeg->m_EndRange = EndRange;
-		
-			((CGenethonView*)pWnd)->CheckMoveRanges( tCGSeg, 0 );
-		}
-	}
-			
-	return rc;
-}
-
 int 
 CGVEdit::OnComment(char nChar, UINT PointXPosition, DWORD PointYPosition, CView* pWnd) 
 {
@@ -1468,7 +1432,7 @@ CGVEdit::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc )
 				COLORREF TextC, BkC;
 				if ( (sRowNum == 0)) {
 					// Get BackGround Color
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextC, &BkC );
+					pDoc->GetColors( &TextC, &BkC );
 				} else {
 					// Get Level Shade Color, checks Mode and LastShadeLevel
 					TextC = tStr->TextColor;
@@ -1517,7 +1481,7 @@ CGVEdit::WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
 				COLORREF TextC, BkC;
 				if ( (sRowNum == 0)) {
 					// Get BackGround Color
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextC, &BkC );
+					pDoc->GetColors( &TextC, &BkC );
 				} else {
 					// Get Level Shade Color, checks Mode and LastShadeLevel
 					TextC = tStr->TextColor;
@@ -1568,7 +1532,7 @@ CGVEdit::WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 				COLORREF TextC, BkC;
 				if ( (sRowNum == 0)) {
 					// Get BackGround Color
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextC, &BkC );
+					pDoc->GetColors( &TextC, &BkC );
 				} else {
 					// Get Level Shade Color, checks Mode and LastShadeLevel
 					TextC = tStr->TextColor;

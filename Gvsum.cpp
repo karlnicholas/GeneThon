@@ -915,7 +915,7 @@ CGVSummary::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 				// If this is a score row, just black and white.
 				if ( (sRowNum == 0)) {
 					// Get BackGround Color
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &tBrush, &bBrush );
+					pDoc->GetColors( &tBrush, &bBrush );
 				} else {
 					// Get Level Shade Color, checks Mode and LastShadeLevel
 					tBrush = tStr->TextColor;

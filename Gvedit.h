@@ -50,7 +50,6 @@ public:
     void OnLButtonDblClk(UINT nFlags, UINT XPosition, DWORD YPosition, CView * pWnd);
 //
     int OnComment(char nChar, UINT XPosition, DWORD YPosition, CView * pWnd);
-	int ReScoreFunction( UINT XPosition, DWORD YPosition, CView *pWnd );
 	int GetPartialPageSize(DWORD tPageTop, DWORD tPageBottom, DWORD *tPageAmount);
 
 //

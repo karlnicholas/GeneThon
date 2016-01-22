@@ -1067,7 +1067,6 @@ CGeneSegment::Create (
 	m_TextStart = nTextStart;
 	m_GapChar = nGapChar;
 	m_Expanded = 0;
-	m_DisplayGroup = 0;
 
 	TextColor = nTextColor;
 	BackColor = nBackColor;
@@ -1152,8 +1151,6 @@ CGeneSegment::CreateCopy ( CGeneSegment *poCGSeg, DWORD nStart, DWORD nLen )
 	m_TextSize = nLen;
 	m_GapChar = poCGSeg->GetGapChar();
 	
-	m_DisplayGroup = poCGSeg->m_DisplayGroup;
-
 	TextColor = poCGSeg->TextColor;
 	BackColor = poCGSeg->BackColor;
 	m_Text = poCGSeg->MidText(nStart, nLen);

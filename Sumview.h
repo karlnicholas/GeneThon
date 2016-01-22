@@ -95,7 +95,6 @@ protected: // create from serialization only
 	enum { NONE, KEYBRD, MOUSE };
 	int m_SelectDevice;
 	
-	void GetGroupHeader( const CString &GLabel, CGSFiller* pGSFiller );
 	int m_CopyFlag;
 
 	int m_InitialUpdateDone;
@@ -220,10 +219,6 @@ protected:
 	afx_msg void OnCopymetafile();
 	afx_msg void OnUpdateCopymetaclip(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateCopymetafile(CCmdUI* pCmdUI);
-	afx_msg void OnDstatscore();
-	afx_msg void OnUpdateDstatscore(CCmdUI* pCmdUI);
-	afx_msg void OnDstatscoreall();
-	afx_msg void OnUpdateDstatscoreall(CCmdUI* pCmdUI);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

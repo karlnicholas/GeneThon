@@ -82,8 +82,8 @@ TRY {
 	m_fontxsize = fontxsize;
 	m_fontysize = fontysize;
 	m_bold = fontbold;
-	m_bgcolor = bgcolor;
-	m_fcolor = fcolor;
+//	m_bgcolor = bgcolor;
+//	m_fcolor = fcolor;
 	m_size = 3;
 	m_modeflag = modeflag;
 	m_pColorList = pColorList;
@@ -95,17 +95,6 @@ TRY {
 	m_OutFile->WriteString( "{\\fonttbl{\\f0\\fmodern Courier;}}\n" );
 	m_OutFile->WriteString( "{\\colortbl\n" );
 
-	POSITION cPos = m_pColorList->GetHeadPosition();
-	while ( cPos != NULL ) {
-		stcPDBCOLOR *pPDBC = (stcPDBCOLOR *)m_pColorList->GetNext(cPos);
-		_snprintf( color, 255, "\\red%d\\green%d\\blue%d;\\red%d\\green%d\\blue%d;", 
-			GetRValue(pPDBC->rgbText), GetGValue(pPDBC->rgbText), GetBValue(pPDBC->rgbText), 
-			GetRValue(pPDBC->rgbBack), GetGValue(pPDBC->rgbBack), GetBValue(pPDBC->rgbBack)
-		);
-		color[255] = 0;
-		m_OutFile->WriteString( color );
-	}
-	
 	m_OutFile->WriteString( "}\n" );
 	m_OutFile->WriteString( "\\paperw11880\\paperh16820\\margl1000\\margr500\n" );
 	m_OutFile->WriteString( "\\margt910\\margb910\\sectd\\cols1\\pard\\plain\n" );
@@ -160,21 +149,6 @@ TRY {
 	char obuff[256];
 
 	if ( ForeGround != m_fcolor || BackGround != m_bgcolor) {
-		POSITION cPos = m_pColorList->GetHeadPosition();
-		int found = 0;
-		int count = 0;
-		while ( cPos != NULL ) {
-			stcPDBCOLOR *pPDBC = (stcPDBCOLOR *)m_pColorList->GetNext(cPos);
-			if ( pPDBC->rgbText == ForeGround && pPDBC->rgbBack == BackGround ) {
-				found = 1;
-				break;
-			}
-			count += 2;
-		}
-
-		_snprintf( obuff, 256, "\\highlight%d \\cf%d ", count+1, count );
-		obuff[255] = 0;
-		m_OutFile->WriteString( obuff );
 		m_fcolor = ForeGround;
 		m_bgcolor = BackGround;
 	}
@@ -186,6 +160,14 @@ CATCH (CFileException, e ) {
 	AfxMessageBox( "File Error" );
 }
 END_CATCH
+}
+
+void CRTFFile::StartBlock()
+{
+}
+
+void CRTFFile::EndBlock()
+{
 }
 
 void

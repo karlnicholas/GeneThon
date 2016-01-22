@@ -61,8 +61,6 @@ void CDisplayProperty::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxInt(pDX, m_FixedWidth, 10, 1000000);
 	DDX_Radio(pDX, IDC_SEQINDON, m_ShowTail);
 	DDX_Radio(pDX, IDC_GAPDASH, m_GapInd);
-	DDX_Radio(pDX, IDC_TYPEPROTEIN, m_ProjectType);
-	DDX_Radio(pDX, IDC_SCOREPAIR, m_ScoringMethod);
 	DDX_Radio(pDX, IDC_CONSENSUSLINE, m_ConsensusLine);
 	DDX_Text(pDX, IDC_PICTHEIGHT, m_PictHeight);
 	DDV_MinMaxInt(pDX, m_PictHeight, -9, 9);
@@ -72,7 +70,6 @@ void CDisplayProperty::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxInt(pDX, m_PictWidth, -9, 9);
 	DDX_CBString(pDX, IDC_FONTWEIGHT, m_FontWeight);
 	DDX_Text(pDX, IDC_EDITFONTPOINTS, m_FontSize);
-	DDX_Radio(pDX, IDC_DNAAMBDIS, m_DNAAmbEn);
 	DDX_Text(pDX, IDC_MARKERCOUNT, m_MarkerSpacing);
 	DDX_Check(pDX, IDC_MARKERENABLED, m_MarkerEnable);
 	DDX_Text(pDX, IDC_MARKERREPLACE, m_MarkerReplace);
@@ -125,10 +122,6 @@ BOOL CDisplayProperty::OnStyleClicked(UINT /*nCmdID*/)
 
 BEGIN_MESSAGE_MAP(CDisplayProperty, CPropertyPage)
 	//{{AFX_MSG_MAP(CDisplayProperty)
-	ON_BN_CLICKED(IDC_TYPEPROTEIN, OnTypeprotein)
-	ON_BN_CLICKED(IDC_TYPERNA, OnTyperna)
-	ON_BN_CLICKED(IDC_TYPEDNA, OnTypedna)
-	ON_BN_CLICKED(IDC_TYPEMIXEDNUCLEIC, OnTypemixednucleic)
 	ON_EN_CHANGE(IDC_SUMCOLINCH, OnChangeSumcolinch)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -149,68 +142,6 @@ BOOL CDisplayProperty::OnInitDialog()
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
 
-
-void CDisplayProperty::OnTypeprotein() 
-{
-	// TODO: Add your control notification handler code here
-	ChangeProjectType();
-}
-
-void CDisplayProperty::OnTyperna() 
-{
-	// TODO: Add your control notification handler code here
-	ChangeProjectType();
-}
-
-void CDisplayProperty::OnTypedna() 
-{
-	// TODO: Add your control notification handler code here
-	ChangeProjectType();
-}
-
-void CDisplayProperty::OnTypemixednucleic() 
-{
-	// TODO: Add your control notification handler code here
-	ChangeProjectType();
-}
-
-void
-CDisplayProperty::ChangeProjectType()
-{
-
-	CModalDisplayPropSheet* pPropertySheet = (CModalDisplayPropSheet*)GetParent();
-
-	UpdateData();
-	
-	for ( int i = 0; i < 3; ++i ) {
-
-		SetPropertyDefault( 
-			&pPropertySheet->m_PropertyGroupPage.m_PropertyArray[i], 
-			i, m_ProjectType + 1
-		);
-	}
-	
-	pPropertySheet->m_PropertyGroupPage.ResetData();
-
-	pPropertySheet->m_ScoreTablePage.m_ProjectType = m_ProjectType + 1;
-
-	pPropertySheet->m_ScoreTablePage.SetScoreTableArray( &pDoc->m_UserVars.m_ScoreTableArray, m_ProjectType + 1);
-
-	if ( m_ProjectType ) {
-		pPropertySheet->m_ScoreTablePage.m_CurrentScoreTable = 13;
-	} else {
-		pPropertySheet->m_ScoreTablePage.m_CurrentScoreTable = 2;
-	}
-	pDoc->SetShadeGroupDefault( 
-		&pPropertySheet->m_ScoreTablePage.m_ShadePairArray, 
-		pPropertySheet->m_ScoreTablePage.m_CurrentScoreTable 
-	);
-
-	pPropertySheet->m_ScoreTablePage.ResetData();
-
-	pPropertySheet->m_LogOddsPropPage.ChangeProjectType(m_ProjectType + 1);
-
-}
 
 
 void CDisplayProperty::OnChangeSumcolinch() 

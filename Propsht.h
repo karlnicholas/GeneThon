@@ -11,15 +11,6 @@ public:
 // Attributes
 	CDisplayProperty m_DisplayPage;
 	CPrintProperty m_PrintPage;
-	CShadeModeProperty m_ShadeModePage;
-	CRepDlg m_ReportPage;
-	CPropertyGroupProperty m_PropertyGroupPage;
-	CSearchPropPage m_SearchPropPage;
-	CStructurePropDialog m_StructurePage;
-	CChemPropProperty m_PhysioChemPage;
-	CConfIdent m_IdentityPage;
-	CLogOddsPropPage m_LogOddsPropPage;
-	CScoreTableProperty m_ScoreTablePage;
 
 	CPropertyPage* m_SetActivePage;
 

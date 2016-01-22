@@ -1,5 +1,4 @@
 
-
 class CGVEditLead: public CGeneViewBase 
 {
 private:

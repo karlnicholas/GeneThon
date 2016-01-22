@@ -94,11 +94,6 @@ CGVEditLead::OnDraw( DrawStruct *DrawStc )
 		DrawStc->pDC->SetBkMode ( TRANSPARENT );
 	}
 
-//	int ColorNames = (pDoc->m_UserVars.m_GroupDisplayMode && pDoc->m_UserVars.m_ColorSeqNames);
-	int ColorNames = pDoc->m_UserVars.m_ColorSeqNames;
-	
-
-
 	CBrush tBrush;
 
 	POSITION tPos = ViewDataList.GetHeadPosition();
@@ -131,28 +126,13 @@ CGVEditLead::OnDraw( DrawStruct *DrawStc )
 
 					if ( cCount - StopColorCount <= tCount ) StopColor = 1;
 					COLORREF TextColor, BkColor;
-					if ( ColorNames && tCGSeg->m_DisplayGroup != 0 && !StopColor ) {
-
-						int LocNum = tCGSeg->m_DisplayGroup;
-						int GrpNum = 0;
-						CDisplayVars *DisplayVars = NULL;
-						POSITION tPos = pDoc->m_UserVars.m_DisplayVars.GetHeadPosition();
-						while ( tPos != NULL ) {
-							DisplayVars = (CDisplayVars *)pDoc->m_UserVars.m_DisplayVars.GetNext(tPos);
-							GrpNum++;
-							if ( GrpNum == LocNum ) break;
-						}
-						if ( DisplayVars != NULL ) DisplayVars->GetTitleColors( &TextColor, &BkColor );
-
-					} else {
-						pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
+					pDoc->GetColors( &TextColor, &BkColor );
 //						if ( StopColor && !DrawStc->pDC->IsPrinting() && ((CGenethonView *)DrawStc->pView)->m_SelectSeq ) {
-						if ( StopColor && !DrawStc->pDC->IsPrinting() ) {
-							if ( tCGSeg->GetArrangeFlag() ) {
-								COLORREF tColor = BkColor;
-								BkColor = TextColor;
-								TextColor = tColor;
-							}
+					if ( StopColor && !DrawStc->pDC->IsPrinting() ) {
+						if ( tCGSeg->GetArrangeFlag() ) {
+							COLORREF tColor = BkColor;
+							BkColor = TextColor;
+							TextColor = tColor;
 						}
 					}
 
@@ -255,7 +235,6 @@ CGVEditLead::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 
 	POSITION SegPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
 
-	int ColorNames = pDoc->m_UserVars.m_ColorSeqNames;
 	int StopColor = 0;
 	int StopColorCount = pDoc->m_UserVars.m_strLead.GetLength();
 	
@@ -272,22 +251,7 @@ CGVEditLead::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 
 				if ( StrCount - StopColorCount == i ) StopColor = 1;
 				COLORREF TextColor, BkColor;
-				if ( ColorNames && tCGSeg->m_DisplayGroup != 0 && !StopColor ) {
-
-					int LocNum = tCGSeg->m_DisplayGroup;
-					int GrpNum = 0;
-					CDisplayVars *DisplayVars = NULL;
-					POSITION tPos = pDoc->m_UserVars.m_DisplayVars.GetHeadPosition();
-					while ( tPos != NULL ) {
-						DisplayVars = (CDisplayVars *)pDoc->m_UserVars.m_DisplayVars.GetNext(tPos);
-						GrpNum++;
-						if ( GrpNum == LocNum ) break;
-					}
-					if ( DisplayVars != NULL ) DisplayVars->GetTitleColors( &TextColor, &BkColor );
-
-				} else {
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
-				}
+				pDoc->GetColors( &TextColor, &BkColor );
 				
 				pPictFile->CharOut ( (*tGStr)[i], TextColor, BkColor );
 			}
@@ -306,7 +270,6 @@ CGVEditLead::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc 
 
 	POSITION SegPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
 
-	int ColorNames = pDoc->m_UserVars.m_ColorSeqNames;
 	int StopColor = 0;
 	int StopColorCount = pDoc->m_UserVars.m_strLead.GetLength();
 	
@@ -323,22 +286,7 @@ CGVEditLead::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc 
 
 				if ( StrCount - StopColorCount == i ) StopColor = 1;
 				COLORREF TextColor, BkColor;
-				if ( ColorNames && tCGSeg->m_DisplayGroup != 0 && !StopColor ) {
-
-					int LocNum = tCGSeg->m_DisplayGroup;
-					int GrpNum = 0;
-					CDisplayVars *DisplayVars = NULL;
-					POSITION tPos = pDoc->m_UserVars.m_DisplayVars.GetHeadPosition();
-					while ( tPos != NULL ) {
-						DisplayVars = (CDisplayVars *)pDoc->m_UserVars.m_DisplayVars.GetNext(tPos);
-						GrpNum++;
-						if ( GrpNum == LocNum ) break;
-					}
-					if ( DisplayVars != NULL ) DisplayVars->GetTitleColors( &TextColor, &BkColor );
-
-				} else {
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
-				}
+				pDoc->GetColors( &TextColor, &BkColor );
 				
 				pHTMLFile->CharOut ( (*tGStr)[i], TextColor, BkColor );
 			}
@@ -358,7 +306,6 @@ CGVEditLead::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 
 	POSITION SegPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
 
-	int ColorNames = pDoc->m_UserVars.m_ColorSeqNames;
 	int StopColor = 0;
 	int StopColorCount = pDoc->m_UserVars.m_strLead.GetLength();
 	
@@ -375,22 +322,7 @@ CGVEditLead::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 
 				if ( StrCount - StopColorCount == i ) StopColor = 1;
 				COLORREF TextColor, BkColor;
-				if ( ColorNames && tCGSeg->m_DisplayGroup != 0 && !StopColor ) {
-
-					int LocNum = tCGSeg->m_DisplayGroup;
-					int GrpNum = 0;
-					CDisplayVars *DisplayVars = NULL;
-					POSITION tPos = pDoc->m_UserVars.m_DisplayVars.GetHeadPosition();
-					while ( tPos != NULL ) {
-						DisplayVars = (CDisplayVars *)pDoc->m_UserVars.m_DisplayVars.GetNext(tPos);
-						GrpNum++;
-						if ( GrpNum == LocNum ) break;
-					}
-					if ( DisplayVars != NULL ) DisplayVars->GetTitleColors( &TextColor, &BkColor );
-
-				} else {
-					pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
-				}
+				pDoc->GetColors( &TextColor, &BkColor );
 				
 				pRTFFile->CharOut ( (*tGStr)[i], TextColor, BkColor );
 			}
@@ -399,4 +331,3 @@ CGVEditLead::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 		RowNumber--;
 	}
 }
-

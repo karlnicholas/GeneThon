@@ -18,15 +18,6 @@ CModalDisplayPropSheet::CModalDisplayPropSheet(CWnd* pWndParent)
 {
 	AddPage( &m_DisplayPage );
 	AddPage( &m_PrintPage );
-	AddPage( &m_ShadeModePage );
-	AddPage( &m_ReportPage );
-	AddPage( &m_PropertyGroupPage );
-	AddPage( &m_SearchPropPage );
-	AddPage( &m_StructurePage );
-	AddPage( &m_PhysioChemPage );
-	AddPage( &m_IdentityPage );
-	AddPage( &m_LogOddsPropPage );
-	AddPage( &m_ScoreTablePage );
 	m_SetActive = FALSE;
 	m_SetActivePage = NULL;
 }

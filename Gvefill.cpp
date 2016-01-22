@@ -81,7 +81,7 @@ CGVEditFill::OnDraw( DrawStruct *DrawStc )
 
 			COLORREF TextColor, BkColor;
 
-			pDoc->GetLevelColors( &pDoc->m_UserVars.m_Vars, 0, &TextColor, &BkColor );
+			pDoc->GetColors( &TextColor, &BkColor );
 /*
 			UINT x1 = tXLoc2 - DrawStc->DisplayXPosition;
 			UINT x2 = tXLoc1 - DrawStc->DisplayXPosition;

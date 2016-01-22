@@ -89,7 +89,6 @@ protected: // create from serialization only
 	UINT m_StartSelect;
 	UINT m_EndSelect;
 
-
 	UINT m_LeftView;
 	UINT m_TopView;
 
@@ -105,11 +104,9 @@ protected: // create from serialization only
 	void CalculateMargins(CDC* pDC);
 	int m_PrintYOffSet;
 
-
 	enum { NONE, KEYBRD, MOUSE };
 	int m_SelectDevice;
 	
-	void GetGroupHeader( const CString &GLabel, CGSFiller* pGSFiller );
 	int m_CopyFlag;
 
 	int m_InitialUpdateDone;
@@ -127,8 +124,6 @@ protected: // create from serialization only
 	int m_GeneSelectCol;
 	int m_GeneEditMode;
 
-	int m_ShadeLevel;
-	int m_SaveShadeLevels;
 	COLORREF m_ShadeTextColor;
 	COLORREF m_ShadeBackColor;
 	
@@ -176,9 +171,6 @@ protected: // create from serialization only
 	void RebuildShowCaret();
 
 	int m_NamesLength;
-
-	void DoProtLO();
-	void DoDNALO();
 
 // Attributes
 public:
@@ -262,14 +254,12 @@ protected:
 	afx_msg void OnSelectcol();
 	afx_msg void OnUpdateSelectcol(CCmdUI* pCmdUI);
 	afx_msg void OnGenecreatewin();
-	afx_msg void OnGenescore();
 	afx_msg void OnGeneinsertother();
 	afx_msg void OnUpdateGeneinsertother(CCmdUI* pCmdUI);
 	afx_msg void OnGenedeleteother();
 	afx_msg void OnUpdateGenedeleteother(CCmdUI* pCmdUI);
 	afx_msg void OnGeneinsertfill();
 	afx_msg void OnGenedeletefill();
-	afx_msg void OnGenescorekey();
 	afx_msg void OnEditCopy();
 	afx_msg void OnUpdateEditCopy(CCmdUI* pCmdUI);
 	afx_msg void OnEditCopyinv();
@@ -288,7 +278,6 @@ protected:
 	afx_msg void OnUpdateEditCopyinvbit(CCmdUI* pCmdUI);
 	afx_msg void OnEditCopybit();
 	afx_msg void OnUpdateEditCopybit(CCmdUI* pCmdUI);
-	afx_msg void OnGeneclearscore();
 	afx_msg void OnCopytext();
 	afx_msg void OnGenecopypict();
 	afx_msg void OnUpdateGenecopypict(CCmdUI* pCmdUI);
@@ -302,12 +291,6 @@ protected:
 	afx_msg void OnUpdateCopymetafile(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateGenedeletefill(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateGeneinsertfill(CCmdUI* pCmdUI);
-	afx_msg void OnUpdateGenescore(CCmdUI* pCmdUI);
-	afx_msg void OnDstatscore();
-	afx_msg void OnUpdateDstatscore(CCmdUI* pCmdUI);
-	afx_msg void OnDstatscoreall();
-	afx_msg void OnUpdateDstatscoreall(CCmdUI* pCmdUI);
-	afx_msg void OnGenefindreplace();
 	afx_msg void OnUpdateGenecreatewin(CCmdUI* pCmdUI);
 	afx_msg void OnGenecopyseq();
 	afx_msg void OnUpdateGenecopyseq(CCmdUI* pCmdUI);
@@ -315,29 +298,18 @@ protected:
 	afx_msg void OnUpdateGenecopyhtml(CCmdUI* pCmdUI);
 	afx_msg void OnGenecopyrtf();
 	afx_msg void OnUpdateGenecopyrtf(CCmdUI* pCmdUI);
-	afx_msg void OnGenewritelogodds();
-	afx_msg void OnUpdateGenewritelogodds(CCmdUI* pCmdUI);
 	afx_msg void OnGenemove();
 	afx_msg void OnUpdateGenemove(CCmdUI* pCmdUI);
 	afx_msg void OnDelcolumns();
 	afx_msg void OnUpdateDelcolumns(CCmdUI* pCmdUI);
-	afx_msg void OnFind();
-	afx_msg void OnFindnext();
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnReplacefromproj();
 	afx_msg void OnUpdateReplacefromproj(CCmdUI* pCmdUI);
 	afx_msg void OnGeneinsertone();
 	afx_msg void OnUpdateGeneinsertone(CCmdUI* pCmdUI);
-	afx_msg void OnDnatrans();
 	afx_msg void OnGenedeleteone();
 	afx_msg void OnUpdateGenedeleteone(CCmdUI* pCmdUI);
-	afx_msg void OnDnaffreqrep();
-	afx_msg void OnUpdateDnaffreqrep(CCmdUI* pCmdUI);
-	afx_msg void OnDnacolfreqrep();
-	afx_msg void OnUpdateDnacolfreqrep(CCmdUI* pCmdUI);
-	afx_msg void OnDnacolfrwrep();
-	afx_msg void OnUpdateDnacolfrwrep(CCmdUI* pCmdUI);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

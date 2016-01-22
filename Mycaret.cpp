@@ -353,7 +353,6 @@ void CBaseCaret::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags, CView* pView)
 		// For find again ..	
 		CGenethonDoc* pDoc = ((CGenethonView*)pView)->GetDocument();
 		ASSERT_VALID(pDoc);
-		pDoc->m_pFS.PrevSeq = -1;
 
 		// If selecting, then call move virtual function
 		if ( m_ShiftOn ) {

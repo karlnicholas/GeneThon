@@ -7,25 +7,6 @@ typedef struct {
 	int m_TransTilde;
 	int m_PrintFileName;	//T/F
 	int m_PrintDate;	//T/F
-
-	CPtrList m_listLogOdds;		// stcSearch *Storage ..
-
-	CString m_strLogOddsFile;
-	double m_dLogOddsMin;
-	int m_iLogOddsBestN;
-	int	m_iLogOddsMode;
-	COLORREF m_rgbLogOddsOverlap;
-	int m_iLogOddsNoOv;
-	double m_dLogOddsTL1;
-	double m_dLogOddsTL2;
-	double m_dLogOddsTL3;
-	int m_iLogOddsOutTab;
-	double m_dLogOddsMPC;
-	int m_iLogOddsBack;
-	double m_dLogOddsStA;
-	double m_dLogOddsStC;
-	double m_dLogOddsStG;
-	double m_dLogOddsStT;
 	
 	int m_SumDefDis;
 	int m_SumColInch;
@@ -35,22 +16,9 @@ typedef struct {
 	// Start User Variables ....
 	int m_PrintShading;
 
-	CPtrList listSearch;		// stcSearch *Storage ..
-	int m_ProSite;
-	int m_DNAAmbEn;
-	COLORREF m_OverlapColor;
-
 	CString m_strLead;
 	CString m_strTail;
 	int m_MaxNameLength;
-
-	#define	NUMCHEMPROP 12
-	int ChemPropEnabled[12];
-	stcChemProp ChemGroupOxi[12];
-	stcChemProp ChemGroupRed[12];
-	stcChemProp ChemCons[3];
-	int m_ChemPropCysteine;
-	int m_ChemPropShowProp;
 
 	char m_ConservedGap;	// ' ' or '-' for conserve sequences ...
 
@@ -67,30 +35,9 @@ typedef struct {
 	
 	CPtrList	m_DisplayVars;		// This holds CDisplayVars for groups 
 	
-	int m_GroupDisplayMode;			// 0 = not enabled, 
-
-	int m_ColorSeqNames;
-
-	CString m_AutoShade4Structure;
-	CString m_AutoShade3Structure;
-	CString m_AutoShade2Structure;
-
-	CStc	m_Stc;				// Project Structure Definitions
-	CStringList m_StcDefUser;		// User definition files
 	// 
-	double m_GroupConsLevel;
-	CString m_PCRSimilarities;
-	double m_PCRLevel;
-	// 
-	COLORREF	m_ForeColor100;
-	COLORREF	m_ForeColor80;
-	COLORREF	m_ForeColor60;
-	COLORREF	m_ForeColor0;
-
-	COLORREF	m_BackColor100;
-	COLORREF	m_BackColor80;
-	COLORREF	m_BackColor60;
-	COLORREF	m_BackColor0;
+	COLORREF	m_ForeColor;
+	COLORREF	m_BackColor;
 
 
 	int m_FontWeight;
@@ -101,8 +48,6 @@ typedef struct {
 
 
 	CPtrArray	m_ShadePairArray;		// Holding a list of ShadePairStruct's
-	CPtrArray	m_ScoreTableArray;
-	int			m_CurrentScoreTable;
 	
 	double m_LeftBorder;
 	double m_RightBorder;
@@ -135,26 +80,10 @@ typedef struct {
 
 	CString m_ParseString;
 	
-	int m_ScoringMethod;
-
 	int m_PictWidth;
 	int m_PictHeight;
 	int m_PictAscent;
 
-	CString m_DNATransName;
-	CString m_DNATrans;
-	CString m_DNATransStart;
-
-	BOOL	m_RepExactMatch;
-	BOOL	m_RepJuxtaposition;
-	BOOL	m_RepAlignedGaps;
-	BOOL	m_RepAbsoluteVal;
-	BOOL	m_RepPercentVal;
-	int		m_RepOutMatrix;
-	int		m_RepLabelTop;
-	int		m_RepLabelSingle;
-
-	BOOL	m_RepIncAA;
 	BOOL	m_MakeBackups;
 	BOOL	m_LocAfterName;
 	BOOL	m_LocAfterSeq;
