@@ -55,8 +55,6 @@ BEGIN_MESSAGE_MAP(CGenethonView, CView)
 	ON_COMMAND(IDM_COPYTEXT, OnCopytext)
 	ON_COMMAND(IDM_GENECOPYPICT, OnGenecopypict)
 	ON_UPDATE_COMMAND_UI(IDM_GENECOPYPICT, OnUpdateGenecopypict)
-	ON_COMMAND(IDM_GENEEDITMODE, OnGeneeditmode)
-	ON_UPDATE_COMMAND_UI(IDM_GENEEDITMODE, OnUpdateGeneeditmode)
 	ON_COMMAND(ID_FILE_PRINT, OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, OnFilePrintPreview)
 	ON_COMMAND(IDM_COPYMETACLIP, OnCopymetaclip)
@@ -1939,11 +1937,7 @@ void
 CGenethonView::RebuildShowCaret()
 {
 
-	if ( m_GeneEditMode == 0 ) {
-		CreateSolidCaret( 2, (int)m_LineHeight );
-	} else {
-		CreateSolidCaret( m_CharWidth, (int)m_LineHeight );
-	}
+	CreateSolidCaret( 2, (int)m_LineHeight );
 
 	ShowCaret();
 
@@ -2051,9 +2045,6 @@ CGenethonView::DeSelectAll()
 				InvalidateGVBLP( tGP );
 			}
 		}
-	} else if ( m_GeneSelectCol == 1 ) {
-		InvalNewEndPoint( m_ColSelStart, m_ColSelEnd);
-		m_ColSelBegin = 0;
 	}
 
 	m_CopyFlag = 0;
@@ -2090,40 +2081,17 @@ CGDocViewCaret::InsKey( UINT XPosition, DWORD YPosition, CView* pView )
 	int sGeneShade = ((CGenethonView *)pView)->m_GeneShade;
 	int sGeneArrange = ((CGenethonView *)pView)->m_GeneArrange;
 	int sGeneMove = ((CGenethonView *)pView)->m_GeneMove;
-	int sGeneInsertDash = ((CGenethonView *)pView)->m_GeneInsertDash;
-	int sGeneDeleteDash = ((CGenethonView *)pView)->m_GeneDeleteDash;
-	int sGeneInsertOther = ((CGenethonView *)pView)->m_GeneInsertOther;
-	int sGeneDeleteOther = ((CGenethonView *)pView)->m_GeneDeleteOther;
-	int sGeneInsertOne = ((CGenethonView *)pView)->m_GeneInsertOne;
-	int sGeneDeleteOne = ((CGenethonView *)pView)->m_GeneDeleteOne;
-	int sGeneEditMode = ((CGenethonView *)pView)->m_GeneEditMode;
 
 	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
 	((CGenethonView *)pView)->m_GeneShade = 0;
 	((CGenethonView *)pView)->m_GeneArrange = 0;
 	((CGenethonView *)pView)->m_GeneMove = 0;
-	((CGenethonView *)pView)->m_GeneInsertDash = 0;
-	((CGenethonView *)pView)->m_GeneDeleteDash = 0;
-	((CGenethonView *)pView)->m_GeneInsertOther = 0;
-	((CGenethonView *)pView)->m_GeneDeleteOther = 0;
-	((CGenethonView *)pView)->m_GeneInsertOne = 0;
-	((CGenethonView *)pView)->m_GeneDeleteOne = 0;
-	((CGenethonView *)pView)->m_GeneEditMode = 0;
-
-	((CGenethonView *)pView)->m_GeneInsertDash = 1;
 
 	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
 	((CGenethonView *)pView)->m_GeneShade = sGeneShade;
 	((CGenethonView *)pView)->m_GeneArrange = sGeneArrange;
 	((CGenethonView *)pView)->m_GeneMove = sGeneMove;
-	((CGenethonView *)pView)->m_GeneInsertDash = sGeneInsertDash;
-	((CGenethonView *)pView)->m_GeneDeleteDash = sGeneDeleteDash;
-	((CGenethonView *)pView)->m_GeneInsertOther = sGeneInsertOther;
-	((CGenethonView *)pView)->m_GeneDeleteOther = sGeneDeleteOther;
-	((CGenethonView *)pView)->m_GeneInsertOne = sGeneInsertOne;
-	((CGenethonView *)pView)->m_GeneDeleteOne = sGeneDeleteOne;
-	((CGenethonView *)pView)->m_GeneEditMode = sGeneEditMode;
 
 }
 
@@ -2133,40 +2101,17 @@ CGDocViewCaret::DelKey( UINT XPosition, DWORD YPosition, CView* pView )
 	int sGeneShade = ((CGenethonView *)pView)->m_GeneShade;
 	int sGeneArrange = ((CGenethonView *)pView)->m_GeneArrange;
 	int sGeneMove = ((CGenethonView *)pView)->m_GeneMove;
-	int sGeneInsertDash = ((CGenethonView *)pView)->m_GeneInsertDash;
-	int sGeneDeleteDash = ((CGenethonView *)pView)->m_GeneDeleteDash;
-	int sGeneInsertOther = ((CGenethonView *)pView)->m_GeneInsertOther;
-	int sGeneDeleteOther = ((CGenethonView *)pView)->m_GeneDeleteOther;
-	int sGeneInsertOne = ((CGenethonView *)pView)->m_GeneInsertOne;
-	int sGeneDeleteOne = ((CGenethonView *)pView)->m_GeneDeleteOne;
-	int sGeneEditMode = ((CGenethonView *)pView)->m_GeneEditMode;
 
 	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
 	((CGenethonView *)pView)->m_GeneShade = 0;
 	((CGenethonView *)pView)->m_GeneArrange = 0;
 	((CGenethonView *)pView)->m_GeneMove = 0;
-	((CGenethonView *)pView)->m_GeneInsertDash = 0;
-	((CGenethonView *)pView)->m_GeneDeleteDash = 0;
-	((CGenethonView *)pView)->m_GeneInsertOther = 0;
-	((CGenethonView *)pView)->m_GeneDeleteOther = 0;
-	((CGenethonView *)pView)->m_GeneInsertOne = 0;
-	((CGenethonView *)pView)->m_GeneDeleteOne = 0;
-	((CGenethonView *)pView)->m_GeneEditMode = 0;
-
-	((CGenethonView *)pView)->m_GeneDeleteDash = 1;
 
 	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
 	((CGenethonView *)pView)->m_GeneShade = sGeneShade;
 	((CGenethonView *)pView)->m_GeneArrange = sGeneArrange;
 	((CGenethonView *)pView)->m_GeneMove = sGeneMove;
-	((CGenethonView *)pView)->m_GeneInsertDash = sGeneInsertDash;
-	((CGenethonView *)pView)->m_GeneDeleteDash = sGeneDeleteDash;
-	((CGenethonView *)pView)->m_GeneInsertOther = sGeneInsertOther;
-	((CGenethonView *)pView)->m_GeneDeleteOther = sGeneDeleteOther;
-	((CGenethonView *)pView)->m_GeneInsertOne = sGeneInsertOne;
-	((CGenethonView *)pView)->m_GeneDeleteOne = sGeneDeleteOne;
-	((CGenethonView *)pView)->m_GeneEditMode = sGeneEditMode;
 
 }
 
@@ -2257,28 +2202,8 @@ CGenethonView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
 				m_ColSelStart = ViewRet.ColSelStart;
 				m_ColSelEnd = ViewRet.ColSelEnd;
 				m_ColSelBegin = ViewRet.ColSelBegin;
-				if ( ViewRet.MenuFunc == DEF_GENESELECTCOL ) {
-					SetCapture();
-					m_SelectDevice = DDevice;
-				}
 
-				if ( (ViewRet.MenuFunc == DEF_GENEINSERTDASH)
-					|| (ViewRet.MenuFunc == DEF_GENEDELETEDASH) 
-					|| (ViewRet.MenuFunc == DEF_GENEINSERTOTHER) 
-					|| (ViewRet.MenuFunc == DEF_GENEDELETEOTHER) 
-					|| (ViewRet.MenuFunc == DEF_GENEINSERTONE) 
-				) {
-					GetDocument()->SetModifiedFlag();     // Modfied!
-
-					if ( ViewRet.Expanded ) {
-						ExpandedSegments(&ViewRet);
-						if ( m_ExpandedResize ) {
-							
-							SetScrollBars();
-
-						}
-					}
-				} else if ( ViewRet.MenuFunc == DEF_GENEARRANGE 
+				if ( ViewRet.MenuFunc == DEF_GENEARRANGE 
 					|| ViewRet.MenuFunc == DEF_GENEMOVE 
 					|| ViewRet.MenuFunc == DEF_SHADE 
 				) {
@@ -2333,9 +2258,6 @@ CGenethonView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
 							m_SelectDevice = DDevice;
 						}
 					}
-				} else if ( ViewRet.MenuFunc == DEF_GENEEDITMODE ) {
-					// follow the mouse man!
-					m_MyCaret.FollowMouse( PointXPosition, PointYPosition );
 				}
 			}
 		}
@@ -2774,68 +2696,6 @@ void CGenethonView::OnRButtonDown(UINT nFlags, CPoint point)
 void CGenethonView::RightDownFunc( UINT nFlags, CPoint point, int DDevice )
 {
 	int MenuFunc = GetMenuFunction();
-	if ( MenuFunc == DEF_GENEINSERTDASH 
-		|| MenuFunc == DEF_GENEDELETEDASH 
-		|| MenuFunc == DEF_GENEINSERTOTHER
-		|| MenuFunc == DEF_GENEDELETEOTHER 
-		|| MenuFunc == DEF_GENEINSERTONE 
-		|| MenuFunc == DEF_GENEDELETEONE 
-	) {
-		int sGeneShade = m_GeneShade;
-		int sGeneArrange = m_GeneArrange;
-		int sGeneMove = m_GeneMove;
-		int sGeneInsertDash = m_GeneInsertDash;
-		int sGeneDeleteDash = m_GeneDeleteDash;
-		int sGeneInsertOther = m_GeneInsertOther;
-		int sGeneDeleteOther = m_GeneDeleteOther;
-		int sGeneInsertOne = m_GeneInsertOne;
-		int sGeneDeleteOne = m_GeneDeleteOne;
-
-		m_GeneShade = 0;
-		m_GeneArrange = 0;
-		m_GeneMove = 0;
-		m_GeneInsertDash = 0;
-		m_GeneDeleteDash = 0;
-		m_GeneInsertOther = 0;
-		m_GeneDeleteOther = 0;
-		m_GeneInsertOne = 0;
-		m_GeneDeleteOne = 0;
-
-		switch( MenuFunc) {
-		case DEF_GENEINSERTDASH:
-			m_GeneDeleteDash = 1;
-			break;
-		case DEF_GENEDELETEDASH:
-			m_GeneInsertDash = 1;
-			break;
-		case DEF_GENEINSERTOTHER:
-			m_GeneDeleteOther = 1;
-			break;
-		case DEF_GENEDELETEOTHER:
-			m_GeneInsertOther = 1;
-			break;
-		case DEF_GENEINSERTONE:
-			m_GeneDeleteOne = 1;
-			break;
-		case DEF_GENEDELETEONE:
-			m_GeneInsertOne = 1;
-			break;
-		}
-
-		LeftDownFunc ( nFlags, point, DDevice );
-		// LeftDownFunc( 0, tPoint, KEYBRD );
-
-		m_GeneShade = sGeneShade;
-		m_GeneArrange = sGeneArrange;
-		m_GeneMove = sGeneMove;
-		m_GeneInsertDash = sGeneInsertDash;
-		m_GeneDeleteDash = sGeneDeleteDash;
-		m_GeneInsertOther = sGeneInsertOther;
-		m_GeneDeleteOther = sGeneDeleteOther;
-		m_GeneInsertOne = sGeneInsertOne;
-		m_GeneDeleteOne = sGeneDeleteOne;
-
-	}
 }
 
 void CGenethonView::OnLButtonDown(UINT nFlags, CPoint point) 
@@ -2926,7 +2786,7 @@ CGenethonView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 	int MenuFunc = GetMenuFunction();
 
-	if ( MenuFunc == DEF_GENESELECT || MenuFunc == DEF_GENESELECTCOL ) {
+	if ( MenuFunc == DEF_GENESELECT ) {
 
 		UINT PointXPosition;
 		DWORD PointYPosition;
@@ -2989,26 +2849,11 @@ CGenethonView::OnLButtonDblClk(UINT nFlags, CPoint point)
 		}
 	}
 
-	if ( (MenuFunc == DEF_GENEINSERTDASH)
-		|| (MenuFunc == DEF_GENEDELETEDASH) 
-		|| (MenuFunc == DEF_GENEINSERTOTHER) 
-		|| (MenuFunc == DEF_GENEDELETEOTHER) 
-		|| (MenuFunc == DEF_GENEINSERTONE) 
-		|| (MenuFunc == DEF_GENEDELETEONE) 
-	) {
 
-		PointXPosition -= m_DisplayXPosition;
-		PointYPosition -= m_DisplayYPosition;
-
-		LeftDownFunc( nFlags, point, MOUSE );
-		
-	} else {
-
-		m_MyCaret.FollowMouse( PointXPosition, PointYPosition );
-		// For find again ..	
-		CGenethonDoc* pDoc = GetDocument();
-		ASSERT_VALID(pDoc);
-	}
+	m_MyCaret.FollowMouse( PointXPosition, PointYPosition );
+	// For find again ..	
+	CGenethonDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
 
 	// TODO: Add your message handler code here and/or call default
 	
@@ -3072,21 +2917,8 @@ CGenethonView::ClearMenu()
 	m_GeneShade = 0;
 	m_GeneArrange = 0;
 	m_GeneMove = 0;
-	m_GeneInsertDash = 0;
-	m_GeneDeleteDash = 0;
-	m_GeneInsertOther = 0;
-	m_GeneDeleteOther = 0;
-	m_GeneInsertOne = 0;
-	m_GeneDeleteOne = 0;
 	m_GeneSelect = 0;
-	m_GeneSelectCol = 0;
 	
-	if ( m_GeneEditMode == 1 ) {
-		m_GeneEditMode = 0;
-		DestroyCaret();
-		RebuildShowCaret();
-	}
-	m_GeneEditMode = 0;
 }
 
 unsigned int 
@@ -3096,15 +2928,7 @@ CGenethonView::GetMenuFunction()
 	ret += m_GeneShade * DEF_SHADE;
 	ret += m_GeneArrange * DEF_GENEARRANGE;
 	ret += m_GeneMove * DEF_GENEMOVE;
-	ret += m_GeneInsertDash * DEF_GENEINSERTDASH;
-	ret += m_GeneDeleteDash * DEF_GENEDELETEDASH;
-	ret += m_GeneInsertOther * DEF_GENEINSERTOTHER;
-	ret += m_GeneDeleteOther  * DEF_GENEDELETEOTHER;
-	ret += m_GeneInsertOne * DEF_GENEINSERTONE;
-	ret += m_GeneDeleteOne * DEF_GENEDELETEONE;
 	ret += m_GeneSelect * DEF_GENESELECT;
-	ret += m_GeneSelectCol * DEF_GENESELECTCOL;
-	ret += m_GeneEditMode * DEF_GENEEDITMODE;
 
 	return ret;
 }
@@ -3251,7 +3075,7 @@ void CGenethonView::OnGenecreatewin()
 	
 //	pnDoc->CopyUserVars( &pnDoc->m_UserVars, &pDoc->m_UserVars );	// To <- From
 
-	pnDoc->GetUserDefaults();	// To <- From
+	pnDoc->GetNewUserDefaults();	// To <- From
 
 }
 
@@ -3301,32 +3125,6 @@ void CGenethonView::OnUpdateManualshade(CCmdUI* pCmdUI)
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->SetCheck(m_GeneShade);
-	
-}
-
-
-void CGenethonView::OnGeneeditmode()
-{
-	// TODO: Add your command handler code here
-
-	DeSelectAll();
-	
-	if ( m_GeneEditMode == 0 ) {
-		ClearMenu();
-		m_GeneEditMode = 1;
-	} else {
-		m_GeneEditMode = 0;
-	}
-
-	DestroyCaret();
-	RebuildShowCaret();
-	Invalidate(FALSE);
-}
-
-void CGenethonView::OnUpdateGeneeditmode(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneEditMode );
 	
 }
 

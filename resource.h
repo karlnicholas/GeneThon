@@ -169,7 +169,6 @@
 #define IDM_GENEVIEW                    32842
 #define IDM_COPYTEXT                    32851
 #define IDM_GENECOPYPICT                32852
-#define IDM_GENEEDITMODE                32853
 #define IDM_COPYMETACLIP                32872
 #define IDM_COPYMETAFILE                32873
 #define IDM_GRAPHSETUP                  32887

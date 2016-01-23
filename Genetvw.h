@@ -114,15 +114,7 @@ protected: // create from serialization only
 	int m_GeneShade;
 	int m_GeneArrange;
 	int m_GeneMove;
-	int m_GeneInsertDash;
-	int m_GeneDeleteDash;
-	int m_GeneInsertOther;
-	int m_GeneDeleteOther;
-	int m_GeneInsertOne;
-	int m_GeneDeleteOne;
 	int m_GeneSelect;
-	int m_GeneSelectCol;
-	int m_GeneEditMode;
 
 	COLORREF m_ShadeTextColor;
 	COLORREF m_ShadeBackColor;
@@ -134,15 +126,7 @@ protected: // create from serialization only
 	//
 		DEF_GENEARRANGE,
 		DEF_GENEMOVE, 
-		DEF_GENEINSERTDASH,
-		DEF_GENEDELETEDASH,
-		DEF_GENEINSERTOTHER,
-		DEF_GENEDELETEOTHER,
-		DEF_GENEINSERTONE,
-		DEF_GENEDELETEONE,
 		DEF_GENESELECT,
-		DEF_GENESELECTCOL,
-		DEF_GENEEDITMODE, 
 	};
 
 	void ClearMenu();
@@ -259,8 +243,6 @@ protected:
 	afx_msg void OnCopytext();
 	afx_msg void OnGenecopypict();
 	afx_msg void OnUpdateGenecopypict(CCmdUI* pCmdUI);
-	afx_msg void OnGeneeditmode();
-	afx_msg void OnUpdateGeneeditmode(CCmdUI* pCmdUI);
 	afx_msg void OnFilePrint();
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnCopymetaclip();

@@ -832,7 +832,6 @@ STRINGTABLE
 BEGIN
     IDM_COPYTEXT            "Copy the Project to the clipboard as Text."
     IDM_GENECOPYPICT        "Copy Selection to MAC Pict file."
-    IDM_GENEEDITMODE        "Toggle the Residue Edit Mode for Residue Editing.\nResidue Editing"
 END
 
 STRINGTABLE

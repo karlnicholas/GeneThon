@@ -163,8 +163,8 @@ CGenethonDoc::OnOpenDocument(const char *pszPathName)
 	
 	SetFilePath(pszPathName);
 
-	// Read the user defaults from the comment list
-	GetUserDefaults( );
+	// user defaults 
+	GetNewUserDefaults( );
 
 	// Set printer orientation for this file.
 	((CGenethonApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );

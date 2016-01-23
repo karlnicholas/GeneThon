@@ -124,7 +124,6 @@ int SequenceExport(int Selected = 0);
 	void SetUserDefaults();
 	void GetNewUserDefaults( );
 
-	void GetUserDefaults();
 	void GetIniDefaults();
 
 	void CheckOrientation();

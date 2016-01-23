@@ -27,9 +27,6 @@
     <ClCompile Include="Exportdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="filedef.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gdmenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,9 +123,6 @@
     <ClCompile Include="Textview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Userdef.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Genethon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -148,6 +142,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Gvedit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Filedef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

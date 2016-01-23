@@ -103,10 +103,10 @@
     <ClCompile Include="charmap.cpp" />
     <ClCompile Include="Displayp.cpp" />
     <ClCompile Include="dispvars.cpp" />
+    <ClCompile Include="Filedef.cpp" />
     <ClCompile Include="GraphWindow.cpp" />
     <ClCompile Include="dwordmap.cpp" />
     <ClCompile Include="Exportdl.cpp" />
-    <ClCompile Include="filedef.cpp" />
     <ClCompile Include="gdmenu.cpp" />
     <ClCompile Include="Gdocfile.cpp" />
     <ClCompile Include="Genbank.cpp" />
@@ -144,7 +144,6 @@
     <ClCompile Include="Sumcaret.cpp" />
     <ClCompile Include="sumview.cpp" />
     <ClCompile Include="Textview.cpp" />
-    <ClCompile Include="Userdef.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GENETHON.DEF" />

@@ -2522,7 +2522,7 @@ void CSummaryView::OnGenecreatewin()
 	
 //	pnDoc->CopyUserVars( &pnDoc->m_UserVars, &pDoc->m_UserVars );	// To <- From
 
-	pnDoc->GetUserDefaults();	// To <- From
+	pnDoc->GetNewUserDefaults();	// To <- From
 
 }
 

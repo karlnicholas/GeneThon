@@ -400,57 +400,6 @@ CGVEdit::OnDraw( DrawStruct *DrawStc )
 
 	}
 	
-	// Check for Column Inverse
-	
-	if ( 
-		DrawStc->MenuFunc == CGenethonView::DEF_GENESELECTCOL  
-		&& DrawStc->ColSelBegin
-		&& (!DrawStc->pDC->IsPrinting()) 
-	) {
-		DWORD StartRange;
-		DWORD EndRange;
-		if ( DrawStc->ColSelStart < DrawStc->ColSelEnd ) {
-			StartRange = DrawStc->ColSelStart;
-			EndRange = DrawStc->ColSelEnd;
-		} else {
-			StartRange = DrawStc->ColSelEnd;
-			EndRange = DrawStc->ColSelStart;
-		}
-
-		CGeneString * tGStr = (CGeneString *)ViewDataList.GetHead();
-		
-		// Test if range hits this string.    
-	    if ( ! 
-	    	(
-		    	(
-		    		(StartRange < tGStr->GetStartPos() ) 
-		    		&& (EndRange < tGStr->GetStartPos() )
-		    	) || (
-		    		(StartRange > (tGStr->GetStartPos() + tGStr->GetLength() ))
-		    		&& (EndRange > (tGStr->GetStartPos() + tGStr->GetLength() ))
-				)
-			)
-	    ) {
-	
-			CRect tcRect( 
-				m_XPosition - DrawStc->DisplayXPosition, 
-				(int)(m_YPosition - DrawStc->DisplayYPosition), 
-				m_XPosition + m_XSize - DrawStc->DisplayXPosition, 
-				(int)(m_YPosition + m_YSize - DrawStc->DisplayYPosition)
-			);
-	
-			if ( EndRange < (tGStr->GetStartPos() + tGStr->GetLength() ) ) {
-				tcRect.BottomRight().x = 
-					tcRect.TopLeft().x + (int)((EndRange + 1 - tGStr->GetStartPos()) * m_CharWidth);
-			}
-	
-			if ( StartRange > tGStr->GetStartPos() ) {
-				tcRect.TopLeft().x += (int)((StartRange - tGStr->GetStartPos()) * m_CharWidth);
-			}
-		
-			DrawStc->pDC->InvertRect( tcRect );
-		}
-	}
 }
 
 void 
@@ -522,57 +471,6 @@ CGVEdit::OnLButtonDown(UINT nFlags, UINT PointXPosition, DWORD PointYPosition, C
 		return;
 	}
 	
-	if ( pViewRet->MenuFunc == CGenethonView::DEF_GENESELECTCOL ) {
-
-		CGeneString * tGStr = (CGeneString *)ViewDataList.GetHead();
-		UINT tCount = (PointXPosition - m_XPosition) / m_CharWidth;
-		DWORD gloc = tCount + tGStr->GetStartPos();
-		
-		if ( pViewRet->ColSelBegin == 0 ) {
-
-			pViewRet->ColSelStart = pViewRet->ColSelEnd = gloc;
-			pViewRet->ColSelBegin = 1;
-
-			UINT tXPosition, tXSize;
-			DWORD tYPosition, tYSize;
-			GetPosition( &tXPosition, &tYPosition );
-			GetSize( &tXSize, &tYSize );
-
-			tXPosition += (tCount * m_CharWidth);
-			tXSize = m_CharWidth;
-	
-			((CGenethonView*)pWnd)->InvalidateRectLP( tXPosition, tYPosition, tXSize, tYSize );
-			
-			// All Done here
-			return;
-		
-		}
-
-		DWORD StartRange;
-		DWORD EndRange;
-	
-		if ( pViewRet->ColSelStart < pViewRet->ColSelEnd ) {
-			StartRange = pViewRet->ColSelStart;
-			EndRange = pViewRet->ColSelEnd;
-		} else {
-			StartRange = pViewRet->ColSelEnd;
-			EndRange = pViewRet->ColSelStart;
-		}
-		
-		if ( (gloc >= StartRange) && (gloc <= EndRange) ) {
-
-			((CGenethonView*)pWnd)->InvalNewEndPoint(pViewRet->ColSelStart, pViewRet->ColSelEnd);
-			pViewRet->ColSelStart = pViewRet->ColSelEnd = gloc;
-
-		} else {
-			((CGenethonView*)pWnd)->InvalNewEndPoint(pViewRet->ColSelEnd, gloc);
-			pViewRet->ColSelEnd = gloc;
-		}
-
-		// All done here
-		return;
-	}
-
 	UINT sXLoc = m_XPosition;
 	DWORD sYLoc = m_YPosition;
 
@@ -599,217 +497,7 @@ CGVEdit::OnLButtonDown(UINT nFlags, UINT PointXPosition, DWORD PointYPosition, C
 		) {
 
 
-			// Here we do gene arrange
-			if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEDELETEDASH
-				|| pViewRet->MenuFunc == CGenethonView::DEF_GENEINSERTDASH 
-				|| pViewRet->MenuFunc == CGenethonView::DEF_GENEDELETEOTHER 
-				|| pViewRet->MenuFunc == CGenethonView::DEF_GENEINSERTOTHER 
-				|| pViewRet->MenuFunc == CGenethonView::DEF_GENEINSERTONE 
-				|| pViewRet->MenuFunc == CGenethonView::DEF_GENEDELETEONE 
-			) {
-
-				int Expanded;
-				POSITION tPos2;
-
-				switch ( pViewRet->MenuFunc ) {
-				case CGenethonView::DEF_GENEDELETEDASH:
-				case CGenethonView::DEF_GENEINSERTDASH:
-
-					if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEDELETEDASH ) {
-				        move = tGStr->GetGeneSegment()->DeleteDash( 
-				        	tGStr->GetStartPos() + 
-				        	((PointXPosition - sXLoc) / m_CharWidth)  
-				        );
-				    } else {
-			        
-				        move = tGStr->GetGeneSegment()->InsertDash( 
-				        	tGStr->GetStartPos() + 
-				        	((PointXPosition - sXLoc) / m_CharWidth)  
-				        );
-				    }
-
-			        Expanded = tGStr->GetGeneSegment()->m_Expanded;
-			        if ( Expanded ) {
-			        	// Here we gotts increase sizes of all strings.
-						tPos2 = ViewDataList.GetHeadPosition();
-						UINT tc = tGStr->GetEnum();
-						while ( tPos2 != NULL ) {
-							CGeneString *tGStr2 = (CGeneString *)ViewDataList.GetNext(tPos2);
-							if ( !tc-- ) {
-								continue;
-							}
-							tGStr2->GetGeneSegment()->AppendFiller( Expanded );
-						}
-						pViewRet->Expanded = 1;
-					}
-			        if ( move != 0 ) {
-						((CGenethonView*)pWnd)->CheckMoveRanges(
-							tGStr->GetGeneSegment(), tGStr->GetEnum() 
-						);
-					}
-
-					((CGenethonView*)pWnd)->GetDocument()->ReSizeRows();
-					// Done here
-			        break;
-				case CGenethonView::DEF_GENEINSERTOTHER:
-					((CGenethonView*)pWnd)->GetDocument()->BeginWaitCursor();
-					Expanded = 0;
-					tPos2 = ViewDataList.GetHeadPosition();
-					while ( tPos2 != NULL ) {
-						CGeneString *t2GStr = (CGeneString *)ViewDataList.GetNext(tPos2);
-						if ( t2GStr->GetGeneSegment()->GetStyle() != LINESEQUENCE ) continue;
-						if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEINSERTOTHER ) {
-							if ( t2GStr == tGStr ) continue;
-						}
-//						if ( ((CGenethonView*)pWnd)->m_SelectSeq ) {
-							if ( t2GStr->GetGeneSegment()->GetArrangeFlag() != tGStr->GetGeneSegment()->GetArrangeFlag() ) {
-								t2GStr->GetGeneSegment()->m_Expanded = 0;
-								continue;
-							}
-//						}
-				        move = t2GStr->GetGeneSegment()->InsertDash( 
-				        	t2GStr->GetStartPos() + 
-				        	((PointXPosition - sXLoc) / m_CharWidth)  
-				        );
-					    Expanded |= t2GStr->GetGeneSegment()->m_Expanded;
-    			        if ( move != 0 ) {
-							((CGenethonView*)pWnd)->CheckMoveRanges(
-								t2GStr->GetGeneSegment(), t2GStr->GetEnum() 
-							);
-						}
-
-					}
-
-			        if ( Expanded ) {
-			        	// Here we gotts increase sizes of all strings.
-						tPos2 = ViewDataList.GetHeadPosition();
-						UINT tc = tGStr->GetEnum();
-						while ( tPos2 != NULL ) {
-							CGeneString *tGStr2 = (CGeneString *)ViewDataList.GetNext(tPos2);
-							if ( !tc-- ) {
-								tGStr2->GetGeneSegment()->AppendFiller( 1 );
-							} else if ( !tGStr2->GetGeneSegment()->m_Expanded ) {
-								tGStr2->GetGeneSegment()->AppendFiller( 1 );
-							}
-						}
-						pViewRet->Expanded = 1;
-					}
-					((CGenethonView*)pWnd)->GetDocument()->ReSizeRows();
-					((CGenethonView*)pWnd)->GetDocument()->EndWaitCursor();
-					// Done here
-			        break;
-				case CGenethonView::DEF_GENEINSERTONE:
-
-					((CGenethonView*)pWnd)->GetDocument()->BeginWaitCursor();
-					Expanded = 0;
-					tPos2 = ViewDataList.GetHeadPosition();
-					while ( tPos2 != NULL ) {
-						CGeneString *t2GStr = (CGeneString *)ViewDataList.GetNext(tPos2);
-						if ( t2GStr->GetGeneSegment()->GetStyle() != LINESEQUENCE ) continue;
-						if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEINSERTOTHER ) {
-							if ( t2GStr == tGStr ) continue;
-						}
-//						if ( ((CGenethonView*)pWnd)->m_SelectSeq ) {
-							if ( t2GStr->GetGeneSegment()->GetArrangeFlag() != tGStr->GetGeneSegment()->GetArrangeFlag() ) {
-								t2GStr->GetGeneSegment()->m_Expanded = 0;
-								continue;
-							}
-//						}
-				        move = t2GStr->GetGeneSegment()->InsertDash( 
-				        	t2GStr->GetStartPos() + 
-				        	((PointXPosition - sXLoc) / m_CharWidth)  
-				        );
-					    Expanded |= t2GStr->GetGeneSegment()->m_Expanded;
-    			        if ( move != 0 ) {
-							((CGenethonView*)pWnd)->CheckMoveRanges(
-								t2GStr->GetGeneSegment(), t2GStr->GetEnum() 
-							);
-						}
-
-					}
-
-			        if ( Expanded ) {
-			        	// Here we gotts increase sizes of all strings.
-						tPos2 = ViewDataList.GetHeadPosition();
-						UINT tc = tGStr->GetEnum();
-						while ( tPos2 != NULL ) {
-							CGeneString *tGStr2 = (CGeneString *)ViewDataList.GetNext(tPos2);
-							if ( !tGStr2->GetGeneSegment()->m_Expanded ) {
-								tGStr2->GetGeneSegment()->AppendFiller( 1 );
-							}
-						}
-						pViewRet->Expanded = 1;
-					}
-					((CGenethonView*)pWnd)->GetDocument()->ReSizeRows();
-					((CGenethonView*)pWnd)->GetDocument()->EndWaitCursor();
-					// Done here
-
-			        break;
-				case CGenethonView::DEF_GENEDELETEOTHER:
-				case CGenethonView::DEF_GENEDELETEONE:
-					// Test for OK to delete
-
-					((CGenethonView*)pWnd)->GetDocument()->BeginWaitCursor();
-					tPos2 = ViewDataList.GetHeadPosition();
-					while ( tPos2 != NULL ) {
-						CGeneString *t2GStr = (CGeneString *)ViewDataList.GetNext(tPos2);
-						if ( t2GStr->GetGeneSegment()->GetStyle() != LINESEQUENCE ) continue;
-						if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEDELETEOTHER ) {
-							if ( t2GStr == tGStr ) continue;
-						}
-//						if ( ((CGenethonView*)pWnd)->m_SelectSeq ) {
-							if ( t2GStr->GetGeneSegment()->GetArrangeFlag() != tGStr->GetGeneSegment()->GetArrangeFlag() ) {
-								t2GStr->GetGeneSegment()->m_Expanded = 0;
-								continue;
-							}
-//						}
-
-						move = t2GStr->GetGeneSegment()->TestDeleteFillerRange( 
-			        		t2GStr->GetStartPos() + 
-			        		((PointXPosition - sXLoc) / m_CharWidth),
-			        		t2GStr->GetStartPos() + 
-			        		((PointXPosition - sXLoc) / m_CharWidth)  
-				        		
-						);
-						if ( !move ) {
-//			        		AfxMessageBox( "A Residue has been detected in delete range" );
-//							Beep( 600, 50 );
-			        		return;
-						}
-					}
-
-					tPos2 = ViewDataList.GetHeadPosition();
-					while ( tPos2 != NULL ) {
-						CGeneString *t2GStr = (CGeneString *)ViewDataList.GetNext(tPos2);
-						if ( t2GStr->GetGeneSegment()->GetStyle() != LINESEQUENCE ) continue;
-						
-						if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEDELETEOTHER ) {
-							if ( t2GStr == tGStr ) continue;
-						}
-//						if ( ((CGenethonView*)pWnd)->m_SelectSeq ) {
-							if ( t2GStr->GetGeneSegment()->GetArrangeFlag() != tGStr->GetGeneSegment()->GetArrangeFlag() ) {
-								t2GStr->GetGeneSegment()->m_Expanded = 0;
-								continue;
-							}
-//						}
-
-						move = t2GStr->GetGeneSegment()->DeleteDash( 
-				        	t2GStr->GetStartPos() + 
-				        	((PointXPosition - sXLoc) / m_CharWidth)  
-				        );
-    			        if ( move != 0 ) {
-							((CGenethonView*)pWnd)->CheckMoveRanges(
-								t2GStr->GetGeneSegment(), t2GStr->GetEnum() 
-							);
-						}
-					}
-					((CGenethonView*)pWnd)->GetDocument()->ReSizeRows();
-					((CGenethonView*)pWnd)->GetDocument()->EndWaitCursor();
-					break;
-
-				}
-
-			} else if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEARRANGE 
+			if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEARRANGE 
 				|| pViewRet->MenuFunc == CGenethonView::DEF_GENEMOVE 
 			) {
 				// Here we do gene arrange
@@ -892,19 +580,7 @@ CGVEdit::OnLButtonDown(UINT nFlags, UINT PointXPosition, DWORD PointYPosition, C
 void 
 CGVEdit::OnMouseMove(UINT nFlags, UINT PointXPosition, DWORD PointYPosition, CView* pWnd, VIEWRETSTRUCT * pViewRet)
 {
-	if ( pViewRet->MenuFunc == CGenethonView::DEF_GENESELECTCOL ) {
-
-		CGeneString * tGStr = (CGeneString *)ViewDataList.GetHead();
-		UINT tCount = (PointXPosition - m_XPosition) / m_CharWidth;
-		DWORD gloc = tCount + tGStr->GetStartPos();
-		
-		if ( gloc != pViewRet->ColSelEnd ) {
-			((CGenethonView*)pWnd)->InvalNewEndPoint(pViewRet->ColSelEnd, gloc);
-			pViewRet->ColSelEnd = gloc;
-		}
-
-		// All done here
-	} else if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEARRANGE 
+	if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEARRANGE 
 		|| pViewRet->MenuFunc == CGenethonView::DEF_GENEMOVE 
 	) {
 		CheckMove( nFlags, PointXPosition, PointYPosition, pWnd, pViewRet );
@@ -1277,19 +953,7 @@ CGVEdit::CheckMoveRanges(
 void 
 CGVEdit::OnLButtonUp(UINT nFlags, UINT PointXPosition, DWORD PointYPosition, CView* pWnd, VIEWRETSTRUCT * pViewRet) 
 {
-	if ( pViewRet->MenuFunc == CGenethonView::DEF_GENESELECTCOL ) {
-
-		CGeneString * tGStr = (CGeneString *)ViewDataList.GetHead();
-		UINT tCount = (PointXPosition - m_XPosition) / m_CharWidth;
-		DWORD gloc = tCount + tGStr->GetStartPos();
-		
-		if ( gloc != pViewRet->ColSelEnd ) {
-			((CGenethonView*)pWnd)->InvalNewEndPoint(pViewRet->ColSelEnd, gloc);
-			pViewRet->ColSelEnd = gloc;
-		}
-
-		// All done here
-	} else if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEARRANGE 
+	if ( pViewRet->MenuFunc == CGenethonView::DEF_GENEARRANGE 
 		|| pViewRet->MenuFunc == CGenethonView::DEF_GENEMOVE 
 	) {
 		CheckMove( nFlags, PointXPosition, PointYPosition, pWnd, pViewRet );
@@ -1354,28 +1018,6 @@ CGVEdit::OnComment(char nChar, UINT PointXPosition, DWORD PointYPosition, CView*
 
 				return 1;
 
-			} else if ( pView->GetMenuFunction() == CGenethonView::DEF_GENEEDITMODE ) {
-				// Change the Residue Character!!
-				UINT tCount = (PointXPosition - m_XPosition) / m_CharWidth;
-                
-				nChar = toupper(nChar);
-				// Dont allow spaces in the data area ..
-				if ( nChar == ' ' ) return 0;
-
-				tGStr->SetResidue( tCount, nChar );
-				tGStr->GetGeneSegment()->SetResidue ( 
-					(DWORD)(tGStr->GetStartPos() + tCount), 
-					nChar
-				);
-
-				tGStr->GetGeneSegment()->m_StartRange = tGStr->GetStartPos() + tCount;
-				tGStr->GetGeneSegment()->m_EndRange = tGStr->GetStartPos() + tCount;
-				
-				pView->CheckMoveRanges( tGStr->GetGeneSegment(), tGStr->GetEnum() );
-				
-				pView->GetDocument()->SetModifiedFlag();
-
-				return 1;
 			}
 
 			return 0;
