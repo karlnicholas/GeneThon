@@ -376,34 +376,6 @@ CGPRowView::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc 
 	}
 }
 
-void 
-CGPRowView::WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc* pDoc )
-{
-	CGeneViewBase *tGVB;
-
-	tGVB = (CGeneViewBase *)ViewDataList.GetHead();
-	
-	UINT Count = tGVB->ViewDataList.GetCount();
-
-	pHTMLFile->StartBlock();
-
-	for ( UINT i=0; i < Count; ++i ) {
-
-		pHTMLFile->StartLine();
-
-		POSITION tPos = ViewDataList.GetHeadPosition();
-	
-		while ( tPos != NULL ) {
-			tGVB = (CGeneViewBase *)ViewDataList.GetNext(tPos);
-
-			tGVB->WriteHTML( pHTMLFile, i, pDoc );
-		}
-		
-		// Add the CR/LF
-		pHTMLFile->EndLine();
-	}
-	pHTMLFile->EndBlock();
-}
 
 void 
 CGPRowView::WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc* pDoc )

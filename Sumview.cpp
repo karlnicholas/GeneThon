@@ -78,10 +78,6 @@ CSummaryView::CSummaryView()
 	m_SelectDevice = NONE;
 	m_PrintOnly = 0;
 
-#ifdef _MAC
-	m_ClipFuncClipFunc = FALSE;
-#endif
-
 	ClearMenu();
 }
 
@@ -2105,10 +2101,6 @@ void CSummaryView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice)
 
 		POSITION tPos;
 
-#ifdef _MAC
-		if ( !CheckClipCursor( point ) ) goto NoPoint;
-#endif
-
 		tPos = m_RowViewList.GetHeadPosition();
 		CGPSumView *tGP;
 	
@@ -2129,9 +2121,6 @@ void CSummaryView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice)
 		}
 
 
-#ifdef _MAC
-NoPoint:
-#endif
 		ReleaseCapture();
 //		ClipCursor ( NULL );
 //		m_MyCaret.ClipCaret( 0 );
@@ -2296,10 +2285,6 @@ CSummaryView::MoveFunc(UINT nFlags, CPoint point, int DDevice)
 
 		PointXPosition = point.x + m_DisplayXPosition;
 		PointYPosition = (DWORD)point.y + m_DisplayYPosition;
-
-#ifdef _MAC
-		if ( !CheckClipCursor( point ) ) return;
-#endif
 
 		POSITION tPos = m_RowViewList.GetHeadPosition();
 		CGPSumView *tGP;

@@ -44,10 +44,7 @@ BEGIN_MESSAGE_MAP(CSeqDialog, CDialog)
 	ON_LBN_DBLCLK(IDC_LIST1, OnDblclkList1)
 	ON_BN_CLICKED(IDC_MOVEBOTT, OnMovebott)
 	ON_BN_CLICKED(IDC_MOVETOP, OnMovetop)
-	ON_BN_CLICKED(IDC_COMPLIMENT, OnCompliment)
-	ON_BN_CLICKED(IDC_REVERSE, OnReverse)
 	ON_BN_CLICKED(IDC_SEQEXPORT, OnSeqexport)
-	ON_BN_CLICKED(IDC_DUPLICATE, OnDuplicate)
 	ON_WM_DRAWITEM()
 	ON_WM_MEASUREITEM()
 	ON_BN_CLICKED(IDC_SORTNAME, OnSortname)
@@ -192,7 +189,6 @@ CSeqDialog::OnSeqdetails()
 
 		POSITION tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
 		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
-		tDlg.m_SeqWeight = tCGSeg->GetWeight();
 		tDlg.m_TextStart = tCGSeg->GetTextStart();
 		tDlg.m_Descr = tCGSeg->GetDescr();
 
@@ -236,16 +232,6 @@ CSeqDialog::OnSeqdetails()
 			POSITION tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
 			tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
 			tCGSeg->SetDescr( tDlg.m_Descr );
-			
-			pDoc->SetModifiedFlag();
-		}
-		if ( tDlg.m_WeightChanged ) {
-			CGSFiller *pGSFiller = pDoc->pGSFiller;
-			// Put the data rows on the list
-			
-			POSITION tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
-			CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
-			tCGSeg->SetWeight( tDlg.m_SeqWeight );
 			
 			pDoc->SetModifiedFlag();
 		}
@@ -543,208 +529,10 @@ void CSeqDialog::OnMovetop()
 
 }
 
-void CSeqDialog::OnCompliment() 
-{
-	int SelCount = m_SeqList.GetSelCount();
-	
-	if ( SelCount == 0 || SelCount == LB_ERR ) return;
-	           
-	CGSFiller *pGSFiller = pDoc->pGSFiller;
-	// Put the data rows on the list
-	if ( pGSFiller == NULL ) return;
-
-	if ( AfxMessageBox ( "DNA Compliment Sequences: Are you Sure?", MB_OKCANCEL ) != IDOK ) {
-		return;
-	}
-
-	int *SelArray = new int[SelCount];
-	
-	m_SeqList.GetSelItems( SelCount, SelArray );
-
-	for ( int i=SelCount-1; i >=0; --i ) {
-
-		int SeqSel = SelArray[i];
-		
-		POSITION tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
-
-		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
-
-		tCGSeg->DNACompliment(pDoc->m_UserVars.m_ProjectType);
-
-	}
-
-	pDoc->SetModifiedFlag();
-
-	m_SeqList.SelItemRange(FALSE, 0, m_SeqList.GetCount()-1 );
-
-	delete SelArray;
-
-    m_SeqList.Invalidate();
-}
-
-void CSeqDialog::OnReverse() 
-{
-	// TODO: Add your control notification handler code here
-	int SelCount = m_SeqList.GetSelCount();
-	
-	if ( SelCount == 0 || SelCount == LB_ERR ) return;
-	           
-	CGSFiller *pGSFiller = pDoc->pGSFiller;
-	// Put the data rows on the list
-	if ( pGSFiller == NULL ) return;
-
-	if ( AfxMessageBox ( "Reverse Sequences: Are you Sure?", MB_OKCANCEL ) != IDOK ) {
-		return;
-	}
-
-	int *SelArray = new int[SelCount];
-	
-	m_SeqList.GetSelItems( SelCount, SelArray );
-
-	for ( int i=SelCount-1; i >=0; --i ) {
-
-		int SeqSel = SelArray[i];
-		
-		POSITION tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
-
-		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
-
-		tCGSeg->Reverse();
-
-	}
-
-	pDoc->SetModifiedFlag();
-
-	m_SeqList.SelItemRange(FALSE, 0, m_SeqList.GetCount()-1 );
-
-	delete SelArray;
-
-    m_SeqList.Invalidate();
-	
-}
-
-
 void CSeqDialog::OnSeqexport() 
 {
 	// TODO: Add your control notification handler code here
 	pDoc->SequenceExport();
-	
-}
-
-void CSeqDialog::OnDuplicate() 
-{
-	// TODO: Add your control notification handler code here
-
-	int SelCount = m_SeqList.GetSelCount();
-	
-	if ( SelCount == 0 || SelCount == LB_ERR ) return;
-	           
-	CGSFiller *pGSFiller = pDoc->pGSFiller;
-	// Put the data rows on the list
-	if ( pGSFiller == NULL ) return;
-
-	if ( AfxMessageBox ( "Duplicate Sequences: Are you Sure?", MB_OKCANCEL ) != IDOK ) {
-		return;
-	}
-
-	int *SelArray = new int[SelCount];
-	
-	m_SeqList.GetSelItems( SelCount, SelArray );
-
-	CSeqDetDialog tDlg;
-
-	for ( int i=0; i < SelCount; ++i ) {
-
-		int SeqSel = SelArray[i];
-		
-		POSITION tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
-
-		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
-		
-		// CString
-		tDlg.m_SeqName.Empty();
-		tDlg.m_Descr = tCGSeg->GetDescr();
-		tDlg.m_Instruct = "SET NEW NAME FOR " + tCGSeg->GetTitle();
-		if ( tDlg.DoModal() != IDOK ) continue;
-
-		CPtrList CommentList;
-		CPtrList SequenceList;
-
-		// CEdit
-
-		SeqNameStruct *tSNS;
-		tSNS = new SeqNameStruct;
-		tSNS->Name = tDlg.m_SeqName;
-		tSNS->Descr = tDlg.m_Descr;
-		tSNS->Check = 1234;
-		tSNS->Weight = 1.0;
-
-		tSNS->Len = tCGSeg->GetTextLength();
-		tSNS->Start = tCGSeg->GetTextStart();
-
-		DWORD Size = tSNS->Len;
-		GeneStor *pc = (GeneStor *)GlobalLock(tCGSeg->GetTextHandle());
-		if ( pc == NULL ) {
-			AfxMessageBox("Duplicate:GlobalLock:Fail:2");
-			return;
-		}
-
-		tSNS->hText = GlobalAlloc( GMEM_FLAG,  Size );
-		if ( tSNS->hText == NULL ) {
-			AfxMessageBox("Duplicate:GlobalAlloc:Fail:1");
-			return;
-		}
-
-		char *pn = (char *)GlobalLock(tSNS->hText);
-		if ( pn == NULL ) {
-			AfxMessageBox("Duplicate:GlobalLock:Fail:1");
-			return;
-		}
-		
-		while ( Size-- ) {
-			*pn++ = pc->CharGene;
-			pc++;
-		}
-		GlobalUnlock(tCGSeg->GetTextHandle());
-		GlobalUnlock(tSNS->hText);
-
-		SequenceList.AddTail( tSNS );
-		
-		pDoc->gMaxStrSize = tSNS->Len;
-
-		pDoc->ProcessRows( CommentList, SequenceList, 1 );
-
-	}
-
-	delete SelArray;
-
-	m_Modify = 1;
-
-	m_SeqList.ResetContent();
-	int Count = 0;
-	
-	POSITION tPos = pGSFiller->SegDataList.GetHeadPosition();
-	while (tPos != NULL ) {
-
-		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-
-		if ( tCGSeg->GetStyle() != LINESEQUENCE ) {
-			continue;
-		}
-
-		// CListBox
-		int aloc = m_SeqList.AddString ( (const char *)tCGSeg->GetTitle() );
-		m_SeqList.SetItemDataPtr(aloc, tCGSeg );
-		Count++;
-	}
-
-	char scount[256];
-	wsprintf(scount, "%d Seq", Count );
-	m_strSeqCount.SetWindowText(scount);
-
-	pDoc->SetModifiedFlag();
-
-
 	
 }
 

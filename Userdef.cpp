@@ -28,13 +28,6 @@
 
 #define GDSHOWTAIL		"Seq Indicator:"
 #define GDORIENTATION	"Orient:"
-#define GDGAPIND		"Gap Ind:"
-#define GDPROJTYPE		"Proj Type:"
-
-#define GDTTLPROG		"Ttl Prog:"
-#define GDTTLSM			"Ttl SM:"
-#define GDTTLOG			"Ttl OG:"
-#define GDTTLEG			"Ttl EG:"
 
 #define GDCONSENSUS		"Consensus:"		// m_ConsensusLine;
 
@@ -44,27 +37,27 @@
 
 
 const char *
-CGenethonDoc::GDUFindString ( const CString& FindString )
+CGenethonDoc::GDUFindString(const CString& FindString)
 {
 	int FindLoc;
 	const char * rStr;
-	
+
 	POSITION tPos = pGSFiller->SegHeaderList.GetHeadPosition();
-	while ( tPos != NULL ) {
+	while (tPos != NULL) {
 		CString *tStr = (CString *)pGSFiller->SegHeaderList.GetNext(tPos);
-		if ( tStr->Find ( GENEDOCIDSTR ) == -1 ) continue;
-		if ( (FindLoc = tStr->Find(FindString)) != -1 ) {
+		if (tStr->Find(GENEDOCIDSTR) == -1) continue;
+		if ((FindLoc = tStr->Find(FindString)) != -1) {
 			rStr = (const char *)*tStr;
 			rStr += FindLoc + FindString.GetLength();
 			return rStr;
 		}
 	}
-	
+
 	return NULL;
 }
 
 
-void 
+void
 CGenethonDoc::GetUserDefaults( )
 {
 
@@ -264,87 +257,6 @@ CGenethonDoc::GetUserDefaults( )
 		DecodeBuff[2] = 0;
 		m_UserVars.m_Orientation = atoi( DecodeBuff );
 		if ( m_UserVars.m_Orientation != 0 ) m_UserVars.m_Orientation = 1;
-	}
-
-	tStr = GDUFindString ( GDGAPIND );
-	if ( tStr != NULL ) {
-		memcpy ( DecodeBuff, tStr, 2 );
-		DecodeBuff[2] = 0;
-		m_UserVars.m_GapInd = atoi( DecodeBuff );
-		if ( m_UserVars.m_GapInd != 0 ) m_UserVars.m_GapInd = 1;
-	}
-
-	tStr = GDUFindString ( GDPROJTYPE );
-	if ( tStr != NULL ) {
-		memcpy ( DecodeBuff, tStr, 2 );
-		DecodeBuff[2] = 0;
-		m_UserVars.m_ProjectType = atoi( DecodeBuff );
-		if ( m_UserVars.m_ProjectType > 4 ) m_UserVars.m_ProjectType = 0;
-	}
-
-
-	tStr = GDUFindString ( GDTTLPROG );
-	if ( tStr != NULL ) {
-		char *tStr2 = m_UserVars.m_TitleProgram.GetBuffer(128);
-		int ff = 1;
-		for ( int i = 0; i < 21; ++i ) {
-			if ( (*tStr == ' ') && ff ) {
-				tStr++;
-				continue;
-			}
-			ff = 0;
-			*tStr2++ = *tStr++;
-		}
-		*tStr2 = 0;
-		m_UserVars.m_TitleProgram.ReleaseBuffer();
-	}
-
-	tStr = GDUFindString ( GDTTLSM );
-	if ( tStr != NULL ) {
-		char *tStr2 = m_UserVars.m_TitleScoreMatrix.GetBuffer(128);
-		int ff = 1;
-		for ( int i = 0; i < 21; ++i ) {
-			if ( (*tStr == ' ') && ff ) {
-				tStr++;
-				continue;
-			}
-			ff = 0;
-			*tStr2++ = *tStr++;
-		}
-		*tStr2 = 0;
-		m_UserVars.m_TitleScoreMatrix.ReleaseBuffer();
-	}
-
-	tStr = GDUFindString ( GDTTLOG );
-	if ( tStr != NULL ) {
-		char *tStr2 = m_UserVars.m_TitleOpenGap.GetBuffer(128);
-		int ff = 1;
-		for ( int i = 0; i < 21; ++i ) {
-			if ( (*tStr == ' ') && ff ) {
-				tStr++;
-				continue;
-			}
-			ff = 0;
-			*tStr2++ = *tStr++;
-		}
-		*tStr2 = 0;
-		m_UserVars.m_TitleOpenGap.ReleaseBuffer();
-	}
-
-	tStr = GDUFindString ( GDTTLEG );
-	if ( tStr != NULL ) {
-		char *tStr2 = m_UserVars.m_TitleExtendGap.GetBuffer(128);
-		int ff = 1;
-		for ( int i = 0; i < 21; ++i ) {
-			if ( (*tStr == ' ') && ff ) {
-				tStr++;
-				continue;
-			}
-			ff = 0;
-			*tStr2++ = *tStr++;
-		}
-		*tStr2 = 0;
-		m_UserVars.m_TitleExtendGap.ReleaseBuffer();
 	}
 
 	tStr = GDUFindString ( GDPICTWIDTH );

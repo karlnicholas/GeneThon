@@ -11,8 +11,6 @@ private:
 	HGLOBAL	m_Text;
 	DWORD	m_TextSize;
 	DWORD	m_TextStart;
-	double  m_Weight;
-	char	m_GapChar;
 	DWORD	m_LastResidue;
 	int		m_ExportFlag;
 	int		m_ArrangeFlag;
@@ -50,11 +48,9 @@ public:
 		int nStyle, 
 		const char *nTitle, 
 		const char *nDescr, 
-		double nWeight, 
 		HANDLE	nText, 
 		DWORD	nTextSize, 
 		DWORD	nTextStart, 
-		char	nGapChar, 
 		COLORREF *nTextColor, 
 		COLORREF *nBackColor 
 	);
@@ -135,9 +131,6 @@ public:
 	const CString& GetDescr() { return m_Descr; }
 	void SetDescr( CString& nDescr ) { m_Descr = nDescr; }
 
-	double GetWeight() { return m_Weight; }
-	void SetWeight(double nWeight ) { m_Weight = nWeight; }
-	
 	int MoveText ( DWORD Position, int Amount );
 	int SlideText ( DWORD Position, int Amount );
 	int InsertDash ( DWORD Position );
@@ -147,22 +140,14 @@ public:
 	int		m_Expanded;
 	HANDLE  GetTextHandle() { return m_Text; }
 
-	void ChangeGapChar( char nGapChar );
-	char GetGapChar() { return m_GapChar; }
-
 	int InvalConsensus( DWORD *StartRange, DWORD *EndRange );	// return true to force redraw
 	int InvalScore( DWORD *StartRange, DWORD *EndRange );		// return true to force redraw
 
-	void Reverse();
-	void DNACompliment(int Project );
-	void FindAndReplace( const CString& Find, const CString& Replace, DWORD StartPos, DWORD EndPos );
 	void SetResidueText( HANDLE hText, DWORD StartPos, DWORD EndPos );
 	HANDLE GetResidues() const;
 
 	void SetExportFlag(int Flag) { m_ExportFlag = Flag; }
 	int GetExportFlag() { return m_ExportFlag; }
-	void ReplaceWith( DWORD StartPos, DWORD EndPos, HANDLE hrText, DWORD nSize );
-	BOOL ReGapDNAWith( HANDLE hrText, DWORD nSize, CString& DNATrans, CString& ErrStr );
 
 	void SetArrangeFlag(int Flag) { m_ArrangeFlag = Flag; }
 	int GetArrangeFlag() { return m_ArrangeFlag; }

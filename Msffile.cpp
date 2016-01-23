@@ -146,17 +146,6 @@ TRY {
 			tSNS->Check = atoi( (const char *)tString + tLoc );
 		}
 		
-		// Get the 'weight' out
-		tLoc = tString.Find( "Weight:" );
-		if ( tLoc == -1 ) {
-			if ( AfxMessageBox(" 'Weight:' field not found in .MSF file", MB_OKCANCEL ) == IDCANCEL ) {
-				rFile.Abort();
-				return 0;
-			}
-		} else {
-			tLoc += 7;
-			tSNS->Weight = atof( (const char *)tString + tLoc );
-		}
 		// Put the name structure on the list
 
 		// Check for duplicates ..
@@ -314,13 +303,7 @@ TRY {
 //					goto Error;
 //				}
 
-				if ( (*tSNS->tpc = *pc2) == '.' ) {
-					if ( m_UserVars.m_GapInd == 0 ) {
-						*tSNS->tpc = '-';
-					} else {
-						*tSNS->tpc = '.';
-					}
-				}
+				*tSNS->tpc = *pc2;
 				tSNS->tpc++;
 				pc2++;
 			}
@@ -558,8 +541,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-
 	CStdioFile wFile( FileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	i = 0;
@@ -639,10 +620,8 @@ TRY {
 			}
 			++pFile;
 			
-			char ProjType = m_UserVars.m_ProjectType == 1 ? 'P' : 'N' ;
-		
-			_snprintf(BuildBuff, sizeof(BuildBuff), " %s  MSF: %d  Type: %c  %s  Check: %4d ..\n",
-				pFile, (int)longest, ProjType, date, (int)NewSum);
+			_snprintf(BuildBuff, sizeof(BuildBuff), " %s  MSF: %d  %s  Check: %4d ..\n",
+				pFile, (int)longest, date, (int)NewSum);
 
 			//
 			wFile.WriteString( BuildBuff );
@@ -678,11 +657,10 @@ TRY {
 	for ( i = 0; i < Count; ++i ) {
 		
 		_snprintf ( BuildBuff, sizeof(BuildBuff), 
-			" Name: %-16s Len: %5ld  Check: %-4d  Weight: %6.2f\n", 
+			" Name: %-16s Len: %5ld  Check: %-4d\n", 
 			(const char *)(pWS[i]).pCGSeg->GetTitle(), 
 			(pWS[i]).pCGSeg->GetTextLength(), 
-			(int)CheckGStor( (pWS[i]).pText, (pWS[i]).pCGSeg->GetTextLength() ), 
-			(pWS[i]).pCGSeg->GetWeight()
+			(int)CheckGStor( (pWS[i]).pText, (pWS[i]).pCGSeg->GetTextLength() )
 		);
 		
 		wFile.WriteString ( BuildBuff );
@@ -724,11 +702,7 @@ TRY {
 			for ( i=0; i < 5; ++i ) {
 				GeneStor *tgs = ((pWS[LineNum]).pText) + CurPos + (i * 10 );
 				for ( j = 0; j < 10; ++j ) {
-					if ( tgs->CharGene == tGapChar ) {
-						DataBlock[i][j] = '.';
-					} else {
-						DataBlock[i][j] = tgs->CharGene;
-					}
+					DataBlock[i][j] = tgs->CharGene;
 					tgs++;
 				}
 				DataBlock[i][j] = 0;
@@ -799,11 +773,7 @@ TRY {
 			if ( i < tCount10 ) {
 				GeneStor *tgs = (GeneStor *)((pWS[LineNum]).pText) + CurPos + (i * 10);
 				for ( j = 0; j < 10; ++j ) {
-					if ( tgs->CharGene == tGapChar ) {
-						DataBlock[i][j] = '.';
-					} else {
-						DataBlock[i][j] = tgs->CharGene;
-					}
+					DataBlock[i][j] = tgs->CharGene;
 					tgs++;
 				}
 				DataBlock[i][j] = 0;
@@ -811,11 +781,7 @@ TRY {
 
 				GeneStor *tgs = (GeneStor *)((pWS[LineNum]).pText) + CurPos + (i * 10);
 				for ( j = 0; j < tCountr; ++j ) {
-					if ( tgs->CharGene == tGapChar ) {
-						DataBlock[i][j] = '.';
-					} else {
-						DataBlock[i][j] = tgs->CharGene;
-					}
+					DataBlock[i][j] = tgs->CharGene;
 					tgs++;
 				}
 				DataBlock[i][j] = 0;

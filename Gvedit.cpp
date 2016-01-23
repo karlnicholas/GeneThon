@@ -1464,58 +1464,7 @@ CGVEdit::WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc )
 		RowNumber--;
 	}
 }
- 
-void 
-CGVEdit::WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
-{
-	UINT sRowNum = RowNumber;
-
-	POSITION tPos = ViewDataList.GetHeadPosition();
-	while ( tPos != NULL ) {
-		CGeneString * tGStr = (CGeneString *)ViewDataList.GetNext(tPos);
-		if ( RowNumber == 0 ) {
-			UINT tMax = tGStr->GetLength();
-			const GeneStor *tStr = (const GeneStor *)*tGStr;
-			for ( UINT i=0; i < tMax; ++i ) {
-				// If this is a score row, just black and white.
-				COLORREF TextC, BkC;
-				if ( (sRowNum == 0)) {
-					// Get BackGround Color
-					pDoc->GetColors( &TextC, &BkC );
-				} else {
-					// Get Level Shade Color, checks Mode and LastShadeLevel
-					TextC = tStr->TextColor;
-					BkC = tStr->BackColor;
-				}
-
-				pHTMLFile->CharOut( tStr->CharDisplay, TextC, BkC );
-
-				// Lets do something for scoring.
-/*
-				DWORD sScore = tStr->CharScore;
-				if ( sScore != 0 && sRowNum == 0 ) {
-					if ( (sScore%2) == 1 ) {
-						pHTMLFile->LineBottom();
-					} else {
-						pHTMLFile->LineMiddle();
-					}
-					if ( sScore == 3 || sScore == 4 ) {
-						pHTMLFile->LineLeft();
-					}
-					if ( sScore == 5 || sScore == 6 ) {
-						pHTMLFile->LineRight();
-					}
-				}
-*/
-				tStr++;
-			}
-			return;
-		}
-		RowNumber--;
-	}
-}
-
- 
+  
 void 
 CGVEdit::WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 {

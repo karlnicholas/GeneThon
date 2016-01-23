@@ -101,7 +101,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="charmap.cpp" />
-    <ClCompile Include="colorbar.cpp" />
     <ClCompile Include="Displayp.cpp" />
     <ClCompile Include="dispvars.cpp" />
     <ClCompile Include="GraphWindow.cpp" />
@@ -127,8 +126,6 @@
     <ClCompile Include="Gvetail.cpp" />
     <ClCompile Include="Gvsum.cpp" />
     <ClCompile Include="Heapsort.cpp" />
-    <ClCompile Include="Htmlfile.cpp" />
-    <ClCompile Include="Htmlpicd.cpp" />
     <ClCompile Include="Importty.cpp" />
     <ClCompile Include="Mainfrm.cpp" />
     <ClCompile Include="Msffile.cpp" />
@@ -139,11 +136,9 @@
     <ClCompile Include="Propsht.cpp" />
     <ClCompile Include="Rtffile.cpp" />
     <ClCompile Include="Selarrse.cpp" />
-    <ClCompile Include="Selproje.cpp" />
     <ClCompile Include="Seqdetdi.cpp" />
     <ClCompile Include="Seqdialo.cpp" />
     <ClCompile Include="Seqfile.cpp" />
-    <ClCompile Include="Seqinp.cpp" />
     <ClCompile Include="Setudef.cpp" />
     <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="Sumcaret.cpp" />
@@ -157,7 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Charmap.h" />
-    <ClInclude Include="Colorbar.h" />
     <ClInclude Include="Displayp.h" />
     <ClInclude Include="Dispvars.h" />
     <ClInclude Include="Drawstc.h" />
@@ -183,8 +177,6 @@
     <ClInclude Include="Gvelead.h" />
     <ClInclude Include="Gvetail.h" />
     <ClInclude Include="Gvsum.h" />
-    <ClInclude Include="Htmlfile.h" />
-    <ClInclude Include="Htmlpicd.h" />
     <ClInclude Include="Importty.h" />
     <ClInclude Include="Mainfrm.h" />
     <ClInclude Include="Mycaret.h" />
@@ -196,10 +188,8 @@
     <ClInclude Include="Rtffile.h" />
     <ClInclude Include="Segnames.h" />
     <ClInclude Include="Selarrse.h" />
-    <ClInclude Include="Selproje.h" />
     <ClInclude Include="Seqdetdi.h" />
     <ClInclude Include="seqdialo.h" />
-    <ClInclude Include="Seqinp.h" />
     <ClInclude Include="Shadeps.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Sumcaret.h" />

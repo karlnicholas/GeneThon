@@ -18,9 +18,6 @@
     <ClCompile Include="charmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="colorbar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dispvars.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
     <ClCompile Include="Gstring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Gvedit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gvefill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -79,12 +73,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Heapsort.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Htmlfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Htmlpicd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Importty.cpp">
@@ -117,16 +105,10 @@
     <ClCompile Include="Selarrse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Selproje.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Seqdetdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Seqfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Seqinp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Setudef.cpp">
@@ -165,6 +147,9 @@
     <ClCompile Include="Displayp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Gvedit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GENETHON.DEF">
@@ -176,9 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Charmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Colorbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Displayp.h">
@@ -226,9 +208,6 @@
     <ClInclude Include="Gvbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Gvedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Gvefill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -239,12 +218,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gvsum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Htmlfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Htmlpicd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Importty.h">
@@ -268,9 +241,6 @@
     <ClInclude Include="Propsht.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Rtffile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -280,13 +250,7 @@
     <ClInclude Include="Selarrse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Selproje.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Seqdetdi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Seqinp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shadeps.h">
@@ -329,6 +293,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphSetup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gvedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -140,7 +140,6 @@ TRY {
 	tSNS->Len = 0;
 	tSNS->Start = 1;
 	tSNS->Check = 1234;
-	tSNS->Weight = 1.0;
 
 	CString *data;
 	switch ( Dlg.m_Trans ) {
@@ -286,7 +285,6 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
-		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -405,8 +403,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -465,11 +461,7 @@ TRY {
 			// Build data blocks
 			GeneStor *tgs = ((pWS[i]).pText) + CurPos;
 			for ( int j = 0; j < 60; ++j ) {
-				if ( tgs->CharGene == tGapChar ) {
-					DataBlock[j] = '-';
-				} else {
-					DataBlock[j] = tgs->CharGene;
-				}
+				DataBlock[j] = tgs->CharGene;
 				tgs++;
 			}
 			DataBlock[60] = 0;
@@ -489,11 +481,7 @@ TRY {
 		// Build data blocks
 		GeneStor *tgs = ((pWS[i]).pText) + CurPos;
 		for ( unsigned int j = 0; j < Len; ++j ) {
-			if ( tgs->CharGene == tGapChar ) {
-				DataBlock[j] = '-';
-			} else {
-				DataBlock[j] = tgs->CharGene;
-			}
+			DataBlock[j] = tgs->CharGene;
 			tgs++;
 		}
 		DataBlock[Len] = 0;
@@ -536,7 +524,7 @@ END_CATCH
 
 int   
 CGenethonDoc::ReadTextFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName, 
-	const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC )
+	const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC )
 {
 	// Determine File Type.
 
@@ -558,7 +546,6 @@ TRY {
 	tSNS->Len = 0;
 	tSNS->Start = TextStart;
 	tSNS->Check = 1234;
-	tSNS->Weight = SeqWeight;
 	tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 	// Abort if alloc fails
 	if ( tSNS->hText == NULL ) {
@@ -668,8 +655,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -726,11 +711,7 @@ TRY {
 			// Build data blocks
 			GeneStor *tgs = ((pWS[i]).pText) + CurPos;
 			for ( int j = 0; j < 60; ++j ) {
-				if ( tgs->CharGene == tGapChar ) {
-					DataBlock[j] = '-';
-				} else {
-					DataBlock[j] = tgs->CharGene;
-				}
+				DataBlock[j] = tgs->CharGene;
 				tgs++;
 			}
 			DataBlock[60] = 0;
@@ -750,11 +731,7 @@ TRY {
 		// Build data blocks
 		GeneStor *tgs = ((pWS[i]).pText) + CurPos;
 		for ( unsigned int j = 0; j < Len; ++j ) {
-			if ( tgs->CharGene == tGapChar ) {
-				DataBlock[j] = '-';
-			} else {
-				DataBlock[j] = tgs->CharGene;
-			}
+			DataBlock[j] = tgs->CharGene;
 			tgs++;
 		}
 		DataBlock[Len] = 0;
@@ -810,8 +787,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -1061,7 +1036,6 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
-		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -1216,8 +1190,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -1298,11 +1270,7 @@ TRY {
 			// Build data blocks
 			GeneStor *tgs = ((pWS[LineNum]).pText) + CurPos;
 			for ( int j = 0; j < 50; ++j ) {
-				if ( tgs->CharGene == tGapChar ) {
-					DataBlock[j] = '-';
-				} else {
-					DataBlock[j] = tgs->CharGene;
-				}
+				DataBlock[j] = tgs->CharGene;
 				tgs++;
 			}
 			DataBlock[50] = 0;
@@ -1341,11 +1309,7 @@ TRY {
 		// Build data blocks
 		GeneStor *tgs = ((pWS[LineNum]).pText) + CurPos;
 		for ( unsigned int j = 0; j < Len; ++j ) {
-			if ( tgs->CharGene == tGapChar ) {
-				DataBlock[j] = '-';
-			} else {
-				DataBlock[j] = tgs->CharGene;
-			}
+			DataBlock[j] = tgs->CharGene;
 			tgs++;
 		}
 		DataBlock[Len] = 0;
@@ -1463,7 +1427,6 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
-		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -1590,8 +1553,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -1655,11 +1616,7 @@ TRY {
 			for ( i=0; i < 6; ++i ) {
 				GeneStor *tgs = ((pWS[Line]).pText) + CurPos + (i * 10 );
 				for ( j = 0; j < 10; ++j ) {
-					if ( tgs->CharGene == tGapChar ) {
-						DataBlock[i][j] = '-';
-					} else {
-						DataBlock[i][j] = tgs->CharGene;
-					}
+					DataBlock[i][j] = tgs->CharGene;
 					tgs++;
 				}
 				DataBlock[i][j] = 0;
@@ -1692,11 +1649,7 @@ TRY {
 			if ( i < tCount10 ) {
 				GeneStor *tgs = (GeneStor *)((pWS[Line]).pText) + CurPos + (i * 10);
 				for ( int j = 0; j < 10; ++j ) {
-					if ( tgs->CharGene == tGapChar ) {
-						DataBlock[i][j] = '-';
-					} else {
-						DataBlock[i][j] = tgs->CharGene;
-					}
+					DataBlock[i][j] = tgs->CharGene;
 					tgs++;
 				}
 				DataBlock[i][j] = 0;
@@ -1704,11 +1657,7 @@ TRY {
 
 				GeneStor *tgs = (GeneStor *)((pWS[Line]).pText) + CurPos + (i * 10);
 				for ( int j = 0; j < tCountr; ++j ) {
-					if ( tgs->CharGene == tGapChar ) {
-						DataBlock[i][j] = '-';
-					} else {
-						DataBlock[i][j] = tgs->CharGene;
-					}
+					DataBlock[i][j] = tgs->CharGene;
 					tgs++;
 				}
 				DataBlock[i][j] = '*';
@@ -1854,7 +1803,6 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
-		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -1971,8 +1919,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -2031,11 +1977,7 @@ TRY {
 			// Build data blocks
 			GeneStor *tgs = ((pWS[i]).pText) + CurPos;
 			for ( int j = 0; j < 60; ++j ) {
-				if ( tgs->CharGene == tGapChar ) {
-					DataBlock[j] = '-';
-				} else {
-					DataBlock[j] = tgs->CharGene;
-				}
+				DataBlock[j] = tgs->CharGene;
 				tgs++;
 			}
 			DataBlock[60] = 0;
@@ -2055,11 +1997,7 @@ TRY {
 		// Build data blocks
 		GeneStor *tgs = ((pWS[i]).pText) + CurPos;
 		for ( unsigned int j = 0; j < Len; ++j ) {
-			if ( tgs->CharGene == tGapChar ) {
-				DataBlock[j] = '-';
-			} else {
-				DataBlock[j] = tgs->CharGene;
-			}
+			DataBlock[j] = tgs->CharGene;
 			tgs++;
 		}
 		DataBlock[Len] = 0;
@@ -2118,8 +2056,6 @@ TRY {
 
 	POSITION tPos;
 
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-	
 	CStdioFile wFile( PathName, CFile::modeWrite | CFile::typeText | CFile::modeCreate );
 
 	tPos = pGSFiller->SegDataList.GetHeadPosition();
@@ -2200,11 +2136,7 @@ TRY {
 			// Build data blocks
 			GeneStor *tgs = ((pWS[LineNum]).pText) + CurPos;
 			for ( int j = 0; j < 60; ++j ) {
-				if ( tgs->CharGene == tGapChar ) {
-					DataBlock[j] = '-';
-				} else {
-					DataBlock[j] = tgs->CharGene;
-				}
+				DataBlock[j] = tgs->CharGene;
 				tgs++;
 			}
 			DataBlock[60] = 0;
@@ -2240,11 +2172,7 @@ TRY {
 		// Build data blocks
 		GeneStor *tgs = ((pWS[LineNum]).pText) + CurPos;
 		for ( unsigned int j = 0; j < Len; ++j ) {
-			if ( tgs->CharGene == tGapChar ) {
-				DataBlock[j] = '-';
-			} else {
-				DataBlock[j] = tgs->CharGene;
-			}
+			DataBlock[j] = tgs->CharGene;
 			tgs++;
 		}
 		DataBlock[Len] = 0;
@@ -2367,7 +2295,6 @@ TRY {
 			tSNS->Len = 0;
 			tSNS->Start = 1;
 			tSNS->Check = 1234;
-			tSNS->Weight = 1.0;
 			tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 			// Abort if alloc fails
 			if ( tSNS->hText == NULL ) {

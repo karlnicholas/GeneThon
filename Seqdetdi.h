@@ -14,7 +14,6 @@ public:
 	//{{AFX_DATA(CSeqDetDialog)
 	enum { IDD = IDD_SEQDETAILS };
 	CString	m_SeqName;
-	double	m_SeqWeight;
 	CString	m_Instruct;
 	DWORD	m_TextStart;
 	CString	m_Descr;
@@ -22,7 +21,6 @@ public:
 
 	int m_NameChanged;
 	int m_DescrChanged;
-	int m_WeightChanged;
 	int m_StartChanged;
 
 // Overrides
@@ -38,7 +36,6 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CSeqDetDialog)
 	afx_msg void OnChangeSeqdetname();
-	afx_msg void OnChangeSeqdetweight();
 	afx_msg void OnChangeTextstart();
 	afx_msg void OnChangeDescr();
 	//}}AFX_MSG

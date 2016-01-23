@@ -15,8 +15,6 @@ protected: // create from serialization only
 
 	void DoMarkerLine();
 
-	BOOL CheckMatch( char cF, char cS);
-
 	// PCR Contrast ..
 	void PCRMatchArr( int MatchArr[2][26], ShadePairStruct* rSPS, int *Count );
 	int m_UsePCRSim;
@@ -44,12 +42,9 @@ protected: // create from serialization only
 	};
 	void ClearShade();
 
-	void InsertFillerRange(DWORD StartRange, DWORD EndRange );
-	void DeleteFillerRange(DWORD StartRange, DWORD EndRange, int DelData );
-	const char *GDUFindString ( const CString& FindString );
-
-	int SequenceImport();
-	int SequenceExport(int Selected = 0);
+	const char *GDUFindString(const CString& FindString); int SequenceImport();	
+	
+int SequenceExport(int Selected = 0);
 	int GetMSFFile( CString PathName, int Append = 0 );
 	int GetFastaFile( CString PathName, int Append = 0 );
 	int GetFasNTFile( CString PathName, int Append = 0 );
@@ -57,7 +52,7 @@ protected: // create from serialization only
 	int GetPIRFile( CString PathName, int Append );
 	int GetPhylipFile( CString PathName, int Append );
 	int GetTextFile( CString PathName, int Append, 
-		const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC );
+		const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC );
 	int GetGenbankFile( CString PathName, int Append = 0 );
 
 	CTextView *m_pTextView;
@@ -90,7 +85,7 @@ protected: // create from serialization only
 	DWORD	gMaxStrSize;
 
 	BOOL ReadTextFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName, 
-		const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC );
+		const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC );
 	int WriteTextFile( const CString& PathName, int Selected = 0 );
 	int WriteTNoGapFile( const CString& PathName, int Selected = 0 );
 
@@ -130,13 +125,10 @@ protected: // create from serialization only
 	void GetNewUserDefaults( );
 
 	void GetUserDefaults();
-	void ChangeGapChar();
 	void GetIniDefaults();
 
 	void CheckOrientation();
 	
-	void GetProjectType();
-
 	int m_MaxDepth;
 	int m_NodeNumber;
 
@@ -171,7 +163,6 @@ public:
 	void CopyUserVars( UserVars *nUserVars, UserVars *oUserVars );
 	void ClearUserVars( UserVars * dUserVars );
 
-	int GetNumColors(CDisplayVars *DisplayVars);
 	void GetColors(COLORREF * TextColor, COLORREF *BkColor );
 
 	void GetIniDisplayVars(CDisplayVars *DisplayVars);
@@ -180,7 +171,6 @@ public:
 	int m_SummaryMessaged;
 
 	void DoConfigure(int ActivePage = ACTPAGENONE, int ReDraw = TRUE ); 
-	void ReplaceFromProj(DWORD StartPos, DWORD EndPos);
 	//	int IndexChar( char n );
 	
 	// End User Variables ....
@@ -199,7 +189,6 @@ public:
 
 protected:
 	virtual BOOL OnOpenDocument(const char* pszPathName );
-	virtual BOOL OnNewDocument();
 	virtual BOOL OnSaveDocument(const char *pszPathName );
 
 // Generated message map functions
@@ -212,12 +201,9 @@ protected:
 	afx_msg void OnGeneview();
 	afx_msg void OnFileimport();
 	afx_msg void OnFileexport();
-	afx_msg void OnCleargapcols();
 	afx_msg void OnSummaryview();
 	afx_msg void OnUpdateSummaryview(CCmdUI* pCmdUI);
 	afx_msg void OnFileSave();
-	afx_msg void OnCopycons();
-	afx_msg void OnUpdateCopycons(CCmdUI* pCmdUI);
 	afx_msg void OnShowmanshade();
 	afx_msg void OnUpdateShowman(CCmdUI* pCmdUI);
 	afx_msg void OnShowcomments();
@@ -227,8 +213,6 @@ protected:
 	afx_msg void OnSelectarrseq();
 	afx_msg void OnComplimentsel();
 	afx_msg void OnGenereportview();
-	afx_msg void OnConsprosite();
-	afx_msg void OnUpdateConsprosite(CCmdUI* pCmdUI);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

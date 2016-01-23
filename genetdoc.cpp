@@ -22,12 +22,9 @@ BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	ON_COMMAND(IDM_GENEVIEW, OnGeneview)
 	ON_COMMAND(IDM_FILEIMPORT, OnFileimport)
 	ON_COMMAND(IDM_FILEEXPORT, OnFileexport)
-	ON_COMMAND(IDM_CLEARGAPCOLS, OnCleargapcols)
 	ON_COMMAND(IDM_SUMMARYVIEW, OnSummaryview)
 	ON_UPDATE_COMMAND_UI(IDM_SUMMARYVIEW, OnUpdateSummaryview)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
-	ON_COMMAND(IDM_COPYCONS, OnCopycons)
-	ON_UPDATE_COMMAND_UI(IDM_COPYCONS, OnUpdateCopycons)
 	ON_COMMAND(IDM_SHOWMANSHADE, OnShowmanshade)
 	ON_UPDATE_COMMAND_UI(IDM_SHOWMANSHADE, OnUpdateShowman)
 	ON_COMMAND(IDM_SHOWCOMMENTS, OnShowcomments)
@@ -37,8 +34,6 @@ BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	ON_COMMAND(IDM_SELECTARRSEQ, OnSelectarrseq)
 	ON_COMMAND(IDM_COMPLIMENTSEL, OnComplimentsel)
 	ON_COMMAND(IDM_GENEREPORTVIEW, OnGenereportview)
-	ON_COMMAND(IDM_CONSPROSITE, OnConsprosite)
-	ON_UPDATE_COMMAND_UI(IDM_CONSPROSITE, OnUpdateConsprosite)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -142,33 +137,6 @@ CGenethonDoc::SetFilePath(const char *pszPathName)
 	m_PathName.ReleaseBuffer(NameLen);
 
 }
- 
-void 
-CGenethonDoc::GetProjectType()
-{
-	
-	int tType = 0, rc;
-
-	if ( pGSFiller != NULL ) {
-		if ( !pGSFiller->SegHeaderList.IsEmpty() ) {
-
-			CString *cStr = (CString *)pGSFiller->SegHeaderList.GetTail();
-			// Looking for Master Checksum location ...
-
-			if ( (rc = cStr->Find("Type: ")) != -1 ) {
-				const char *rStr = (const char *)*cStr;
-				rStr += rc + strlen ( "Type: " );
-				if ( *rStr == 'N' ) {
-					tType = 1;
-				}
-			}
-		}
-	}
-
-
-	m_UserVars.m_ProjectType = tType + 1;
-}
-
 
 BOOL 
 CGenethonDoc::OnOpenDocument(const char *pszPathName)
@@ -200,14 +168,6 @@ CGenethonDoc::OnOpenDocument(const char *pszPathName)
 
 	// Set printer orientation for this file.
 	((CGenethonApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
-	
-	// Set Gap Char Correctly
-	ChangeGapChar();
-	
-	if ( m_UserVars.m_ProjectType == 0 ) {
-		GetProjectType();
-
-	}
 		
 	SetModifiedFlag(FALSE);     // start off with unmodified
 
@@ -217,28 +177,6 @@ CGenethonDoc::OnOpenDocument(const char *pszPathName)
 	return TRUE;
 }
 
-BOOL 
-CGenethonDoc::OnNewDocument()
-{
-
-	GetProjectType();
-	
-/*	if ( ((CGenethonApp*)AfxGetApp())->m_ReallyNewFlag ) {
-		
-		CProjTypeDialog	tDlg;
-		
-		tDlg.m_ProjectType = m_UserVars.m_ProjectType - 1;
-			
-		tDlg.DoModal();
-		
-		m_UserVars.m_ProjectType = tDlg.m_ProjectType + 1;
-	
-		AfxMessageBox("Use File or Sequence Edit/Import Function to retrieve Data Files" );
-	}	
-*/
-
-	return TRUE;
-}
 
 void CGenethonDoc::OnFileSave() 
 {
@@ -380,16 +318,7 @@ CGenethonDoc::ClearShade()
 			// (pSegArr[i].pGeneStor)[tCount].CharScore = 0;
 			// Lets Clear out old Displays
 			char tChar = (pSegArr[i].pGeneStor)[tCount].CharGene;
-			if ( m_UserVars.m_ResidueUpper == 1 ) {
-				(pSegArr[i].pGeneStor)[tCount].CharDisplay = toupper(tChar);
-			} else if ( m_UserVars.m_ResidueUpper == 2 ) {
-				(pSegArr[i].pGeneStor)[tCount].CharDisplay = tolower(tChar);
-			} else {
-				(pSegArr[i].pGeneStor)[tCount].CharDisplay = tChar;
-			}
-			if ( m_UserVars.m_TransTilde ) {
-				if ( tChar == '~' ) (pSegArr[i].pGeneStor)[tCount].CharDisplay = ' ';
-			}
+			(pSegArr[i].pGeneStor)[tCount].CharDisplay = tChar;
 
 		}
 	}
@@ -402,196 +331,6 @@ CGenethonDoc::ClearShade()
 	}
 
 	delete pSegArr;
-}
-
-
-
-void 
-CGenethonDoc::ChangeGapChar() 
-{
-	
-	if ( pGSFiller == NULL ) {
-		return;
-	}
-	
-	CGeneSegment *tCGSeg;
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-
-	POSITION tPos = pGSFiller->SegDataList.GetHeadPosition();
-	while (tPos != NULL ) {
-		tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-
-		tCGSeg->ChangeGapChar(tGapChar );
-	}
-}
-
-
-void 
-CGenethonDoc::InsertFillerRange(DWORD StartRange, DWORD EndRange) 
-{
-	
-	if ( pGSFiller == NULL ) {
-		return;
-	}
-	
-	CGeneSegment *tCGSeg;
-	int MaxExpanded = 0;
-
-	BeginWaitCursor();
-
-	POSITION tPos;
-	int OnlyExp = 0;
-//	if ( InsSelected ) {
-		tPos = pGSFiller->SegDataList.GetHeadPosition();
-		while (tPos != NULL ) {
-			tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-			if ( tCGSeg->GetArrangeFlag() ) {
-				OnlyExp = 1;
-				break;
-			}
-
-		}
-//	}
-	//
-	tPos = pGSFiller->SegDataList.GetHeadPosition();
-	while (tPos != NULL ) {
-		tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-		if ( OnlyExp ) if ( !tCGSeg->GetArrangeFlag() ) {
-			tCGSeg->m_Expanded = 0;
-			continue;
-		}
-		tCGSeg->InsertFillerRange( StartRange, EndRange );
-		if ( tCGSeg->m_Expanded > MaxExpanded ) {
-    		MaxExpanded = tCGSeg->m_Expanded;
-		}
-	}
-	//
-	if ( MaxExpanded ) {
-		// Here we gots increase sizes of strings.
-		POSITION tPos = pGSFiller->SegDataList.GetHeadPosition();
-		while (tPos != NULL ) {
-			tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-			if ( tCGSeg->m_Expanded != MaxExpanded ) {
-				tCGSeg->AppendFiller( MaxExpanded - tCGSeg->m_Expanded );
-			}
-		}
-	}
-	
-
-	EndWaitCursor();
-
-}
-
-void 
-CGenethonDoc::DeleteFillerRange(DWORD StartRange, DWORD EndRange, int DelData ) 
-{
-	
-	if ( pGSFiller == NULL ) {
-		return;
-	}
-	
-	CGeneSegment *tCGSeg;
-	int isok;
-	
-	BeginWaitCursor();
-	POSITION tPos;
-	int OnlyExp = 0;
-//	if ( DelSelected ) {
-		tPos = pGSFiller->SegDataList.GetHeadPosition();
-		while (tPos != NULL ) {
-			tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-			if ( tCGSeg->GetArrangeFlag() ) {
-				OnlyExp = 1;
-				break;
-			}
-
-		}
-//	}
-
-	tPos = pGSFiller->SegDataList.GetHeadPosition();
-	if ( DelData ) {
-		isok = 1;
-	} else {
-		while (tPos != NULL ) {
-			tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-			if ( OnlyExp ) if ( !tCGSeg->GetArrangeFlag() ) {
-				continue;
-			}
-
-			isok = tCGSeg->TestDeleteFillerRange( StartRange, EndRange );
-			if ( !isok ) break;
-		}
-
-		if ( !isok ) {
-    		AfxMessageBox( "Residues detected in Selected Range" );
-    		return;
-		}
-	}
-	
-	tPos = pGSFiller->SegDataList.GetHeadPosition();
-	while (tPos != NULL ) {
-		tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-		if ( OnlyExp ) if ( !tCGSeg->GetArrangeFlag() ) {
-			continue;
-		}
-		tCGSeg->DeleteFillerRange( StartRange, EndRange, DelData );
-	}
-
-	// Here we gots increase sizes of strings.
-	ReSizeRows();
-	
-	EndWaitCursor();
-
-}
-
-
-void CGenethonDoc::OnCleargapcols() 
-{
-	// TODO: Add your command handler code here
-	if ( pGSFiller == NULL ) {
-		return;
-	}
-	
-	CGeneSegment *tCGSeg;
-	int isok;
-	
-	BeginWaitCursor();
-
-	tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetHead();
-	DWORD dwLen = tCGSeg->GetTextLength();
-
-	for ( DWORD dwCount = 0; dwCount < dwLen; ++dwCount ) {
-
-		POSITION tPos = pGSFiller->SegDataList.GetHeadPosition();
-
-		while (tPos != NULL ) {
-			tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-			isok = tCGSeg->TestDeleteFillerRange( dwCount, dwCount );
-			if ( !isok ) break;
-		}
-
-		if ( isok ) {
-			tPos = pGSFiller->SegDataList.GetHeadPosition();
-			while (tPos != NULL ) {
-				tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-				tCGSeg->DeleteFillerRange( dwCount, dwCount );
-			}
-
-			dwLen--;
-			dwCount--;
-		}
-	}
-
-	//
-	
-	EndWaitCursor();
-	
-}
-
-int 
-CGenethonDoc::GetNumColors(CDisplayVars *DisplayVars)
-{
-	return 4;
 }
 
 void
@@ -666,23 +405,10 @@ CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 	nUserVars->m_Orientation = oUserVars->m_Orientation;
 	((CGenethonApp *)AfxGetApp())->SetLandscape( nUserVars->m_Orientation );
 
-	nUserVars->m_GapInd = oUserVars->m_GapInd;
-	
-	nUserVars->m_ProjectType = oUserVars->m_ProjectType;
-
-
-	nUserVars->m_TitleProgram = oUserVars->m_TitleProgram;
-	nUserVars->m_TitleScoreMatrix = oUserVars->m_TitleScoreMatrix;
-	nUserVars->m_TitleOpenGap = oUserVars->m_TitleOpenGap;
-	nUserVars->m_TitleExtendGap = oUserVars->m_TitleExtendGap;
-
 //	This is basically static for now. When user tables are supported, 
 //	Then we will copy it/
 //	CPtrArray	nUserVars->m_ScoreTableArray;
 
-
-// Do the PhylogenTree
-	nUserVars->m_ParseString = oUserVars->m_ParseString;
 
 //	nUserVars->m_DisplayMethod = oUserVars->m_DisplayMethod;
 
@@ -701,15 +427,6 @@ CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 	nUserVars->m_PictHeight = oUserVars->m_PictHeight;
 	nUserVars->m_PictAscent = oUserVars->m_PictAscent;
 
-	nUserVars->m_MarkerSymb = oUserVars->m_MarkerSymb;
-	nUserVars->m_MarkerSpacing = oUserVars->m_MarkerSpacing;
-	nUserVars->m_MarkerReplace = oUserVars->m_MarkerReplace;
-	nUserVars->m_MarkerStart = oUserVars->m_MarkerStart;
-	nUserVars->m_MarkerEnable = oUserVars->m_MarkerEnable;
-
-	nUserVars->m_ResidueUpper = oUserVars->m_ResidueUpper;
-	nUserVars->m_ConservedGap = oUserVars->m_ConservedGap;
-
 	nUserVars->m_strLead = oUserVars->m_strLead;
 	nUserVars->m_strTail = oUserVars->m_strTail;
 	nUserVars->m_MaxNameLength = oUserVars->m_MaxNameLength;
@@ -722,7 +439,6 @@ CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 	nUserVars->m_PrintFileName = oUserVars->m_PrintFileName;
 	nUserVars->m_PrintDate = oUserVars->m_PrintDate;
 
-	nUserVars->m_TransTilde = oUserVars->m_TransTilde;
 	nUserVars->m_ShowManShade = oUserVars->m_ShowManShade;
 	nUserVars->m_ShowComments = oUserVars->m_ShowComments;
 
@@ -786,23 +502,11 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	tDlg.m_DisplayPage.m_AutoWidth = m_UserVars.m_WidthMode;
 	tDlg.m_DisplayPage.m_FixedWidth = m_UserVars.m_FixedXSize;
 	tDlg.m_DisplayPage.m_ShowTail = m_UserVars.m_ShowTail;
-	tDlg.m_DisplayPage.m_GapInd = m_UserVars.m_GapInd;
-	tDlg.m_DisplayPage.m_ProjectType = m_UserVars.m_ProjectType - 1;
 	tDlg.m_DisplayPage.m_ConsensusLine = m_UserVars.m_ConsensusLine;
 
 	tDlg.m_DisplayPage.m_PictWidth = m_UserVars.m_PictWidth;
 	tDlg.m_DisplayPage.m_PictHeight = m_UserVars.m_PictHeight;
 	tDlg.m_DisplayPage.m_PictAscent = m_UserVars.m_PictAscent;
-
-	tDlg.m_DisplayPage.m_MarkerSymb = m_UserVars.m_MarkerSymb;
-	tDlg.m_DisplayPage.m_MarkerSpacing = m_UserVars.m_MarkerSpacing;
-	tDlg.m_DisplayPage.m_MarkerReplace = m_UserVars.m_MarkerReplace;
-	tDlg.m_DisplayPage.m_MarkerStart = m_UserVars.m_MarkerStart;
-	tDlg.m_DisplayPage.m_MarkerEnable = m_UserVars.m_MarkerEnable;
-
-	tDlg.m_DisplayPage.m_ConservedGap = m_UserVars.m_ConservedGap;
-
-	tDlg.m_DisplayPage.m_ResidueUpper = m_UserVars.m_ResidueUpper;
 
 	tDlg.m_DisplayPage.m_MaxNameLength = m_UserVars.m_MaxNameLength;
 	tDlg.m_DisplayPage.m_strLead = m_UserVars.m_strLead;
@@ -812,7 +516,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	tDlg.m_DisplayPage.m_Sum2Wid = m_UserVars.m_Sum2Wid;
 	tDlg.m_DisplayPage.m_SumDefDis = m_UserVars.m_SumDefDis;
 	tDlg.m_DisplayPage.m_SumTextBlack = m_UserVars.m_SumTextBlack;
-	tDlg.m_DisplayPage.m_TransTilde = m_UserVars.m_TransTilde;
 	tDlg.m_DisplayPage.m_ShowManShade = m_UserVars.m_ShowManShade;
 	tDlg.m_DisplayPage.m_ShowComments = m_UserVars.m_ShowComments;
 	tDlg.m_DisplayPage.m_MakeBackups = m_UserVars.m_MakeBackups;
@@ -867,11 +570,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	m_UserVars.m_FixedXSize = tDlg.m_DisplayPage.m_FixedWidth;
 	m_UserVars.m_ShowTail = tDlg.m_DisplayPage.m_ShowTail;
 
-	if ( m_UserVars.m_GapInd != tDlg.m_DisplayPage.m_GapInd ) {
-		m_UserVars.m_GapInd = tDlg.m_DisplayPage.m_GapInd;
-		ChangeGapChar();
-	}
-	m_UserVars.m_ProjectType = tDlg.m_DisplayPage.m_ProjectType + 1;
 	if ( m_UserVars.m_ConsensusLine != tDlg.m_DisplayPage.m_ConsensusLine ) {
 		ClearShade();
 	}
@@ -880,18 +578,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	m_UserVars.m_PictHeight = tDlg.m_DisplayPage.m_PictHeight;
 	m_UserVars.m_PictAscent = tDlg.m_DisplayPage.m_PictAscent;
 	
-	if ( !tDlg.m_DisplayPage.m_MarkerSymb.IsEmpty() ) 
-		m_UserVars.m_MarkerSymb = tDlg.m_DisplayPage.m_MarkerSymb[0];
-	m_UserVars.m_MarkerSpacing = tDlg.m_DisplayPage.m_MarkerSpacing;
-	m_UserVars.m_MarkerReplace = tDlg.m_DisplayPage.m_MarkerReplace;
-	m_UserVars.m_MarkerStart = tDlg.m_DisplayPage.m_MarkerStart;
-	m_UserVars.m_MarkerEnable = tDlg.m_DisplayPage.m_MarkerEnable;
-
-	if ( !tDlg.m_DisplayPage.m_ConservedGap.IsEmpty() ) 
-		m_UserVars.m_ConservedGap = tDlg.m_DisplayPage.m_ConservedGap[0];
-
-	m_UserVars.m_ResidueUpper = tDlg.m_DisplayPage.m_ResidueUpper;
-
 	m_UserVars.m_MaxNameLength = tDlg.m_DisplayPage.m_MaxNameLength;
 	m_UserVars.m_strLead = tDlg.m_DisplayPage.m_strLead;
 	m_UserVars.m_strTail = tDlg.m_DisplayPage.m_strTail;
@@ -899,7 +585,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	m_UserVars.m_Sum2Wid = tDlg.m_DisplayPage.m_Sum2Wid;
 	m_UserVars.m_SumDefDis = tDlg.m_DisplayPage.m_SumDefDis;
 	m_UserVars.m_SumTextBlack = tDlg.m_DisplayPage.m_SumTextBlack;
-	m_UserVars.m_TransTilde = tDlg.m_DisplayPage.m_TransTilde;
 	m_UserVars.m_ShowManShade = tDlg.m_DisplayPage.m_ShowManShade;
 
 	m_UserVars.m_MakeBackups = tDlg.m_DisplayPage.m_MakeBackups;

@@ -177,7 +177,7 @@ CGenethonDoc::GetFastaFile( CString PathName, int Append )
 
 int 
 CGenethonDoc::GetTextFile( CString PathName, int Append, 
-	const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC )
+	const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC )
 {
 
 	CPtrList CommentList;
@@ -185,7 +185,7 @@ CGenethonDoc::GetTextFile( CString PathName, int Append,
 
 	gMaxStrSize = 0L;
 
-	if ( !ReadTextFile ( &CommentList, &SequenceList, PathName, SeqName, SeqWeight, TextStart, Descr, IUPAC ) ) {
+	if ( !ReadTextFile ( &CommentList, &SequenceList, PathName, SeqName, TextStart, Descr, IUPAC ) ) {
 		while ( !SequenceList.IsEmpty() ) {
 			delete (SeqNameStruct *)SequenceList.RemoveHead();
 		}
@@ -326,9 +326,6 @@ int
 CGenethonDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 {
 
-	// Put the data rows on the list
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
-
 	int SkippedName = 0;
 	POSITION tPos = SequenceList.GetHeadPosition();
 	while ( tPos != NULL ) {
@@ -361,7 +358,7 @@ CGenethonDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 			return 0;
 		}
 
-		if ( !tCGSeg->Create( LINESEQUENCE, tSNS->Name, tSNS->Descr, tSNS->Weight, tSNS->hText, tSNS->Len, tSNS->Start, tGapChar, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
+		if ( !tCGSeg->Create( LINESEQUENCE, tSNS->Name, tSNS->Descr, tSNS->hText, tSNS->Len, tSNS->Start, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 			AfxMessageBox("GetMSFFile:Create Fail 2" );
 			delete pGSFiller;
 			pGSFiller = NULL;
@@ -392,7 +389,6 @@ CGenethonDoc::CreateBottomRows()
 	HGLOBAL hComSeg;
 	char *pc;
 	DWORD tCnt;
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
 
 	// Create Lowest row .. the Comment Row.
 	hComSeg = GlobalAlloc( GMEM_FLAG, gMaxStrSize);
@@ -424,7 +420,7 @@ CGenethonDoc::CreateBottomRows()
 		return 0;
 	}
 
-	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, tGapChar, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
+	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", hComSeg, gMaxStrSize, 1, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 3" );
 		delete pGSFiller;
 		pGSFiller = NULL;
@@ -444,7 +440,6 @@ CGenethonDoc::CreateTopRows()
 	HGLOBAL hComSeg;
 	char *pc;
 	DWORD tCnt;
-	char tGapChar = m_UserVars.m_GapInd ? '.' : '-';
 
 	// Create First row .. the Score Row.
 	hComSeg = GlobalAlloc( GMEM_FLAG, gMaxStrSize);
@@ -481,11 +476,9 @@ CGenethonDoc::CreateTopRows()
 			LINECOMMENT, 
 			"Score" , 
 			"Score", 
-			0.0, 
 			hComSeg, 
 			gMaxStrSize, 
 			1, 
-			tGapChar, 
 			&m_UserVars.m_ForeColor, 
 			&m_UserVars.m_BackColor 
 	) ) {
@@ -528,7 +521,7 @@ CGenethonDoc::CreateTopRows()
 		return 0;
 	}
 
-	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, tGapChar, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
+	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", hComSeg, gMaxStrSize, 1, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 1" );
 		delete pGSFiller;
 		pGSFiller = NULL;

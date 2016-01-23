@@ -42,9 +42,6 @@ void CGraphSetup::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CGraphSetup)
 	DDX_Text(pDX, IDC_PAGEHEIGHT, m_PageHeight);
 	DDX_Text(pDX, IDC_PAGEWIDTH, m_PageWidth);
-	DDX_Text(pDX, IDC_SET1COUNT, m_Set1Count);
-	DDX_Text(pDX, IDC_SET2COUNT, m_Set2Count);
-	DDX_Radio(pDX, IDC_TSIDE1, m_TSide);
 	DDX_Text(pDX, IDC_CHARTTITLE, m_ChartTitle);
 	DDX_Text(pDX, IDC_CHARTTITLEPCT, m_xChtTitPct);
 	DDX_Text(pDX, IDC_LINEWIDTH, m_LineWidth);
@@ -63,7 +60,6 @@ BEGIN_MESSAGE_MAP(CGraphSetup, CDialog)
 	//{{AFX_MSG_MAP(CGraphSetup)
 	ON_BN_CLICKED(IDC_CHGFONT, OnChgfont)
 	//}}AFX_MSG_MAP
-	ON_EN_CHANGE(IDC_XBORDERPCT2, &CGraphSetup::OnEnChangeXborderpct2)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

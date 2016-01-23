@@ -315,30 +315,6 @@ CGVEditTail::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 
 
 void 
-CGVEditTail::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
-{
-
-	POSITION tPos = ViewDataList.GetHeadPosition();
-
-	while ( tPos != NULL ) {
-		CString * tGStr = (CString *)ViewDataList.GetNext(tPos);
-		if ( RowNumber == 0 ) {
-			int StrCount = tGStr->GetLength();
-			for ( int i = 0; i < StrCount; ++i ) {
-				pHTMLFile->CharOut ( 
-					(*tGStr)[i], 
-					pDoc->m_UserVars.m_ForeColor, 
-					pDoc->m_UserVars.m_BackColor
-				);
-			}
-			return;
-		}
-		RowNumber--;
-	}
-}
-
-
-void 
 CGVEditTail::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )
 {
 

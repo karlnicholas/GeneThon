@@ -99,7 +99,6 @@ public:
 	virtual void CountCopyText(DWORD *dwCount ) { return; }
 	virtual void CopyText(char *tString, DWORD *dwCount, UINT RowNumber ) { return; }
 	virtual void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc )  { return; }
-	virtual void WriteHTML( CHTMLFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc ) { return; }
 	virtual void WriteRTF( CRTFFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc ) { return; }
 	
 	virtual void SetStatusBar(UINT nFlags, UINT XPoint, DWORD YPoint ) {

@@ -20,6 +20,5 @@ public:
 	void CountCopyText(DWORD *dwCount);
 	void CopyText(char *tString, DWORD *dwCount, UINT RowNumber );
 	void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc );
-	void WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc* pDoc );
 };
 

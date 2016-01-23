@@ -40,7 +40,6 @@ public:
 
 	void CopyText(char *tString, DWORD *dwCount, UINT RowNumber );
 	void WritePict( CPictFile* pPictFile, UINT RowNumber, CGenethonDoc* pDoc );
-	void WriteHTML( CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc* pDoc );
 	void WriteRTF( CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc* pDoc );
 
 	void SetStatusBar(UINT nFlags, UINT XPoint, DWORD YPoint);

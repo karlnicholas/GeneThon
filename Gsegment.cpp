@@ -240,8 +240,8 @@ CGeneSegment::DeleteDash ( DWORD Position )
 		tFiller.GeneSeqNumber = 0L;
 	} else {
 
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}
@@ -297,8 +297,8 @@ CGeneSegment::InsertDash ( DWORD Position )
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	} else {
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}
@@ -481,8 +481,8 @@ CGeneSegment::InsertFillerRange ( DWORD StartRange, DWORD EndRange )
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	} else {
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}
@@ -693,8 +693,8 @@ CGeneSegment::SlideText ( DWORD Position, int Amount )
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	} else {
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}
@@ -874,8 +874,8 @@ CGeneSegment::MoveText ( DWORD Position, int Amount )
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	} else {
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}
@@ -1050,11 +1050,9 @@ CGeneSegment::Create (
 	int nStyle, 
 	const char *nTitle, 
 	const char *nDescr, 
-	double nWeight, 
 	HANDLE nText,
 	DWORD nTextSize, 
 	DWORD nTextStart, 
-	char	nGapChar,
 	COLORREF *nTextColor,
 	COLORREF *nBackColor
 ) { 
@@ -1062,10 +1060,8 @@ CGeneSegment::Create (
 	m_Style = nStyle;
 	m_Title = nTitle;
 	m_Descr = nDescr;
-	m_Weight = nWeight;
 	m_TextSize = nTextSize;
 	m_TextStart = nTextStart;
-	m_GapChar = nGapChar;
 	m_Expanded = 0;
 
 	TextColor = nTextColor;
@@ -1147,9 +1143,7 @@ CGeneSegment::CreateCopy ( CGeneSegment *poCGSeg, DWORD nStart, DWORD nLen )
 	m_Style = poCGSeg->GetStyle();
 	m_Title = poCGSeg->GetTitle();
 	m_Descr = poCGSeg->GetDescr();
-	m_Weight = poCGSeg->GetWeight();
 	m_TextSize = nLen;
-	m_GapChar = poCGSeg->GetGapChar();
 	
 	TextColor = poCGSeg->TextColor;
 	BackColor = poCGSeg->BackColor;
@@ -1370,8 +1364,8 @@ CGeneSegment::AppendFiller( DWORD Length )
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	} else {
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}
@@ -1403,187 +1397,6 @@ CGeneSegment::AppendFiller( DWORD Length )
 
 	return 1;
 }
-
-void 
-CGeneSegment::ChangeGapChar( char nGapChar )
-{
-	DWORD Size = m_TextSize;
-	GeneStor *pc = (GeneStor *)GlobalLock(m_Text);
-	if ( pc == NULL ) {
-		AfxMessageBox("AppendFiller:GlobalLock:Fail:2");
-		return;
-	}
-	
-	while ( Size-- ) {
-		if ( pc->CharGene == m_GapChar ) {
-			pc->CharGene = nGapChar;
-			pc->CharDisplay = nGapChar;
-		}
-		pc++;
-	}
-	GlobalUnlock(m_Text);
-
-	m_GapChar = nGapChar;
-
-}
-
-
-void 
-CGeneSegment::Reverse()
-{
-	DWORD Size = m_TextSize;
-	GeneStor *pc = (GeneStor *)GlobalLock(m_Text);
-	if ( pc == NULL ) {
-		AfxMessageBox("AppendFiller:GlobalLock:Fail:2");
-		return;
-	}
-	GeneStor *pce = pc + Size - 1;
-
-	Size = Size / 2;
-	
-	while ( Size-- ) {
-		GeneStor tgs = *pc;
-		*pc = *pce;
-		*pce = tgs;
-		pc++;
-		pce--;
-	}
-	GlobalUnlock(m_Text);
-
-}
-
-void 
-CGeneSegment::DNACompliment(int Project)
-{
-	DWORD Size = m_TextSize;
-	GeneStor *pc = (GeneStor *)GlobalLock(m_Text);
-	if ( pc == NULL ) {
-		AfxMessageBox("AppendFiller:GlobalLock:Fail:2");
-		return;
-	}
-
-	while ( Size-- ) {
-		switch ( pc->CharGene ) {
-		case 'c':
-			pc->CharGene = 'g';
-			break;
-		case 'g':
-			pc->CharGene = 'c';
-			break;
-		case 'a':
-			if ( Project == 4 ) 
-				pc->CharGene = 'u';
-			else
-				pc->CharGene = 't';
-			break;
-		case 't':
-			pc->CharGene = 'a';
-			break;
-		case 'u':
-			pc->CharGene = 'a';
-			break;
-		case 'C':
-			pc->CharGene = 'G';
-			break;
-		case 'G':
-			pc->CharGene = 'C';
-			break;
-		case 'A':
-			if ( Project == 4 ) 
-				pc->CharGene = 'U';
-			else
-				pc->CharGene = 'T';
-			break;
-		case 'T':
-			pc->CharGene = 'A';
-			break;
-		case 'U':
-			pc->CharGene = 'A';
-			break;
-		case 'm':
-			pc->CharGene = 'k';
-		case 'M':
-			break;
-			pc->CharGene = 'K';
-			break;
-
-		case 'r':
-			pc->CharGene = 'y';
-			break;
-		case 'R':
-			pc->CharGene = 'Y';
-			break;
-
-		case 'w':
-			pc->CharGene = 'w';
-			break;
-		case 'W':
-			pc->CharGene = 'W';
-			break;
-
-		case 's':
-			pc->CharGene = 'S';
-			break;
-		case 'S':
-			pc->CharGene = 'S';
-			break;
-
-		case 'y':
-			pc->CharGene = 'r';
-			break;
-		case 'Y':
-			pc->CharGene = 'R';
-			break;
-
-		case 'k':
-			pc->CharGene = 'm';
-			break;
-		case 'K':
-			pc->CharGene = 'M';
-			break;
-
-		case 'b':
-			pc->CharGene = 'v';
-			break;
-		case 'B':
-			pc->CharGene = 'V';
-			break;
-
-		case 'd':
-			pc->CharGene = 'h';
-			break;
-		case 'D':
-			pc->CharGene = 'H';
-			break;
-
-		case 'h':
-			pc->CharGene = 'd';
-			break;
-		case 'H':
-			pc->CharGene = 'D';
-			break;
-
-		case 'v':
-			pc->CharGene = 'b';
-			break;
-		case 'V':
-			pc->CharGene = 'B';
-			break;
-
-		case 'n':
-			pc->CharGene = 'n';
-			break;
-		case 'N':
-			pc->CharGene = 'N';
-			break;
-
-	}
-		pc++;
-	}
-	GlobalUnlock(m_Text);
-
-}
-
 
 
 void
@@ -1749,45 +1562,6 @@ CGeneSegment::SetResidue ( DWORD Position, char nChar )
 
 }
 
-void 
-CGeneSegment::FindAndReplace( const CString& Find, const CString& Replace, DWORD StartPos, DWORD EndPos )
-{
-
-	// We are assuming find and replace lengths are the same
-	if ( StartPos >= m_TextSize || EndPos >= m_TextSize ) return;
-
-	GeneStor *pc = (GeneStor *)GlobalLock(m_Text);
-	if ( pc == NULL ) {
-		AfxMessageBox("AppendFiller:GlobalLock:Fail:2");
-		return;
-	}
-	
-	DWORD m_StartPos = StartPos;
-	DWORD Count = EndPos - StartPos + 1;
-
-	pc += m_StartPos;
-	
-	while ( Count-- ) {
-		int itc = Find.GetLength();
-		if ( itc > (int)Count ) break;
-		int i;
-		for ( i = 0; i < itc; ++i ) {
-			if ( (pc[i]).CharGene != Find.GetAt(i) ) break;
-		}
-		if ( i == itc ) {
-			// do replace;
-			for ( int i = 0; i < itc; ++i ) {
-				(pc[i]).CharGene = Replace.GetAt(i);
-			}
-		}
-		pc++;
-	}
-
-	GlobalUnlock(m_Text);
-
-
-}
-
 void
 CGeneSegment::SetResidueText( HANDLE hText, DWORD StartPos, DWORD EndPos )
 {
@@ -1822,245 +1596,6 @@ CGeneSegment::SetResidueText( HANDLE hText, DWORD StartPos, DWORD EndPos )
 
 }
 
-void 
-CGeneSegment::ReplaceWith( DWORD StartPos, DWORD EndPos, HANDLE hrText, DWORD nSize )
-{
-
-	if ( StartPos >= m_TextSize || EndPos >= m_TextSize ) return;
-	
-	GeneStor * pc = (GeneStor* )GlobalLock(m_Text);
-	if ( pc == NULL ) {
-		AfxMessageBox("AppendFiller:GlobalLock:Fail:2");
-		return;
-	}
-
-	GeneStor *pr = (GeneStor *)GlobalLock(hrText);
-	if ( pr == NULL ) {
-		AfxMessageBox("MidText:GlobalLock:Fail:1");
-		return;
-	}
-
-	DWORD TotSize = StartPos + nSize + (m_TextSize - EndPos - 1);
-	HANDLE nText = GlobalAlloc ( GMEM_FLAG, TotSize * sizeof(GeneStor) );
-	if ( nText == NULL ) {
-		AfxMessageBox("Create:GlobalAlloc:Fail:1");
-		return;
-	}
-
-	GeneStor *pn = (GeneStor *)GlobalLock(nText);
-	if ( pn == NULL ) {
-		AfxMessageBox("MidText:GlobalLock:Fail:1");
-		return;
-	}
-	// Save for Renumbering operation.
-	GeneStor *pText = pn;
-
-	DWORD Count = StartPos;
-
-	while ( Count-- ) {
-		*pn = *pc;
-		pc++;
-		pn++;
-	}
-
-	Count = nSize;
-
-	while ( Count-- ) {
-		*pn = *pr;
-		pr++;
-		pn++;
-	}
-
-	Count = m_TextSize - EndPos - 1;
-	pc += EndPos - StartPos + 1;
-
-	while ( Count-- ) {
-		*pn = *pc;
-		pc++;
-		pn++;
-	}
-
-	DWORD tGeneSeqNumber = m_TextStart;
-	for ( DWORD i = 0L; i < TotSize; ++i ) {
-
-		char tChar = toupper ( pText->CharGene );
-		if ( tChar >= 'A' && tChar <= 'Z' ) {
-			pText->GeneSeqNumber = tGeneSeqNumber++;
-		} else {
-			pText->GeneSeqNumber = 0L;
-		}
-		
-		pText++;
-	}
-	m_LastResidue = tGeneSeqNumber;
-
-	GlobalUnlock(m_Text);
-	GlobalUnlock(nText);
-	GlobalUnlock(hrText);
-
-	GlobalFree( m_Text );
-	m_Text = nText;
-	m_TextSize = TotSize;
-
-}
-
-BOOL 
-CGeneSegment::ReGapDNAWith( HANDLE hrText, DWORD nSize, CString& DNATrans, CString& ErrStr )
-{
-
-	DWORD tGeneSeqNumber;
-	int i;
-	char errbuf[1024];
-
-	GeneStor * pc = (GeneStor* )GlobalLock(m_Text);
-	if ( pc == NULL ) {
-		AfxMessageBox("AppendFiller:GlobalLock:Fail:2");
-		return FALSE;
-	}
-
-	GeneStor *pr = (GeneStor *)GlobalLock(hrText);
-	if ( pr == NULL ) {
-		AfxMessageBox("MidText:GlobalLock:Fail:1");
-		return FALSE;
-	}
-
-	DWORD TotSize = nSize * 3;
-	HANDLE nText = GlobalAlloc ( GMEM_FLAG, TotSize * sizeof(GeneStor) );
-	if ( nText == NULL ) {
-		AfxMessageBox("Create:GlobalAlloc:Fail:1");
-		return FALSE;
-	}
-
-	GeneStor *pn = (GeneStor *)GlobalLock(nText);
-	if ( pn == NULL ) {
-		AfxMessageBox("MidText:GlobalLock:Fail:1");
-		return FALSE;
-	}
-	GeneStor tFiller;
-	
-	tFiller.CharGene = m_GapChar;
-	tFiller.CharDisplay = m_GapChar;
-	tFiller.CharScore = 0;
-	tFiller.GeneSeqNumber = 0L;
-	// Save for Renumbering operation.
-	GeneStor *pText = pn;
-
-	DWORD Count = nSize;
-	DWORD trDNAs = 0;
-	DWORD newDNAs = 0;
-
-	while ( Count-- ) {
-
-		char tChar = toupper ( pr->CharGene );
-		if ( tChar >= 'A' && tChar <= 'Z' ) {
-			int count = 0;
-			GeneStor Pr[3];
-			while ( count < 3 ) {
-				char tCharc = toupper ( pc->CharGene );
-				if ( tCharc >= 'A' && tCharc <= 'Z' ) {
-					Pr[count++] = *pc;
-				}
-				if ( ++trDNAs > m_TextSize ) break;
-				pc++;
-			}
-			int loc = 0;
-			int mult = 16;
-			char sChar;
-			for ( i = 0; i < 3; ++i ) {
-				switch ( toupper(Pr[i].CharGene) ) {
-				case 'T':
-				case 'U':
-					loc += 0 * mult;
-					break;
-				case 'C':
-					loc += 1 * mult;
-					break;
-				case 'A':
-					loc += 2 * mult;
-					break;
-				case 'G':
-					loc += 3 * mult;
-					break;
-				default:
-					loc = -1;
-					break;
-				}
-				if ( loc == -1 ) break;
-				mult /= 4;
-			}
-			if ( loc == -1 ) {
-				sChar = '-';
-			} else {
-				sChar = DNATrans[loc];
-			}
-			if ( sChar != tChar ) {
-				_snprintf( errbuf, sizeof(errbuf), "Translation Check Error!\n \
-												    %s: Codon '%c%c%c' at loc %ld does not match Prot '%c' at loc %ld", 
-													(const char *)m_Title, Pr[0].CharGene, Pr[1].CharGene, Pr[2].CharGene, 
-													Pr[0].GeneSeqNumber, tChar, pr->GeneSeqNumber );
-
-				ErrStr = errbuf;
-				goto error;
-			}
-			newDNAs += 3;
-			if ( newDNAs > TotSize ) break;
-			*pn++ = Pr[0];
-			*pn++ = Pr[1];
-			*pn++ = Pr[2];
-		} else {
-			newDNAs += 3;
-			if ( newDNAs > TotSize ) break;
-			*pn++ = tFiller;
-			*pn++ = tFiller;
-			*pn++ = tFiller;
-		}
-		if ( trDNAs > m_TextSize ) break;
-		if ( newDNAs > TotSize ) break;
-		pr++;
-	}
-
-	if ( trDNAs > m_TextSize ) {
-		ErrStr = "Attempted to regap too many characters";
-		goto error;
-	}
-	if ( newDNAs > TotSize ) {
-		ErrStr = "Attempted to regap too many characters";
-		goto error;
-	}
-
-	// Renumbering ..
-	tGeneSeqNumber = m_TextStart;
-	for ( Count = 0L; Count < TotSize; ++Count ) {
-
-		char tChar = toupper ( pText->CharGene );
-		if ( tChar >= 'A' && tChar <= 'Z' ) {
-			pText->GeneSeqNumber = tGeneSeqNumber++;
-		} else {
-			pText->GeneSeqNumber = 0L;
-		}
-		
-		pText++;
-	}
-	m_LastResidue = tGeneSeqNumber;
-
-	GlobalUnlock(m_Text);
-	GlobalUnlock(nText);
-	GlobalUnlock(hrText);
-
-	GlobalFree( m_Text );
-	m_Text = nText;
-	m_TextSize = TotSize;
-	return TRUE;
-error:
-	GlobalUnlock(m_Text);
-	GlobalUnlock(nText);
-	GlobalUnlock(hrText);
-	GlobalFree( nText );
-
-//	AfxMessageBox("Translation Error!");
-
-	return FALSE;
-}
 
 void 
 CGeneSegment::LockAndLoad()
@@ -2106,8 +1641,8 @@ CGeneSegment::AlignInsertDash(DWORD Index)
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	} else {
-		tFiller.CharGene = m_GapChar;
-		tFiller.CharDisplay = m_GapChar;
+		tFiller.CharGene = '.';
+		tFiller.CharDisplay = '.';
 		tFiller.CharScore = 0;
 		tFiller.GeneSeqNumber = 0L;
 	}

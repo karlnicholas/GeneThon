@@ -6,10 +6,6 @@ char
 CBSumCaret::MakeAscii( UINT nChar, UINT nFlags )
 {       
 
-#ifdef _MAC
-	return MapVirtualKey( nChar, 2 );
-#else
-
 	BYTE KeyState[256];
 
 	WORD TransKey;
@@ -21,7 +17,6 @@ CBSumCaret::MakeAscii( UINT nChar, UINT nFlags )
 	} else {
 		return 0;
 	}
-#endif
 
 }
 

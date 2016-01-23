@@ -131,8 +131,3 @@ CGVEditFill::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 
 }
 
-void 
-CGVEditFill::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
-{
-
-}

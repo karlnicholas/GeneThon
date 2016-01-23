@@ -59,7 +59,6 @@ enum {
 
 // PictFile
 #include "pictfile.h"
-#include "htmlfile.h"
 #include "rtffile.h"
 
 // Segements
@@ -96,9 +95,6 @@ enum {
 #include "gvetail.h"
 #include "gvefill.h"
 
-// Modal dialog
-#include "colorbar.h"
-
 // View
 #include "genetvw.h"
 #include "sumview.h"
@@ -107,12 +103,9 @@ enum {
 #include "displayp.h"
 #include "prints.h"
 #include "propsht.h"
-#include "seqinp.h"
 #include "importty.h"
 #include "exportdl.h"
-#include "htmlpicd.h"
 #include "selarrse.h"
-#include "selproje.h"
 #include "genbank.h"
 #include "GraphSetup.h"
 

@@ -261,41 +261,6 @@ CGVEditLead::WritePict(CPictFile* pPictFile, UINT RowNumber, CGenethonDoc *pDoc 
 	}
 }
 
-void 
-CGVEditLead::WriteHTML(CHTMLFile* pHTMLFile, UINT RowNumber, CGenethonDoc *pDoc )
-{
-
-	POSITION tPos = ViewDataList.GetHeadPosition();
-	DWORD CurrentDisplayLoc = m_YPosition;
-
-	POSITION SegPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
-
-	int StopColor = 0;
-	int StopColorCount = pDoc->m_UserVars.m_strLead.GetLength();
-	
-	CGeneSegment *tCGSeg;
-
-	while ( tPos != NULL ) {
-		CString * tGStr = (CString *)ViewDataList.GetNext(tPos);
-		tCGSeg = (CGeneSegment *)pDoc->pGSFiller->SegDataList.GetNext(SegPos);
-
-		if ( RowNumber == 0 ) {
-
-			int StrCount = tGStr->GetLength();
-			for ( int i = 0; i < StrCount; ++i ) {
-
-				if ( StrCount - StopColorCount == i ) StopColor = 1;
-				COLORREF TextColor, BkColor;
-				pDoc->GetColors( &TextColor, &BkColor );
-				
-				pHTMLFile->CharOut ( (*tGStr)[i], TextColor, BkColor );
-			}
-			return;
-		}
-		RowNumber--;
-	}
-}
-
 
 void 
 CGVEditLead::WriteRTF(CRTFFile* pRTFFile, UINT RowNumber, CGenethonDoc *pDoc )

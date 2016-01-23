@@ -35,23 +35,9 @@ BEGIN_MESSAGE_MAP(CGenethonView, CView)
 	ON_UPDATE_COMMAND_UI(IDM_GENEARRANGE, OnUpdateGenearrange)
 	ON_COMMAND(IDM_SELECT, OnSelect)
 	ON_UPDATE_COMMAND_UI(IDM_SELECT, OnUpdateSelect)
-	ON_COMMAND(IDM_GENEDELETEDASH, OnGenedeletedash)
-	ON_UPDATE_COMMAND_UI(IDM_GENEDELETEDASH, OnUpdateGenedeletedash)
-	ON_COMMAND(IDM_GENEINSERTDASH, OnGeneinsertdash)
-	ON_UPDATE_COMMAND_UI(IDM_GENEINSERTDASH, OnUpdateGeneinsertdash)
-	ON_COMMAND(IDM_SELECTCOL, OnSelectcol)
-	ON_UPDATE_COMMAND_UI(IDM_SELECTCOL, OnUpdateSelectcol)
 	ON_COMMAND(IDM_GENECREATEWIN, OnGenecreatewin)
-	ON_COMMAND(IDM_GENEINSERTOTHER, OnGeneinsertother)
-	ON_UPDATE_COMMAND_UI(IDM_GENEINSERTOTHER, OnUpdateGeneinsertother)
-	ON_COMMAND(IDM_GENEDELETEOTHER, OnGenedeleteother)
-	ON_UPDATE_COMMAND_UI(IDM_GENEDELETEOTHER, OnUpdateGenedeleteother)
-	ON_COMMAND(IDM_GENEINSERTFILL, OnGeneinsertfill)
-	ON_COMMAND(IDM_GENEDELETEFILL, OnGenedeletefill)
 	ON_COMMAND(ID_EDIT_COPY, OnEditCopy)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_COPY, OnUpdateEditCopy)
-	ON_COMMAND(ID_EDIT_COPYINV, OnEditCopyinv)
-	ON_UPDATE_COMMAND_UI(ID_EDIT_COPYINV, OnUpdateEditCopyinv)
 	ON_COMMAND(IDM_MANUALSHADE, OnManualshade)
 	ON_UPDATE_COMMAND_UI(IDM_MANUALSHADE, OnUpdateManualshade)
 	ON_COMMAND(ID_EDIT_COPY0, OnEditCopy0)
@@ -77,27 +63,15 @@ BEGIN_MESSAGE_MAP(CGenethonView, CView)
 	ON_COMMAND(IDM_COPYMETAFILE, OnCopymetafile)
 	ON_UPDATE_COMMAND_UI(IDM_COPYMETACLIP, OnUpdateCopymetaclip)
 	ON_UPDATE_COMMAND_UI(IDM_COPYMETAFILE, OnUpdateCopymetafile)
-	ON_UPDATE_COMMAND_UI(IDM_GENEDELETEFILL, OnUpdateGenedeletefill)
-	ON_UPDATE_COMMAND_UI(IDM_GENEINSERTFILL, OnUpdateGeneinsertfill)
 	ON_UPDATE_COMMAND_UI(IDM_GENECREATEWIN, OnUpdateGenecreatewin)
 	ON_COMMAND(IDM_GENECOPYSEQ, OnGenecopyseq)
 	ON_UPDATE_COMMAND_UI(IDM_GENECOPYSEQ, OnUpdateGenecopyseq)
-	ON_COMMAND(IDM_GENECOPYHTML, OnGenecopyhtml)
-	ON_UPDATE_COMMAND_UI(IDM_GENECOPYHTML, OnUpdateGenecopyhtml)
 	ON_COMMAND(IDM_GENECOPYRTF, OnGenecopyrtf)
 	ON_UPDATE_COMMAND_UI(IDM_GENECOPYRTF, OnUpdateGenecopyrtf)
 	ON_COMMAND(IDM_GENEMOVE, OnGenemove)
 	ON_UPDATE_COMMAND_UI(IDM_GENEMOVE, OnUpdateGenemove)
-	ON_COMMAND(IDM_DELCOLUMNS, OnDelcolumns)
-	ON_UPDATE_COMMAND_UI(IDM_DELCOLUMNS, OnUpdateDelcolumns)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_RBUTTONDBLCLK()
-	ON_COMMAND(IDM_REPLACEFROMPROJ, OnReplacefromproj)
-	ON_UPDATE_COMMAND_UI(IDM_REPLACEFROMPROJ, OnUpdateReplacefromproj)
-	ON_COMMAND(IDM_GENEINSERTONE, OnGeneinsertone)
-	ON_UPDATE_COMMAND_UI(IDM_GENEINSERTONE, OnUpdateGeneinsertone)
-	ON_COMMAND(IDM_GENEDELETEONE, OnGenedeleteone)
-	ON_UPDATE_COMMAND_UI(IDM_GENEDELETEONE, OnUpdateGenedeleteone)
 	//}}AFX_MSG_MAP
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, OnFilePrint)
 END_MESSAGE_MAP()
@@ -121,10 +95,6 @@ CGenethonView::CGenethonView()
 	m_TransColumns = 0;
 	m_TransFixed = 0;
 	m_TransFltStart = 0;
-
-#ifdef _MAC
-	m_ClipFuncClipFunc = FALSE;
-#endif
 
 	ClearMenu();
 }
@@ -2462,10 +2432,6 @@ CGenethonView::MoveFunc(UINT nFlags, CPoint point, int DDevice)
 		PointXPosition = point.x + m_DisplayXPosition;
 		PointYPosition = (DWORD)point.y + m_DisplayYPosition;
 
-#ifdef _MAC
-		if ( !CheckClipCursor( point ) ) return;
-#endif
-
 		POSITION tPos = m_RowViewList.GetHeadPosition();
 		CGPRowView *tGP;
 
@@ -2895,37 +2861,6 @@ void CGenethonView::OnLButtonUp(UINT nFlags, CPoint point)
 	CView::OnLButtonUp(nFlags, point);
 }
 
-
-#ifdef _MAC
-
-void 
-CGenethonView::ClipCursor(const CRect& cRect )
-{
-	m_ClipFuncClipFunc = TRUE;
-	m_ClipFuncClipRect = cRect;
-}
-
-void 
-CGenethonView::ClipCursor(const int iVal )
-{
-	m_ClipFuncClipFunc = FALSE;
-}
-
-BOOL 
-CGenethonView::CheckClipCursor(const CPoint& point )
-{
-	if ( m_ClipFuncClipFunc == TRUE ) {
-		CRect WindowRect;
-		GetWindowRect( &WindowRect );
-		return m_ClipFuncClipRect.PtInRect( point + WindowRect.TopLeft() );
-	}
-
-	return TRUE;
-}
-
-
-#endif
-
 void CGenethonView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice) 
 {
 
@@ -2948,10 +2883,6 @@ void CGenethonView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice)
 
 
 		POSITION tPos;
-
-#ifdef _MAC
-		if ( !CheckClipCursor( point ) ) goto NoPoint;
-#endif
 
 		tPos = m_RowViewList.GetHeadPosition();
 		CGPRowView *tGP;
@@ -2982,9 +2913,6 @@ void CGenethonView::LeftUpFunc(UINT nFlags, CPoint point, int DDevice)
 
 		}
 
-#ifdef _MAC
-NoPoint:
-#endif
 		ReleaseCapture();
 		ClipCursor ( NULL );
 		m_MyCaret.ClipCaret( 0 );
@@ -3239,152 +3167,6 @@ void CGenethonView::OnUpdateSelect(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( m_GeneSelect );
 }
 
-void CGenethonView::OnGenedeletedash()
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	if ( m_GeneDeleteDash == 0 ) {
-		ClearMenu();
-		m_GeneDeleteDash = 1;
-	} else {
-		m_GeneDeleteDash = 0;
-	}
-	Invalidate(FALSE);
-	
-}
-
-void CGenethonView::OnUpdateGenedeletedash(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneDeleteDash );
-}
-
-void CGenethonView::OnGeneinsertdash()
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	if ( m_GeneInsertDash == 0 ) {
-		ClearMenu();
-		m_GeneInsertDash = 1;
-	} else {
-		m_GeneInsertDash = 0;
-	}
-	Invalidate(FALSE);
-}
-
-void CGenethonView::OnUpdateGeneinsertdash(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneInsertDash );
-	
-}
-
-
-void CGenethonView::OnGeneinsertother() 
-{
-	// TODO: Add your command handler code here
-	
-	DeSelectAll();
-	if ( m_GeneInsertOther == 0 ) {
-		ClearMenu();
-		m_GeneInsertOther = 1;
-	} else {
-		m_GeneInsertOther = 0;
-	}
-	Invalidate(FALSE);
-}
-
-void CGenethonView::OnUpdateGeneinsertother(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneInsertOther );
-	
-}
-
-void CGenethonView::OnGenedeleteother() 
-{
-	// TODO: Add your command handler code here
-	
-	DeSelectAll();
-	if ( m_GeneDeleteOther == 0 ) {
-		ClearMenu();
-		m_GeneDeleteOther = 1;
-	} else {
-		m_GeneDeleteOther = 0;
-	}
-	Invalidate(FALSE);
-}
-
-void CGenethonView::OnUpdateGenedeleteother(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneDeleteOther );
-}
-
-void CGenethonView::OnGeneinsertone() 
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	if ( m_GeneInsertOne == 0 ) {
-		ClearMenu();
-		m_GeneInsertOne = 1;
-	} else {
-		m_GeneInsertOne = 0;
-	}
-	Invalidate(FALSE);
-	
-}
-
-void CGenethonView::OnUpdateGeneinsertone(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneInsertOne );
-}
-
-void CGenethonView::OnGenedeleteone() 
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	if ( m_GeneDeleteOne == 0 ) {
-		ClearMenu();
-		m_GeneDeleteOne = 1;
-	} else {
-		m_GeneDeleteOne = 0;
-	}
-	Invalidate(FALSE);
-	
-}
-
-void CGenethonView::OnUpdateGenedeleteone(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneDeleteOne );
-	
-}
-//
-// SHADING
-//
-void CGenethonView::OnSelectcol() 
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	m_ColSelStart = m_ColSelEnd = m_ColSelBegin = 0;
-	if ( m_GeneSelectCol == 0 ) {
-		ClearMenu();
-		m_GeneSelectCol = 1;
-	} else {
-		m_GeneSelectCol = 0;
-	}
-	Invalidate(FALSE);
-	
-}
-
-void CGenethonView::OnUpdateSelectcol(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneSelectCol );
-}
-
 void CGenethonView::OnGenecreatewin() 
 {
 	// TODO: Add your command handler code here
@@ -3480,69 +3262,6 @@ void CGenethonView::OnUpdateGenecreatewin(CCmdUI* pCmdUI)
 	
 }
 
-void CGenethonView::OnGeneinsertfill()
-{
-	// TODO: Add your command handler code here
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-	
-
-	pDoc->InsertFillerRange( StartRange, EndRange );
-
-}
-
-void CGenethonView::OnUpdateGeneinsertfill(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-}
-
-void CGenethonView::OnGenedeletefill()
-{
-	// TODO: Add your command handler code here
-	
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-	
-
-	pDoc->DeleteFillerRange( StartRange, EndRange, 0 );
-
-}
-
-void CGenethonView::OnUpdateGenedeletefill(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-}
-
 void 
 CGenethonView::OnActivateView( BOOL bActivate, CView* pActivateView, CView* pDeactiveView )
 {
@@ -3569,20 +3288,9 @@ void
 CGenethonView::DoManualShade()
 {
 	CGenethonDoc *pDoc = GetDocument();
-
-	CColorBar tDlg(this);	// CDialog
-
-	tDlg.m_TextColor = m_ShadeTextColor;
-	tDlg.m_BackColor = m_ShadeBackColor;
 	
 	ClearMenu();	// As well m_ShadeLevel
 	                               
-	if ( tDlg.DoModal() != IDOK ) {
-		return;
-	}
-
-	m_ShadeTextColor = tDlg.m_TextColor;
-	m_ShadeBackColor = tDlg.m_BackColor;
 	m_GeneShade = 1;
 
 	Invalidate(FALSE);
@@ -3682,20 +3390,6 @@ void CGenethonView::OnEditCopy()
 }
 
 void CGenethonView::OnUpdateEditCopy(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_CopyFlag);	
-	
-}
-
-void CGenethonView::OnEditCopyinv() 
-{
-	// TODO: Add your command handler code here
-	ClipFunction( 1, 4, 0 );
-	
-}
-
-void CGenethonView::OnUpdateEditCopyinv(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
 	pCmdUI->Enable(m_CopyFlag);	
@@ -4310,106 +4004,6 @@ void CGenethonView::OnUpdateGenecopypict(CCmdUI* pCmdUI)
 	pCmdUI->Enable(m_CopyFlag);	
 }
 
-void CGenethonView::OnGenecopyhtml() 
-{
-	// TODO: Add your command handler code here
-	static char BASED_CODE szFilter[] = "HTML Files (*.htm)|*.htm|All Files (*.*)|*.*||";
-
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-
-	// CDocument
-
-	CHTMLPicDlg	hDlg;
-	if ( hDlg.DoModal() != IDOK ) return;
-
-	CString possName = pDoc->ConvertPathname ( ".htm" );
-
-	CFileDialog tDlg(FALSE, "htm", possName, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter, this );
-
-	if ( tDlg.DoModal() != IDOK ) return;
-	pDoc->BeginWaitCursor(); // Let em know
-	
-	CHTMLFile	tHTMLFile;
-	CRect SizeRect;
-
-	int Bold;
-	if ( pDoc->m_UserVars.m_FontWeight == FW_NORMAL ) {
-		Bold = 0;;
-	} else {
-		Bold = 1;
-	}
-
-	CString PathName = tDlg.GetPathName();
-	
-	CGPRowView *tGPRV;
-
-//	SizeRect.SetRectEmpty();
-//	UINT SizeXPosition = (UINT)-1;
-//	DWORD SizeYPosition = (DWORD)-1;
-	UINT SizeXSize = 0;
-	DWORD SizeYSize = 0;
-
-	POSITION tPos = m_RowViewList.GetHeadPosition();
-	while ( tPos != NULL ) {
-		tGPRV = (CGPRowView*)m_RowViewList.GetNext(tPos);
-	
-		if ( tGPRV->IsSelected() ) {
-			UINT tXSize;;
-			DWORD tYSize;
-			// SizeRect |= tGPRV->GetViewRect();
-			tGPRV->GetSize(&tXSize, &tYSize);
-			if ( tXSize > SizeXSize ) SizeXSize = tXSize;
-			SizeYSize += tYSize;
-		}
-	}
-
-
-	
-	if ( !tHTMLFile.HTMLInit( 
-		(int)SizeXSize, 
-		(int)(SizeYSize + m_LineHeight), 
-		pDoc->m_UserVars.m_FontSize, 
-		(int)m_CharWidth, 
-		(int)m_LineHeight, 
-		(int)m_Descent, 
-		Bold, 
-		"Courier New", 
-		PathName, 
-		pDoc->m_UserVars.m_BackColor, 
-		pDoc->m_UserVars.m_ForeColor, 
-		hDlg.m_HTMLType, 
-		hDlg.m_FullWeb
-	) ) {
-		AfxMessageBox("Error Pict File Open!" );
-		return;
-	}
-
-	tPos = m_RowViewList.GetHeadPosition();
-	
-	while ( tPos != NULL ) {
-		tGPRV = (CGPRowView *)m_RowViewList.GetNext(tPos);
-		if ( tGPRV->IsSelected() ) {
-			tGPRV->WriteHTML (&tHTMLFile, 0, pDoc);
-		}
-	}
-
-	tHTMLFile.Exit();
-
-	DeSelectAll();
-
-	pDoc->EndWaitCursor(); // Let em know
-	
-	
-}
-
-void CGenethonView::OnUpdateGenecopyhtml(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_CopyFlag);	
-	
-}
-
 void CGenethonView::OnCopymetaclip() 
 {
 
@@ -4948,40 +4542,6 @@ void HCountDNA( double MPC, double *Frac,
 	//
 }
 
-
-void CGenethonView::OnDelcolumns() 
-{
-	// TODO: Add your command handler code here
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-	
-
-	pDoc->DeleteFillerRange( StartRange, EndRange, 1 );
-	pDoc->SetModifiedFlag();
-	
-}
-
-void CGenethonView::OnUpdateDelcolumns(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-	
-}
-
 DWORD CGenethonView::ColPosFromCaret(UINT XPosition, DWORD YPosition ) 
 {
 
@@ -5047,38 +4607,4 @@ void CGenethonView::CaretPosFromColSeq( DWORD tCount, CGeneSegment* pCGSeg )
 	m_MyCaret.SetPosition ( XPos, YPos );
 	m_MyCaret.CaretPos();
 }
-
-
-void CGenethonView::OnReplacefromproj() 
-{
-	// TODO: Add your command handler code here
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-
-	BeginWaitCursor();
-	pDoc->ReplaceFromProj( StartRange, EndRange );
-	EndWaitCursor();
-}
-
-void CGenethonView::OnUpdateReplacefromproj(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-	
-}
-
 

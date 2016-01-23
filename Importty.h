@@ -26,7 +26,6 @@ protected:
 	//{{AFX_MSG(CImportTypeDlg)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnImport();
-	afx_msg void OnInput();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

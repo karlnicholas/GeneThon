@@ -45,10 +45,7 @@ protected:
 	afx_msg void OnDblclkList1();
 	afx_msg void OnMovebott();
 	afx_msg void OnMovetop();
-	afx_msg void OnCompliment();
-	afx_msg void OnReverse();
 	afx_msg void OnSeqexport();
-	afx_msg void OnDuplicate();
 	afx_msg void OnWritescr();
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);

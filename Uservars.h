@@ -4,7 +4,6 @@ typedef struct {
 
 	int	m_ShowComments;	// T/F
 	int	m_ShowManShade;	// T/F
-	int m_TransTilde;
 	int m_PrintFileName;	//T/F
 	int m_PrintDate;	//T/F
 	
@@ -19,16 +18,6 @@ typedef struct {
 	CString m_strLead;
 	CString m_strTail;
 	int m_MaxNameLength;
-
-	char m_ConservedGap;	// ' ' or '-' for conserve sequences ...
-
-	char m_MarkerSymb;		// *  symbol, 
-	int m_MarkerSpacing;	// 10  spacing between symbols, 
-	int m_MarkerReplace;	// 2  how often to replace a symbol with a number, 
-	int m_MarkerStart;		// -13  the number to be assigned to the first column of the alignment,
-	int m_MarkerEnable;		// is it enabled?
-
-	int m_ResidueUpper;		// 0 = normal, 1 = upper, 2 = lower
 
 	// New vars ..
 	CDisplayVars	m_Vars;		// Only Display Variables for non groups...
@@ -69,17 +58,6 @@ typedef struct {
 
 	int	m_Orientation;		// 0 = Portrait
 
-	int m_GapInd;			// 0 = '-', 1 = '.' 
-	
-	int m_ProjectType;		// 0 = protein, 1 = mixed, 2 = dna, 3 = rna
-	
-	CString m_TitleProgram;
-	CString m_TitleExtendGap;
-	CString m_TitleOpenGap;
-	CString m_TitleScoreMatrix;
-
-	CString m_ParseString;
-	
 	int m_PictWidth;
 	int m_PictHeight;
 	int m_PictAscent;

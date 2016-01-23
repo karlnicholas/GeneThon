@@ -348,7 +348,6 @@ enum {
 
 int EncodeShadePair(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeFileList(CString& strCode, stcEncodeVars * CodeVars );
-int EncodeProperty(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqNames(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqStart(CString& strCode, stcEncodeVars * CodeVars );
 int EncodeSeqDescr(CString& strCode, stcEncodeVars * CodeVars );
@@ -398,24 +397,10 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&sUserVars.m_PictWidth,				STOREINT },
 	{&sUserVars.m_PictHeight,				STOREINT },
 	{&sUserVars.m_PictAscent,				STOREINT },
-	{&sUserVars.m_TitleProgram,				STORESTRING },
-	{&sUserVars.m_TitleScoreMatrix,			STORESTRING },
-	{&sUserVars.m_TitleOpenGap,				STORESTRING },
-	{&sUserVars.m_TitleExtendGap,			STORESTRING },
 	{&sUserVars.m_ShadePairArray,			STORESHADEPAIR },
-	{&sUserVars.m_ParseString,				STORESTRING },
 	{&sUserVars.m_ConsensusLine,			STOREFLAG },
 	{&sUserVars.m_ShowTail,					STOREFLAG },
 	{&sUserVars.m_Orientation,				STOREFLAG },
-	{&sUserVars.m_GapInd,					STOREFLAG },
-	{&sUserVars.m_ProjectType,				STOREFLAG },
-	{&sUserVars.m_MarkerSymb,				STORECHAR },
-	{&sUserVars.m_MarkerSpacing,			STOREINT },
-	{&sUserVars.m_MarkerReplace,			STOREINT },
-	{&sUserVars.m_MarkerStart,				STOREINT },
-	{&sUserVars.m_MarkerEnable,				STOREFLAG },
-	{&sUserVars.m_ConservedGap,				STORECHAR },
-	{&sUserVars.m_ResidueUpper,				STOREFLAG },
 	{&sUserVars.m_MaxNameLength,			STOREINT },
 	{&sUserVars.m_strLead,					STORESTRING },
 	{&sUserVars.m_strTail,					STORESTRING },
@@ -428,7 +413,6 @@ stcEncodeVars EncodeBaseVars[] = {
 	{&UseGSFiller,							STORESEQDESCR }, 
 	{&sUserVars.m_PrintFileName,			STOREFLAG }, 
 	{&sUserVars.m_PrintDate,				STOREFLAG }, 
-	{&sUserVars.m_TransTilde,				STOREFLAG }, 
 	{&sUserVars.m_ShowManShade,				STOREFLAG }, 
 	{&sUserVars.m_ShowComments,				STOREFLAG }, 
 	{&UseGSFiller,							STORECPAIR }, 

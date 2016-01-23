@@ -33,7 +33,6 @@ void CImportTypeDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CImportTypeDlg, CDialog)
 	//{{AFX_MSG_MAP(CImportTypeDlg)
 	ON_BN_CLICKED(IDIMPORT, OnImport)
-	ON_BN_CLICKED(IDC_INPUT, OnInput)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -158,7 +157,6 @@ END_CATCH
 		{
 			EndWaitCursor(); // Let em know
 			CSeqDetDialog sDlg;
-			sDlg.m_SeqWeight = 1.0;
 			sDlg.m_TextStart = 1;
 			sDlg.m_SeqName = SegSug;
 			if ( sDlg.DoModal() != IDOK ) {
@@ -170,14 +168,13 @@ END_CATCH
 			}
 			BeginWaitCursor(); // Let em know
 			pDoc->GetTextFile ( PathName, 1, 
-				sDlg.m_SeqName, sDlg.m_SeqWeight, sDlg.m_TextStart, sDlg.m_Descr, 0 );
+				sDlg.m_SeqName, sDlg.m_TextStart, sDlg.m_Descr, 0 );
 		}
 		break;
 	case 7:
 		{
 			EndWaitCursor(); // Let em know
 			CSeqDetDialog sDlg;
-			sDlg.m_SeqWeight = 1.0;
 			sDlg.m_TextStart = 1;
 			sDlg.m_SeqName = SegSug;
 			if ( sDlg.DoModal() != IDOK ) {
@@ -189,7 +186,7 @@ END_CATCH
 			}
 			BeginWaitCursor(); // Let em know
 			pDoc->GetTextFile ( PathName, 1, 
-				sDlg.m_SeqName, sDlg.m_SeqWeight, sDlg.m_TextStart, sDlg.m_Descr, 1 );
+				sDlg.m_SeqName, sDlg.m_TextStart, sDlg.m_Descr, 1 );
 		}
 		break;
 	case 8:
@@ -262,62 +259,3 @@ END_CATCH
 		CImportTypeDlg typeDlg;
 		if ( typeDlg.DoModal() == IDOK ) {
 */
-
-void CImportTypeDlg::OnInput() 
-{
-	// TODO: Add your control notification handler code here
-
-	CSeqInput tDlg;
-
-	if ( tDlg.DoModal() != IDOK ) return;
-
-//	if ( !pDoc->SequenceImport() ) return;
-	CPtrList CommentList;
-	CPtrList SequenceList;
-
-	// CEdit
-	if ( tDlg.m_DataString.GetLength() == 0 ) return;
-
-	SeqNameStruct *tSNS;
-	tSNS = new SeqNameStruct;
-	tSNS->Name = tDlg.m_SeqName;
-	tSNS->Descr = tDlg.m_Descr;
-	tSNS->Check = 1234;
-	tSNS->Weight = 1.0;
-
-	tSNS->Len = tDlg.m_DataString.GetLength();
-	tSNS->Start = 1;
-	tSNS->hText = GlobalAlloc ( GMEM_FLAG, tSNS->Len );
-	// Abort if alloc fails
-	if ( tSNS->hText == NULL ) {
-		AfxMessageBox("Input Seq:GlobalAlloc:Fail 1");
-		return;
-	}
-
-	char *pc = (char *)GlobalLock(tSNS->hText);
-	memcpy ( pc, (const char *)tDlg.m_DataString, (unsigned int)tSNS->Len );
-	char tGapChar = pDoc->m_UserVars.m_GapInd ? '.' : '-';
-	DWORD cLen = tSNS->Len;
-	while ( cLen-- ) {
-		if ( *pc == '.' || * pc == '|' ) *pc = tGapChar;
-		pc++;
-	}
-
-	GlobalUnlock( tSNS->hText );
-
-	pDoc->gMaxStrSize = tSNS->Len;
-
-	SequenceList.AddTail( tSNS );
-
-	if ( !pDoc->ProcessRows( CommentList, SequenceList, 1 ) ) {
-		delete tSNS;
-		return;
-	}
-	
-	CGSFiller *pGSFiller = pDoc->pGSFiller;
-	// Put the data rows on the list
-	if ( pGSFiller == NULL ) {
-		delete tSNS;
-		return;
-	}
-}

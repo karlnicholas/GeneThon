@@ -28,22 +28,11 @@ static char szWIDTHMODE[] = "Width Mode";
 static char szFIXEDX[] = "Fixed X";
 static char szSHOWTAIL[] = "Seq Indicator";
 static char szORIENTATION[] = "Orient";
-static char szGAPIND[] = "Gap Ind";
 
 static char szCONSENSUS[] = "Consensus";
 static char szPICTWIDTH[] = "Pict Width";
 static char szPICTHEIGHT[] = "Pict Height";
 static char szPICTASCENT[] = "Pict Ascent";
-
-static char szMarkerSymb[] = "MarkerSymb";		// *  symbol, 
-static char szMarkerSpacing[] = "MarkerSpacing";	// 10  spacing between symbols, 
-static char szMarkerReplace[] = "MarkerReplace";	// 2  how often to replace a symbol with a number, 
-static char szMarkerStart[] = "MarkerStart";		// -13  the number to be assigned to the first column of the alignment,
-static char szMarkerEnable[] = "MarkerEnable";		// is it enabled?
-
-static char szConservedGap[] = "ConservedGap";		// *  symbol, 
-
-static char szResidueUpper[] = "ResidueUpper";		// 
 
 static char szStrLead[] = "String Lead";		// 
 static char szStrTail[] = "String Tail";		// 
@@ -57,7 +46,6 @@ static char szSUMTEXTBLACK[] = "SumTextBlack";
 
 static char szPRINTFILENAME[] = "PrintFileName";
 static char szPRINTDATE[] = "PrintDate";
-static char szTRANSTILDE[] = "TransTilde";
 static char szSHOWMANSHADE[] = "ShowManShade";
 static char szSHOWCOMMENTS[] = "ShowComments";
 
@@ -235,13 +223,6 @@ CGenethonDoc::GetIniDefaults()
 	else
 		m_UserVars.m_Orientation = atoi(strBuffer);
 
-	// Default to '-'
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szGAPIND);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_GapInd = 0;
-	else
-		m_UserVars.m_GapInd = atoi(strBuffer);
-
 	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szPICTWIDTH);
 	if (strBuffer.IsEmpty())
 		m_UserVars.m_PictWidth = 0;
@@ -259,51 +240,6 @@ CGenethonDoc::GetIniDefaults()
 		m_UserVars.m_PictAscent = 0;
 	else
 		m_UserVars.m_PictAscent = atoi(strBuffer);
-
-	// Set default no project type.
-	m_UserVars.m_ProjectType = 0;
-	
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szMarkerSymb);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_MarkerSymb = '*';		// *  symbol, 
-	else 
-		m_UserVars.m_MarkerSymb = strBuffer[0];
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szMarkerSpacing);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_MarkerSpacing = 10;	// 10  spacing between symbols, 
-	else 
-		m_UserVars.m_MarkerSpacing = atoi(strBuffer);
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szMarkerReplace);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_MarkerReplace = 2;	// 2  how often to replace a symbol with a number, 
-	else 
-		m_UserVars.m_MarkerReplace = atoi(strBuffer);
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szMarkerStart);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_MarkerStart = 1;		// -13  the number to be assigned to the first column of the alignment,
-	else 
-		m_UserVars.m_MarkerStart = atoi(strBuffer);
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szMarkerEnable);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_MarkerEnable = 1;		// is it enabled?
-	else 
-		m_UserVars.m_MarkerEnable = atoi(strBuffer);
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szConservedGap);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_ConservedGap = ' ';
-	else 
-		m_UserVars.m_ConservedGap = strBuffer[0];
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szResidueUpper);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_ResidueUpper = 0;
-	else 
-		m_UserVars.m_ResidueUpper = atoi(strBuffer);
 
 	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szStrLead);
 	if (strBuffer.IsEmpty())
@@ -358,12 +294,6 @@ CGenethonDoc::GetIniDefaults()
 		m_UserVars.m_PrintDate = 0;
 	else
 		m_UserVars.m_PrintDate = atoi(strBuffer);
-
-	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szTRANSTILDE);
-	if (strBuffer.IsEmpty())
-		m_UserVars.m_TransTilde = 0;
-	else
-		m_UserVars.m_TransTilde = atoi(strBuffer);
 
 	strBuffer = AfxGetApp()->GetProfileString(szUDSection, szSHOWMANSHADE);
 	if (strBuffer.IsEmpty())
@@ -478,9 +408,6 @@ CGenethonDoc::SetIniDefaults()
 	sprintf( szBuffer, "%d", m_UserVars.m_Orientation);
 	AfxGetApp()->WriteProfileString(szUDSection, szORIENTATION, szBuffer);
 
-	sprintf( szBuffer, "%d", m_UserVars.m_GapInd);
-	AfxGetApp()->WriteProfileString(szUDSection, szGAPIND, szBuffer);
-
 	sprintf( szBuffer, "%d", m_UserVars.m_PictWidth );
 	AfxGetApp()->WriteProfileString(szUDSection, szPICTWIDTH, szBuffer);
 
@@ -489,27 +416,6 @@ CGenethonDoc::SetIniDefaults()
 
 	sprintf( szBuffer, "%d", m_UserVars.m_PictAscent );
 	AfxGetApp()->WriteProfileString(szUDSection, szPICTASCENT, szBuffer);
-
-	sprintf( szBuffer, "%c", m_UserVars.m_MarkerSymb );
-	AfxGetApp()->WriteProfileString(szUDSection, szMarkerSymb, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_MarkerSpacing );
-	AfxGetApp()->WriteProfileString(szUDSection, szMarkerSpacing, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_MarkerReplace );
-	AfxGetApp()->WriteProfileString(szUDSection, szMarkerReplace, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_MarkerStart );
-	AfxGetApp()->WriteProfileString(szUDSection, szMarkerStart, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_MarkerEnable );
-	AfxGetApp()->WriteProfileString(szUDSection, szMarkerEnable, szBuffer);
-
-	sprintf( szBuffer, "%c", m_UserVars.m_ConservedGap );
-	AfxGetApp()->WriteProfileString(szUDSection, szConservedGap, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_ResidueUpper );
-	AfxGetApp()->WriteProfileString(szUDSection, szResidueUpper, szBuffer);
 
 	sprintf( szBuffer, "%d", m_UserVars.m_MaxNameLength );
 	AfxGetApp()->WriteProfileString(szUDSection, szMaxNameLength, szBuffer);
@@ -525,9 +431,6 @@ CGenethonDoc::SetIniDefaults()
 
 	sprintf( szBuffer, "%d", m_UserVars.m_PrintDate );
 	AfxGetApp()->WriteProfileString(szUDSection, szPRINTDATE, szBuffer);
-
-	sprintf( szBuffer, "%d", m_UserVars.m_TransTilde );
-	AfxGetApp()->WriteProfileString(szUDSection, szTRANSTILDE, szBuffer);
 
 	sprintf( szBuffer, "%d", m_UserVars.m_ShowManShade );
 	AfxGetApp()->WriteProfileString(szUDSection, szSHOWMANSHADE, szBuffer);

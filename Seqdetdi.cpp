@@ -17,7 +17,6 @@ CSeqDetDialog::CSeqDetDialog(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(CSeqDetDialog)
 	m_SeqName = _T("");
-	m_SeqWeight = 0;
 	m_Instruct = _T("");
 	m_TextStart = 0;
 	m_Descr = _T("");
@@ -31,7 +30,6 @@ void CSeqDetDialog::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CSeqDetDialog)
 	DDX_Text(pDX, IDC_SEQDETNAME, m_SeqName);
 	DDV_MaxChars(pDX, m_SeqName, 50);
-	DDX_Text(pDX, IDC_SEQDETWEIGHT, m_SeqWeight);
 	DDX_Text(pDX, IDC_INSTRUCT, m_Instruct);
 	DDX_Text(pDX, IDC_TEXTSTART, m_TextStart);
 	DDX_Text(pDX, IDC_DESCR, m_Descr);
@@ -41,7 +39,6 @@ void CSeqDetDialog::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CSeqDetDialog, CDialog)
 	//{{AFX_MSG_MAP(CSeqDetDialog)
 	ON_EN_CHANGE(IDC_SEQDETNAME, OnChangeSeqdetname)
-	ON_EN_CHANGE(IDC_SEQDETWEIGHT, OnChangeSeqdetweight)
 	ON_EN_CHANGE(IDC_TEXTSTART, OnChangeTextstart)
 	ON_EN_CHANGE(IDC_DESCR, OnChangeDescr)
 	//}}AFX_MSG_MAP
@@ -57,7 +54,6 @@ BOOL CSeqDetDialog::OnInitDialog()
 	
 	m_NameChanged = 0;
 	m_DescrChanged = 0;
-	m_WeightChanged = 0;
 	m_StartChanged = 0;
 	
 	return TRUE;
@@ -68,12 +64,6 @@ void CSeqDetDialog::OnChangeSeqdetname()
 	// TODO: Add your control notification handler code here
 
 	m_NameChanged = 1;	
-}
-
-void CSeqDetDialog::OnChangeSeqdetweight()
-{
-	// TODO: Add your control notification handler code here
-	m_WeightChanged = 1;
 }
 
 void CSeqDetDialog::OnChangeTextstart() 
