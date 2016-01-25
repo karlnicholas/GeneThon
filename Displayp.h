@@ -17,7 +17,6 @@ public:
 	int		m_AutoWidth;
 	int		m_FixedWidth;
 	int		m_ShowTail;
-	int		m_ConsensusLine;
 	int		m_PictHeight;
 	int		m_PictAscent;
 	int		m_PictWidth;
@@ -31,9 +30,6 @@ public:
 	BOOL	m_SumDefDis;
 	int		m_SumColInchDis;
 	BOOL	m_SumTextBlack;
-	BOOL	m_ShowManShade;
-	BOOL	m_ShowComments;
-	BOOL	m_MakeBackups;
 	BOOL	m_LocAfterSeq;
 	BOOL	m_LocAfterName;
 	//}}AFX_DATA

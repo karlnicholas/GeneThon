@@ -161,14 +161,6 @@ void CSelArrSeq::OnOK()
 
 	// What about this? Is it OK here, or should it be later?
 
-	tPos = pGSFiller->SegDataList.GetHeadPosition();
-	while (tPos != NULL ) {
-
-		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetNext(tPos);
-		tCGSeg->SetArrangeFlag(0);
-
-	}
-
 	int SelCount = m_SeqList.GetSelCount();
 	
 	if ( SelCount == 0 || SelCount == LB_ERR ) {
@@ -190,8 +182,6 @@ void CSelArrSeq::OnOK()
 		tPos = pGSFiller->SegDataList.FindIndex (SeqSel + 2);
 
 		CGeneSegment *tCGSeg = (CGeneSegment *)pGSFiller->SegDataList.GetAt (tPos);
-
-		tCGSeg->SetArrangeFlag(1);
 
 	}
 
@@ -223,19 +213,6 @@ BOOL CSelArrSeq::OnInitDialog()
 			m_SeqList.SetItemDataPtr(aloc, tCGSeg );
 			Count++;
 	
-		}
-	}
-	int Sel = 0;
-	int idx = 0;
-	POSITION tPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
-	while ( tPos != NULL ) {
-		CGeneSegment *tCGSeg = (CGeneSegment *)pDoc->pGSFiller->SegDataList.GetNext(tPos);
-		if ( tCGSeg->GetStyle() == LINESEQUENCE ) {
-			if ( tCGSeg->GetArrangeFlag() ) {
-				m_SeqList.SetSel( idx );
-				Sel = 1;
-			}
-			idx++;
 		}
 	}
 

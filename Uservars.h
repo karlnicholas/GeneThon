@@ -2,8 +2,6 @@
 typedef struct {
 
 
-	int	m_ShowComments;	// T/F
-	int	m_ShowManShade;	// T/F
 	int m_PrintFileName;	//T/F
 	int m_PrintDate;	//T/F
 	
@@ -57,6 +55,8 @@ typedef struct {
 	int m_ShowTail;			// 1 = Show Gap Location Indicator
 
 	int	m_Orientation;		// 0 = Portrait
+
+	int m_ProjectType;		// 0 = protein, 1 = mixed, 2 = dna, 3 = rna
 
 	int m_PictWidth;
 	int m_PictHeight;

@@ -113,7 +113,7 @@
     <ClCompile Include="Genechi.cpp" />
     <ClCompile Include="genetdoc.cpp" />
     <ClCompile Include="Genethon.cpp" />
-    <ClCompile Include="genedvw.cpp" />
+    <ClCompile Include="GenethonView.cpp" />
     <ClCompile Include="Gprowvw.cpp" />
     <ClCompile Include="gpsumvw.cpp" />
     <ClCompile Include="GraphSetup.cpp" />
@@ -126,7 +126,6 @@
     <ClCompile Include="Gvetail.cpp" />
     <ClCompile Include="Gvsum.cpp" />
     <ClCompile Include="Heapsort.cpp" />
-    <ClCompile Include="Importty.cpp" />
     <ClCompile Include="Mainfrm.cpp" />
     <ClCompile Include="Msffile.cpp" />
     <ClCompile Include="Mycaret.cpp" />
@@ -136,8 +135,6 @@
     <ClCompile Include="Propsht.cpp" />
     <ClCompile Include="Rtffile.cpp" />
     <ClCompile Include="Selarrse.cpp" />
-    <ClCompile Include="Seqdetdi.cpp" />
-    <ClCompile Include="Seqdialo.cpp" />
     <ClCompile Include="Seqfile.cpp" />
     <ClCompile Include="Setudef.cpp" />
     <ClCompile Include="Stdafx.cpp" />
@@ -161,7 +158,7 @@
     <ClInclude Include="Genechi.h" />
     <ClInclude Include="genetdoc.h" />
     <ClInclude Include="GeneThon.h" />
-    <ClInclude Include="Genetvw.h" />
+    <ClInclude Include="GenethonView.h" />
     <ClInclude Include="Genestor.h" />
     <ClInclude Include="Gprowvw.h" />
     <ClInclude Include="Gpsumvw.h" />
@@ -176,7 +173,6 @@
     <ClInclude Include="Gvelead.h" />
     <ClInclude Include="Gvetail.h" />
     <ClInclude Include="Gvsum.h" />
-    <ClInclude Include="Importty.h" />
     <ClInclude Include="Mainfrm.h" />
     <ClInclude Include="Mycaret.h" />
     <ClInclude Include="Pictfile.h" />
@@ -187,8 +183,6 @@
     <ClInclude Include="Rtffile.h" />
     <ClInclude Include="Segnames.h" />
     <ClInclude Include="Selarrse.h" />
-    <ClInclude Include="Seqdetdi.h" />
-    <ClInclude Include="seqdialo.h" />
     <ClInclude Include="Shadeps.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Sumcaret.h" />

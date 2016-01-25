@@ -96,22 +96,17 @@ enum {
 #include "gvefill.h"
 
 // View
-#include "genetvw.h"
+#include "GenethonView.h"
 #include "sumview.h"
 
 //dialog
 #include "displayp.h"
 #include "prints.h"
 #include "propsht.h"
-#include "importty.h"
 #include "exportdl.h"
 #include "selarrse.h"
 #include "genbank.h"
 #include "GraphSetup.h"
-
-//
-#include "seqdetdi.h"
-#include "seqdialo.h"
 
 #define GMEM_FLAG GMEM_FIXED
 

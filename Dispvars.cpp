@@ -69,18 +69,7 @@ void
 CDisplayVars::CopyDisplayVars( DisplayVars *pDV, CDisplayVars *nDisplayVars, CDocument *pDC )
 {
 
-	pDV->m_ResidueMode = nDisplayVars->GetResidueMode();
-
-	// Copy Those to these ...
-	pDV->m_DiffMode = nDisplayVars->GetDiffMode();
-
-	pDV->m_PropStyle = nDisplayVars->GetPropStyle();
-
 	nDisplayVars->GetTitleColors ( &pDV->m_TitleTextColor, &pDV->m_TitleBkColor);
-
-	CGenethonDoc *pDoc = (CGenethonDoc *)pDC;
-
-
 
 }
 
@@ -88,15 +77,6 @@ void
 CDisplayVars::SetDisplayVars( DisplayVars *pDV, CDocument *pDC )
 {
 
-	SetResidueMode( pDV->m_ResidueMode );
-
-	// Copy Those to these ...
-	SetDiffMode( pDV->m_DiffMode );
-
-	SetPropStyle( pDV->m_PropStyle );
-
 	SetTitleColors ( pDV->m_TitleTextColor, pDV->m_TitleBkColor);
-
-	CGenethonDoc *pDoc = (CGenethonDoc *)pDC;
 
 }

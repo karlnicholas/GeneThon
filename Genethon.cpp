@@ -338,16 +338,6 @@ void CAboutDlg::OnPaint()
 	
 	bmp.DeleteObject();      
       
-	bmp.LoadBitmap( IDB_INLOVE );
- 
-	// Select the bitmap into the DC
-	poldbmp = memdc.SelectObject( &bmp );
-      
-	// Copy (BitBlt) bitmap from memory DC to screen DC
-	dc.BitBlt( 169, 139, 107, 69, &memdc, 0, 0, SRCCOPY );
-
-	memdc.SelectObject( poldbmp );
-
 	//	bmp.DeleteObject();      
 
 	// Do not call CDialog::OnPaint() for painting messages

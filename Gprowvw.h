@@ -32,8 +32,6 @@ public:
 	void AddTail( CGeneViewBase * pGP );
 	void AddHead( CGeneViewBase * pGP );
 	
-	void CheckMoveRanges( CView *pWnd, CGeneSegment *pCGSeg, UINT Row, 
-		int InvScore, DWORD ScoreStart, DWORD ScoreEnd );
 	void InvalNewEndPoint( CView *pWnd, DWORD Range1, DWORD Range2);
 
 	void CountCopyText(DWORD *dwCount );

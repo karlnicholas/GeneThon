@@ -6,7 +6,6 @@ private:
     // int m_SaveSetShade;
 	COLORREF m_SaveShadeText, m_SaveShadeBack;
 //
-	void CheckMove( UINT nFlags, UINT XPosition, DWORD YPosition, CView* pWnd, VIEWRETSTRUCT * pViewRet);
 	void CheckShade( UINT nFlags, UINT XPosition, DWORD YPosition, CView* pWnd, VIEWRETSTRUCT * pViewRet);
 	int GetGVEditRows();
 //
@@ -60,14 +59,6 @@ public:
             m_pBase = npBase;
             m_StartPos = StartPos;
     }
-	int CheckMoveRanges( 
-		CView *pWnd, 
-		CGeneSegment * pCGSeg, 
-		UINT Row, 
-		int InvalScore, 
-		DWORD ScoreStart, 
-		DWORD ScoreEnd 
-	);
 	void InvalNewEndPoint( CView *pWnd, DWORD Range1, DWORD Range2);
 
 	void CountCopyText(DWORD *dwCount );

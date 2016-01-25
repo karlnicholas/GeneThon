@@ -128,13 +128,6 @@ CGVEditLead::OnDraw( DrawStruct *DrawStc )
 					COLORREF TextColor, BkColor;
 					pDoc->GetColors( &TextColor, &BkColor );
 //						if ( StopColor && !DrawStc->pDC->IsPrinting() && ((CGenethonView *)DrawStc->pView)->m_SelectSeq ) {
-					if ( StopColor && !DrawStc->pDC->IsPrinting() ) {
-						if ( tCGSeg->GetArrangeFlag() ) {
-							COLORREF tColor = BkColor;
-							BkColor = TextColor;
-							TextColor = tColor;
-						}
-					}
 
 					CRect tcRect( 
 						tXLoc2 - DrawStc->DisplayXPosition, 

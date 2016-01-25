@@ -146,6 +146,19 @@ TRY {
 			tSNS->Check = atoi( (const char *)tString + tLoc );
 		}
 		
+		// Get the 'weight' out
+		tLoc = tString.Find("Weight:");
+		if (tLoc == -1) {
+			if (AfxMessageBox(" 'Weight:' field not found in .MSF file", MB_OKCANCEL) == IDCANCEL) {
+				rFile.Abort();
+				return 0;
+			}
+		}
+		else {
+			tLoc += 7;
+			tSNS->Weight = atof((const char *)tString + tLoc);
+		}
+		// Put the name structure on the list
 		// Put the name structure on the list
 
 		// Check for duplicates ..
@@ -620,8 +633,10 @@ TRY {
 			}
 			++pFile;
 			
-			_snprintf(BuildBuff, sizeof(BuildBuff), " %s  MSF: %d  %s  Check: %4d ..\n",
-				pFile, (int)longest, date, (int)NewSum);
+			char ProjType = m_UserVars.m_ProjectType == 1 ? 'P' : 'N';
+
+			_snprintf(BuildBuff, sizeof(BuildBuff), " %s  MSF: %d  Type: %c  %s  Check: %4d ..\n",
+				pFile, (int)longest, ProjType, date, (int)NewSum);
 
 			//
 			wFile.WriteString( BuildBuff );
@@ -656,13 +671,14 @@ TRY {
 	// Second loop writes sequence names and lines.
 	for ( i = 0; i < Count; ++i ) {
 		
-		_snprintf ( BuildBuff, sizeof(BuildBuff), 
-			" Name: %-16s Len: %5ld  Check: %-4d\n", 
-			(const char *)(pWS[i]).pCGSeg->GetTitle(), 
-			(pWS[i]).pCGSeg->GetTextLength(), 
-			(int)CheckGStor( (pWS[i]).pText, (pWS[i]).pCGSeg->GetTextLength() )
-		);
-		
+		_snprintf(BuildBuff, sizeof(BuildBuff),
+			" Name: %-16s Len: %5ld  Check: %-4d  Weight: %6.2f\n",
+			(const char *)(pWS[i]).pCGSeg->GetTitle(),
+			(pWS[i]).pCGSeg->GetTextLength(),
+			(int)CheckGStor((pWS[i]).pText, (pWS[i]).pCGSeg->GetTextLength()),
+			(pWS[i]).pCGSeg->GetWeight()
+			);
+
 		wFile.WriteString ( BuildBuff );
 	}
 	

@@ -8,7 +8,6 @@ public:
 	CSumViewCaret() {}
 	void Select( UINT XPosition, DWORD YPosition, CView *pView );
 	void LeftDown( UINT XPosition, DWORD YPosition, CView *pView );
-	void Move( UINT XPosition, DWORD YPosition, CView *pView );
 	void LeftUp( UINT XPosition, DWORD YPosition, CView *pView );
 	int Comment( char nChar, UINT XPosition, DWORD YPosition, CView *pView );
 };

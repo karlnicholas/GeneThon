@@ -250,31 +250,6 @@ CGPRowView::OnComment(char nChar, UINT XPoint, DWORD YPoint, CView *pWnd)
 }
 
 void 
-CGPRowView::CheckMoveRanges( CView *pWnd, CGeneSegment *pCGSeg, UINT Row, 
-	int InvScore, DWORD ScoreStart, DWORD ScoreEnd)
-{
-	POSITION tPos = ViewDataList.GetHeadPosition();
-	CGeneViewBase *tGVB;
-	
-	while ( tPos != NULL ) {
-		tGVB = (CGeneViewBase *)ViewDataList.GetNext(tPos);
-		if ( tGVB->IsKindOf(RUNTIME_CLASS(CGVEdit) ) ) {
-			if ( ((CGVEdit*)tGVB)->CheckMoveRanges( pWnd, pCGSeg, Row, InvScore, ScoreStart, ScoreEnd ) ) {
-
-				CGenethonDoc* pDoc = ((CGenethonView *)pWnd)->GetDocument();
-				ASSERT_VALID(pDoc);
-
-				// Check this.	
-				if ( pDoc->m_UserVars.m_ShowTail ) {
-					CGVEditTail *tGVET = (CGVEditTail *)ViewDataList.GetNext(tPos);
-					tGVET->UpdateGeneRange((CGVEdit*)tGVB, Row, pWnd);
-				}
-			}
-		}
-	}
-}
-
-void 
 CGPRowView::InvalNewEndPoint( CView *pWnd, DWORD Range1, DWORD Range2)
 {
 	POSITION tPos = ViewDataList.GetHeadPosition();

@@ -33,7 +33,6 @@ protected:  // control bar embedded members
 	CStatusBar  m_wndStatusBar;
 	CToolBar    m_wndToolBar;
 
-
 // Generated message map functions
 protected:
 	//{{AFX_MSG(CMainFrame)

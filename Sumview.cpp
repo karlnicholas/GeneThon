@@ -2041,13 +2041,6 @@ CSumViewCaret::LeftDown( UINT XPosition, DWORD YPosition, CView* pView )
 }
 
 void 
-CSumViewCaret::Move( UINT XPosition, DWORD YPosition, CView* pView )
-{
-	CPoint tPoint ( (int)(XPosition - ((CSummaryView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CSummaryView*)pView)->m_DisplayYPosition));
-	((CSummaryView*)pView)->MoveFunc( 0, tPoint, CSummaryView::KEYBRD );
-}
-
-void 
 CSumViewCaret::LeftUp( UINT XPosition, DWORD YPosition, CView* pView )
 {
 

@@ -16,23 +16,12 @@ IMPLEMENT_DYNCREATE(CGenethonDoc, CDocument)
 BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	//{{AFX_MSG_MAP(CGenethonDoc)
 	ON_COMMAND(IDM_CONFIGURE, OnConfigure)
-	ON_COMMAND(IDM_GENESAVEINI, SetIniDefaults)
-	ON_COMMAND(IDM_GENELOADINI, OnGeneloadini)
 	ON_COMMAND(ID_FILE_SAVE_AS, OnFileSaveAs)
 	ON_COMMAND(IDM_GENEVIEW, OnGeneview)
-	ON_COMMAND(IDM_FILEIMPORT, OnFileimport)
 	ON_COMMAND(IDM_FILEEXPORT, OnFileexport)
 	ON_COMMAND(IDM_SUMMARYVIEW, OnSummaryview)
 	ON_UPDATE_COMMAND_UI(IDM_SUMMARYVIEW, OnUpdateSummaryview)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
-	ON_COMMAND(IDM_SHOWMANSHADE, OnShowmanshade)
-	ON_UPDATE_COMMAND_UI(IDM_SHOWMANSHADE, OnUpdateShowman)
-	ON_COMMAND(IDM_SHOWCOMMENTS, OnShowcomments)
-	ON_UPDATE_COMMAND_UI(IDM_SHOWCOMMENTS, OnUpdateShowcom)
-	ON_COMMAND(IDM_CLEARCOMMENTS, OnClearcomments)
-	ON_COMMAND(IDM_CLEARMANSHADE, OnClearmanshade)
-	ON_COMMAND(IDM_SELECTARRSEQ, OnSelectarrseq)
-	ON_COMMAND(IDM_COMPLIMENTSEL, OnComplimentsel)
 	ON_COMMAND(IDM_GENEREPORTVIEW, OnGenereportview)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -138,7 +127,33 @@ CGenethonDoc::SetFilePath(const char *pszPathName)
 
 }
 
-BOOL 
+void
+CGenethonDoc::GetProjectType()
+{
+
+	int tType = 0, rc;
+
+	if (pGSFiller != NULL) {
+		if (!pGSFiller->SegHeaderList.IsEmpty()) {
+
+			CString *cStr = (CString *)pGSFiller->SegHeaderList.GetTail();
+			// Looking for Master Checksum location ...
+
+			if ((rc = cStr->Find("Type: ")) != -1) {
+				const char *rStr = (const char *)*cStr;
+				rStr += rc + strlen("Type: ");
+				if (*rStr == 'N') {
+					tType = 1;
+				}
+			}
+		}
+	}
+
+
+	m_UserVars.m_ProjectType = tType + 1;
+}
+
+BOOL
 CGenethonDoc::OnOpenDocument(const char *pszPathName)
 {
 	if (IsModified())
@@ -309,7 +324,6 @@ CGenethonDoc::ClearShade()
 				(pSegArr[i].pGeneStor)[tCount].CharDisplay = ' ';
 				(pSegArr[i].pGeneStor)[tCount].BackColor = m_UserVars.m_BackColor;
 				(pSegArr[i].pGeneStor)[tCount].TextColor = m_UserVars.m_ForeColor;
-				(pSegArr[i].pGeneStor)[tCount].CharScore = 0;
 				continue;
 			}
 			// Lets Clear out old shades here.
@@ -405,7 +419,9 @@ CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 	nUserVars->m_Orientation = oUserVars->m_Orientation;
 	((CGenethonApp *)AfxGetApp())->SetLandscape( nUserVars->m_Orientation );
 
-//	This is basically static for now. When user tables are supported, 
+	nUserVars->m_ProjectType = oUserVars->m_ProjectType;
+	
+	//	This is basically static for now. When user tables are supported, 
 //	Then we will copy it/
 //	CPtrArray	nUserVars->m_ScoreTableArray;
 
@@ -438,9 +454,6 @@ CGenethonDoc::CopyUserVars( UserVars * nUserVars, UserVars * oUserVars  )
 
 	nUserVars->m_PrintFileName = oUserVars->m_PrintFileName;
 	nUserVars->m_PrintDate = oUserVars->m_PrintDate;
-
-	nUserVars->m_ShowManShade = oUserVars->m_ShowManShade;
-	nUserVars->m_ShowComments = oUserVars->m_ShowComments;
 
 	nUserVars->m_MakeBackups = oUserVars->m_MakeBackups;
 	nUserVars->m_LocAfterName = oUserVars->m_LocAfterName;
@@ -502,7 +515,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	tDlg.m_DisplayPage.m_AutoWidth = m_UserVars.m_WidthMode;
 	tDlg.m_DisplayPage.m_FixedWidth = m_UserVars.m_FixedXSize;
 	tDlg.m_DisplayPage.m_ShowTail = m_UserVars.m_ShowTail;
-	tDlg.m_DisplayPage.m_ConsensusLine = m_UserVars.m_ConsensusLine;
 
 	tDlg.m_DisplayPage.m_PictWidth = m_UserVars.m_PictWidth;
 	tDlg.m_DisplayPage.m_PictHeight = m_UserVars.m_PictHeight;
@@ -516,9 +528,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	tDlg.m_DisplayPage.m_Sum2Wid = m_UserVars.m_Sum2Wid;
 	tDlg.m_DisplayPage.m_SumDefDis = m_UserVars.m_SumDefDis;
 	tDlg.m_DisplayPage.m_SumTextBlack = m_UserVars.m_SumTextBlack;
-	tDlg.m_DisplayPage.m_ShowManShade = m_UserVars.m_ShowManShade;
-	tDlg.m_DisplayPage.m_ShowComments = m_UserVars.m_ShowComments;
-	tDlg.m_DisplayPage.m_MakeBackups = m_UserVars.m_MakeBackups;
 	tDlg.m_DisplayPage.m_LocAfterName = m_UserVars.m_LocAfterName;
 	tDlg.m_DisplayPage.m_LocAfterSeq = m_UserVars.m_LocAfterSeq;
 	
@@ -570,10 +579,6 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	m_UserVars.m_FixedXSize = tDlg.m_DisplayPage.m_FixedWidth;
 	m_UserVars.m_ShowTail = tDlg.m_DisplayPage.m_ShowTail;
 
-	if ( m_UserVars.m_ConsensusLine != tDlg.m_DisplayPage.m_ConsensusLine ) {
-		ClearShade();
-	}
-	m_UserVars.m_ConsensusLine = tDlg.m_DisplayPage.m_ConsensusLine;
 	m_UserVars.m_PictWidth = tDlg.m_DisplayPage.m_PictWidth;
 	m_UserVars.m_PictHeight = tDlg.m_DisplayPage.m_PictHeight;
 	m_UserVars.m_PictAscent = tDlg.m_DisplayPage.m_PictAscent;
@@ -585,9 +590,7 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 	m_UserVars.m_Sum2Wid = tDlg.m_DisplayPage.m_Sum2Wid;
 	m_UserVars.m_SumDefDis = tDlg.m_DisplayPage.m_SumDefDis;
 	m_UserVars.m_SumTextBlack = tDlg.m_DisplayPage.m_SumTextBlack;
-	m_UserVars.m_ShowManShade = tDlg.m_DisplayPage.m_ShowManShade;
 
-	m_UserVars.m_MakeBackups = tDlg.m_DisplayPage.m_MakeBackups;
 	m_UserVars.m_LocAfterName = tDlg.m_DisplayPage.m_LocAfterName;
 	m_UserVars.m_LocAfterSeq = tDlg.m_DisplayPage.m_LocAfterSeq;
 		

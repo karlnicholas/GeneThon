@@ -8,21 +8,6 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-
-int 
-CGenethonDoc::SequenceImport()
-{
-	// TODO: Add your control notification handler code here
-
-	CImportTypeDlg typeDlg;
-	typeDlg.pDoc = this;
-
-	typeDlg.DoModal();
-
-	return 1;
-}
-
-
 int CGenethonDoc::SequenceExport(int Selected) 
 {
 	// TODO: Add your command handler code here
@@ -177,7 +162,7 @@ CGenethonDoc::GetFastaFile( CString PathName, int Append )
 
 int 
 CGenethonDoc::GetTextFile( CString PathName, int Append, 
-	const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC )
+	const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC )
 {
 
 	CPtrList CommentList;
@@ -185,7 +170,7 @@ CGenethonDoc::GetTextFile( CString PathName, int Append,
 
 	gMaxStrSize = 0L;
 
-	if ( !ReadTextFile ( &CommentList, &SequenceList, PathName, SeqName, TextStart, Descr, IUPAC ) ) {
+	if ( !ReadTextFile ( &CommentList, &SequenceList, PathName, SeqName, SeqWeight, TextStart, Descr, IUPAC ) ) {
 		while ( !SequenceList.IsEmpty() ) {
 			delete (SeqNameStruct *)SequenceList.RemoveHead();
 		}
@@ -358,7 +343,7 @@ CGenethonDoc::AppendDataRows(CPtrList& SequenceList, int Append )
 			return 0;
 		}
 
-		if ( !tCGSeg->Create( LINESEQUENCE, tSNS->Name, tSNS->Descr, tSNS->hText, tSNS->Len, tSNS->Start, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
+		if ( !tCGSeg->Create( LINESEQUENCE, tSNS->Name, tSNS->Descr, tSNS->Weight, tSNS->hText, tSNS->Len, tSNS->Start, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 			AfxMessageBox("GetMSFFile:Create Fail 2" );
 			delete pGSFiller;
 			pGSFiller = NULL;
@@ -420,7 +405,7 @@ CGenethonDoc::CreateBottomRows()
 		return 0;
 	}
 
-	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", hComSeg, gMaxStrSize, 1, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
+	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 3" );
 		delete pGSFiller;
 		pGSFiller = NULL;
@@ -476,7 +461,8 @@ CGenethonDoc::CreateTopRows()
 			LINECOMMENT, 
 			"Score" , 
 			"Score", 
-			hComSeg, 
+			0.0,
+			hComSeg,
 			gMaxStrSize, 
 			1, 
 			&m_UserVars.m_ForeColor, 
@@ -521,7 +507,7 @@ CGenethonDoc::CreateTopRows()
 		return 0;
 	}
 
-	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", hComSeg, gMaxStrSize, 1, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
+	if ( !tCGSeg->Create( LINECOMMENT, "Comment" , "Comment", 0.0, hComSeg, gMaxStrSize, 1, &m_UserVars.m_ForeColor, &m_UserVars.m_BackColor ) ) {
 		AfxMessageBox("GetMSFFile:Create Fail 1" );
 		delete pGSFiller;
 		pGSFiller = NULL;

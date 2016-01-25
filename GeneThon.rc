@@ -73,8 +73,6 @@ IDB_GENETHON            BITMAP                  "RES\\GENETHONU.BMP"
 
 IDB_GENEBAR             BITMAP                  "RES\\GENEBAR.BMP"
 
-IDB_INLOVE              BITMAP                  "RES\\INLOVE.BMP"
-
 IDB_BITMAP1             BITMAP                  "RES\\SMLOGO.BMP"
 
 
@@ -105,8 +103,7 @@ BEGIN
     BEGIN
         MENUITEM "&Index",                      ID_HELP_INDEX
         MENUITEM "&Using Help",                 ID_HELP_USING
-        MENUITEM "",                            1
-        MENUITEM "&About GeneThon...",          ID_APP_ABOUT
+        MENUITEM "&About",                      ID_APP_ABOUT
     END
 END
 
@@ -120,9 +117,6 @@ BEGIN
         MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
         MENUITEM SEPARATOR
-        MENUITEM "I&mport",                     IDM_FILEIMPORT
-        MENUITEM "&Export",                     IDM_FILEEXPORT
-        MENUITEM SEPARATOR
         MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
         MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
         MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
@@ -131,52 +125,32 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
-    POPUP "&Project"
+    MENUITEM "Configure",                   IDM_CONFIGURE
+    POPUP "Select"
     BEGIN
-        MENUITEM "&Configure\tCtrl+G",          IDM_CONFIGURE
-        MENUITEM SEPARATOR
-        MENUITEM "Edit Se&quences List\tCtrl+Q", IDM_GENEEDITSEQ
+        MENUITEM "S&elect Blocks for Copy\tCtrl+E", IDM_SELECT
+        MENUITEM "Select Co&lumns\tCtrl+L",     IDM_SELECTCOL
     END
-    POPUP "&Edit"
+    POPUP "&Copy"
     BEGIN
-        POPUP "Copy Selected Blocks to"
+        MENUITEM "to MetaFile\tCtrl+C",         IDM_COPYMETACLIP
+        MENUITEM "to MetaFile &File",           IDM_COPYMETAFILE
+        MENUITEM "to Pict File",                IDM_GENECOPYPICT
+        MENUITEM "to RTF File",                 IDM_GENECOPYRTF
+        POPUP "Bitmap"
         BEGIN
-            MENUITEM "&MetaFile\tCtrl+C",           IDM_COPYMETACLIP
-            MENUITEM "MetaFile &File",              IDM_COPYMETAFILE
-            MENUITEM "&Pict File",                  IDM_GENECOPYPICT
-            MENUITEM "&HTML File",                  IDM_GENECOPYHTML
-            MENUITEM "&RTF File",                   IDM_GENECOPYRTF
-            POPUP "Bitmap"
-            BEGIN
-                MENUITEM "&Copy 16 Color DIB",          ID_EDIT_COPY
-                MENUITEM "Copy &256 Color DIB",         ID_EDIT_COPY8
-                MENUITEM "Copy &Display Resolution",    ID_EDIT_COPY0
-                MENUITEM "Copy as Bitmap (16 bit paint)", ID_EDIT_COPYBIT
-            END
-            POPUP "In&verted Bitmap"
-            BEGIN
-                MENUITEM "Copy 16 Color &Inverted\tCtrl+V", ID_EDIT_COPYINV
-                MENUITEM "Copy &256 Color Inverted",    ID_EDIT_COPYINV8
-                MENUITEM "Copy &Display Res Inverted",  ID_EDIT_COPYINV0
-                MENUITEM "Copy as Inv. Bitmap (16 bit paint)", ID_EDIT_COPYINVBIT
-            END
+            MENUITEM "&Copy 16 Color DIB",          ID_EDIT_COPY
+            MENUITEM "Copy &256 Color DIB",         ID_EDIT_COPY8
+            MENUITEM "Copy &Display Resolution",    ID_EDIT_COPY0
+            MENUITEM "Copy as Bitmap (16 bit paint)", ID_EDIT_COPYBIT
         END
-        MENUITEM "Copy Aligment as &Text",      IDM_COPYTEXT
-    END
-    POPUP "Sha&de"
-    BEGIN
-        MENUITEM "&Manual Shade Mode\tCtrl+M",  IDM_MANUALSHADE
-        MENUITEM "Clear All Man Shade",         IDM_CLEARMANSHADE
-    END
-    POPUP "P&lot"
-    BEGIN
-        MENUITEM "&Setup Graph",                IDM_GRAPHSETUP
     END
     POPUP "&Window"
     BEGIN
         MENUITEM "&Alignment View",             IDM_GENEVIEW
         MENUITEM "S&ummary View",               IDM_SUMMARYVIEW
         MENUITEM "&Report View",                IDM_GENEREPORTVIEW
+        MENUITEM "Graph View",                  ID_WINDOW_GRAPHVIEW
         MENUITEM SEPARATOR
         MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
         MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
@@ -190,7 +164,7 @@ BEGIN
         MENUITEM "&Index",                      ID_HELP_INDEX
         MENUITEM "&Using Help",                 ID_HELP_USING
         MENUITEM SEPARATOR
-        MENUITEM "&About GeneThon...",          ID_APP_ABOUT
+        MENUITEM "&About",                      ID_APP_ABOUT
     END
 END
 
@@ -204,19 +178,10 @@ IDR_MAINFRAME ACCELERATORS
 BEGIN
     VK_F1,          ID_CONTEXT_HELP,        VIRTKEY, SHIFT, NOINVERT
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
     "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     VK_F1,          ID_HELP,                VIRTKEY, NOINVERT
-    "G",            IDM_CONFIGURE,          VIRTKEY, CONTROL, NOINVERT
-    "A",            IDM_GENEARRANGE,        VIRTKEY, CONTROL, NOINVERT
-    "B",            IDM_GENECLEARSHADE,     VIRTKEY, CONTROL, NOINVERT
-    "W",            IDM_GENECREATEWIN,      VIRTKEY, CONTROL, NOINVERT
-    VK_F5,          IDM_GENEMOVE,           VIRTKEY, NOINVERT
-    "M",            IDM_MANUALSHADE,        VIRTKEY, CONTROL, NOINVERT
     "E",            IDM_SELECT,             VIRTKEY, CONTROL, NOINVERT
-    VK_F8,          IDM_SELECTARRSEQ,       VIRTKEY, NOINVERT
 END
 
 
@@ -225,17 +190,13 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG 34, 22, 195, 201
+IDD_ABOUTBOX DIALOGEX 34, 22, 195, 201
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About GeneThon"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     LTEXT           "Multiple Sequence\n  Alignment Editor\n && Shading Utility\n  Version 2.7.000",IDC_STATIC,116,27,62,33
-    LTEXT           "Copyright © 2006\n by Karl Nicholas",IDC_STATIC,117,64,64,18
     DEFPUSHBUTTON   "OK",IDOK,152,180,32,14,WS_GROUP
-    GROUPBOX        "Citations",IDC_STATIC,0,136,186,39
-    LTEXT           "Nicholas, Karl B., and Nicholas, Hugh B. Jr., 1997, GeneThon: a tool for editing and annotating multiple sequence alignments. Distributed by the author.",IDC_STATIC,9,145,173,26
-    LTEXT           "www.psc.edu/biomed/genethon",IDC_STATIC,12,183,130,8
 END
 
 IDD_CONFDISPLAY DIALOGEX 0, 0, 300, 210
@@ -264,9 +225,6 @@ BEGIN
     EDITTEXT        IDC_PICTWIDTH,180,159,19,13,ES_AUTOHSCROLL
     LTEXT           "Width",IDC_STATIC,156,162,20,8
     GROUPBOX        "Pict File Adjust",IDC_STATIC,149,147,59,63,WS_GROUP
-    CONTROL         "Show Comments",IDC_SHOWCOMMENTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,197,66,10
-    CONTROL         "Show Man Shade",IDC_SHOWMANSHADE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,187,70,10
-    CONTROL         "Make Backups",IDC_MAKEBACKUPS,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,76,166,60,10
     CONTROL         "After Seq",IDC_LOCAFTERSEQ,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,136,46,10
     CONTROL         "After Name",IDC_LOCAFTERNAME,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,16,123,48,10
     CONTROL         "On",IDC_SEQINDOFF,"Button",BS_AUTORADIOBUTTON,16,109,26,10
@@ -281,53 +239,6 @@ BEGIN
     EDITTEXT        IDC_EDITFONTPOINTS,48,15,17,13,ES_AUTOHSCROLL
     LTEXT           "Points:",IDC_STATIC,20,17,24,8,NOT WS_GROUP
     GROUPBOX        "Font Settings",IDC_STATIC,11,3,60,46
-    GROUPBOX        "Co&nsensus Line",IDC_STATIC,153,3,70,46,WS_GROUP
-    CONTROL         "Line Above",IDC_CONSENSUSLINE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,157,15,48,10
-    CONTROL         "Line Below",IDC_CONSENSUSBELOW,"Button",BS_AUTORADIOBUTTON,157,25,47,10
-    CONTROL         "No Consensus",IDC_CONSENSUSNONE,"Button",BS_AUTORADIOBUTTON,157,36,58,10
-END
-
-IDD_SEQDIALOG DIALOGEX 0, 0, 311, 211
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Sequence Dialog"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
-BEGIN
-    LISTBOX         IDC_LIST1,5,15,180,187,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
-    DEFPUSHBUTTON   "D&ONE",IDOK,192,15,50,14
-    PUSHBUTTON      "Move &Up",IDC_SEQMOVEUP,192,52,50,14
-    PUSHBUTTON      "Move Dow&n",IDC_SEQMOVEDOWN,246,52,50,14
-    PUSHBUTTON      "Move to &Top",IDC_MOVETOP,192,71,50,14
-    PUSHBUTTON      "Move to &Bot.",IDC_MOVEBOTT,247,71,50,14
-    PUSHBUTTON      "D&elete",IDC_SEQDELETE,247,159,50,14
-    PUSHBUTTON      "&Details",IDC_SEQDETAILS,192,159,50,14
-    PUSHBUTTON      "&Import",IDC_SEQIMPORT,192,141,50,14
-    PUSHBUTTON      "E&xport",IDC_SEQEXPORT,247,141,50,14
-    PUSHBUTTON      "&Help",ID_HELP,193,185,50,14
-    CTEXT           "235 Seq.",IDC_SEQCOUNT,194,37,44,8
-    LTEXT           "Name",IDC_STATIC,15,5,30,8
-    LTEXT           "Description",IDC_STATIC,68,5,38,8
-    PUSHBUTTON      "Sort Name",IDC_SORTNAME,192,95,50,14
-    PUSHBUTTON      "Save Sort",IDC_SAVESORT,191,113,50,14
-    PUSHBUTTON      "Load Sort",IDC_LOADSORT,247,113,50,14
-    PUSHBUTTON      "Sort Desc",IDC_SORTDESC,247,95,50,14
-    LTEXT           "234 Selected",IDC_COUNTSEL,246,37,49,8
-END
-
-IDD_SEQDETAILS DIALOGEX 0, 0, 194, 121
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Sequence Details"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
-BEGIN
-    CTEXT           "",IDC_INSTRUCT,28,5,126,8
-    LTEXT           "Name:",IDC_STATIC,5,22,20,8
-    EDITTEXT        IDC_SEQDETNAME,30,21,150,13,ES_AUTOHSCROLL
-    LTEXT           "Description",IDC_STATIC,77,40,40,8
-    EDITTEXT        IDC_DESCR,5,51,185,13,ES_AUTOHSCROLL
-    LTEXT           "Start",IDC_STATIC,110,78,17,8
-    EDITTEXT        IDC_TEXTSTART,138,75,41,13,ES_AUTOHSCROLL
-    DEFPUSHBUTTON   "&OK",IDOK,5,100,50,14
-    PUSHBUTTON      "&Cancel",IDCANCEL,70,100,50,14
-    PUSHBUTTON      "&Help",ID_HELP,140,100,50,14
 END
 
 IDD_CONFPRINT DIALOGEX 0, 0, 300, 210
@@ -378,20 +289,6 @@ BEGIN
     EDITTEXT        IDC_LEFTBORDER,25,18,18,13,ES_AUTOHSCROLL
 END
 
-IDD_COLORBAR DIALOGEX 0, 0, 111, 117
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Color Selection"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
-BEGIN
-    DEFPUSHBUTTON   "&OK",IDOK,13,96,32,14
-    CONTROL         "",IDC_DISP,"Button",BS_OWNERDRAW | WS_DISABLED,17,15,24,27
-    PUSHBUTTON      "&Help",ID_HELP,59,96,42,14
-    CONTROL         "",IDC_MFCCOLORBUTTON1,"MfcColorButton",WS_TABSTOP,53,50,50,14
-    CONTROL         "",IDC_MFCCOLORBUTTON2,"MfcColorButton",WS_TABSTOP,54,70,50,14
-    LTEXT           "Text",IDC_STATIC,17,52,23,8
-    LTEXT           "Back",IDC_STATIC,17,73,23,8
-END
-
 IDD_GRAPHSETUP DIALOGEX 0, 0, 296, 186
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Graph Setup"
@@ -425,30 +322,6 @@ BEGIN
     LTEXT           "Page Width """,IDC_STATIC,12,9,45,8
     PUSHBUTTON      "&Help",ID_HELP,208,164,50,14
     EDITTEXT        IDC_YBORDERPCT,61,52,40,12,ES_AUTOHSCROLL
-END
-
-IDD_IMPORTTYPE DIALOG 0, 0, 135, 199
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Import Type"
-FONT 8, "MS Sans Serif"
-BEGIN
-    LTEXT           "Select Input Device",IDC_STATIC,5,4,66,8
-    CONTROL         "File",IDC_FILE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,6,14,35,10
-    CONTROL         "Clipboard",IDC_CLIP,"Button",BS_AUTORADIOBUTTON,48,15,42,10
-    LTEXT           "Please Select The Type of File.",IDC_STATIC,4,36,104,8
-    CONTROL         "Fasta (Pearson)",IDC_IMPORTTYPE0,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,4,52,64,10
-    CONTROL         "Clustal (ALN)",IDC_IMPORTTYPE2,"Button",BS_AUTORADIOBUTTON,4,66,53,10
-    CONTROL         "Phylip",IDC_IMPORTTYPE5,"Button",BS_AUTORADIOBUTTON,4,81,53,10
-    CONTROL         "Fasta (DNA *.nt)",IDC_IMPORTTYPE7,"Button",BS_AUTORADIOBUTTON,4,96,65,10
-    CONTROL         "PIR",IDC_IMPORTTYPE3,"Button",BS_AUTORADIOBUTTON,79,52,35,10
-    CONTROL         "GCG (MSF)",IDC_IMPORTTYPE4,"Button",BS_AUTORADIOBUTTON,79,66,48,10
-    CONTROL         "Text",IDC_IMPORTTYPE6,"Button",BS_AUTORADIOBUTTON,79,81,35,10
-    CONTROL         "IUPAC Text",IDC_IUPAC,"Button",BS_AUTORADIOBUTTON,79,96,49,10
-    CONTROL         "GenBank",IDC_GENBANK,"Button",BS_AUTORADIOBUTTON,79,112,43,10
-    DEFPUSHBUTTON   "Import",IDIMPORT,5,151,50,14,WS_GROUP
-    PUSHBUTTON      "Input",IDC_INPUT,65,151,50,14
-    PUSHBUTTON      "Done",IDCANCEL,65,172,50,14
-    PUSHBUTTON      "&Help",ID_HELP,4,172,50,14
 END
 
 IDD_EXPORTDLG DIALOG 0, 0, 203, 237
@@ -506,7 +379,6 @@ BEGIN
     PUSHBUTTON      "&Help",ID_HELP,123,92,51,14
 END
 
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog Info
@@ -524,37 +396,6 @@ BEGIN
 0x4e4b, "\000" 
     AFX_IDC_BROWSE, 0x403, 3, 0
 0x494d, "\000" 
-    0
-END
-
-IDD_COLORBAR DLGINIT
-BEGIN
-    IDC_MFCCOLORBUTTON1, 0x37c, 215, 0
-0x4d3c, 0x4346, 0x6f43, 0x6f6c, 0x4272, 0x7475, 0x6f74, 0x5f6e, 0x6e45, 
-0x6261, 0x656c, 0x744f, 0x6568, 0x4272, 0x7475, 0x6f74, 0x3e6e, 0x5254, 
-0x4555, 0x2f3c, 0x464d, 0x4343, 0x6c6f, 0x726f, 0x7542, 0x7474, 0x6e6f, 
-0x455f, 0x616e, 0x6c62, 0x4f65, 0x6874, 0x7265, 0x7542, 0x7474, 0x6e6f, 
-0x3c3e, 0x464d, 0x4343, 0x6c6f, 0x726f, 0x7542, 0x7474, 0x6e6f, 0x455f, 
-0x616e, 0x6c62, 0x4165, 0x7475, 0x6d6f, 0x7461, 0x6369, 0x7542, 0x7474, 
-0x6e6f, 0x463e, 0x4c41, 0x4553, 0x2f3c, 0x464d, 0x4343, 0x6c6f, 0x726f, 
-0x7542, 0x7474, 0x6e6f, 0x455f, 0x616e, 0x6c62, 0x4165, 0x7475, 0x6d6f, 
-0x7461, 0x6369, 0x7542, 0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x4343, 0x6c6f, 
-0x726f, 0x7542, 0x7474, 0x6e6f, 0x435f, 0x6c6f, 0x6d75, 0x736e, 0x6f43, 
-0x6e75, 0x3e74, 0x3c35, 0x4d2f, 0x4346, 0x6f43, 0x6f6c, 0x4272, 0x7475, 
-0x6f74, 0x5f6e, 0x6f43, 0x756c, 0x6e6d, 0x4373, 0x756f, 0x746e, "\076" 
-    IDC_MFCCOLORBUTTON2, 0x37c, 215, 0
-0x4d3c, 0x4346, 0x6f43, 0x6f6c, 0x4272, 0x7475, 0x6f74, 0x5f6e, 0x6e45, 
-0x6261, 0x656c, 0x744f, 0x6568, 0x4272, 0x7475, 0x6f74, 0x3e6e, 0x5254, 
-0x4555, 0x2f3c, 0x464d, 0x4343, 0x6c6f, 0x726f, 0x7542, 0x7474, 0x6e6f, 
-0x455f, 0x616e, 0x6c62, 0x4f65, 0x6874, 0x7265, 0x7542, 0x7474, 0x6e6f, 
-0x3c3e, 0x464d, 0x4343, 0x6c6f, 0x726f, 0x7542, 0x7474, 0x6e6f, 0x455f, 
-0x616e, 0x6c62, 0x4165, 0x7475, 0x6d6f, 0x7461, 0x6369, 0x7542, 0x7474, 
-0x6e6f, 0x463e, 0x4c41, 0x4553, 0x2f3c, 0x464d, 0x4343, 0x6c6f, 0x726f, 
-0x7542, 0x7474, 0x6e6f, 0x455f, 0x616e, 0x6c62, 0x4165, 0x7475, 0x6d6f, 
-0x7461, 0x6369, 0x7542, 0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x4343, 0x6c6f, 
-0x726f, 0x7542, 0x7474, 0x6e6f, 0x435f, 0x6c6f, 0x6d75, 0x736e, 0x6f43, 
-0x6e75, 0x3e74, 0x3c35, 0x4d2f, 0x4346, 0x6f43, 0x6f6c, 0x4272, 0x7475, 
-0x6f74, 0x5f6e, 0x6f43, 0x756c, 0x6e6d, 0x4373, 0x756f, 0x746e, "\076" 
     0
 END
 
@@ -584,28 +425,11 @@ BEGIN
     BEGIN
     END
 
-    IDD_SEQDIALOG, DIALOG
-    BEGIN
-        RIGHTMARGIN, 310
-    END
-
-    IDD_SEQDETAILS, DIALOG
-    BEGIN
-    END
-
     IDD_CONFPRINT, DIALOG
     BEGIN
     END
 
-    IDD_COLORBAR, DIALOG
-    BEGIN
-    END
-
     IDD_GRAPHSETUP, DIALOG
-    BEGIN
-    END
-
-    IDD_IMPORTTYPE, DIALOG
     BEGIN
     END
 
@@ -620,6 +444,7 @@ BEGIN
     IDD_GENBANK, DIALOG
     BEGIN
     END
+
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -634,27 +459,17 @@ BEGIN
     0
 END
 
-IDD_SEQDIALOG AFX_DIALOG_LAYOUT
-BEGIN
-    0
-END
-
 IDD_GRAPHSETUP AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
 
-IDD_COLORBAR AFX_DIALOG_LAYOUT
-BEGIN
-    0
-END
-
-IDD_SEQDETAILS AFX_DIALOG_LAYOUT
-BEGIN
-    0
-END
-
 IDD_CONFPRINT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
@@ -802,19 +617,12 @@ BEGIN
     IDM_SELECTCOL           "Select by colums for creating new window.\nSelect Columns"
     IDM_GENECREATEWIN       "Create a new window from current column selection."
     IDM_GENEEDITSEQ         "Move/Add/Delete/Import/Details of Sequences\nSequence List"
-    IDM_GENEINSERTOTHER     "Insert/Delete gaps into all sequence execpt clicked one.\nInsert/Delete Gaps in Other"
-    IDM_GENEDELETEOTHER     "Delete a Dash from all sequences other than one clicked on."
-    IDM_GENEDELETEFILL      "Delete the selected gaps.\nDelete Selected Gaps Only"
-    IDM_GENEINSERTFILL      "Insert gaps into selection area.\nInsert Gaps into Selection"
 END
 
 STRINGTABLE
 BEGIN
     ID_ON_HELP              "Get help on GeneDoc."
-    IDM_GENESAVEINI         "Save Current User Settings as the defaults."
-    IDM_GENELOADINI         "Load User Defaults into Current Defaults"
     IDM_TITLINGF            "Invoke the Titling Facility Dialog."
-    IDM_MANUALSHADE         "Manual Shade Residues with Color Bar.\nToggle Manual Shading"
     ID_EDIT_COPY8           "Copy as 256 Color Device Independent Bitmap"
     ID_EDIT_COPY0           "Copy as Display Resolution Bitmap"
 END
@@ -844,9 +652,6 @@ STRINGTABLE
 BEGIN
     IDM_FILEEXPORT          "Export File: Select Type in Save As Dialog."
     IDM_FILEIMPORT          "File Import: Select Type in Open Dialog."
-    IDM_CLEARGAPCOLS        "Clear all Columns that contain only gaps."
-    IDM_GENEFINDREPLACE     "Find and Replace Same Size Strings."
-    IDM_GENECOPYSEQ         "Copy Selected Sequence Data from One Seq to Another."
 END
 
 STRINGTABLE
@@ -856,44 +661,17 @@ END
 
 STRINGTABLE
 BEGIN
-    IDM_GENECOPYHTML        "Copy the Selected Blocks to a HTML file."
-    IDM_GENESCOREKEY        "Rescore area being worked on"
-    IDM_STCLOADPDB          "Load definition for PDB files."
     IDM_SUMMARYVIEW         "Show alignment in Summary View Mode.\nSummary View"
 END
 
 STRINGTABLE
 BEGIN
     IDM_GENECOPYRTF         "Copy selected blocks as an RTF file."
-    IDM_GENEMOVE            "Slide sequences without affecting gaps.\nGrab and Slide"
-    IDM_DELCOLUMNS          "Delete ALL Data in selected Columns"
-    IDM_FIND                "Find Sequence.\nFind"
-    IDM_COPYCONS            "Copy the Consensus data to the Clipboard as Fasta File."
-    IDM_SHOWMANSHADE        "Toggle Display of Manual Shading.\nShow Manual Shading"
-    IDM_SHOWCOMMENTS        "Toggle Display of Manual Comments.\nShow Comments"
-    IDM_CLEARMANSHADE       "Clear All Manual Shading."
-    IDM_CLEARCOMMENTS       "Clear All Manual Comments."
-    IDM_SELECTARRSEQ        "Select Sequences for arrangement operations.\nSelect Sequences For Arrangement"
-END
-
-STRINGTABLE
-BEGIN
-    IDM_COMPLIMENTSEL       "Select Sequences that are not selected, Deselect those that are."
-    IDM_REPLACEFROMPROJ     "Replace selected data in this project with data from another project."
-    IDM_GENEINSERTONE       "Insert a single column of gaps.\nInsert Single Gap Column"
-    IDM_GENEDELETEONE       "Delete a single column of gaps."
 END
 
 STRINGTABLE
 BEGIN
     IDM_GENEREPORTVIEW      "View the current Text Report.\nReport View"
-    IDM_DNAFFREQREP         "Base Composition Report.\nBase Composition Report"
-    IDM_REPSAVEFILE         "Save Report as a File."
-    IDM_ALIGN               "Align Sequences or Alignment"
-    IDM_MANSHADEREP         "Report detailing manual shading."
-    IDM_SHADING_REP         "Report locations of shadings."
-    IDM_CONFIGREPORT        "Open report configuration dialog."
-    IDM_CONSPROSITE         "Copy the consensus as prosite to clipboard."
 END
 
 #endif    // English (United States) resources

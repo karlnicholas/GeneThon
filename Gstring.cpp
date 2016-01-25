@@ -136,7 +136,6 @@ CGeneString::SetComment( int Position, char nChar )
 
 	m_GString[Position].TextColor = *m_TextColor;
 	m_GString[Position].BackColor = *m_BackColor;
-	m_GString[Position].CharScore = 0;
 }
 
 void 
@@ -149,7 +148,6 @@ CGeneString::SetResidue( int Position, char nChar )
 
 	m_GString[Position].TextColor = *m_TextColor;
 	m_GString[Position].BackColor = *m_BackColor;
-	m_GString[Position].CharScore = 0;
 }
 
 void

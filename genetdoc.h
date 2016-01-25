@@ -41,8 +41,6 @@ protected: // create from serialization only
 		ACTPAGEREPORTS, 
 	};
 	void ClearShade();
-
-	const char *GDUFindString(const CString& FindString); int SequenceImport();	
 	
 int SequenceExport(int Selected = 0);
 	int GetMSFFile( CString PathName, int Append = 0 );
@@ -52,7 +50,7 @@ int SequenceExport(int Selected = 0);
 	int GetPIRFile( CString PathName, int Append );
 	int GetPhylipFile( CString PathName, int Append );
 	int GetTextFile( CString PathName, int Append, 
-		const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC );
+		const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC );
 	int GetGenbankFile( CString PathName, int Append = 0 );
 
 	CTextView *m_pTextView;
@@ -85,7 +83,7 @@ int SequenceExport(int Selected = 0);
 	DWORD	gMaxStrSize;
 
 	BOOL ReadTextFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName, 
-		const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC );
+		const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC );
 	int WriteTextFile( const CString& PathName, int Selected = 0 );
 	int WriteTNoGapFile( const CString& PathName, int Selected = 0 );
 
@@ -130,6 +128,8 @@ int SequenceExport(int Selected = 0);
 	
 	int m_MaxDepth;
 	int m_NodeNumber;
+
+	void GetProjectType();
 
 	CGeneSegment* GetSequenceFromName( const CString& Name );
 
@@ -194,23 +194,13 @@ protected:
 protected:
 	//{{AFX_MSG(CGenethonDoc)
 	afx_msg void OnConfigure();
-	afx_msg void SetIniDefaults();
 	afx_msg void OnGeneloadini();
 	afx_msg void OnFileSaveAs();
 	afx_msg void OnGeneview();
-	afx_msg void OnFileimport();
 	afx_msg void OnFileexport();
 	afx_msg void OnSummaryview();
 	afx_msg void OnUpdateSummaryview(CCmdUI* pCmdUI);
 	afx_msg void OnFileSave();
-	afx_msg void OnShowmanshade();
-	afx_msg void OnUpdateShowman(CCmdUI* pCmdUI);
-	afx_msg void OnShowcomments();
-	afx_msg void OnUpdateShowcom(CCmdUI* pCmdUI);
-	afx_msg void OnClearcomments();
-	afx_msg void OnClearmanshade();
-	afx_msg void OnSelectarrseq();
-	afx_msg void OnComplimentsel();
 	afx_msg void OnGenereportview();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()

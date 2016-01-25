@@ -18,7 +18,6 @@ CDisplayProperty::CDisplayProperty() : CPropertyPage(CDisplayProperty::IDD)
 	m_AutoWidth = -1;
 	m_FixedWidth = 0;
 	m_ShowTail = -1;
-	m_ConsensusLine = -1;
 	m_PictHeight = 0;
 	m_PictAscent = 0;
 	m_PictWidth = 0;
@@ -32,9 +31,6 @@ CDisplayProperty::CDisplayProperty() : CPropertyPage(CDisplayProperty::IDD)
 	m_SumDefDis = FALSE;
 	m_SumColInchDis = 0;
 	m_SumTextBlack = FALSE;
-	m_ShowManShade = FALSE;
-	m_ShowComments = FALSE;
-	m_MakeBackups = TRUE;
 	m_LocAfterSeq = TRUE;
 	m_LocAfterName = FALSE;
 	//}}AFX_DATA_INIT
@@ -48,7 +44,6 @@ void CDisplayProperty::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDITWIDTH, m_FixedWidth);
 	DDV_MinMaxInt(pDX, m_FixedWidth, 10, 1000000);
 	DDX_Radio(pDX, IDC_SEQINDON, m_ShowTail);
-	DDX_Radio(pDX, IDC_CONSENSUSLINE, m_ConsensusLine);
 	DDX_Text(pDX, IDC_PICTHEIGHT, m_PictHeight);
 	DDV_MinMaxInt(pDX, m_PictHeight, -9, 9);
 	DDX_Text(pDX, IDC_PICTASCENT, m_PictAscent);
@@ -68,9 +63,6 @@ void CDisplayProperty::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_SUMDEFDIS, m_SumDefDis);
 	DDX_Text(pDX, IDC_SUMCOLINCHDIS, m_SumColInchDis);
 	DDX_Check(pDX, IDC_SUMTEXTBLACK, m_SumTextBlack);
-	DDX_Check(pDX, IDC_SHOWMANSHADE, m_ShowManShade);
-	DDX_Check(pDX, IDC_SHOWCOMMENTS, m_ShowComments);
-	DDX_Check(pDX, IDC_MAKEBACKUPS, m_MakeBackups);
 	DDX_Check(pDX, IDC_LOCAFTERSEQ, m_LocAfterSeq);
 	DDX_Check(pDX, IDC_LOCAFTERNAME, m_LocAfterName);
 	//}}AFX_DATA_MAP

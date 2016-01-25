@@ -11,15 +11,14 @@ private:
 	HGLOBAL	m_Text;
 	DWORD	m_TextSize;
 	DWORD	m_TextStart;
+	double  m_Weight;
 	DWORD	m_LastResidue;
 	int		m_ExportFlag;
-	int		m_ArrangeFlag;
 	DWORD	m_AlignExtra;
 
 	void InitMembers() {
 		m_Text = NULL;
 		m_ExportFlag = 0;
-		m_ArrangeFlag = 0;
 	}
 
 	CMapDWORDToCPAIR	m_mapCPAIR;
@@ -48,7 +47,8 @@ public:
 		int nStyle, 
 		const char *nTitle, 
 		const char *nDescr, 
-		HANDLE	nText, 
+		double nWeight,
+		HANDLE	nText,
 		DWORD	nTextSize, 
 		DWORD	nTextStart, 
 		COLORREF *nTextColor, 
@@ -80,14 +80,10 @@ public:
 	HANDLE LeftText( DWORD count ) const;
 	HANDLE RightText( DWORD count ) const;
 
-	int AppendFiller( DWORD Length );
-	int InsertFillerRange ( DWORD StartRange, DWORD EndRange );
+	int AppendFiller(DWORD Length);
+	int InsertFillerRange(DWORD StartRange, DWORD EndRange);
 
-	int TestDeleteFillerRange( DWORD StartRange, DWORD EndRange );
-	void DeleteFillerRange( DWORD StartRange, DWORD EndRange, int Renum = 0 );
-
-
-//	DWORD FindText ( const char c ) const;
+	//	DWORD FindText ( const char c ) const;
 	void SetShade ( DWORD Position, COLORREF nTextColor, COLORREF nBackColor, BOOL AddRemShade );
 	void ResetShades();
 	void ClearShades() { m_mapCPAIR.RemoveAll(); }
@@ -131,17 +127,12 @@ public:
 	const CString& GetDescr() { return m_Descr; }
 	void SetDescr( CString& nDescr ) { m_Descr = nDescr; }
 
-	int MoveText ( DWORD Position, int Amount );
-	int SlideText ( DWORD Position, int Amount );
-	int InsertDash ( DWORD Position );
-	int DeleteDash ( DWORD Position );
+	double GetWeight() { return m_Weight; }
+	void SetWeight(double nWeight) { m_Weight = nWeight; }
 
 	DWORD	m_StartRange, m_EndRange;
 	int		m_Expanded;
 	HANDLE  GetTextHandle() { return m_Text; }
-
-	int InvalConsensus( DWORD *StartRange, DWORD *EndRange );	// return true to force redraw
-	int InvalScore( DWORD *StartRange, DWORD *EndRange );		// return true to force redraw
 
 	void SetResidueText( HANDLE hText, DWORD StartPos, DWORD EndPos );
 	HANDLE GetResidues() const;
@@ -149,12 +140,8 @@ public:
 	void SetExportFlag(int Flag) { m_ExportFlag = Flag; }
 	int GetExportFlag() { return m_ExportFlag; }
 
-	void SetArrangeFlag(int Flag) { m_ArrangeFlag = Flag; }
-	int GetArrangeFlag() { return m_ArrangeFlag; }
-
 	void LockAndLoad();
 	void AlignDone();
-	void AlignInsertDash(DWORD Index);
 	char AlignGet(DWORD Index);
 
 };

@@ -140,6 +140,7 @@ TRY {
 	tSNS->Len = 0;
 	tSNS->Start = 1;
 	tSNS->Check = 1234;
+	tSNS->Weight = 1.0;
 
 	CString *data;
 	switch ( Dlg.m_Trans ) {
@@ -285,6 +286,7 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
+		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -524,7 +526,7 @@ END_CATCH
 
 int   
 CGenethonDoc::ReadTextFile ( CPtrList *CommentList, CPtrList *SequenceList, const char * PathName, 
-	const CString& SeqName, DWORD TextStart, const CString& Descr, int IUPAC )
+	const CString& SeqName, double SeqWeight, DWORD TextStart, const CString& Descr, int IUPAC )
 {
 	// Determine File Type.
 
@@ -546,6 +548,7 @@ TRY {
 	tSNS->Len = 0;
 	tSNS->Start = TextStart;
 	tSNS->Check = 1234;
+	tSNS->Weight = SeqWeight;
 	tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 	// Abort if alloc fails
 	if ( tSNS->hText == NULL ) {
@@ -1036,6 +1039,7 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
+		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -1427,6 +1431,7 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
+		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -1803,6 +1808,7 @@ TRY {
 		tSNS->Len = 0;
 		tSNS->Start = 1;
 		tSNS->Check = 1234;
+		tSNS->Weight = 1.0;
 		tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 		// Abort if alloc fails
 		if ( tSNS->hText == NULL ) {
@@ -2295,6 +2301,7 @@ TRY {
 			tSNS->Len = 0;
 			tSNS->Start = 1;
 			tSNS->Check = 1234;
+			tSNS->Weight = 1.0;
 			tSNS->hText = GlobalAlloc ( GMEM_FLAG, 0 );
 			// Abort if alloc fails
 			if ( tSNS->hText == NULL ) {

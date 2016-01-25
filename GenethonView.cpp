@@ -31,15 +31,13 @@ BEGIN_MESSAGE_MAP(CGenethonView, CView)
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
-	ON_COMMAND(IDM_GENEARRANGE, OnGenearrange)
-	ON_UPDATE_COMMAND_UI(IDM_GENEARRANGE, OnUpdateGenearrange)
 	ON_COMMAND(IDM_SELECT, OnSelect)
 	ON_UPDATE_COMMAND_UI(IDM_SELECT, OnUpdateSelect)
+	ON_COMMAND(IDM_SELECTCOL, OnSelectcol)
+	ON_UPDATE_COMMAND_UI(IDM_SELECTCOL, OnUpdateSelectcol)
 	ON_COMMAND(IDM_GENECREATEWIN, OnGenecreatewin)
 	ON_COMMAND(ID_EDIT_COPY, OnEditCopy)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_COPY, OnUpdateEditCopy)
-	ON_COMMAND(IDM_MANUALSHADE, OnManualshade)
-	ON_UPDATE_COMMAND_UI(IDM_MANUALSHADE, OnUpdateManualshade)
 	ON_COMMAND(ID_EDIT_COPY0, OnEditCopy0)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_COPY0, OnUpdateEditCopy0)
 	ON_COMMAND(ID_EDIT_COPY8, OnEditCopy8)
@@ -66,8 +64,6 @@ BEGIN_MESSAGE_MAP(CGenethonView, CView)
 	ON_UPDATE_COMMAND_UI(IDM_GENECOPYSEQ, OnUpdateGenecopyseq)
 	ON_COMMAND(IDM_GENECOPYRTF, OnGenecopyrtf)
 	ON_UPDATE_COMMAND_UI(IDM_GENECOPYRTF, OnUpdateGenecopyrtf)
-	ON_COMMAND(IDM_GENEMOVE, OnGenemove)
-	ON_UPDATE_COMMAND_UI(IDM_GENEMOVE, OnUpdateGenemove)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_RBUTTONDBLCLK()
 	//}}AFX_MSG_MAP
@@ -2045,73 +2041,39 @@ CGenethonView::DeSelectAll()
 				InvalidateGVBLP( tGP );
 			}
 		}
+	} else if (m_GeneSelectCol == 1) {
+		InvalNewEndPoint(m_ColSelStart, m_ColSelEnd);
+		m_ColSelBegin = 0;
 	}
 
 	m_CopyFlag = 0;
 }
 
 
-
-int  
-CGDocViewCaret::Comment( char nChar, UINT XPosition, DWORD YPosition, CView* pView )
-{
-
-	CGenethonView* pGEView = (CGenethonView*)pView;
-
-	POSITION tPos = pGEView->m_RowViewList.GetHeadPosition();
-	CGPRowView *tGP;
-
-	pGEView->DeSelectAll();
-
-	while ( tPos != NULL ) {
-
-		tGP = (CGPRowView *)pGEView->m_RowViewList.GetNext(tPos);
-
-		if ( tGP->IsPointWithin(XPosition, YPosition ) ) {
-			return tGP->OnComment(nChar, XPosition, YPosition, pGEView );
-		}
-	}
-
-	return 0;
-}
-
 void 
 CGDocViewCaret::InsKey( UINT XPosition, DWORD YPosition, CView* pView )
 {
 	int sGeneShade = ((CGenethonView *)pView)->m_GeneShade;
-	int sGeneArrange = ((CGenethonView *)pView)->m_GeneArrange;
-	int sGeneMove = ((CGenethonView *)pView)->m_GeneMove;
 
 	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
 	((CGenethonView *)pView)->m_GeneShade = 0;
-	((CGenethonView *)pView)->m_GeneArrange = 0;
-	((CGenethonView *)pView)->m_GeneMove = 0;
 
 	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
 	((CGenethonView *)pView)->m_GeneShade = sGeneShade;
-	((CGenethonView *)pView)->m_GeneArrange = sGeneArrange;
-	((CGenethonView *)pView)->m_GeneMove = sGeneMove;
-
 }
 
 void 
 CGDocViewCaret::DelKey( UINT XPosition, DWORD YPosition, CView* pView )
 {
 	int sGeneShade = ((CGenethonView *)pView)->m_GeneShade;
-	int sGeneArrange = ((CGenethonView *)pView)->m_GeneArrange;
-	int sGeneMove = ((CGenethonView *)pView)->m_GeneMove;
 
 	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
 	((CGenethonView *)pView)->m_GeneShade = 0;
-	((CGenethonView *)pView)->m_GeneArrange = 0;
-	((CGenethonView *)pView)->m_GeneMove = 0;
 
 	((CGenethonView *)pView)->LeftDownFunc( 0, tPoint, CGenethonView::KEYBRD );
 
 	((CGenethonView *)pView)->m_GeneShade = sGeneShade;
-	((CGenethonView *)pView)->m_GeneArrange = sGeneArrange;
-	((CGenethonView *)pView)->m_GeneMove = sGeneMove;
 
 }
 
@@ -2203,9 +2165,12 @@ CGenethonView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
 				m_ColSelEnd = ViewRet.ColSelEnd;
 				m_ColSelBegin = ViewRet.ColSelBegin;
 
-				if ( ViewRet.MenuFunc == DEF_GENEARRANGE 
-					|| ViewRet.MenuFunc == DEF_GENEMOVE 
-					|| ViewRet.MenuFunc == DEF_SHADE 
+				if (ViewRet.MenuFunc == DEF_GENESELECTCOL) {
+					SetCapture();
+					m_SelectDevice = DDevice;
+				}
+
+				if ( ViewRet.MenuFunc == DEF_SHADE 
 				) {
 					// Here we are grabbing and dragging
 					if ( ViewRet.Clip ) {
@@ -2262,13 +2227,6 @@ CGenethonView::LeftDownFunc( UINT nFlags, CPoint point, int DDevice )
 			}
 		}
 	}
-}
-
-void 
-CGDocViewCaret::Move( UINT XPosition, DWORD YPosition, CView* pView )
-{
-	CPoint tPoint ( (int)(XPosition - ((CGenethonView*)pView)->m_DisplayXPosition), (int)(YPosition - ((CGenethonView*)pView)->m_DisplayYPosition));
-	((CGenethonView*)pView)->MoveFunc( 0, tPoint, CGenethonView::KEYBRD );
 }
 
 void
@@ -2331,9 +2289,6 @@ CGenethonView::AdjustEndToPoint( CGPRowView *tGP, UINT PointXPosition, DWORD Poi
 	}
 }
 
-
-
-
 void 
 CGenethonView::MoveFunc(UINT nFlags, CPoint point, int DDevice) 
 {
@@ -2365,12 +2320,6 @@ CGenethonView::MoveFunc(UINT nFlags, CPoint point, int DDevice)
 				} else {
 					tGP->OnMouseMove(nFlags, PointXPosition, PointYPosition, this, &ViewRet );
 					
-					if ( ViewRet.MenuFunc == DEF_GENEARRANGE 
-						|| ViewRet.MenuFunc == DEF_GENEARRANGE 
-					) {
-						GetDocument()->SetModifiedFlag();     // Modfied!
-					}
-
 					m_ColSelStart = ViewRet.ColSelStart;
 					m_ColSelEnd = ViewRet.ColSelEnd;
 
@@ -2786,7 +2735,7 @@ CGenethonView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 	int MenuFunc = GetMenuFunction();
 
-	if ( MenuFunc == DEF_GENESELECT ) {
+	if ( MenuFunc == DEF_GENESELECT || MenuFunc == DEF_GENESELECTCOL ) {
 
 		UINT PointXPosition;
 		DWORD PointYPosition;
@@ -2860,39 +2809,6 @@ CGenethonView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	CView::OnLButtonDblClk(nFlags, point);
 }
 
-
-void 
-CGenethonView::CheckMoveRanges( CGeneSegment *pCGSeg, int Row )
-{
-
-	// TODO: add draw code for native data here
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-
-	// Do score pre inval function
-	int InvScore = 0;
-	DWORD tStartRange = pCGSeg->m_StartRange;
-	DWORD tEndRange = pCGSeg->m_EndRange;
-	
-
-	int RowCount = pDoc->pGSFiller->SegDataList.GetCount();
-	
-	if ( (Row != 0 ) && (Row != 1) && (Row != (RowCount - 1)) ) {
-		CGeneSegment *tGSeg = (CGeneSegment *)pDoc->pGSFiller->SegDataList.GetHead();
-		InvScore = tGSeg->InvalScore( &tStartRange, &tEndRange );
-	}
-
-
-	POSITION tPos = m_RowViewList.GetHeadPosition();
-	CGPRowView *tGPRV;
-	
-	while ( tPos != NULL ) {
-		tGPRV = (CGPRowView *)m_RowViewList.GetNext(tPos);
-		tGPRV->CheckMoveRanges( this, pCGSeg, Row, InvScore, tStartRange, tEndRange );
-	}
-}
-
-
 void 
 CGenethonView::InvalNewEndPoint( DWORD Range1, DWORD Range2)
 {
@@ -2915,10 +2831,9 @@ void
 CGenethonView::ClearMenu()
 {
 	m_GeneShade = 0;
-	m_GeneArrange = 0;
-	m_GeneMove = 0;
 	m_GeneSelect = 0;
-	
+	m_GeneSelectCol = 0;
+
 }
 
 unsigned int 
@@ -2926,51 +2841,10 @@ CGenethonView::GetMenuFunction()
 {
 	int ret = 0;
 	ret += m_GeneShade * DEF_SHADE;
-	ret += m_GeneArrange * DEF_GENEARRANGE;
-	ret += m_GeneMove * DEF_GENEMOVE;
 	ret += m_GeneSelect * DEF_GENESELECT;
+	ret += m_GeneSelectCol * DEF_GENESELECTCOL;
 
 	return ret;
-}
-
-void CGenethonView::OnGenearrange() 
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	if ( m_GeneArrange == 0 ) {
-		ClearMenu();
-		m_GeneArrange = 1;
-	} else {
-		m_GeneArrange = 0;
-	}
-	Invalidate(FALSE);
-}
-
-void CGenethonView::OnUpdateGenearrange(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneArrange );
-	
-}
-
-void CGenethonView::OnGenemove() 
-{
-	// TODO: Add your command handler code here
-	DeSelectAll();
-	if ( m_GeneMove == 0 ) {
-		ClearMenu();
-		m_GeneMove = 1;
-	} else {
-		m_GeneMove = 0;
-	}
-	Invalidate(FALSE);
-}
-
-void CGenethonView::OnUpdateGenemove(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck( m_GeneMove );
-	
 }
 
 void CGenethonView::OnSelect() 
@@ -2991,7 +2865,29 @@ void CGenethonView::OnUpdateSelect(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( m_GeneSelect );
 }
 
-void CGenethonView::OnGenecreatewin() 
+void CGenethonView::OnSelectcol()
+{
+	// TODO: Add your command handler code here
+	DeSelectAll();
+	m_ColSelStart = m_ColSelEnd = m_ColSelBegin = 0;
+	if (m_GeneSelectCol == 0) {
+		ClearMenu();
+		m_GeneSelectCol = 1;
+	}
+	else {
+		m_GeneSelectCol = 0;
+	}
+	Invalidate(FALSE);
+
+}
+
+void CGenethonView::OnUpdateSelectcol(CCmdUI* pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->SetCheck(m_GeneSelectCol);
+}
+
+void CGenethonView::OnGenecreatewin()
 {
 	// TODO: Add your command handler code here
 	CGenethonDoc* pDoc = GetDocument();
@@ -3095,37 +2991,11 @@ CGenethonView::OnActivateView( BOOL bActivate, CView* pActivateView, CView* pDea
 		if ( ((CGenethonApp *)AfxGetApp())->m_OKOrientCheck ) {
 			CGenethonDoc* pDoc = GetDocument();
 			ASSERT_VALID(pDoc);
+		
 			((CGenethonApp *)AfxGetApp())->SetLandscape( pDoc->m_UserVars.m_Orientation );
 		}
 	}
 
-}
-
-
-void CGenethonView::OnManualshade()
-{
-	// TODO: Add your command handler code here
-	DoManualShade();
-}
-
-void 
-CGenethonView::DoManualShade()
-{
-	CGenethonDoc *pDoc = GetDocument();
-	
-	ClearMenu();	// As well m_ShadeLevel
-	                               
-	m_GeneShade = 1;
-
-	Invalidate(FALSE);
-
-}
-
-void CGenethonView::OnUpdateManualshade(CCmdUI* pCmdUI)
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->SetCheck(m_GeneShade);
-	
 }
 
 void CGenethonView::OnFilePrint()

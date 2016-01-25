@@ -8,9 +8,7 @@ public:
 	CGDocViewCaret() {}
 	void Select( UINT XPosition, DWORD YPosition, CView *pView );
 	void LeftDown( UINT XPosition, DWORD YPosition, CView *pView );
-	void Move( UINT XPosition, DWORD YPosition, CView *pView );
 	void LeftUp( UINT XPosition, DWORD YPosition, CView *pView );
-	int Comment( char nChar, UINT XPosition, DWORD YPosition, CView *pView );
 	void InsKey( UINT XPosition, DWORD YPosition, CView* pView );
 	void DelKey( UINT XPosition, DWORD YPosition, CView* pView );
 
@@ -112,8 +110,7 @@ protected: // create from serialization only
 	int m_InitialUpdateDone;
 	
 	int m_GeneShade;
-	int m_GeneArrange;
-	int m_GeneMove;
+	int m_GeneSelectCol;
 	int m_GeneSelect;
 
 	COLORREF m_ShadeTextColor;
@@ -124,9 +121,8 @@ protected: // create from serialization only
 	//
 		DEF_SHADE,
 	//
-		DEF_GENEARRANGE,
-		DEF_GENEMOVE, 
 		DEF_GENESELECT,
+		DEF_GENESELECTCOL,
 	};
 
 	void ClearMenu();
@@ -147,6 +143,7 @@ protected: // create from serialization only
 	void RebuildShowCaret();
 
 	int m_NamesLength;
+	
 
 // Attributes
 public:
@@ -161,12 +158,8 @@ public:
 
 	void ResetGPSize( CDC* pDC, UINT MaxX );
 
-//	void CheckMoveRanges( CGeneString *tpMoveString );
-	void CheckMoveRanges( CGeneSegment *pCGSeg, int Row );
-
 	void ExpandedSegments( VIEWRETSTRUCT *pViewRet );
 	void InvalNewEndPoint( DWORD Range1, DWORD Range2);
-	void DoManualShade();
 
 	void InvalidateRectLP(UINT tXPosition, DWORD tYPosition, UINT tXSize, DWORD tYSize );
 	void InvalidateGVBLP( CGeneViewBase *pGVB );
@@ -219,15 +212,13 @@ protected:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
-	afx_msg void OnGenearrange();
-	afx_msg void OnUpdateGenearrange(CCmdUI* pCmdUI);
 	afx_msg void OnSelect();
 	afx_msg void OnUpdateSelect(CCmdUI* pCmdUI);
+	afx_msg void OnSelectcol();
+	afx_msg void OnUpdateSelectcol(CCmdUI* pCmdUI);
 	afx_msg void OnGenecreatewin();
 	afx_msg void OnEditCopy();
 	afx_msg void OnUpdateEditCopy(CCmdUI* pCmdUI);
-	afx_msg void OnManualshade();
-	afx_msg void OnUpdateManualshade(CCmdUI* pCmdUI);
 	afx_msg void OnEditCopy0();
 	afx_msg void OnUpdateEditCopy0(CCmdUI* pCmdUI);
 	afx_msg void OnEditCopy8();
@@ -254,8 +245,6 @@ protected:
 	afx_msg void OnUpdateGenecopyseq(CCmdUI* pCmdUI);
 	afx_msg void OnGenecopyrtf();
 	afx_msg void OnUpdateGenecopyrtf(CCmdUI* pCmdUI);
-	afx_msg void OnGenemove();
-	afx_msg void OnUpdateGenemove(CCmdUI* pCmdUI);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDblClk(UINT nFlags, CPoint point);
 	//}}AFX_MSG
