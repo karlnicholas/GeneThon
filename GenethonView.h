@@ -241,8 +241,6 @@ protected:
 	afx_msg void OnUpdateCopymetaclip(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateCopymetafile(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateGenecreatewin(CCmdUI* pCmdUI);
-	afx_msg void OnGenecopyseq();
-	afx_msg void OnUpdateGenecopyseq(CCmdUI* pCmdUI);
 	afx_msg void OnGenecopyrtf();
 	afx_msg void OnUpdateGenecopyrtf(CCmdUI* pCmdUI);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);

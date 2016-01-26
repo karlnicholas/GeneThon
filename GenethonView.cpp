@@ -60,8 +60,6 @@ BEGIN_MESSAGE_MAP(CGenethonView, CView)
 	ON_UPDATE_COMMAND_UI(IDM_COPYMETACLIP, OnUpdateCopymetaclip)
 	ON_UPDATE_COMMAND_UI(IDM_COPYMETAFILE, OnUpdateCopymetafile)
 	ON_UPDATE_COMMAND_UI(IDM_GENECREATEWIN, OnUpdateGenecreatewin)
-	ON_COMMAND(IDM_GENECOPYSEQ, OnGenecopyseq)
-	ON_UPDATE_COMMAND_UI(IDM_GENECOPYSEQ, OnUpdateGenecopyseq)
 	ON_COMMAND(IDM_GENECOPYRTF, OnGenecopyrtf)
 	ON_UPDATE_COMMAND_UI(IDM_GENECOPYRTF, OnUpdateGenecopyrtf)
 	ON_WM_RBUTTONDOWN()
@@ -3901,59 +3899,6 @@ void CGenethonView::OnUpdateCopymetafile(CCmdUI* pCmdUI)
 	pCmdUI->Enable(m_CopyFlag);
 	
 }
-
-
-
-void CGenethonView::OnGenecopyseq() 
-{
-	// TODO: Add your command handler code here
-	CGenethonDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	if ( !m_ColSelBegin ) {
-		AfxMessageBox("Must Select with Edit/Select Column first!" );
-		return;
-	}
-
-	DWORD StartRange, EndRange;
-	if ( m_ColSelStart < m_ColSelEnd ) {
-		StartRange = m_ColSelStart;
-		EndRange = m_ColSelEnd;
-	} else {
-		StartRange = m_ColSelEnd;
-		EndRange = m_ColSelStart;
-	}
-
-	POSITION tPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
-	CGeneSegment *GetCGSeg;
-	while (tPos != NULL ) {
-
-		GetCGSeg = (CGeneSegment *)pDoc->pGSFiller->SegDataList.GetNext(tPos);
-
-		if ( GetCGSeg->GetStyle() != LINESEQUENCE ) continue;
-
-	}
-
-	tPos = pDoc->pGSFiller->SegDataList.GetHeadPosition();
-	while (tPos != NULL ) {
-
-		CGeneSegment *tCGSeg = (CGeneSegment *)pDoc->pGSFiller->SegDataList.GetNext(tPos);
-
-		if ( tCGSeg->GetStyle() != LINESEQUENCE ) continue;
-
-	}
-
-	pDoc->SetModifiedFlag();
-
-}
-
-void CGenethonView::OnUpdateGenecopyseq(CCmdUI* pCmdUI) 
-{
-	// TODO: Add your command update UI handler code here
-	pCmdUI->Enable(m_ColSelBegin);
-	
-}
-
 
 void CGenethonView::OnGenecopyrtf() 
 {

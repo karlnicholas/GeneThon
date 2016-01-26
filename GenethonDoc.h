@@ -204,6 +204,8 @@ protected:
 	afx_msg void OnGenereportview();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnPlaypython();
 };
 
 /////////////////////////////////////////////////////////////////////////////

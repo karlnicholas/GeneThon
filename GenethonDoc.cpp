@@ -24,6 +24,7 @@ BEGIN_MESSAGE_MAP(CGenethonDoc, CDocument)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
 	ON_COMMAND(IDM_GENEREPORTVIEW, OnGenereportview)
 	//}}AFX_MSG_MAP
+	ON_COMMAND(IDM_PLAYPYTHON, &CGenethonDoc::OnPlaypython)
 END_MESSAGE_MAP()
 
 
@@ -638,3 +639,174 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 
 }
 
+ #include <Python.h>
+
+static int numargs = 0;
+
+void SplitFilename(CString fileName, CString* filePath, CString* appName) {
+	int lastSep = fileName.ReverseFind('\\');
+	*filePath = fileName.Mid(0, lastSep);
+	int dotPy = fileName.Find(".py");
+	*appName = fileName.Mid(lastSep+1, dotPy-lastSep-1);
+}
+
+/* Return the number of arguments of the application command line */
+static PyObject*
+emb_numargs(PyObject *self, PyObject *args)
+{
+	if (!PyArg_ParseTuple(args, ":numargs"))
+		return NULL;
+	return PyLong_FromLong(numargs);
+}
+
+static PyMethodDef EmbMethods[] = {
+	{ "numargs", emb_numargs, METH_VARARGS,
+	"Return the number of arguments received by the process." },
+	{ NULL, NULL, 0, NULL }
+};
+
+static PyModuleDef EmbModule = {
+	PyModuleDef_HEAD_INIT, "emb", NULL, -1, EmbMethods,
+	NULL, NULL, NULL, NULL
+};
+
+static PyObject*
+PyInit_emb(void)
+{
+	return PyModule_Create(&EmbModule);
+}
+
+
+void CGenethonDoc::OnPlaypython()
+{
+	CString string = CString();
+
+	CString fileName = "c:\\users\\karl\\multiply.py";
+/*
+	CString fileName;
+	GetTempFileName(fileName);
+	fileName.Replace(".tmp", ".py");
+
+	CStdioFile wFile(fileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
+	wFile.WriteString("def multiply(a,b):\n");
+	wFile.WriteString("  print(\"Will compute\", a, \"times\", b)\n");
+	wFile.WriteString("  c = 0\n");
+	wFile.WriteString("  for i in range(0, a):\n");
+	wFile.WriteString("    c = c + b\n");
+	wFile.WriteString("  return c\n");
+	wFile.Close();
+*/
+	PyObject *pName, *pModule, *pDict, *pFunc;
+	PyObject *pArgs, *pValue;
+	int i;
+
+
+	Py_Initialize();
+	/* Error checking of pName left out */
+
+	CString filePath;
+	CString appName;
+	SplitFilename(fileName, &filePath, &appName);
+
+	pName = PyUnicode_DecodeFSDefault(appName);
+
+	PyObject* sysPath = PySys_GetObject((char*)"path");
+	PyObject* pyPath = PyUnicode_FromString(filePath);
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+
+	pModule = PyImport_Import(pName);
+	Py_DECREF(pName);
+
+	if (pModule != NULL) {
+		pFunc = PyObject_GetAttrString(pModule, "multiply");
+		/* pFunc is a new reference */
+
+		if (pFunc && PyCallable_Check(pFunc)) {
+			pArgs = PyTuple_New(2);
+			pValue = PyLong_FromLong(2);
+			if (!pValue) {
+				Py_DECREF(pArgs);
+				Py_DECREF(pModule);
+				fprintf(stderr, "Cannot convert argument\n");
+				return;
+			}
+			PyTuple_SetItem(pArgs, 0, pValue);
+			pValue = PyLong_FromLong(3);
+			if (!pValue) {
+				Py_DECREF(pArgs);
+				Py_DECREF(pModule);
+				fprintf(stderr, "Cannot convert argument\n");
+				return;
+			}
+			PyTuple_SetItem(pArgs, 1, pValue);
+			/* pValue reference stolen here: */
+			pValue = PyObject_CallObject(pFunc, pArgs);
+			Py_DECREF(pArgs);
+			if (pValue != NULL) {
+				string.Format("Result of call: %ld", PyLong_AsLong(pValue));
+				Py_DECREF(pValue);
+			}
+			else {
+				Py_DECREF(pFunc);
+				Py_DECREF(pModule);
+				PyErr_Print();
+				TRACE("Call failed\n");
+				return;
+			}
+		}
+		else {
+			if (PyErr_Occurred())
+				PyErr_Print();
+			fprintf(stderr, "Cannot find function \"%s\"\n", "multiply");
+		}
+		Py_XDECREF(pFunc);
+		Py_DECREF(pModule);
+	}
+	else {
+		PyErr_Print();
+		TRACE("Failed to load \"%s\"\n", appName);
+		return;
+	}
+	Py_Finalize();
+//	DeleteTempFile(fileName);
+
+	if (m_pTextView == NULL) {
+
+		((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenTextView();
+	}
+	else {
+
+		m_pTextView->GetParentFrame()->ActivateFrame();
+		m_pTextView->Invalidate();
+	}
+
+	CMemFile* memFile = new CMemFile();
+	//serialize object into the pData
+//	char* cBuff = new char[128];
+//	sprintf_s(cBuff, 128, "%s", "Test test test test test test\n");
+	
+	memFile->Write(string, string.GetLength());
+	memFile->SeekToBegin();
+
+	//	txtFile->Open(PathName, CFile::modeRead);
+	//	CArchive archive(&txtFile, CArchive::load);
+
+	//	SerializeRaw( archive );
+	m_pTextView->LoadMemfile(memFile);
+
+	memFile->Close();
+	delete memFile;
+
+/*
+	CString FileName;
+	GetTempFileName(FileName);
+	CStdioFile wFile(FileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
+	wFile.WriteString("Test test test test test test\n");
+	wFile.Close();
+
+	m_pTextView->LoadFile(FileName);
+
+	DeleteTempFile(FileName);
+*/
+}

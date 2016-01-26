@@ -379,6 +379,7 @@ BEGIN
     PUSHBUTTON      "&Help",ID_HELP,123,92,51,14
 END
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog Info
@@ -444,7 +445,6 @@ BEGIN
     IDD_GENBANK, DIALOG
     BEGIN
     END
-
 END
 #endif    // APSTUDIO_INVOKED
 

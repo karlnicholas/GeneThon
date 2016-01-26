@@ -86,7 +86,6 @@ DWORD CALLBACK TextRead(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
 	return 0;
 }
 
- 
 void CTextView::LoadFile(CString& PathName)
 {
 	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
@@ -109,7 +108,33 @@ void CTextView::LoadFile(CString& PathName)
 
 }
 
-int CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+
+CMemFile *memFile;
+DWORD CALLBACK MemfileRead(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
+{
+	// CFile
+	*pcb = memFile->Read(pbBuff, cb);
+	return 0;
+}
+
+void CTextView::LoadMemfile(CMemFile* writtenMemFile)
+{
+	CGenethonDoc* pDoc = (CGenethonDoc*)GetDocument();
+	ASSERT_VALID(pDoc);
+
+	memFile = writtenMemFile;
+	//	CArchive archive(&txtFile, CArchive::load);
+
+	//	SerializeRaw( archive );
+
+	EDITSTREAM es;
+	es.pfnCallback = MemfileRead;
+
+	GetRichEditCtrl().StreamIn(SF_TEXT, es);
+
+}
+
+int CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {                               
 	m_nWordWrap = VIEWBASE::WrapNone;
 

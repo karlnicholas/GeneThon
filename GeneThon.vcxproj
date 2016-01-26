@@ -66,9 +66,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\libs;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\libs;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -77,6 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -90,6 +103,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -98,6 +112,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="charmap.cpp" />
@@ -110,11 +134,11 @@
     <ClCompile Include="gdmenu.cpp" />
     <ClCompile Include="Gdocfile.cpp" />
     <ClCompile Include="Genbank.cpp" />
-    <ClCompile Include="Genechi.cpp" />
-    <ClCompile Include="genetdoc.cpp" />
-    <ClCompile Include="Genethon.cpp" />
+    <ClCompile Include="GeneMDIChildWnd.cpp" />
+    <ClCompile Include="GenethonDoc.cpp" />
+    <ClCompile Include="GenethonApp.cpp" />
     <ClCompile Include="GenethonView.cpp" />
-    <ClCompile Include="Gprowvw.cpp" />
+    <ClCompile Include="GPRowView.cpp" />
     <ClCompile Include="gpsumvw.cpp" />
     <ClCompile Include="GraphSetup.cpp" />
     <ClCompile Include="Gsegment.cpp" />
@@ -126,7 +150,7 @@
     <ClCompile Include="Gvetail.cpp" />
     <ClCompile Include="Gvsum.cpp" />
     <ClCompile Include="Heapsort.cpp" />
-    <ClCompile Include="Mainfrm.cpp" />
+    <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Msffile.cpp" />
     <ClCompile Include="Mycaret.cpp" />
     <ClCompile Include="Pictfile.cpp" />
@@ -155,12 +179,12 @@
     <ClInclude Include="Dwordmap.h" />
     <ClInclude Include="Exportdl.h" />
     <ClInclude Include="Genbank.h" />
-    <ClInclude Include="Genechi.h" />
-    <ClInclude Include="genetdoc.h" />
-    <ClInclude Include="GeneThon.h" />
+    <ClInclude Include="GeneMDIChildWnd.h" />
+    <ClInclude Include="GenethonDoc.h" />
+    <ClInclude Include="GenethonApp.h" />
     <ClInclude Include="GenethonView.h" />
     <ClInclude Include="Genestor.h" />
-    <ClInclude Include="Gprowvw.h" />
+    <ClInclude Include="GPRowView.h" />
     <ClInclude Include="Gpsumvw.h" />
     <ClInclude Include="GraphSetup.h" />
     <ClInclude Include="Gsbase.h" />
@@ -173,7 +197,7 @@
     <ClInclude Include="Gvelead.h" />
     <ClInclude Include="Gvetail.h" />
     <ClInclude Include="Gvsum.h" />
-    <ClInclude Include="Mainfrm.h" />
+    <ClInclude Include="MainFrame.h" />
     <ClInclude Include="Mycaret.h" />
     <ClInclude Include="Pictfile.h" />
     <ClInclude Include="Plex.h" />
@@ -204,6 +228,7 @@
     <Image Include="RES\MEBITU.BMP" />
     <Image Include="RES\SMLOGO.BMP" />
     <Image Include="RES\TOOLBAR.BMP" />
+    <Image Include="res\toolbar1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

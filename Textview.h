@@ -14,13 +14,14 @@ protected:
 
 // Attributes
 public:
-	void LoadFile(CString& PathName);
-	void SaveFile(CString& PathName);
-
-// Operations
+	// Operations
 public:
 
-// Implementation
+	void LoadFile(CString& PathName);
+	void LoadMemfile(CMemFile* writtenMemFile);
+	void SaveFile(CString& PathName);
+
+	// Implementation
 protected:
 	virtual ~CTextView();
 //	virtual	void OnDraw(CDC* pDC);		// overridden to draw this view

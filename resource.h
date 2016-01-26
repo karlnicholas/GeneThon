@@ -9,6 +9,7 @@
 #define IDR_TEXTVIEW                    6
 #define IDD_ABOUTBOX                    100
 #define ID_INDICATOR_POS                101
+#define IDM_PLAYPYTHON                  107
 #define IDD_CONFDISPLAY                 108
 #define IDD_CONFPRINT                   126
 #define IDB_GENEBAR                     143
@@ -92,7 +93,6 @@
 #define IDC_PRINTDATE                   1485
 #define IDC_PRINTFILENAME               1486
 #define IDC_GENEALIGNWIDTH              1493
-#define IDC_SHOWMANSHADE                1494
 #define IDC_DESEL                       1498
 #define IDC_COMPLEMENT                  1499
 #define IDC_LOCUS                       1536
@@ -129,15 +129,10 @@
 #define IDM_GRAPHSETUP                  32887
 #define IDM_FILEEXPORT                  32897
 #define IDM_FILEIMPORT                  32898
-#define IDM_GENECOPYSEQ                 32905
-#define IDM_GENECOPYHTML                32919
 #define IDM_SUMMARYVIEW                 32927
 #define IDM_GENECOPYRTF                 32928
-#define IDM_SHOWCOMMENTS                32940
 #define IDM_GENEREPORTVIEW              32960
 #define IDM_REPSAVEFILE                 32962
-#define IDM_CONFIGREPORT                32972
-#define IDM_CONSPROSITE                 32973
 #define ID_WINDOW_GRAPHVIEW             32974
 #define IDS_SEQDELSEQ                   57645
 #define IDS_NOMOREPAGES                 57646
@@ -149,9 +144,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        204
+#define _APS_NEXT_RESOURCE_VALUE        206
 #define _APS_NEXT_COMMAND_VALUE         32976
 #define _APS_NEXT_CONTROL_VALUE         1571
-#define _APS_NEXT_SYMED_VALUE           107
+#define _APS_NEXT_SYMED_VALUE           108
 #endif
 #endif

@@ -52,10 +52,10 @@ enum {
 // Graph View
 #include "GraphWindow.h"
 
-#include "genechi.h"
+#include "GeneMDIChildWnd.h"
 
 // Main prog
-#include "genethon.h"
+#include "GenethonApp.h"
 
 // PictFile
 #include "pictfile.h"
@@ -70,7 +70,7 @@ enum {
 #include "textview.h"
 
 // Main doc
-#include "genetdoc.h"
+#include "GenethonDoc.h"
 
 // Utility
 #include "gstring.h"
@@ -81,11 +81,11 @@ enum {
 #include "sviewret.h"
 
 //
-#include "mainfrm.h"
+#include "MainFrame.h"
 
 #include "gvbase.h"
 
-#include "gprowvw.h"
+#include "GPRowView.h"
 #include "gpsumvw.h"
 
 // View
