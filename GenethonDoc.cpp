@@ -2,6 +2,9 @@
 //
 
 #include "stdafx.h"
+#include <vector>
+#include <Python.h>
+#include <frameobject.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -47,6 +50,7 @@ CGenethonDoc::CGenethonDoc()
 
 	((CGenethonApp *)AfxGetApp())->SetLandscape( m_UserVars.m_Orientation );
 
+	Py_Initialize();
 }
 
 CGenethonDoc::~CGenethonDoc()
@@ -57,7 +61,7 @@ CGenethonDoc::~CGenethonDoc()
 
 	ClearUserVars( &m_UserVars );
 
-
+	Py_Finalize();
 }
 
 
@@ -639,18 +643,25 @@ void CGenethonDoc::DoConfigure(int ActivePage, int ReDraw )
 
 }
 
- #include <Python.h>
-
-static int numargs = 0;
-
 void SplitFilename(CString fileName, CString* filePath, CString* appName) {
-	int lastSep = fileName.ReverseFind('\\');
+	int lastSep = fileName.ReverseFind('/');
 	*filePath = fileName.Mid(0, lastSep);
 	int dotPy = fileName.Find(".py");
 	*appName = fileName.Mid(lastSep+1, dotPy-lastSep-1);
 }
 
+static int numargs = 0;
+static CString someString;
 /* Return the number of arguments of the application command line */
+
+static PyObject*
+emb_somestring(PyObject *self, PyObject *args)
+{
+	if (!PyArg_ParseTuple(args, ":somestring"))
+		return NULL;
+	return PyUnicode_FromString(someString);
+}
+
 static PyObject*
 emb_numargs(PyObject *self, PyObject *args)
 {
@@ -660,8 +671,8 @@ emb_numargs(PyObject *self, PyObject *args)
 }
 
 static PyMethodDef EmbMethods[] = {
-	{ "numargs", emb_numargs, METH_VARARGS,
-	"Return the number of arguments received by the process." },
+	{ "numargs", emb_numargs, METH_VARARGS, "Return the number of arguments received by the process." },
+	{ "somestring", emb_somestring, METH_VARARGS, "A String for writing." },
 	{ NULL, NULL, 0, NULL }
 };
 
@@ -676,13 +687,26 @@ PyInit_emb(void)
 	return PyModule_Create(&EmbModule);
 }
 
-
+void CGenethonDoc::anything()
+{
+}
 void CGenethonDoc::OnPlaypython()
 {
-	CString string = CString();
+//	CString fileName = "c:/users/karl/plotstdvectors.py";
+//	CString function = "plotStdVectors";
+//	this->runTest1(fileName, function);
+//	CString fileName = "c:/users/karl/multiply.py";
+//	CString function = "multiply";
+//	CString output = this->runTest2(fileName, function);
+	CString output = this->runTest3();
+	TRACE(output);
+	writeToReport(output);
+}
 
-	CString fileName = "c:\\users\\karl\\multiply.py";
-/*
+CString CGenethonDoc::runTest2(CString& fileName, CString& function) {
+	CString output = CString();
+//	CString fileName = "c:/users/karl/multiply.py";
+	/*
 	CString fileName;
 	GetTempFileName(fileName);
 	fileName.Replace(".tmp", ".py");
@@ -695,14 +719,21 @@ void CGenethonDoc::OnPlaypython()
 	wFile.WriteString("    c = c + b\n");
 	wFile.WriteString("  return c\n");
 	wFile.Close();
-*/
+	*/
+
 	PyObject *pName, *pModule, *pDict, *pFunc;
 	PyObject *pArgs, *pValue;
+	PyObject *ptype, *pvalue, *ptraceback;
 	int i;
 
+	numargs = 4;
+	someString = CString("Very well done sir.");
+	PyImport_AppendInittab("emb", &PyInit_emb);
 
+	// Error checking of pName left out
+	wchar_t *program = Py_DecodeLocale("GeneDoc", NULL);
+	Py_SetProgramName(program);
 	Py_Initialize();
-	/* Error checking of pName left out */
 
 	CString filePath;
 	CString appName;
@@ -710,8 +741,21 @@ void CGenethonDoc::OnPlaypython()
 
 	pName = PyUnicode_DecodeFSDefault(appName);
 
-	PyObject* sysPath = PySys_GetObject((char*)"path");
+
+	PyObject* sysPath = PySys_GetObject("path");
 	PyObject* pyPath = PyUnicode_FromString(filePath);
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Dlls");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib/site-packages");
 	PyList_Append(sysPath, pyPath);
 	Py_DECREF(pyPath);
 
@@ -719,8 +763,8 @@ void CGenethonDoc::OnPlaypython()
 	Py_DECREF(pName);
 
 	if (pModule != NULL) {
-		pFunc = PyObject_GetAttrString(pModule, "multiply");
-		/* pFunc is a new reference */
+		pFunc = PyObject_GetAttrString(pModule, function);
+		// pFunc is a new reference 
 
 		if (pFunc && PyCallable_Check(pFunc)) {
 			pArgs = PyTuple_New(2);
@@ -728,37 +772,40 @@ void CGenethonDoc::OnPlaypython()
 			if (!pValue) {
 				Py_DECREF(pArgs);
 				Py_DECREF(pModule);
-				fprintf(stderr, "Cannot convert argument\n");
-				return;
+				TRACE("Cannot convert argument\n");
+				return output;
 			}
 			PyTuple_SetItem(pArgs, 0, pValue);
 			pValue = PyLong_FromLong(3);
 			if (!pValue) {
 				Py_DECREF(pArgs);
 				Py_DECREF(pModule);
-				fprintf(stderr, "Cannot convert argument\n");
-				return;
+				TRACE("Cannot convert argument\n");
+				return output;
 			}
 			PyTuple_SetItem(pArgs, 1, pValue);
-			/* pValue reference stolen here: */
+			// pValue reference stolen here:
 			pValue = PyObject_CallObject(pFunc, pArgs);
 			Py_DECREF(pArgs);
 			if (pValue != NULL) {
-				string.Format("Result of call: %ld", PyLong_AsLong(pValue));
 				Py_DECREF(pValue);
+				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
+				output.Format("Result of call: %ld\n%s", PyLong_AsLong(pValue), PyUnicode_AsUTF8(v));
+				TRACE(output);
 			}
 			else {
 				Py_DECREF(pFunc);
 				Py_DECREF(pModule);
-				PyErr_Print();
-				TRACE("Call failed\n");
-				return;
+				output = handlePyError();
+				TRACE(output);
+				return output;
 			}
 		}
 		else {
-			if (PyErr_Occurred())
-				PyErr_Print();
-			fprintf(stderr, "Cannot find function \"%s\"\n", "multiply");
+			if (PyErr_Occurred()) {
+				output = handlePyError();
+				TRACE("Cannot find function \"%s\"\n", "multiply");
+			}
 		}
 		Py_XDECREF(pFunc);
 		Py_DECREF(pModule);
@@ -766,11 +813,135 @@ void CGenethonDoc::OnPlaypython()
 	else {
 		PyErr_Print();
 		TRACE("Failed to load \"%s\"\n", appName);
-		return;
 	}
-	Py_Finalize();
-//	DeleteTempFile(fileName);
 
+	return output;
+
+	//	DeleteTempFile(fileName);
+	/*
+	CString FileName;
+	GetTempFileName(FileName);
+	CStdioFile wFile(FileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
+	wFile.WriteString("Test test test test test test\n");
+	wFile.Close();
+
+	m_pTextView->LoadFile(FileName);
+
+	DeleteTempFile(FileName);
+	*/
+
+}
+
+CString CGenethonDoc::runTest1(CString& fileName, CString& function) {
+
+	CString output = CString();
+	PyObject *pName, *pModule, *pDict, *pFunc;
+	PyObject *pArgTuple, *pValue, *pXVec, *pYVec;
+	PyObject *ptype, *pvalue, *ptraceback;
+
+	int i;
+
+	// Set the path to include the current directory in case the module is located there. Found from
+	// http://stackoverflow.com/questions/7624529/python-c-api-doesnt-load-module
+	// and http://stackoverflow.com/questions/7283964/embedding-python-into-c-importing-modules
+
+	CString filePath;
+	CString appName;
+	SplitFilename(fileName, &filePath, &appName);
+
+	pName = PyUnicode_DecodeFSDefault(appName);
+
+	PyObject *sys = PyImport_ImportModule("sys");
+	PyObject *path = PyObject_GetAttrString(sys, "path");
+	PyList_Append(path, PyUnicode_FromString(filePath));
+	PyList_Append(path, PyUnicode_FromString("c:/users/karl/Anaconda3"));
+	PyList_Append(path, PyUnicode_FromString("c:/users/karl/Anaconda3/Lib"));
+	PyList_Append(path, PyUnicode_FromString("c:/users/karl/Anaconda3/DLLs"));
+
+	pName = PyUnicode_FromString(appName);   //Get the name of the module
+	pModule = PyImport_Import(pName);     //Get the module
+
+	Py_DECREF(pName);
+
+	if (pModule != NULL) {
+		pFunc = PyObject_GetAttrString(pModule, function);   //Get the function by its name
+															/* pFunc is a new reference */
+
+		if (pFunc && PyCallable_Check(pFunc)) {
+
+			//Set up a tuple that will contain the function arguments. In this case, the
+			//function requires two tuples, so we set up a tuple of size 2.
+			pArgTuple = PyTuple_New(2);
+
+			//Make some vectors containing the data
+			static const double xarr[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14 };
+			std::vector<double> xvec(xarr, xarr + sizeof(xarr) / sizeof(xarr[0]));
+			static const double yarr[] = { 0,0,1,1,0,0,2,2,0,0,1,1,0,0 };
+			std::vector<double> yvec(yarr, yarr + sizeof(yarr) / sizeof(yarr[0]));
+
+			//Transfer the C++ vector to a python tuple
+			pXVec = PyTuple_New(xvec.size());
+			for (i = 0; i < xvec.size(); ++i) {
+				pValue = PyFloat_FromDouble(xvec[i]);
+				if (!pValue) {
+					Py_DECREF(pXVec);
+					Py_DECREF(pModule);
+					return "Cannot convert array value\n";
+				}
+				PyTuple_SetItem(pXVec, i, pValue);
+			}
+
+			//Transfer the other C++ vector to a python tuple
+			pYVec = PyTuple_New(yvec.size());
+			for (i = 0; i < yvec.size(); ++i) {
+				pValue = PyFloat_FromDouble(yvec[i]);
+				if (!pValue) {
+					Py_DECREF(pYVec);
+					Py_DECREF(pModule);
+					return "Cannot convert array value\n";
+				}
+				PyTuple_SetItem(pYVec, i, pValue); //
+			}
+
+			//Set the argument tuple to contain the two input tuples
+			PyTuple_SetItem(pArgTuple, 0, pXVec);
+			PyTuple_SetItem(pArgTuple, 1, pYVec);
+
+			//Call the python function
+			pValue = PyObject_CallObject(pFunc, pArgTuple);
+
+			Py_DECREF(pArgTuple);
+//			Py_DECREF(pXVec);
+//			Py_DECREF(pYVec);
+
+			if (pValue != NULL) {
+				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
+				output.Format("Result of call: %ld", PyLong_AsLong(pValue));
+				Py_DECREF(pValue);
+			}
+
+			//Some error catching
+			else {
+				Py_DECREF(pFunc);
+				Py_DECREF(pModule);
+				return handlePyError();
+			}
+		}
+		else {
+			if (PyErr_Occurred()) {
+				return handlePyError();
+			}
+		}
+		Py_XDECREF(pFunc);
+		Py_DECREF(pModule);
+	}
+	else {
+		return handlePyError();
+	}
+	return output;
+}
+
+void CGenethonDoc::writeToReport(CString& output) {
 	if (m_pTextView == NULL) {
 
 		((CMainFrame *)(AfxGetApp()->m_pMainWnd))->OpenTextView();
@@ -783,10 +954,10 @@ void CGenethonDoc::OnPlaypython()
 
 	CMemFile* memFile = new CMemFile();
 	//serialize object into the pData
-//	char* cBuff = new char[128];
-//	sprintf_s(cBuff, 128, "%s", "Test test test test test test\n");
-	
-	memFile->Write(string, string.GetLength());
+	//	char* cBuff = new char[128];
+	//	sprintf_s(cBuff, 128, "%s", "Test test test test test test\n");
+
+	memFile->Write(output, output.GetLength());
 	memFile->SeekToBegin();
 
 	//	txtFile->Open(PathName, CFile::modeRead);
@@ -797,16 +968,68 @@ void CGenethonDoc::OnPlaypython()
 
 	memFile->Close();
 	delete memFile;
-
-/*
-	CString FileName;
-	GetTempFileName(FileName);
-	CStdioFile wFile(FileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
-	wFile.WriteString("Test test test test test test\n");
-	wFile.Close();
-
-	m_pTextView->LoadFile(FileName);
-
-	DeleteTempFile(FileName);
-*/
 }
+
+CString CGenethonDoc::handlePyError() {
+	CString retVal = CString();
+
+	PyObject* excType, *excValue, *excTraceback;
+	PyErr_Fetch(&excType, &excValue, &excTraceback);
+	PyErr_NormalizeException(&excType, &excValue, &excTraceback);
+
+	CString callBacks = CString();
+	CString work = CString();
+	PyTracebackObject* ptraceback = (PyTracebackObject*)excTraceback;
+	work.Format("File: %s\nLine no: %d\n", PyUnicode_AsUTF8(PyObject_Str(((PyTracebackObject*)ptraceback)->tb_frame->f_code->co_filename)), ((PyTracebackObject*)ptraceback)->tb_lineno);
+	callBacks.Append(work.GetString());
+	// Advance to the last frame (python puts the most-recent call at the end)
+	while (ptraceback->tb_next != NULL) {
+		ptraceback = ptraceback->tb_next;
+		work.Format("File: %s\nLine no: %d\n", PyUnicode_AsUTF8(PyObject_Str(((PyTracebackObject*)ptraceback)->tb_frame->f_code->co_filename)), ((PyTracebackObject*)ptraceback)->tb_lineno);
+		callBacks.Append(work.GetString());
+	}
+	// At this point I have access to the line number via traceback->tb_lineno,
+	// but where do I get the file name from?
+	int line = ptraceback->tb_lineno;
+	retVal.Format("Error type: %s\n%s\nError: %s", 
+		PyUnicode_AsUTF8(PyObject_Str(excType)), 
+		callBacks.GetString(),
+		PyUnicode_AsUTF8(PyObject_Str(excValue))
+	);
+	// Now you have two options, restoring the exception or disposing it.
+	PyErr_Restore(excType, excValue, excTraceback);
+
+	//---->
+
+	Py_XDECREF(excType);
+	Py_XDECREF(excValue);
+	Py_XDECREF(excTraceback);
+
+	return retVal;
+
+}
+
+CString CGenethonDoc::runTest3() {
+	PyObject* sysPath = PySys_GetObject("path");
+	PyObject* pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Dlls");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib/site-packages");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+
+	PyRun_SimpleString("import sys");
+	PyRun_SimpleString("import pylab");
+	PyRun_SimpleString("print(sys.version)");
+	PyRun_SimpleString("print()");
+	PyRun_SimpleString("pylab.plot(range(10))");
+	PyRun_SimpleString("pylab.show()");
+	return "Test3 Run";
+}
+

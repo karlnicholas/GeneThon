@@ -168,9 +168,14 @@ public:
 
 	UserVars	m_UserVars;
 	int m_SummaryMessaged;
-
+	void anything();
 	void DoConfigure(int ActivePage = ACTPAGENONE, int ReDraw = TRUE ); 
 	//	int IndexChar( char n );
+	CString runTest2(CString& fileName, CString& function);
+	CString runTest1(CString& fileName, CString& function);
+	CString runTest3();
+	void writeToReport(CString& output);
+	CString handlePyError();
 	
 	// End User Variables ....
 

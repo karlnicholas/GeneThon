@@ -311,8 +311,5 @@
     <Image Include="RES\SMLOGO.BMP">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\toolbar1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

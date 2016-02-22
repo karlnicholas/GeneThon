@@ -66,15 +66,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\libs;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\Users\karl\Anaconda3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\karl\Anaconda3\libs;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32\libs;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Users\karl\Documents\Visual Studio 2015\Projects\Python35-32;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\Users\karl\Anaconda3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\karl\Anaconda3\libs;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
@@ -228,7 +228,6 @@
     <Image Include="RES\MEBITU.BMP" />
     <Image Include="RES\SMLOGO.BMP" />
     <Image Include="RES\TOOLBAR.BMP" />
-    <Image Include="res\toolbar1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
