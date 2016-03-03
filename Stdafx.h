@@ -16,6 +16,9 @@
 
 #include <limits.h>
 
+#include <vector>
+#include <Python.h>
+#include <frameobject.h>
 
 
 // typedef ...

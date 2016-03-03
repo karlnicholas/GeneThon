@@ -2,9 +2,6 @@
 //
 
 #include "stdafx.h"
-#include <vector>
-#include <Python.h>
-#include <frameobject.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -692,150 +689,24 @@ void CGenethonDoc::anything()
 }
 void CGenethonDoc::OnPlaypython()
 {
-//	CString fileName = "c:/users/karl/plotstdvectors.py";
-//	CString function = "plotStdVectors";
-//	this->runTest1(fileName, function);
+	CString fileName = "c:/users/karl/matrix.py";
+	CString function = "readAlignment";
+	PyObject* pModule = this->setPythonPath(fileName);
+
+	CString output = this->runTest2(pModule, function);
 //	CString fileName = "c:/users/karl/multiply.py";
 //	CString function = "multiply";
 //	CString output = this->runTest2(fileName, function);
-	CString output = this->runTest3();
+//	CString output = this->runTest3();
 	TRACE(output);
 	writeToReport(output);
 }
 
-CString CGenethonDoc::runTest2(CString& fileName, CString& function) {
-	CString output = CString();
-//	CString fileName = "c:/users/karl/multiply.py";
-	/*
-	CString fileName;
-	GetTempFileName(fileName);
-	fileName.Replace(".tmp", ".py");
-
-	CStdioFile wFile(fileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
-	wFile.WriteString("def multiply(a,b):\n");
-	wFile.WriteString("  print(\"Will compute\", a, \"times\", b)\n");
-	wFile.WriteString("  c = 0\n");
-	wFile.WriteString("  for i in range(0, a):\n");
-	wFile.WriteString("    c = c + b\n");
-	wFile.WriteString("  return c\n");
-	wFile.Close();
-	*/
-
-	PyObject *pName, *pModule, *pDict, *pFunc;
-	PyObject *pArgs, *pValue;
-	PyObject *ptype, *pvalue, *ptraceback;
-	int i;
-
-	numargs = 4;
-	someString = CString("Very well done sir.");
-	PyImport_AppendInittab("emb", &PyInit_emb);
-
-	// Error checking of pName left out
-	wchar_t *program = Py_DecodeLocale("GeneDoc", NULL);
-	Py_SetProgramName(program);
-	Py_Initialize();
-
-	CString filePath;
-	CString appName;
-	SplitFilename(fileName, &filePath, &appName);
-
-	pName = PyUnicode_DecodeFSDefault(appName);
-
-
-	PyObject* sysPath = PySys_GetObject("path");
-	PyObject* pyPath = PyUnicode_FromString(filePath);
-	PyList_Append(sysPath, pyPath);
-	Py_DECREF(pyPath);
-	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3");
-	PyList_Append(sysPath, pyPath);
-	Py_DECREF(pyPath);
-	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib");
-	PyList_Append(sysPath, pyPath);
-	Py_DECREF(pyPath);
-	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Dlls");
-	PyList_Append(sysPath, pyPath);
-	Py_DECREF(pyPath);
-	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib/site-packages");
-	PyList_Append(sysPath, pyPath);
-	Py_DECREF(pyPath);
-
-	pModule = PyImport_Import(pName);
-	Py_DECREF(pName);
-
-	if (pModule != NULL) {
-		pFunc = PyObject_GetAttrString(pModule, function);
-		// pFunc is a new reference 
-
-		if (pFunc && PyCallable_Check(pFunc)) {
-			pArgs = PyTuple_New(2);
-			pValue = PyLong_FromLong(2);
-			if (!pValue) {
-				Py_DECREF(pArgs);
-				Py_DECREF(pModule);
-				TRACE("Cannot convert argument\n");
-				return output;
-			}
-			PyTuple_SetItem(pArgs, 0, pValue);
-			pValue = PyLong_FromLong(3);
-			if (!pValue) {
-				Py_DECREF(pArgs);
-				Py_DECREF(pModule);
-				TRACE("Cannot convert argument\n");
-				return output;
-			}
-			PyTuple_SetItem(pArgs, 1, pValue);
-			// pValue reference stolen here:
-			pValue = PyObject_CallObject(pFunc, pArgs);
-			Py_DECREF(pArgs);
-			if (pValue != NULL) {
-				Py_DECREF(pValue);
-				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
-				output.Format("Result of call: %ld\n%s", PyLong_AsLong(pValue), PyUnicode_AsUTF8(v));
-				TRACE(output);
-			}
-			else {
-				Py_DECREF(pFunc);
-				Py_DECREF(pModule);
-				output = handlePyError();
-				TRACE(output);
-				return output;
-			}
-		}
-		else {
-			if (PyErr_Occurred()) {
-				output = handlePyError();
-				TRACE("Cannot find function \"%s\"\n", "multiply");
-			}
-		}
-		Py_XDECREF(pFunc);
-		Py_DECREF(pModule);
-	}
-	else {
-		PyErr_Print();
-		TRACE("Failed to load \"%s\"\n", appName);
-	}
-
-	return output;
-
-	//	DeleteTempFile(fileName);
-	/*
-	CString FileName;
-	GetTempFileName(FileName);
-	CStdioFile wFile(FileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
-	wFile.WriteString("Test test test test test test\n");
-	wFile.Close();
-
-	m_pTextView->LoadFile(FileName);
-
-	DeleteTempFile(FileName);
-	*/
-
-}
-
-CString CGenethonDoc::runTest1(CString& fileName, CString& function) {
+CString CGenethonDoc::runTest1(PyObject *pModule, CString& function) {
 
 	CString output = CString();
-	PyObject *pName, *pModule, *pDict, *pFunc;
+	CString format = CString();
+	PyObject *pDict, *pFunc;
 	PyObject *pArgTuple, *pValue, *pXVec, *pYVec;
 	PyObject *ptype, *pvalue, *ptraceback;
 
@@ -845,27 +716,192 @@ CString CGenethonDoc::runTest1(CString& fileName, CString& function) {
 	// http://stackoverflow.com/questions/7624529/python-c-api-doesnt-load-module
 	// and http://stackoverflow.com/questions/7283964/embedding-python-into-c-importing-modules
 
-	CString filePath;
-	CString appName;
-	SplitFilename(fileName, &filePath, &appName);
-
-	pName = PyUnicode_DecodeFSDefault(appName);
-
-	PyObject *sys = PyImport_ImportModule("sys");
-	PyObject *path = PyObject_GetAttrString(sys, "path");
-	PyList_Append(path, PyUnicode_FromString(filePath));
-	PyList_Append(path, PyUnicode_FromString("c:/users/karl/Anaconda3"));
-	PyList_Append(path, PyUnicode_FromString("c:/users/karl/Anaconda3/Lib"));
-	PyList_Append(path, PyUnicode_FromString("c:/users/karl/Anaconda3/DLLs"));
-
-	pName = PyUnicode_FromString(appName);   //Get the name of the module
-	pModule = PyImport_Import(pName);     //Get the module
-
-	Py_DECREF(pName);
 
 	if (pModule != NULL) {
 		pFunc = PyObject_GetAttrString(pModule, function);   //Get the function by its name
-															/* pFunc is a new reference */
+															 // pFunc is a new reference 
+
+		if (pFunc && PyCallable_Check(pFunc)) {
+
+			// create list
+			PyObject *l = PyList_New(4);
+			for (size_t i = 0; i<4; i++) {
+				PyObject *li = PyList_New(12);
+				for (size_t j = 0; j < 12; j++) {
+//					PyObject* pCell = PyStructSequence_New()
+					pValue = PyLong_FromLong(j);
+					PyList_SetItem(li, j, pValue);
+				}
+				PyList_SetItem(l, i, li);
+			}
+
+			PyObject *arglist = Py_BuildValue("(O)", l);
+			pValue = PyObject_CallObject(pFunc, arglist);
+			//Set up a tuple that will contain the function arguments. In this case, the
+			//function requires two tuples, so we set up a tuple of size 2.
+
+			for (size_t i = 0; i<4; i++) {
+				PyObject *li = PyList_GetItem(l, i);
+				output.Append("[");
+				for (size_t j = 0; j < 12; j++) {
+					PyObject *pListV = PyList_GetItem(li, j);
+					long lon = PyLong_AsLong(pListV);
+					format.Format("%ld,", lon);
+					output.Append(format.GetString());
+					Py_DECREF(pListV);
+				}
+				output.Append("]\n");
+//				Py_DECREF(li);
+			}
+			Py_DECREF(l);
+/*
+			for (size_t i = 0; i<4; i++) {
+				PyObject *li = PyList_GetItem(l, i);
+				Py_DECREF(li);
+			}
+*/
+			//			Py_DECREF(pXVec);
+			//			Py_DECREF(pYVec);
+
+			if (pValue != NULL) {
+				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
+//				output.Format("Result of call: %ld", PyLong_AsLong(pValue));
+				Py_DECREF(pValue);
+			}
+
+			//Some error catching
+			else {
+				Py_DECREF(pFunc);
+				Py_DECREF(pModule);
+				return handlePyError();
+			}
+		}
+		else {
+			if (PyErr_Occurred()) {
+				return handlePyError();
+			}
+		}
+		Py_XDECREF(pFunc);
+		Py_DECREF(pModule);
+	}
+	else {
+		return handlePyError();
+	}
+	return output;
+}
+
+
+CString CGenethonDoc::runTest2(PyObject *pModule, CString& function) {
+
+	CString output = CString();
+	CString format = CString();
+	PyObject *pDict, *pFunc;
+	PyObject *pValue, *pArgTuple;
+	PyObject *ptype, *pvalue, *ptraceback;
+
+	int i;
+
+	// Set the path to include the current directory in case the module is located there. Found from
+	// http://stackoverflow.com/questions/7624529/python-c-api-doesnt-load-module
+	// and http://stackoverflow.com/questions/7283964/embedding-python-into-c-importing-modules
+
+
+	if (pModule != NULL) {
+		pFunc = PyObject_GetAttrString(pModule, function);   //Get the function by its name
+															// pFunc is a new reference 
+
+		if (pFunc && PyCallable_Check(pFunc)) {
+
+			//Set up a tuple that will contain the function arguments. In this case, the
+			//function requires two tuples, so we set up a tuple of size 2.
+			pArgTuple = PyTuple_New(2);
+
+
+			PyObject* s1 = PySequence_Tuple(PyUnicode_FromString("ASBSDBASJBB"));
+			PyObject* s2 = PySequence_Tuple(PyUnicode_FromString("ASHADKBBJSS"));
+			PyObject* s3 = PySequence_Tuple(PyUnicode_FromString("ABSFDHSGJAS"));
+
+			PyObject* a = PyTuple_Pack(3, s1, s2, s3);
+			PyTuple_SetItem(pArgTuple, 0, a);
+
+			// color matrix
+			PyObject *l = PyList_New(3);
+			for (size_t i = 0; i<3; i++) {
+				PyObject *li = PyList_New(11);
+				for (size_t j = 0; j < 11; j++) {
+					pValue = PyLong_FromLong(0);
+					PyList_SetItem(li, j, pValue);
+				}
+				PyList_SetItem(l, i, li);
+			}
+//			PyObject *av = Py_BuildValue("(O)", l);
+			PyTuple_SetItem(pArgTuple, 1, l);
+
+			//Call the python function
+			pValue = PyObject_CallObject(pFunc, pArgTuple);
+
+			for (size_t i = 0; i<3; i++) {
+				PyObject *li = PyList_GetItem(l, i);
+				output.Append("[");
+				for (size_t j = 0; j < 11; j++) {
+					PyObject *pListV = PyList_GetItem(li, j);
+					long lon = PyLong_AsLong(pListV);
+					format.Format("%ld,", lon);
+					output.Append(format.GetString());
+//					Py_DECREF(pListV);
+				}
+				output.Append("]\n");
+//				Py_DECREF(li);
+			}
+//			Py_DECREF(l);
+			//			Py_DECREF(s1);
+//			Py_DECREF(s2);
+//			Py_DECREF(s3);
+//			Py_DECREF(a);
+
+			if (pValue != NULL) {
+				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
+//				output.Format("Result of call: %ld", PyLong_AsLong(pValue));
+				Py_DECREF(pValue);
+			}
+			//Some error catching
+			else {
+				Py_DECREF(pFunc);
+				Py_DECREF(pModule);
+				return handlePyError();
+			}
+		}
+		else {
+			if (PyErr_Occurred()) {
+				return handlePyError();
+			}
+		}
+		Py_XDECREF(pFunc);
+		Py_DECREF(pModule);
+	}
+	else {
+		return handlePyError();
+	}
+	return output;
+}
+
+CString CGenethonDoc::runTest3(PyObject *pModule, CString& function) {
+
+	CString output = CString();
+	PyObject *pDict, *pFunc;
+	PyObject *pArgTuple, *pValue, *pXVec, *pYVec;
+	PyObject *ptype, *pvalue, *ptraceback;
+
+	int i;
+
+	// Set the path to include the current directory in case the module is located there. Found from
+	// http://stackoverflow.com/questions/7624529/python-c-api-doesnt-load-module
+	// and http://stackoverflow.com/questions/7283964/embedding-python-into-c-importing-modules
+
+
+	if (pModule != NULL) {
+		pFunc = PyObject_GetAttrString(pModule, function);   //Get the function by its name
+															 // pFunc is a new reference 
 
 		if (pFunc && PyCallable_Check(pFunc)) {
 
@@ -911,8 +947,8 @@ CString CGenethonDoc::runTest1(CString& fileName, CString& function) {
 			pValue = PyObject_CallObject(pFunc, pArgTuple);
 
 			Py_DECREF(pArgTuple);
-//			Py_DECREF(pXVec);
-//			Py_DECREF(pYVec);
+			//			Py_DECREF(pXVec);
+			//			Py_DECREF(pYVec);
 
 			if (pValue != NULL) {
 				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
@@ -939,6 +975,138 @@ CString CGenethonDoc::runTest1(CString& fileName, CString& function) {
 		return handlePyError();
 	}
 	return output;
+}
+
+CString CGenethonDoc::runTest4(PyObject* pModule, CString& function) {
+	CString output = CString();
+	//	CString fileName = "c:/users/karl/multiply.py";
+	/*
+	CString fileName;
+	GetTempFileName(fileName);
+	fileName.Replace(".tmp", ".py");
+
+	CStdioFile wFile(fileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
+	wFile.WriteString("def multiply(a,b):\n");
+	wFile.WriteString("  print(\"Will compute\", a, \"times\", b)\n");
+	wFile.WriteString("  c = 0\n");
+	wFile.WriteString("  for i in range(0, a):\n");
+	wFile.WriteString("    c = c + b\n");
+	wFile.WriteString("  return c\n");
+	wFile.Close();
+	*/
+
+	PyObject *pDict, *pFunc;
+	PyObject *pArgs, *pValue;
+	PyObject *ptype, *pvalue, *ptraceback;
+	int i;
+
+	numargs = 4;
+	someString = CString("Very well done sir.");
+	PyImport_AppendInittab("emb", &PyInit_emb);
+
+	// Error checking of pName left out
+	wchar_t *program = Py_DecodeLocale("GeneDoc", NULL);
+	Py_SetProgramName(program);
+	Py_Initialize();
+
+
+	if (pModule != NULL) {
+		pFunc = PyObject_GetAttrString(pModule, function);
+		// pFunc is a new reference 
+
+		if (pFunc && PyCallable_Check(pFunc)) {
+			pArgs = PyTuple_New(2);
+			pValue = PyLong_FromLong(2);
+			if (!pValue) {
+				Py_DECREF(pArgs);
+				Py_DECREF(pModule);
+				TRACE("Cannot convert argument\n");
+				return output;
+			}
+			PyTuple_SetItem(pArgs, 0, pValue);
+			pValue = PyLong_FromLong(3);
+			if (!pValue) {
+				Py_DECREF(pArgs);
+				Py_DECREF(pModule);
+				TRACE("Cannot convert argument\n");
+				return output;
+			}
+			PyTuple_SetItem(pArgs, 1, pValue);
+			// pValue reference stolen here:
+			pValue = PyObject_CallObject(pFunc, pArgs);
+			Py_DECREF(pArgs);
+			if (pValue != NULL) {
+				PyObject* v = PyObject_GetAttrString(pModule, "richTextOutput");
+				output.Format("Result of call: %ld\n%s", PyLong_AsLong(pValue), PyUnicode_AsUTF8(v));
+				Py_DECREF(pValue);
+				TRACE(output);
+			}
+			else {
+				Py_DECREF(pFunc);
+				Py_DECREF(pModule);
+				output = handlePyError();
+				TRACE(output);
+				return output;
+			}
+		}
+		else {
+			if (PyErr_Occurred()) {
+				output = handlePyError();
+				TRACE("Cannot find function \"%s\"\n", "multiply");
+			}
+		}
+		Py_XDECREF(pFunc);
+		Py_DECREF(pModule);
+	}
+	else {
+		PyErr_Print();
+		TRACE("pModule is null: Failed to load \n");
+	}
+
+	return output;
+
+	//	DeleteTempFile(fileName);
+	/*
+	CString FileName;
+	GetTempFileName(FileName);
+	CStdioFile wFile(FileName, CFile::modeWrite | CFile::typeText | CFile::modeCreate);
+	wFile.WriteString("Test test test test test test\n");
+	wFile.Close();
+
+	m_pTextView->LoadFile(FileName);
+
+	DeleteTempFile(FileName);
+	*/
+
+}
+
+PyObject*  CGenethonDoc::setPythonPath(CString& fileName) {
+	CString filePath;
+	CString appName;
+	SplitFilename(fileName, &filePath, &appName);
+
+	PyObject* sysPath = PySys_GetObject("path");
+	PyObject* pyPath = PyUnicode_FromString(filePath);
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Dlls");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+	pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3/Lib/site-packages");
+	PyList_Append(sysPath, pyPath);
+	Py_DECREF(pyPath);
+
+	PyObject*pName = PyUnicode_DecodeFSDefault(appName);
+	PyObject*pModule = PyImport_Import(pName);
+	Py_DECREF(pName);
+
+	return pModule;
 }
 
 void CGenethonDoc::writeToReport(CString& output) {
@@ -980,17 +1148,19 @@ CString CGenethonDoc::handlePyError() {
 	CString callBacks = CString();
 	CString work = CString();
 	PyTracebackObject* ptraceback = (PyTracebackObject*)excTraceback;
-	work.Format("File: %s\nLine no: %d\n", PyUnicode_AsUTF8(PyObject_Str(((PyTracebackObject*)ptraceback)->tb_frame->f_code->co_filename)), ((PyTracebackObject*)ptraceback)->tb_lineno);
-	callBacks.Append(work.GetString());
-	// Advance to the last frame (python puts the most-recent call at the end)
-	while (ptraceback->tb_next != NULL) {
-		ptraceback = ptraceback->tb_next;
+	if (ptraceback != NULL) {
 		work.Format("File: %s\nLine no: %d\n", PyUnicode_AsUTF8(PyObject_Str(((PyTracebackObject*)ptraceback)->tb_frame->f_code->co_filename)), ((PyTracebackObject*)ptraceback)->tb_lineno);
 		callBacks.Append(work.GetString());
+		// Advance to the last frame (python puts the most-recent call at the end)
+		while (ptraceback->tb_next != NULL) {
+			ptraceback = ptraceback->tb_next;
+			work.Format("File: %s\nLine no: %d\n", PyUnicode_AsUTF8(PyObject_Str(((PyTracebackObject*)ptraceback)->tb_frame->f_code->co_filename)), ((PyTracebackObject*)ptraceback)->tb_lineno);
+			callBacks.Append(work.GetString());
+		}
+		// At this point I have access to the line number via traceback->tb_lineno,
+		// but where do I get the file name from?
+		int line = ptraceback->tb_lineno;
 	}
-	// At this point I have access to the line number via traceback->tb_lineno,
-	// but where do I get the file name from?
-	int line = ptraceback->tb_lineno;
 	retVal.Format("Error type: %s\n%s\nError: %s", 
 		PyUnicode_AsUTF8(PyObject_Str(excType)), 
 		callBacks.GetString(),
@@ -1009,7 +1179,7 @@ CString CGenethonDoc::handlePyError() {
 
 }
 
-CString CGenethonDoc::runTest3() {
+CString CGenethonDoc::runTest5() {
 	PyObject* sysPath = PySys_GetObject("path");
 	PyObject* pyPath = PyUnicode_FromString("c:/users/karl/Anaconda3");
 	PyList_Append(sysPath, pyPath);

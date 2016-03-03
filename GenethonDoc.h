@@ -171,11 +171,14 @@ public:
 	void anything();
 	void DoConfigure(int ActivePage = ACTPAGENONE, int ReDraw = TRUE ); 
 	//	int IndexChar( char n );
-	CString runTest2(CString& fileName, CString& function);
-	CString runTest1(CString& fileName, CString& function);
-	CString runTest3();
+	CString runTest4(PyObject* pModule, CString& function);
+	CString runTest3(PyObject* pModule, CString& function);
+	CString runTest2(PyObject* pModule, CString& function);
+	CString runTest1(PyObject* pModule, CString& function);
+	CString runTest5();
 	void writeToReport(CString& output);
 	CString handlePyError();
+	PyObject* setPythonPath(CString& fileName);
 	
 	// End User Variables ....
 
