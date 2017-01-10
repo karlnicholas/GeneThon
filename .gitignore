@@ -213,3 +213,4 @@ ModelManifest.xml
 
 # Something that belongs here
 *.VC.opendb
+/GeneThon.VC.db

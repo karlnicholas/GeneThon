@@ -97,12 +97,12 @@ void CTextView::LoadFile(CString& PathName)
 //	CArchive archive(&txtFile, CArchive::load);
 
 //	SerializeRaw( archive );
-
+/*
 	EDITSTREAM es;
 	es.pfnCallback = TextRead;
 
 	GetRichEditCtrl().StreamIn( SF_TEXT, es );
-
+*/
 	txtFile->Close();
 	delete txtFile;
 
@@ -126,12 +126,12 @@ void CTextView::LoadMemfile(CMemFile* writtenMemFile)
 	//	CArchive archive(&txtFile, CArchive::load);
 
 	//	SerializeRaw( archive );
-
+/*
 	EDITSTREAM es;
 	es.pfnCallback = MemfileRead;
 
 	GetRichEditCtrl().StreamIn(SF_TEXT, es);
-
+*/
 }
 
 int CTextView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -189,15 +189,15 @@ void CTextView::SaveFile(CString& PathName)
    
 	txtFile->Open( PathName, CFile::modeCreate | CFile::modeWrite );
 
-	//	CArchive archive(&txtFile, CArchive::load);
+	// CArchive archive(&txtFile, CArchive::load);
 
 //	SerializeRaw( archive );
-
+/*
 	EDITSTREAM es;
 	es.pfnCallback = TextWrite;
 
 	GetRichEditCtrl().StreamOut( SF_TEXT, es );
-
+*/
 	txtFile->Close();
 	delete txtFile;
 
